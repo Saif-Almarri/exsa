@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EXSA — Cheatsheet</title>
+  <link rel="icon" type="image/png" href="../logo.png">
+  <link rel="stylesheet" href="style.css?v=24">
+  <link id="theme-stylesheet" rel="stylesheet" href="themes/breeze.css?v=3">
+  <link rel="stylesheet" href="components/topbar.css?v=15">
+  <link rel="stylesheet" href="components/badge.css">
+  <link rel="stylesheet" href="components/separator.css">
+  <link rel="stylesheet" href="components/buttons.css?v=2">
+  <link rel="stylesheet" href="components/dropdown.css?v=2">
+  <link rel="stylesheet" href="components/avatar.css">
+  <style>
+    /* Inline icon base — replaces demo.css dependency */
+    .ic {
+      display: inline-block; width: 16px; height: 16px; vertical-align: middle; flex-shrink: 0;
+      background-color: currentColor;
+      -webkit-mask-size: contain; -webkit-mask-position: center; -webkit-mask-repeat: no-repeat;
+              mask-size: contain;          mask-position: center;          mask-repeat: no-repeat;
+    }
+    .ic-chevdown { -webkit-mask-image: url('components/icons/chevron-down.svg'); mask-image: url('components/icons/chevron-down.svg'); }
+    .ic-menu      { -webkit-mask-image: url('components/icons/menu.svg');        mask-image: url('components/icons/menu.svg'); }
+  </style>
+  <style>
+    /* ── Cheatsheet Layout ── */
+    .cs-page { max-width: 1100px; margin: 0 auto; padding: 100px 20px 60px; }
+    .cs-header { text-align: center; margin-bottom: 40px; }
+    .cs-header h1 { font-size: 2rem; margin: 0 0 8px; }
+    .cs-header p { color: var(--color-text-secondary); font-size: 0.95rem; max-width: 600px; margin: 0 auto; }
+
+    /* ── Layer Sections ── */
+    .cs-layer { margin-bottom: 40px; }
+    .cs-layer__head { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; padding-bottom: 8px; border-bottom: 2px solid var(--color-bg-secondary); }
+    .cs-layer__num { width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.82rem; flex-shrink: 0; }
+    .cs-layer:nth-of-type(1) .cs-layer__num { background: var(--color-link); color: #fff; }
+    .cs-layer:nth-of-type(2) .cs-layer__num { background: var(--color-secondary); color: #fff; }
+    .cs-layer:nth-of-type(3) .cs-layer__num { background: color-mix(in srgb, var(--color-link) 30%, var(--color-bg)); color: var(--color-link); }
+    .cs-layer:nth-of-type(4) .cs-layer__num { background: color-mix(in srgb, var(--color-secondary) 30%, var(--color-bg)); color: var(--color-secondary); }
+    .cs-layer:nth-of-type(5) .cs-layer__num { background: var(--color-bg-secondary); color: var(--color-text); }
+    .cs-layer__title { font-size: 1.2rem; font-weight: 700; margin: 0; }
+    .cs-layer__badge { font-size: 0.7rem; padding: 2px 8px; border-radius: 99px; background: var(--color-bg-secondary); color: var(--color-text-secondary); }
+
+    /* ── Category Sub-Headings ── */
+    .cs-cat { font-size: 0.95rem; margin: 20px 0 10px; display: flex; align-items: center; gap: 8px; }
+    .cs-cat::before { content: ""; width: 10px; height: 10px; border-radius: 2px; flex-shrink: 0; }
+    .cs-cat--layout::before     { background: var(--color-link); }
+    .cs-cat--nav::before        { background: var(--color-secondary); }
+    .cs-cat--content::before    { background: var(--color-success); }
+    .cs-cat--media::before      { background: var(--color-danger); }
+    .cs-cat--data::before       { background: var(--color-warning); }
+    .cs-cat--actions::before    { background: var(--color-link); }
+    .cs-cat--feedback::before   { background: var(--color-secondary); }
+
+    /* ── Token Grid ── */
+    .cs-token-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 6px; }
+    .cs-token { font-size: 0.8rem; padding: 6px 10px; background: var(--color-bg); border: 1px solid var(--color-bg-secondary); border-radius: 4px; font-family: monospace; display: flex; align-items: center; gap: 8px; }
+    .cs-token__name { color: var(--color-link); white-space: nowrap; }
+    .cs-token__val { color: var(--color-text-secondary); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 0.73rem; }
+    .cs-token__swatch { width: 14px; height: 14px; border-radius: 3px; flex-shrink: 0; border: 1px solid rgba(0,0,0,.1); }
+    .cs-token--space .cs-token__swatch { display: none; }
+    .cs-token--space .cs-token__name { color: var(--color-secondary); }
+
+    /* ── Class Table ── */
+    .cs-table { width: 100%; border-collapse: collapse; font-size: 0.82rem; }
+    .cs-table th { text-align: left; font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--color-text-secondary); padding: 8px 10px; border-bottom: 2px solid var(--color-bg-secondary); background: var(--color-bg); position: sticky; top: 56px; z-index: 1; }
+    .cs-table td { padding: 6px 10px; border-bottom: 1px solid var(--color-bg-secondary); vertical-align: top; }
+    .cs-table tr:hover td { background: color-mix(in srgb, var(--color-link) 3%, var(--color-bg)); }
+    .cs-table code { font-size: 0.78rem; background: var(--color-accent); padding: 1px 6px; border-radius: 3px; white-space: nowrap; }
+    .cs-table .hl-tag { color: var(--color-link); }
+    .cs-table .hl-desc { color: var(--color-text-secondary); font-size: 0.75rem; }
+
+    /* ── Responsive ── */
+    @media (max-width: 768px) {
+      .cs-page { padding: 90px 12px 40px; }
+      .cs-token-grid { grid-template-columns: 1fr; }
+      .cs-table { font-size: 0.75rem; }
+    }
+  </style>
+</head>
+<body class="has-topbar">
+
+<a href="#main-content" class="skip-link">Skip to main content</a>
+
+<!-- ═══════════════════ TOPBAR ═══════════════════ -->
+<header class="topbar" id="demo-topbar">
+  <div class="topbar__left">
+    <a href="index.html" class="topbar__brand"><img src="../logo.png" alt="EXSA" width="28" class="topbar__logo"> <span>EXSA</span> Cheatsheet</a>
+    <nav aria-label="Topbar navigation">
+      <ul class="topbar__nav">
+        <li><a href="docs.html" class="topbar__link">Docs</a></li>
+        <li><a href="showcase.html" class="topbar__link">Showcase</a></li>
+        <li><a href="generator.html" class="topbar__link">Generator</a></li>
+        <li class="topbar__dropdown">
+          <button class="topbar__link topbar__dd-trigger">Jump to <span class="ic ic-chevdown" style="width:12px;height:12px;"></span></button>
+          <ul class="topbar__dd-menu">
+            <li><a href="#tokens" class="topbar__dd-item">Tokens</a></li>
+            <li><a href="#reset" class="topbar__dd-item">Reset</a></li>
+            <li><a href="#layout" class="topbar__dd-item">Layout</a></li>
+            <li><a href="#elements" class="topbar__dd-item">Elements</a></li>
+            <li><a href="#components" class="topbar__dd-item">Components</a></li>
+          </ul>
+        </li>
+      </ul>
+    </nav>
+  </div>
+  <div class="topbar__right">
+    <span class="badge" style="font-size:0.72rem;">v1.0</span>
+  </div>
+  <button class="topbar__toggle" aria-label="Toggle menu"><span class="ic ic-menu"></span></button>
+</header>
+
+<!-- ═══════════════════ MAIN ═══════════════════ -->
+<main class="cs-page" id="main-content">
+
+  <div class="cs-header">
+    <h1>EXSA Cheatsheet</h1>
+    <p>Complete reference for all tokens, utilities, element styles, and component classes in the 5-layer cascade.</p>
+  </div>
+
+  <!-- ═══════════════ LAYER 1: TOKENS ═══════════════ -->
+  <section class="cs-layer" id="tokens">
+    <div class="cs-layer__head">
+      <div class="cs-layer__num">1</div>
+      <h2 class="cs-layer__title">Tokens</h2>
+      <span class="cs-layer__badge">36 custom properties</span>
+    </div>
+    <p style="font-size:0.85rem;color:var(--color-text-secondary);margin:0 0 12px;">Defined in <code>@layer exsa.tokens</code>. All components and element styles reference these. Override in your own stylesheet or swap the theme file. <a href="tokens.json" style="font-weight:600;">📋 Export as JSON</a> for Figma, JavaScript, or design tools.</p>
+
+    <div class="cs-token-grid">
+      <!-- Colors -->
+      <div class="cs-token"><span class="cs-token__swatch" style="background:var(--color-bg);"></span><span class="cs-token__name">--color-bg</span><span class="cs-token__val">Page background</span></div>
+      <div class="cs-token"><span class="cs-token__swatch" style="background:var(--color-bg-secondary);"></span><span class="cs-token__name">--color-bg-secondary</span><span class="cs-token__val">Card / stripe / border bg</span></div>
+      <div class="cs-token"><span class="cs-token__swatch" style="background:var(--color-text);"></span><span class="cs-token__name">--color-text</span><span class="cs-token__val">Body text</span></div>
+      <div class="cs-token"><span class="cs-token__swatch" style="background:var(--color-text-secondary);"></span><span class="cs-token__name">--color-text-secondary</span><span class="cs-token__val">Muted / helper text</span></div>
+      <div class="cs-token"><span class="cs-token__swatch" style="background:var(--color-link);"></span><span class="cs-token__name">--color-link</span><span class="cs-token__val">Links, primary actions, focus</span></div>
+      <div class="cs-token"><span class="cs-token__swatch" style="background:var(--color-secondary);"></span><span class="cs-token__name">--color-secondary</span><span class="cs-token__val">Accent color, visited links</span></div>
+      <div class="cs-token"><span class="cs-token__swatch" style="background:var(--color-success);"></span><span class="cs-token__name">--color-success</span><span class="cs-token__val">Success / green states</span></div>
+      <div class="cs-token"><span class="cs-token__swatch" style="background:var(--color-success-hover);"></span><span class="cs-token__name">--color-success-hover</span><span class="cs-token__val">Success hover state</span></div>
+      <div class="cs-token"><span class="cs-token__swatch" style="background:var(--color-danger);"></span><span class="cs-token__name">--color-danger</span><span class="cs-token__val">Error / destructive actions</span></div>
+      <div class="cs-token"><span class="cs-token__swatch" style="background:var(--color-danger-hover);"></span><span class="cs-token__name">--color-danger-hover</span><span class="cs-token__val">Danger hover state</span></div>
+      <div class="cs-token"><span class="cs-token__swatch" style="background:var(--color-warning);"></span><span class="cs-token__name">--color-warning</span><span class="cs-token__val">Warning / amber states</span></div>
+      <div class="cs-token"><span class="cs-token__swatch" style="background:var(--color-warning-hover);"></span><span class="cs-token__name">--color-warning-hover</span><span class="cs-token__val">Warning hover state</span></div>
+      <div class="cs-token"><span class="cs-token__swatch" style="background:var(--color-accent);"></span><span class="cs-token__name">--color-accent</span><span class="cs-token__val">Subtle link tint (bg)</span></div>
+      <div class="cs-token"><span class="cs-token__swatch" style="background:var(--color-secondary-accent);"></span><span class="cs-token__name">--color-secondary-accent</span><span class="cs-token__val">Subtle secondary tint</span></div>
+      <div class="cs-token"><span class="cs-token__swatch" style="background:var(--color-shadow);"></span><span class="cs-token__name">--color-shadow</span><span class="cs-token__val">Box shadow color</span></div>
+      <div class="cs-token"><span class="cs-token__swatch" style="background:var(--color-scrollbar);"></span><span class="cs-token__name">--color-scrollbar</span><span class="cs-token__val">Scrollbar thumb</span></div>
+      <div class="cs-token"><span class="cs-token__swatch" style="background:var(--color-table);"></span><span class="cs-token__name">--color-table</span><span class="cs-token__val">Table accent color</span></div>
+
+      <!-- Spacing -->
+      <div class="cs-token cs-token--space"><span class="cs-token__name">--gap-xs</span><span class="cs-token__val">0.25rem (4px)</span></div>
+      <div class="cs-token cs-token--space"><span class="cs-token__name">--gap-sm</span><span class="cs-token__val">0.5rem (8px)</span></div>
+      <div class="cs-token cs-token--space"><span class="cs-token__name">--gap</span><span class="cs-token__val">1rem (16px)</span></div>
+      <div class="cs-token cs-token--space"><span class="cs-token__name">--gap-lg</span><span class="cs-token__val">1.5rem (24px)</span></div>
+      <div class="cs-token cs-token--space"><span class="cs-token__name">--gap-xl</span><span class="cs-token__val">2rem (32px)</span></div>
+
+      <!-- Layout -->
+      <div class="cs-token cs-token--space"><span class="cs-token__name">--width-card</span><span class="cs-token__val">285px</span></div>
+      <div class="cs-token cs-token--space"><span class="cs-token__name">--width-card-medium</span><span class="cs-token__val">460px</span></div>
+      <div class="cs-token cs-token--space"><span class="cs-token__name">--width-card-wide</span><span class="cs-token__val">800px</span></div>
+      <div class="cs-token cs-token--space"><span class="cs-token__name">--width-content</span><span class="cs-token__val">1080px (container max)</span></div>
+
+      <!-- Typography -->
+      <div class="cs-token cs-token--space"><span class="cs-token__name">--font-family</span><span class="cs-token__val">System font stack</span></div>
+      <div class="cs-token cs-token--space"><span class="cs-token__name">--line-height</span><span class="cs-token__val">1.5</span></div>
+      <div class="cs-token cs-token--space"><span class="cs-token__name">--border-radius</span><span class="cs-token__val">5px</span></div>
+      <div class="cs-token cs-token--space"><span class="cs-token__name">--box-shadow</span><span class="cs-token__val">2px 2px 10px</span></div>
+
+      <!-- Interaction -->
+      <div class="cs-token cs-token--space"><span class="cs-token__name">--hover-brightness</span><span class="cs-token__val">1.2</span></div>
+      <div class="cs-token cs-token--space"><span class="cs-token__name">--active-brightness</span><span class="cs-token__val">0.85</span></div>
+      <div class="cs-token cs-token--space"><span class="cs-token__name">--justify-important</span><span class="cs-token__val">center</span></div>
+      <div class="cs-token cs-token--space"><span class="cs-token__name">--justify-normal</span><span class="cs-token__val">start</span></div>
+    </div>
+  </section>
+
+  <!-- ═══════════════ LAYER 2: RESET ═══════════════ -->
+  <section class="cs-layer" id="reset">
+    <div class="cs-layer__head">
+      <div class="cs-layer__num">2</div>
+      <h2 class="cs-layer__title">Reset</h2>
+      <span class="cs-layer__badge">@layer exsa.reset</span>
+    </div>
+    <p style="font-size:0.85rem;color:var(--color-text-secondary);margin:0 0 12px;">Always-on base styles. No opt-in required. Applies globally.</p>
+    <table class="cs-table">
+      <thead><tr><th style="width:30%;">Rule</th><th style="width:40%;">What It Does</th><th style="width:30%;">Details</th></tr></thead>
+      <tbody>
+        <tr><td><code>*,*::before,*::after</code></td><td>Box-sizing border-box</td><td class="hl-desc">All elements use border-box</td></tr>
+        <tr><td><code>:focus-visible</code></td><td>Focus ring</td><td class="hl-desc">2px solid --color-link, offset 2px</td></tr>
+        <tr><td><code>:focus:not(:focus-visible)</code></td><td>Suppress click focus</td><td class="hl-desc">No outline on mouse click</td></tr>
+        <tr><td><code>* { scrollbar-width }</code></td><td>Thin scrollbars</td><td class="hl-desc">Firefox: thin. Webkit: 5px, rounded</td></tr>
+        <tr><td><code>html</code></td><td>Smooth scrolling</td><td class="hl-desc">scroll-behavior: smooth</td></tr>
+        <tr><td><code>@media (prefers-reduced-motion)</code></td><td>Respects accessibility</td><td class="hl-desc">Disables animations & smooth scroll</td></tr>
+        <tr><td><code>[dir=rtl]</code></td><td>RTL support</td><td class="hl-desc">direction: rtl; slideshow track stays ltr</td></tr>
+        <tr><td><code>body</code></td><td>Base styles</td><td class="hl-desc">bg, color, font-family, line-height, no margin</td></tr>
+        <tr><td><code>h1–h6</code></td><td>Heading balance</td><td class="hl-desc">text-wrap: balance</td></tr>
+        <tr><td><code>img, svg, video</code></td><td>Responsive media</td><td class="hl-desc">max-width: 100%</td></tr>
+        <tr><td><code>figure</code></td><td>Clean figures</td><td class="hl-desc">margin: 0; figcaption uses --color-text-secondary</td></tr>
+        <tr><td><code>[hidden]</code></td><td>Hide elements</td><td class="hl-desc">display: none</td></tr>
+        <tr><td><code>.sr-only</code></td><td>Screen reader only</td><td class="hl-desc">Visually hidden, accessible to SR</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- ═══════════════ LAYER 3: LAYOUT ═══════════════ -->
+  <section class="cs-layer" id="layout">
+    <div class="cs-layer__head">
+      <div class="cs-layer__num">3</div>
+      <h2 class="cs-layer__title">Layout</h2>
+      <span class="cs-layer__badge">50+ utilities</span>
+    </div>
+    <p style="font-size:0.85rem;color:var(--color-text-secondary);margin:0 0 12px;">Always-on utility classes. No prefix. Use directly in HTML.</p>
+
+    <h3 style="font-size:0.95rem;margin:20px 0 10px;">Containers</h3>
+    <table class="cs-table">
+      <thead><tr><th style="width:35%;">Class</th><th style="width:65%;">Effect</th></tr></thead>
+      <tbody>
+        <tr><td><code>.container</code></td><td class="hl-desc">max-width: 1080px, centered, padded</td></tr>
+        <tr><td><code>.container-sm</code></td><td class="hl-desc">max-width: 800px, centered, small pad</td></tr>
+        <tr><td><code>.container-full</code></td><td class="hl-desc">width: 100%</td></tr>
+      </tbody>
+    </table>
+
+    <h3 style="font-size:0.95rem;margin:20px 0 10px;">Flex</h3>
+    <table class="cs-table">
+      <thead><tr><th style="width:35%;">Class</th><th style="width:65%;">Effect</th></tr></thead>
+      <tbody>
+        <tr><td><code>.flex</code></td><td class="hl-desc">display: flex</td></tr>
+        <tr><td><code>.flex-inline</code></td><td class="hl-desc">display: inline-flex</td></tr>
+        <tr><td><code>.flex-col</code> / <code>.flex-col-rev</code> / <code>.flex-row-rev</code></td><td class="hl-desc">Column, column-reverse, row-reverse</td></tr>
+        <tr><td><code>.flex-wrap</code> / <code>.flex-nowrap</code></td><td class="hl-desc">Wrap / no-wrap</td></tr>
+        <tr><td><code>.flex-1</code> / <code>.flex-auto</code> / <code>.flex-none</code></td><td class="hl-desc">flex: 1 / 0 1 auto / none</td></tr>
+        <tr><td><code>.justify-start</code> / <code>.justify-end</code> / <code>.justify-center</code></td><td class="hl-desc">flex-start / flex-end / center</td></tr>
+        <tr><td><code>.justify-between</code> / <code>.justify-around</code> / <code>.justify-evenly</code></td><td class="hl-desc">space-between / around / evenly</td></tr>
+        <tr><td><code>.items-start</code> / <code>.items-end</code> / <code>.items-center</code></td><td class="hl-desc">align-items values</td></tr>
+        <tr><td><code>.items-baseline</code> / <code>.items-stretch</code></td><td class="hl-desc">baseline / stretch</td></tr>
+        <tr><td><code>.self-start</code> / <code>.self-end</code> / <code>.self-center</code> / <code>.self-stretch</code></td><td class="hl-desc">align-self values</td></tr>
+        <tr><td><code>.content-start</code> / <code>.content-end</code> / <code>.content-center</code></td><td class="hl-desc">align-content values</td></tr>
+        <tr><td><code>.content-between</code> / <code>.content-around</code></td><td class="hl-desc">space-between / space-around</td></tr>
+      </tbody>
+    </table>
+
+    <h3 style="font-size:0.95rem;margin:20px 0 10px;">Gap</h3>
+    <table class="cs-table">
+      <thead><tr><th style="width:35%;">Class</th><th style="width:65%;">Value</th></tr></thead>
+      <tbody>
+        <tr><td><code>.gap-0</code></td><td class="hl-desc">0</td></tr>
+        <tr><td><code>.gap-xs</code> / <code>.gap-sm</code> / <code>.gap</code></td><td class="hl-desc">0.25rem / 0.5rem / 1rem</td></tr>
+        <tr><td><code>.gap-lg</code> / <code>.gap-xl</code></td><td class="hl-desc">1.5rem / 2rem</td></tr>
+      </tbody>
+    </table>
+
+    <h3 style="font-size:0.95rem;margin:20px 0 10px;">Grid</h3>
+    <table class="cs-table">
+      <thead><tr><th style="width:35%;">Class</th><th style="width:65%;">Effect</th></tr></thead>
+      <tbody>
+        <tr><td><code>.grid</code></td><td class="hl-desc">display: grid</td></tr>
+        <tr><td><code>.grid-cols-1</code> … <code>.grid-cols-6</code></td><td class="hl-desc">1 to 6 equal columns</td></tr>
+        <tr><td><code>.grid-auto-fit</code></td><td class="hl-desc">auto-fit, minmax(200px, 1fr)</td></tr>
+        <tr><td><code>.grid-auto-fill</code></td><td class="hl-desc">auto-fill, minmax(200px, 1fr)</td></tr>
+      </tbody>
+    </table>
+
+    <h3 style="font-size:0.95rem;margin:20px 0 10px;">Column Widths (Flex)</h3>
+    <table class="cs-table">
+      <thead><tr><th style="width:35%;">Class</th><th style="width:65%;">Width</th></tr></thead>
+      <tbody>
+        <tr><td><code>.col-1</code></td><td class="hl-desc">100%</td></tr>
+        <tr><td><code>.col-2</code></td><td class="hl-desc">calc(50% - var(--gap-sm))</td></tr>
+        <tr><td><code>.col-3</code></td><td class="hl-desc">calc(33.333% - var(--gap))</td></tr>
+        <tr><td><code>.col-4</code></td><td class="hl-desc">calc(25% - var(--gap))</td></tr>
+        <tr><td><code>.col-5</code></td><td class="hl-desc">calc(20% - var(--gap-sm))</td></tr>
+      </tbody>
+    </table>
+
+    <h3 style="font-size:0.95rem;margin:20px 0 10px;">Responsive Helpers</h3>
+    <table class="cs-table">
+      <thead><tr><th style="width:35%;">Breakpoint</th><th style="width:65%;">Available Classes</th></tr></thead>
+      <tbody>
+        <tr><td><code>sm:</code> (max 575px)</td><td class="hl-desc">.sm\:flex-col, .sm\:flex-wrap, .sm\:grid-cols-1; cols stack to 100%</td></tr>
+        <tr><td><code>md:</code> (min 768px)</td><td class="hl-desc">.md\:col-2/3/4, .md\:grid-cols-2/3/4</td></tr>
+        <tr><td><code>lg:</code> (min 1024px)</td><td class="hl-desc">.lg\:col-2/3/4/5, .lg\:grid-cols-3/4/5/6</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- ═══════════════ LAYER 4: ELEMENTS ═══════════════ -->
+  <section class="cs-layer" id="elements">
+    <div class="cs-layer__head">
+      <div class="cs-layer__num">4</div>
+      <h2 class="cs-layer__title">Elements</h2>
+      <span class="cs-layer__badge">Classless, opt-in via body.exsa</span>
+    </div>
+    <p style="font-size:0.85rem;color:var(--color-text-secondary);margin:0 0 12px;">Add <code>class="exsa"</code> to <code>&lt;body&gt;</code> to enable semantic HTML styling. All use <code>:where()</code> for zero specificity — your custom styles always win.</p>
+    <table class="cs-table">
+      <thead><tr><th style="width:25%;">Selector</th><th style="width:45%;">Styling</th><th style="width:30%;">Tokens Used</th></tr></thead>
+      <tbody>
+        <tr><td><code>:where(.exsa p)</code></td><td class="hl-desc">0.75rem vertical margin</td><td class="hl-desc">—</td></tr>
+        <tr><td><code>:where(.exsa a)</code></td><td class="hl-desc">Bold, underlined, link color</td><td class="hl-desc">--color-link</td></tr>
+        <tr><td><code>:where(.exsa a:visited)</code></td><td class="hl-desc">Secondary color for visited links</td><td class="hl-desc">--color-secondary</td></tr>
+        <tr><td><code>:where(.exsa a:hover)</code></td><td class="hl-desc">Brightness boost on hover</td><td class="hl-desc">--hover-brightness</td></tr>
+        <tr><td><code>:where(.exsa a:active)</code></td><td class="hl-desc">Dim on click</td><td class="hl-desc">--active-brightness</td></tr>
+        <tr><td><code>:where(.exsa small)</code></td><td class="hl-desc">Muted color</td><td class="hl-desc">--color-text-secondary</td></tr>
+        <tr><td><code>:where(.exsa mark)</code></td><td class="hl-desc">0.1rem padding highlight</td><td class="hl-desc">—</td></tr>
+        <tr><td><code>:where(.exsa sup)</code></td><td class="hl-desc">Pill badge with secondary bg</td><td class="hl-desc">--color-secondary, --color-bg</td></tr>
+        <tr><td><code>:where(.exsa code)</code></td><td class="hl-desc">Inline code with accent bg</td><td class="hl-desc">--color-accent, --color-text</td></tr>
+        <tr><td><code>:where(.exsa pre)</code></td><td class="hl-desc">Code block, 1rem margin</td><td class="hl-desc">--width-card-wide</td></tr>
+        <tr><td><code>:where(.exsa hr)</code></td><td class="hl-desc">1px divider, 4rem vertical margin</td><td class="hl-desc">--color-bg-secondary</td></tr>
+        <tr><td><code>:where(.exsa details)</code></td><td class="hl-desc">1.3rem margin, bold summary cursor</td><td class="hl-desc">—</td></tr>
+        <tr><td><code>:where(.exsa header/main/footer)</code></td><td class="hl-desc">Max-width content, 3rem padding vertical</td><td class="hl-desc">--width-content</td></tr>
+        <tr><td><code>:where(.exsa nav)</code></td><td class="hl-desc">Flex row, bold, space-between. Nested ul for dropdowns.</td><td class="hl-desc">--color-bg, --box-shadow</td></tr>
+        <tr><td><code>:where(.exsa section)</code></td><td class="hl-desc">Flex wrap, container queries for responsive aside cards</td><td class="hl-desc">--justify-important</td></tr>
+        <tr><td><code>:where(.exsa section aside)</code></td><td class="hl-desc">Card with border, shadow, hover lift. Container queries at 320/500px</td><td class="hl-desc">--width-card, --box-shadow</td></tr>
+        <tr><td><code>:where(.exsa article>aside)</code></td><td class="hl-desc">Callout box with left border accent</td><td class="hl-desc">--color-secondary, --color-secondary-accent</td></tr>
+        <tr><td><code>:where(.exsa nav ul li ul)</code></td><td class="hl-desc">Dropdown menu, hidden by default, revealed on hover/focus</td><td class="hl-desc">--color-bg, --box-shadow, --border-radius</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- ═══════════════ LAYER 5: COMPONENTS ═══════════════ -->
+  <section class="cs-layer" id="components">
+    <div class="cs-layer__head">
+      <div class="cs-layer__num">5</div>
+      <h2 class="cs-layer__title">Components</h2>
+      <span class="cs-layer__badge">49 components · 7 categories</span>
+    </div>
+    <p style="font-size:0.85rem;color:var(--color-text-secondary);margin:0 0 12px;">Each component is a single CSS file. Link only what you need. All use <code>:where()</code> for zero specificity.</p>
+
+    <!-- Layout -->
+    <h3 class="cs-cat cs-cat--layout">Layout</h3>
+    <table class="cs-table">
+      <thead><tr><th style="width:18%;">Component</th><th style="width:25%;">Core Class</th><th style="width:32%;">Key Modifiers</th><th style="width:25%;">Tokens</th></tr></thead>
+      <tbody>
+        <tr><td>Accordion</td><td><code>.accordion</code></td><td class="hl-desc">.accordion--sm</td><td class="hl-desc">--color-link</td></tr>
+        <tr><td>Drawer</td><td><code>.drawer</code></td><td class="hl-desc">.drawer--left</td><td class="hl-desc">--color-bg, --box-shadow</td></tr>
+        <tr><td>Footer</td><td><code>.footer</code></td><td class="hl-desc">.footer__brand, .footer__links, .footer__bottom</td><td class="hl-desc">--color-bg-secondary, --color-link</td></tr>
+        <tr><td>Modal</td><td><code>.modal</code></td><td class="hl-desc">.modal__dialog, .modal__header/body/footer</td><td class="hl-desc">--box-shadow, --border-radius</td></tr>
+        <tr><td>Pricing Table</td><td><code>.pricing</code></td><td class="hl-desc">.pricing__card--featured, .pricing__badge</td><td class="hl-desc">--color-link, --box-shadow</td></tr>
+      </tbody>
+    </table>
+
+    <!-- Navigation -->
+    <h3 class="cs-cat cs-cat--nav">Navigation</h3>
+    <table class="cs-table">
+      <thead><tr><th style="width:18%;">Component</th><th style="width:25%;">Core Class</th><th style="width:32%;">Key Modifiers</th><th style="width:25%;">Tokens</th></tr></thead>
+      <tbody>
+        <tr><td>Topbar</td><td><code>.topbar</code></td><td class="hl-desc">.topbar__brand, .topbar__nav, .topbar__btn--primary</td><td class="hl-desc">--color-bg</td></tr>
+        <tr><td>Sidebar</td><td><code>.sidebar</code></td><td class="hl-desc">.sidebar__link--active, .sidebar__sub-menu</td><td class="hl-desc">--color-bg, --color-link</td></tr>
+        <tr><td>Back to Top</td><td><code>.back-top</code></td><td class="hl-desc">Appears after 300px scroll</td><td class="hl-desc">--color-link</td></tr>
+        <tr><td>Breadcrumbs</td><td><code>.breadcrumbs</code></td><td class="hl-desc">.breadcrumbs__sep, .breadcrumbs__current</td><td class="hl-desc">--color-link, --color-text-secondary</td></tr>
+        <tr><td>Pagination</td><td><code>.pagination</code></td><td class="hl-desc">.pagination--sm, disabled state</td><td class="hl-desc">--color-link, --color-bg-secondary</td></tr>
+        <tr><td>Stepper</td><td><code>.stepper</code></td><td class="hl-desc">.stepper--vertical, .stepper__step--done/active</td><td class="hl-desc">--color-link</td></tr>
+        <tr><td>Timeline</td><td><code>.timeline</code></td><td class="hl-desc">.timeline--sm, .timeline__item--active</td><td class="hl-desc">--color-link, --color-bg-secondary</td></tr>
+        <tr><td>Tooltip</td><td><code>.tooltip</code></td><td class="hl-desc">.tooltip--bottom/left/right, data-tip attr</td><td class="hl-desc">--color-text, --color-bg</td></tr>
+        <tr><td>Context Menu</td><td><code>.ctx-menu</code></td><td class="hl-desc">.ctx-menu--soft, .ctx-menu--sm</td><td class="hl-desc">--box-shadow, --border-radius</td></tr>
+      </tbody>
+    </table>
+
+    <!-- Content -->
+    <h3 class="cs-cat cs-cat--content">Content</h3>
+    <table class="cs-table">
+      <thead><tr><th style="width:18%;">Component</th><th style="width:25%;">Core Class</th><th style="width:32%;">Key Modifiers</th><th style="width:25%;">Tokens</th></tr></thead>
+      <tbody>
+        <tr><td>Avatar</td><td><code>.avatar</code></td><td class="hl-desc">.avatar--xs/sm/lg/xl, .avatar__status--online/away/busy</td><td class="hl-desc">--color-bg-secondary</td></tr>
+        <tr><td>Badge</td><td><code>.badge</code></td><td class="hl-desc">.badge--primary/success/danger/warning/pill</td><td class="hl-desc">--color-link, --color-bg-secondary</td></tr>
+        <tr><td>Card</td><td><code>.card</code></td><td class="hl-desc">.card--hoverable, .card--horizontal</td><td class="hl-desc">--box-shadow</td></tr>
+        <tr><td>Table</td><td><code>.tbl</code></td><td class="hl-desc">.tbl--striped, .tbl--bordered, .tbl--sm, .tbl--responsive</td><td class="hl-desc">--color-bg-secondary</td></tr>
+        <tr><td>Data List</td><td><code>.data-list</code></td><td class="hl-desc">.data-list--vertical, .data-list--bordered, .data-list--striped, --sm/--lg</td><td class="hl-desc">--color-link</td></tr>
+        <tr><td>Separator</td><td><code>.sep</code></td><td class="hl-desc">.sep--sm, .sep--lg, .sep--vertical</td><td class="hl-desc">--color-bg-secondary</td></tr>
+      </tbody>
+    </table>
+
+    <!-- Media -->
+    <h3 class="cs-cat cs-cat--media">Media</h3>
+    <table class="cs-table">
+      <thead><tr><th style="width:18%;">Component</th><th style="width:25%;">Core Class</th><th style="width:32%;">Key Modifiers</th><th style="width:25%;">Tokens</th></tr></thead>
+      <tbody>
+        <tr><td>Lightbox</td><td><code>.lightbox-gallery</code></td><td class="hl-desc">.lightbox-gallery__thumb, prev/next arrows, keyboard nav</td><td class="hl-desc">--color-link, --border-radius</td></tr>
+        <tr><td>Music Player</td><td><code>.music-player</code></td><td class="hl-desc">.media-display, .media-bar, data-duration attr</td><td class="hl-desc">--color-link, --color-text</td></tr>
+        <tr><td>Video Gallery</td><td><code>.video-gallery</code></td><td class="hl-desc">.video-gallery__card, data-video attr</td><td class="hl-desc">--color-link, --color-bg-secondary</td></tr>
+        <tr><td>Slideshow</td><td><code>.slideshow</code></td><td class="hl-desc">.slideshow__arrow--prev/next, .slideshow__dots, auto-advance</td><td class="hl-desc">--color-link, --border-radius</td></tr>
+      </tbody>
+    </table>
+
+    <!-- Data -->
+    <h3 class="cs-cat cs-cat--data">Data</h3>
+    <table class="cs-table">
+      <thead><tr><th style="width:18%;">Component</th><th style="width:25%;">Core Class</th><th style="width:32%;">Key Modifiers</th><th style="width:25%;">Tokens</th></tr></thead>
+      <tbody>
+        <tr><td>Donut Chart</td><td><code>.donut</code></td><td class="hl-desc">.donut__slice--1/2/3/4, --slice1–4 vars, .donut-legend</td><td class="hl-desc">--color-link, --color-secondary</td></tr>
+        <tr><td>Bar Chart</td><td><code>.bar-row</code></td><td class="hl-desc">.bar-row__fill, --bar-w (0–100%), background inline</td><td class="hl-desc">--color-link, --color-bg-secondary</td></tr>
+        <tr><td>Progress Bars</td><td><code>.progress-item</code></td><td class="hl-desc">.progress-item__fill, --fill-pct, --fill-clr</td><td class="hl-desc">--color-link, --color-secondary</td></tr>
+        <tr><td>Range Slider</td><td><code>.range</code></td><td class="hl-desc">.range--sm, live value display</td><td class="hl-desc">--color-link, --color-bg-secondary</td></tr>
+      </tbody>
+    </table>
+
+    <!-- Actions -->
+    <h3 class="cs-cat cs-cat--actions">Actions</h3>
+    <table class="cs-table">
+      <thead><tr><th style="width:18%;">Component</th><th style="width:25%;">Core Class</th><th style="width:32%;">Key Modifiers</th><th style="width:25%;">Tokens</th></tr></thead>
+      <tbody>
+        <tr><td>Buttons</td><td><code>.btn</code></td><td class="hl-desc">.btn--primary/success/danger/warning/neutral/outline/ghost/soft/surface, .btn--xs/sm/lg, .btn--icon, .btn--block, .btn--loading, .btn--high-contrast, .btn--radius-full/none</td><td class="hl-desc">--color-link, --color-success, --color-danger, --color-warning</td></tr>
+        <tr><td>Checkbox</td><td><code>.checkbox</code></td><td class="hl-desc">:checked fills --color-link, disabled state</td><td class="hl-desc">--color-link</td></tr>
+        <tr><td>Color Picker</td><td><code>.color-picker</code></td><td class="hl-desc">.color-picker--sm, .color-picker--lg</td><td class="hl-desc">—</td></tr>
+        <tr><td>Date Picker</td><td><code>.date-picker</code></td><td class="hl-desc">Month nav, today highlight, click-to-select</td><td class="hl-desc">--color-link, --color-bg-secondary</td></tr>
+        <tr><td>Dropdown</td><td><code>.dropdown</code></td><td class="hl-desc">.dropdown--soft, .dropdown--sm, shortcuts, labels, danger items</td><td class="hl-desc">--box-shadow, --border-radius</td></tr>
+        <tr><td>Form Validation</td><td><code>.form-helper</code></td><td class="hl-desc">.input--error, .input--success, .form-helper--error</td><td class="hl-desc">--color-error, --color-success</td></tr>
+        <tr><td>Icon Button</td><td><code>.btn--icon</code></td><td class="hl-desc">Combine with .btn--surface/ghost/outline</td><td class="hl-desc">—</td></tr>
+        <tr><td>Input Group</td><td><code>.input-group</code></td><td class="hl-desc">.input-group__icon, .input-group__addon</td><td class="hl-desc">--color-link, --color-bg-secondary</td></tr>
+        <tr><td>Loading Button</td><td><code>.btn--loading</code></td><td class="hl-desc">Works on all btn variants, spinner matches variant</td><td class="hl-desc">--color-link</td></tr>
+        <tr><td>Password Input</td><td><code>.password-input</code></td><td class="hl-desc">Show/hide toggle, JS ~8 lines</td><td class="hl-desc">--color-link</td></tr>
+        <tr><td>Popover</td><td><code>.popover</code></td><td class="hl-desc">.popover--sm/lg/xl, .popover--align-start/end, arrow</td><td class="hl-desc">--box-shadow, --border-radius</td></tr>
+        <tr><td>Radio Button</td><td><code>.radio</code></td><td class="hl-desc">name attr for groups, disabled state</td><td class="hl-desc">--color-link, --color-bg-secondary</td></tr>
+        <tr><td>Rating</td><td><code>.rating</code></td><td class="hl-desc">5 stars, hover preview, CSS direction trick, JS ~10 lines</td><td class="hl-desc">--color-link</td></tr>
+        <tr><td>Select</td><td><code>.select</code></td><td class="hl-desc">.select--sm, .select--lg, error state, disabled</td><td class="hl-desc">--color-link, --color-text-secondary</td></tr>
+        <tr><td>Tabs</td><td><code>.tabs</code></td><td class="hl-desc">.tabs__tab--active, .tabs--vertical, .tabs--full, data-panel linking</td><td class="hl-desc">--color-link</td></tr>
+        <tr><td>Toggle</td><td><code>.toggle</code></td><td class="hl-desc">.toggle--sm, disabled state, :checked</td><td class="hl-desc">--color-link</td></tr>
+      </tbody>
+    </table>
+
+    <!-- Feedback -->
+    <h3 class="cs-cat cs-cat--feedback">Feedback</h3>
+    <table class="cs-table">
+      <thead><tr><th style="width:18%;">Component</th><th style="width:25%;">Core Class</th><th style="width:32%;">Key Modifiers</th><th style="width:25%;">Tokens</th></tr></thead>
+      <tbody>
+        <tr><td>Alert</td><td><code>.alert</code></td><td class="hl-desc">.alert--info/success/warning/danger, .alert--soft/outline/surface, .alert--sm/lg</td><td class="hl-desc">--color-link, semantic colors</td></tr>
+        <tr><td>Cookie Bar</td><td><code>.cookie-bar</code></td><td class="hl-desc">.cookie-bar--top, .cookie-bar--visible, .cookie-bar__btn--accept</td><td class="hl-desc">--color-link, --color-bg</td></tr>
+        <tr><td>Skeleton</td><td><code>.skeleton</code></td><td class="hl-desc">.skeleton__line--circle/h2/medium/short/btn</td><td class="hl-desc">--color-bg-secondary</td></tr>
+        <tr><td>Spinner</td><td><code>.spinner</code></td><td class="hl-desc">.spinner--sm, .spinner--lg</td><td class="hl-desc">--color-link, --color-bg-secondary</td></tr>
+        <tr><td>Toast</td><td><code>.toast</code></td><td class="hl-desc">.toast--success/error/info, #toast-container, auto-dismiss 3s</td><td class="hl-desc">--border-radius, --box-shadow</td></tr>
+        <tr><td>Dashboard</td><td><code>.dashboard</code></td><td class="hl-desc">.dashboard__card, .dashboard__stat</td><td class="hl-desc">--color-link, --color-bg-secondary</td></tr>
+        <tr><td>Resizer</td><td><code>.resizer</code></td><td class="hl-desc">ew-resize (horizontal), ns-resize (vertical)</td><td class="hl-desc">--color-bg, --color-bg-secondary</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+</main>
+
+<!-- Toast container -->
+<div class="toast-container" id="toast-container" aria-live="polite" role="status"></div>
+
+<!-- No JS needed — this is a read-only reference page -->
+</body>
+</html>

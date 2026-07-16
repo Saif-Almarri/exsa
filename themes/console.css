@@ -1,0 +1,85 @@
+/* ============================================================
+   LAYER 4 — THEME: CONSOLE
+   Terminal phosphor-green on black. Monospace energy,
+   sharp corners, high contrast. For the command-line soul.
+   Auto-switches via prefers-color-scheme.
+   Force mode: <html data-theme-mode="light|dark">
+   ============================================================ */
+
+/* ── Dark mode (default): green phosphor on black ── */
+:root {
+  --color-bg:               #0c0d0c;
+  --color-bg-secondary:     #141714;
+  --color-text:             #b8d8a8;
+  --color-text-secondary:   #7aaa5a;
+  --color-link:             #33ff33;
+  --color-secondary:        #66cc66;
+  --color-secondary-accent: #66cc6618;
+  --color-accent:           #33ff3312;
+  --color-shadow:           #00000088;
+  --color-scrollbar:        #1a2a1a;
+  --color-table:            #33ff33;
+  --color-success:          #22c55e;
+  --color-success-hover:    #16a34a;
+  --color-danger:           #ef4444;
+  --color-danger-hover:     #dc2626;
+  --color-warning:          #f59e0b;
+  --color-warning-hover:    #d97706;
+  --border-radius:          0px;
+}
+
+/* ── Light mode (auto): off-white with dark green accents ── */
+@media (prefers-color-scheme: light) {
+  :root {
+    --color-bg:               #f8faf8;
+    --color-bg-secondary:     #e8efe8;
+    --color-text:             #1a2a1a;
+    --color-text-secondary:   #5a6a5a;
+    --color-link:             #147a14;
+    --color-secondary:        #2d6a2d;
+    --color-secondary-accent: #2d6a2d0d;
+    --color-accent:           #1a8a1a10;
+    --color-shadow:           #c0d0c0;
+    --color-scrollbar:        #90b090;
+    --color-table:            #147a14;
+  --color-button-text:      #f8faf8;
+    --border-radius:          0px;
+  }
+}
+
+/* ── Force mode overrides ── */
+:root[data-theme-mode="dark"] {
+  --color-bg:               #0c0d0c;
+  --color-bg-secondary:     #141714;
+  --color-text:             #b8d8a8;
+  --color-text-secondary:   #7aaa5a;
+  --color-link:             #33ff33;
+  --color-secondary:        #66cc66;
+  --color-secondary-accent: #66cc6618;
+  --color-accent:           #33ff3312;
+  --color-shadow:           #00000088;
+  --color-scrollbar:        #1a2a1a;
+  --color-table:            #33ff33;
+  --color-success:          #22c55e;
+  --color-success-hover:    #16a34a;
+  --color-danger:           #ef4444;
+  --color-danger-hover:     #dc2626;
+  --color-warning:          #f59e0b;
+  --color-warning-hover:    #d97706;
+  --border-radius:          0px;
+}
+:root[data-theme-mode="light"] {
+  --color-bg:               #f8faf8;
+  --color-bg-secondary:     #e8efe8;
+  --color-text:             #1a2a1a;
+  --color-text-secondary:   #5a6a5a;
+  --color-link:             #147a14;
+  --color-secondary:        #2d6a2d;
+  --color-secondary-accent: #2d6a2d0d;
+  --color-accent:           #1a8a1a10;
+  --color-shadow:           #c0d0c0;
+  --color-scrollbar:        #90b090;
+  --color-table:            #147a14;
+  --color-button-text:      #f8faf8;
+  --border-radius:          0px;
+}

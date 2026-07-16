@@ -1,0 +1,7 @@
+/* ============================================================
+   Component Library
+   :root tokens. Theme-ready.
+   ============================================================ */
+   
+/* --- C28: RADIO BUTTON --- */
+.radio{display:inline-flex;align-items:center;gap:9px;cursor:pointer;margin-bottom:10px}.radio input{display:none}.radio__circle{width:20px;height:20px;border-radius:50%;border:2px solid var(--color-bg-secondary);background:var(--color-bg);flex-shrink:0;position:relative;transition:border-color .18s,background .18s}.radio__circle::after{content:'';position:absolute;top:3px;left:3px;width:10px;height:10px;border-radius:50%;background:var(--color-link);transform:scale(0);transition:transform .18s cubic-bezier(.4,0,.2,1)}.radio input:checked+.radio__circle{border-color:var(--color-link)}.radio input:checked+.radio__circle::after{transform:scale(1)}.radio__label{font-size:.9rem;color:var(--color-text);user-select:none}

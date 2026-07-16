@@ -1,0 +1,43 @@
+/* ============================================================
+   Component: DATA LIST
+   Key-value metadata display using <dl>/<dt>/<dd>.
+   Orientation: horizontal (default) or vertical.
+   Sizes: sm, default, lg
+   ============================================================ */
+
+/* ── Root ── */
+.data-list{margin:0;display:grid;grid-template-columns:auto 1fr;gap:0;font-size:.88rem;color:var(--color-text)}
+.data-list--vertical{grid-template-columns:1fr;gap:2px}
+
+/* ── Item ── */
+.data-list__item{display:grid;grid-template-columns:subgrid;grid-column:1/-1;padding:10px 14px;border-bottom:1px solid var(--color-bg-secondary);align-items:baseline}
+.data-list__item:last-child{border-bottom:none}
+.data-list--vertical .data-list__item{grid-template-columns:1fr;padding:8px 14px;gap:2px}
+
+/* ── Label ── */
+.data-list__label{font-size:.75rem;font-weight:600;color:var(--color-text-secondary);letter-spacing:.02em;text-transform:uppercase;padding-inline-end:16px}
+.data-list--vertical .data-list__label{padding-inline-end:0}
+
+/* ── Value ── */
+.data-list__value{margin:0;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+
+/* ── Sizes ── */
+.data-list--sm{font-size:.78rem}
+.data-list--sm .data-list__item{padding:6px 10px}
+.data-list--sm .data-list__label{font-size:.68rem}
+.data-list--lg{font-size:.95rem}
+.data-list--lg .data-list__item{padding:14px 18px}
+.data-list--lg .data-list__label{font-size:.8rem}
+
+/* ── Bordered variant ── */
+.data-list--bordered{border:1px solid var(--color-bg-secondary);border-radius:var(--border-radius)}
+.data-list--bordered .data-list__item:last-child{border-bottom:none}
+
+/* ── Striped variant ── */
+.data-list--striped .data-list__item:nth-child(even){background:color-mix(in srgb,var(--color-bg-secondary)40%,transparent)}
+
+/* ── Label color variants ── */
+.data-list__label--primary{color:var(--color-link)}
+.data-list__label--success{color:var(--color-success)}
+.data-list__label--danger{color:var(--color-danger)}
+.data-list__label--warning{color:var(--color-warning)}

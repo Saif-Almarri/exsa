@@ -1,0 +1,8 @@
+/* ============================================================
+   Component Library
+   :root tokens. Theme-ready.
+   ============================================================ */
+
+/* --- C16: MUSIC PLAYER --- */
+.media-display{position:relative;height:180px;background-size:cover;background-position:center}.media-display__play{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:42px;height:42px;border-radius:50%;border:2px solid #fff;background:rgba(0,0,0,.2);color:#fff;font-size:1rem;display:flex;align-items:center;justify-content:center;cursor:pointer;padding:0 0 0 3px;transition:border-color .15s,background .15s;box-shadow:none;filter:none;margin:0}.media-display__play:hover{border-color:var(--color-link);background:rgba(0,0,0,.4);filter:none}
+.media-bar{display:flex;align-items:center;padding:8px 14px;gap:10px}.media-bar__btn{font-size:17px;color:var(--color-text-secondary);cursor:pointer;background:none;border:none;padding:3px;line-height:1;transition:color .15s;font-family:inherit;box-shadow:none;filter:none;margin:0;display:inline-flex;align-items:center}.media-bar__btn:hover{color:var(--color-link);filter:none}.media-bar__time{font-size:.75rem;color:var(--color-text);font-family:'Consolas',monospace;flex-shrink:0}.media-bar__sep{color:var(--color-text-secondary);margin:0 2px}.media-bar__spacer{flex:1}

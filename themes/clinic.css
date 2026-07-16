@@ -1,0 +1,71 @@
+/* ============================================================
+   LAYER 4 — THEME: CLINIC
+   Calming teal-white by default, deep teal in dark mode.
+   Auto-switches via prefers-color-scheme.
+   Force mode: <html data-theme-mode="light|dark">
+   ============================================================ */
+
+/* ── Light mode (default) ── */
+:root {
+  --color-bg:               #ffffff;
+  --color-bg-secondary:     #eaf5f0;
+  --color-text:             #1a2f28;
+  --color-text-secondary:   #5c7a6e;
+  --color-link:             #0b7a70;
+  --color-secondary:        #e57373;
+  --color-secondary-accent: #e573730d;
+  --color-accent:           #0d948810;
+  --color-shadow:           #c5ddd2;
+  --color-scrollbar:        #a0c8b8;
+  --color-table:            #0b7a70;
+  --color-button-text:      #ffffff;
+  --border-radius:          8px;
+}
+
+/* ── Dark mode (auto) ── */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-bg:               #0f1a18;
+    --color-bg-secondary:     #1a2f28;
+    --color-text:             #d4ece4;
+    --color-text-secondary:   #7ab8a4;
+    --color-link:             #2dd4bf;
+    --color-button-text:      #0f1a18;
+    --color-secondary:        #f87171;
+    --color-secondary-accent: #f8717118;
+    --color-accent:           #2dd4bf14;
+    --color-shadow:           #00000033;
+    --color-scrollbar:        #1e4a3e;
+    --color-table:            #2dd4bf;
+    --border-radius:          8px;
+  }
+}
+
+:root[data-theme-mode="light"] {
+  --color-bg:               #ffffff;
+  --color-bg-secondary:     #eaf5f0;
+  --color-text:             #1a2f28;
+  --color-text-secondary:   #5c7a6e;
+  --color-link:             #0b7a70;
+  --color-secondary:        #e57373;
+  --color-secondary-accent: #e573730d;
+  --color-accent:           #0d948810;
+  --color-shadow:           #c5ddd2;
+  --color-scrollbar:        #a0c8b8;
+  --color-table:            #0d9488;
+  --border-radius:          8px;
+}
+:root[data-theme-mode="dark"] {
+  --color-bg:               #0f1a18;
+  --color-bg-secondary:     #1a2f28;
+  --color-text:             #d4ece4;
+  --color-text-secondary:   #7ab8a4;
+  --color-link:             #2dd4bf;
+  --color-secondary:        #f87171;
+  --color-secondary-accent: #f8717118;
+  --color-accent:           #2dd4bf14;
+  --color-shadow:           #00000033;
+  --color-scrollbar:        #1e4a3e;
+  --color-table:            #2dd4bf;
+  --border-radius:          8px;
+}

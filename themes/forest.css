@@ -1,0 +1,73 @@
+/* ============================================================
+   LAYER 4 — THEME: FOREST
+   Earthy greens by default, deep pine in dark mode.
+   Auto-switches via prefers-color-scheme.
+   Force mode: <html data-theme-mode="light|dark">
+   ============================================================ */
+
+/* ── Light mode (default) ── */
+:root {
+  --color-bg:               #f0faf4;
+  --color-bg-secondary:     #cce8d8;
+  --color-text:             #1a2e22;
+  --color-text-secondary:   #4a7a5a;
+  --color-link:             #15803d;
+  --color-secondary:        #0d7a5f;
+  --color-secondary-accent: #0d7a5f0f;
+  --color-accent:           #15803d12;
+  --color-shadow:           #a8d4b8;
+  --color-scrollbar:        #6db88a;
+  --color-table:            #15803d;
+  --color-button-text:      var(--color-bg);
+  --border-radius:          8px;
+}
+
+/* ── Dark mode (auto) ── */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-bg:               #0f1a13;
+    --color-bg-secondary:     #1a2f20;
+    --color-text:             #d4e8d8;
+    --color-text-secondary:   #7aaa88;
+    --color-link:             #4ade80;
+    --color-secondary:        #34d399;
+    --color-secondary-accent: #34d39915;
+    --color-accent:           #4ade8014;
+    --color-shadow:           #00000033;
+    --color-scrollbar:        #2a4a32;
+    --color-table:            #4ade80;
+  --color-button-text:      var(--color-bg);
+    --border-radius:          8px;
+  }
+}
+
+:root[data-theme-mode="light"] {
+  --color-bg:               #f0faf4;
+  --color-bg-secondary:     #cce8d8;
+  --color-text:             #1a2e22;
+  --color-text-secondary:   #4a7a5a;
+  --color-link:             #15803d;
+  --color-secondary:        #0d7a5f;
+  --color-secondary-accent: #0d7a5f0f;
+  --color-accent:           #15803d12;
+  --color-shadow:           #a8d4b8;
+  --color-scrollbar:        #6db88a;
+  --color-table:            #15803d;
+  --color-button-text:      var(--color-bg);
+  --border-radius:          8px;
+}
+:root[data-theme-mode="dark"] {
+  --color-bg:               #0f1a13;
+  --color-bg-secondary:     #1a2f20;
+  --color-text:             #d4e8d8;
+  --color-text-secondary:   #7aaa88;
+  --color-link:             #4ade80;
+  --color-secondary:        #34d399;
+  --color-secondary-accent: #34d39915;
+  --color-accent:           #4ade8014;
+  --color-shadow:           #00000033;
+  --color-scrollbar:        #2a4a32;
+  --color-table:            #4ade80;
+  --color-button-text:      var(--color-bg);
+  --border-radius:          8px;
+}

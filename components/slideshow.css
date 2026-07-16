@@ -1,0 +1,10 @@
+/* ============================================================
+   Component Library
+   :root tokens. Theme-ready.
+   ============================================================ */
+
+/* --- C17: SLIDESHOW --- */
+.slideshow{position:relative;overflow:hidden;user-select:none;-webkit-user-select:none}.slideshow__track{display:flex;transition:transform .4s cubic-bezier(.4,0,.2,1)}.slideshow__slide{flex:0 0 100%;min-width:0;position:relative}.slideshow__slide img{width:100%;aspect-ratio:16/9;object-fit:cover;display:block}.slideshow__slide figcaption{position:absolute;bottom:0;left:0;right:0;padding:14px 16px;background:linear-gradient(transparent,rgba(0,0,0,.6));color:#fff;font-size:.8rem;font-weight:500}
+.slideshow__arrow{position:absolute;top:50%;transform:translateY(-50%);z-index:2;width:32px;height:32px;border-radius:50%;background:rgba(255,255,255,.88);color:#333;border:none;font-size:.8rem;display:flex;align-items:center;justify-content:center;cursor:pointer;opacity:0;transition:opacity .15s,background .15s;padding:0;box-shadow:none;filter:none;font-family:inherit;margin:0}.slideshow:hover .slideshow__arrow,.slideshow:focus-within .slideshow__arrow{opacity:1}.slideshow__arrow:hover{background:#fff;filter:none}.slideshow__arrow--prev{left:10px}.slideshow__arrow--next{right:10px}@media(hover:none){.slideshow__arrow{opacity:1}}
+.slideshow__dots{position:absolute;bottom:10px;left:50%;transform:translateX(-50%);display:flex;gap:7px;z-index:2}.slideshow__dot{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.4);border:2px solid transparent;cursor:pointer;padding:0;transition:background .15s,transform .15s}.slideshow__dot:hover{background:rgba(255,255,255,.7)}.slideshow__dot--active{background:var(--color-link);border-color:#fff;transform:scale(1.35)}
+

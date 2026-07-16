@@ -1,0 +1,130 @@
+/* ============================================================
+   Sidebar Navigation
+   Vertical nav with icons, sub-menus, active states.
+   Token-driven — uses EXSA tokens, not hardcoded colors.
+   Adapted from admin dashboard sidebar pattern.
+   ============================================================ */
+
+.sidebar {
+  width: 240px;
+  height: 100%;
+  background: var(--color-bg);
+  border-inline-end: 1px solid var(--color-bg-secondary);
+  overflow-y: auto;
+  overflow-x: hidden;
+  font-family: inherit;
+  position: relative;
+  z-index: 10;
+}
+.sidebar::-webkit-scrollbar { width: 4px; }
+.sidebar::-webkit-scrollbar-track { background: transparent; }
+.sidebar::-webkit-scrollbar-thumb { background: var(--color-bg-secondary); border-radius: 2px; }
+
+/* ── Nav list ── */
+.sidebar__nav,
+.sidebar__nav ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.sidebar__nav li {
+  border-bottom: 1px solid var(--color-bg-secondary);
+}
+
+/* ── Links ── */
+.sidebar__link {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 20px;
+  font-size: 0.84rem;
+  font-weight: 500;
+  color: var(--color-text-secondary);
+  text-decoration: none;
+  cursor: pointer;
+  transition: color 0.2s, background 0.2s;
+  border: none;
+  background: none;
+  width: 100%;
+  text-align: start;
+  font-family: inherit;
+  line-height: 1.4;
+  position: relative;
+}
+.sidebar__link:hover {
+  color: var(--color-link);
+  background: color-mix(in srgb, var(--color-link) 6%, transparent);
+}
+
+/* ── Icon ── */
+.sidebar__icon {
+  width: 18px; height: 18px;
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.sidebar__icon .ic { width: 16px; height: 16px; }
+
+/* ── Label ── */
+.sidebar__label { flex: 1; }
+
+/* ── Arrow (chevron for sub-menus) ── */
+.sidebar__arrow {
+  width: 14px; height: 14px;
+  flex-shrink: 0;
+  transition: transform 0.25s;
+}
+.sidebar__sub--open > .sidebar__link .sidebar__arrow {
+  transform: rotate(90deg);
+}
+
+/* ── Sub-menus ── */
+.sidebar__sub > .sidebar__link { font-weight: 600; }
+
+.sidebar__sub-menu {
+  display: none;
+  background: var(--color-bg-secondary);
+}
+.sidebar__sub--open > .sidebar__sub-menu,
+.sidebar__sub--open > ul {
+  display: block;
+}
+.sidebar__sub-menu .sidebar__link {
+  padding: 10px 20px 10px 48px;
+  font-size: 0.8rem;
+  font-weight: 400;
+}
+.sidebar__sub-menu .sidebar__link:hover {
+  background: color-mix(in srgb, var(--color-link) 8%, transparent);
+}
+
+/* ── Active states ── */
+.sidebar__link--active,
+.sidebar__sub-menu .sidebar__link--active {
+  color: var(--color-link);
+  background: color-mix(in srgb, var(--color-link) 10%, transparent);
+  font-weight: 600;
+}
+.sidebar__sub--open > .sidebar__link {
+  color: var(--color-text);
+}
+
+/* ── Badge ── */
+.sidebar__badge {
+  margin-inline-start: auto;
+  background: var(--color-link);
+  color: #fff;
+  font-size: 0.7rem;
+  font-weight: 700;
+  padding: 2px 7px;
+  border-radius: 99px;
+  line-height: 1.3;
+}
+
+/* ── Collapsible sidebar toggle ── */
+.sidebar--collapsed { width: 56px; }
+.sidebar--collapsed .sidebar__label,
+.sidebar--collapsed .sidebar__arrow,
+.sidebar--collapsed .sidebar__sub-menu { display: none; }
+.sidebar--collapsed .sidebar__link { justify-content: center; padding: 14px 0; }

@@ -1,0 +1,7 @@
+/* ============================================================
+   Component Library
+   :root tokens. Theme-ready.
+   ============================================================ */
+   
+/* --- DASHBOARD TOKENS --- */
+.dashboard{width:960px;margin:2rem auto;font-family:var(--font-family);--dash-card-bg:var(--color-bg-secondary);--dash-header-bg:var(--color-link);--dash-stat-bg:var(--color-secondary);--dash-bar-track:rgba(128,128,128,.12)}.dashboard::after{content:'';display:table;clear:both}.dashboard-col{float:left;width:300px}.dashboard-col--center{margin:0 30px}

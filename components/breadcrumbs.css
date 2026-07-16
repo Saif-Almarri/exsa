@@ -1,0 +1,7 @@
+/* ============================================================
+   Component Library
+   :root tokens. Theme-ready.
+   ============================================================ */
+   
+/* --- C6: BREADCRUMBS --- */
+.breadcrumbs{display:flex;align-items:center;gap:6px;list-style:none;padding:0;margin:0;flex-wrap:wrap}.breadcrumbs li{display:flex;align-items:center;gap:6px;padding:0}.breadcrumbs a{font-size:.82rem;color:var(--color-link);text-decoration:none;font-weight:500;display:inline}.breadcrumbs a:hover{text-decoration:underline}.breadcrumbs__sep{font-size:.75rem;color:var(--color-text-secondary);user-select:none}.breadcrumbs__current{font-size:.82rem;color:var(--color-text-secondary);font-weight:500}

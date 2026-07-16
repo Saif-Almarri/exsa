@@ -1,0 +1,23 @@
+/* ============================================================
+   Component Library
+   :root tokens. Theme-ready.
+   ============================================================ */
+
+/* --- C8: STEPPER --- */
+.stepper{display:flex;align-items:flex-start;gap:0}
+.stepper__step{flex:1;text-align:center;position:relative}
+.stepper__step::after{content:'';position:absolute;top:16px;inset-inline-start:calc(50% + 20px);width:calc(100% - 40px);height:2px;background:var(--color-bg-secondary)}
+.stepper__step:last-child::after{display:none}
+.stepper__dot{width:32px;height:32px;border-radius:50%;background:var(--color-bg-secondary);color:var(--color-text-secondary);display:inline-flex;align-items:center;justify-content:center;font-size:.78rem;font-weight:700;position:relative;z-index:1;transition:background .2s,color .2s}
+.stepper__label{display:block;margin-top:10px;font-size:.76rem;font-weight:600;color:var(--color-text-secondary)}
+.stepper__step--active .stepper__dot{background:var(--color-link);color:#fff}
+.stepper__step--active .stepper__label{color:var(--color-text)}
+.stepper__step--done .stepper__dot{background:var(--color-link);color:#fff}
+.stepper__step--done::after{background:var(--color-link)}
+
+/* Vertical */
+.stepper--vertical{flex-direction:column;gap:0}
+.stepper--vertical .stepper__step{display:flex;align-items:flex-start;gap:14px;text-align:left;padding-bottom:28px}
+.stepper--vertical .stepper__step::after{top:32px;inset-inline-start:15px;width:2px;height:calc(100% - 32px)}
+.stepper--vertical .stepper__label{margin-top:4px}
+.stepper--vertical .stepper__step:last-child{padding-bottom:0}

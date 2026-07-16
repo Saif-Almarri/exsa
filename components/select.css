@@ -1,0 +1,68 @@
+/* ============================================================
+   Styled Select
+   Custom <select> wrapper with chevron icon, focus ring, sizes.
+   Token-driven — uses --color-link, --border-radius, --color-bg.
+   ============================================================ */
+
+.select {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+  max-width: var(--width-card-wide);
+}
+
+.select__field {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 100%;
+  padding: 0.55rem 2.5rem 0.55rem 0.8rem;
+  font-size: 0.9rem;
+  font-family: inherit;
+  line-height: var(--line-height);
+  color: var(--color-text);
+  background: var(--color-bg);
+  border: 1px solid var(--color-bg-secondary);
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  transition: border-color 0.15s, box-shadow 0.15s;
+  outline: none;
+}
+.select__field:focus {
+  border-color: var(--color-link);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-link) 20%, transparent);
+}
+
+/* ── Chevron arrow ── */
+.select::after {
+  content: "";
+  position: absolute;
+  inset-inline-end: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 16px; height: 16px;
+  pointer-events: none;
+  background-color: var(--color-text-secondary);
+  -webkit-mask: url('icons/chevron-down.svg') center/contain no-repeat;
+          mask: url('icons/chevron-down.svg') center/contain no-repeat;
+  transition: background-color 0.15s;
+}
+.select:hover::after { background-color: var(--color-text); }
+
+/* ── Sizes ── */
+.select--sm .select__field { padding: 0.35rem 2rem 0.35rem 0.6rem; font-size: 0.8rem; }
+.select--sm::after { width: 14px; height: 14px; inset-inline-end: 8px; }
+.select--lg .select__field { padding: 0.7rem 3rem 0.7rem 1rem; font-size: 1rem; }
+.select--lg::after { width: 18px; height: 18px; inset-inline-end: 12px; }
+
+/* ── Error state (uses form-validation.css tokens if loaded) ── */
+.select--error .select__field {
+  border-color: var(--color-error, #dc2626);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-error, #dc2626) 15%, transparent);
+}
+
+/* ── Disabled ── */
+.select__field:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  background: var(--color-bg-secondary);
+}

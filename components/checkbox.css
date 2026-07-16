@@ -1,0 +1,7 @@
+/* ============================================================
+   Component Library
+   :root tokens. Theme-ready.
+   ============================================================ */
+   
+/* --- C22: CHECKBOX --- */
+.checkbox{display:inline-flex;align-items:center;gap:9px;cursor:pointer;margin-bottom:10px}.checkbox input{display:none}.checkbox__box{width:20px;height:20px;border-radius:var(--border-radius);border:2px solid var(--color-bg-secondary);background:var(--color-bg);flex-shrink:0;position:relative;transition:border-color .18s,background .18s}.checkbox__box::after{content:'';position:absolute;top:2px;left:5px;width:6px;height:11px;border:solid var(--color-link);border-width:0 2px 2px 0;transform:rotate(45deg) scale(0);transition:transform .18s cubic-bezier(.4,0,.2,1)}.checkbox input:checked+.checkbox__box{border-color:var(--color-link);background:var(--color-link)}.checkbox input:checked+.checkbox__box::after{border-color:#fff;transform:rotate(45deg) scale(1)}.checkbox__label{font-size:.9rem;color:var(--color-text);user-select:none}

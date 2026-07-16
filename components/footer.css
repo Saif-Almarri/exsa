@@ -1,0 +1,99 @@
+/* ============================================================
+   Footer
+   Multi-column site footer with brand, links, and copyright.
+   Token-driven — uses --color-bg, --color-bg-secondary.
+   ============================================================ */
+
+.footer {
+  background: var(--color-bg-secondary);
+  border-top: 1px solid var(--color-bg-secondary);
+  padding: 3rem 0 0;
+  margin-top: 3rem;
+  font-size: 0.88rem;
+  color: var(--color-text-secondary);
+}
+
+.footer__inner {
+  max-width: var(--width-content);
+  margin: 0 auto;
+  padding: 0 var(--gap);
+}
+
+.footer__grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--gap-lg);
+  padding-bottom: 2rem;
+}
+
+/* ── Brand column ── */
+.footer__brand {
+  flex: 1 1 240px;
+  min-width: 200px;
+}
+.footer__logo {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--color-text);
+  margin-bottom: 0.5rem;
+}
+.footer__logo span { color: var(--color-link); }
+.footer__tagline {
+  font-size: 0.82rem;
+  color: var(--color-text-secondary);
+  line-height: 1.6;
+  max-width: 280px;
+}
+
+/* ── Link columns ── */
+.footer__links {
+  flex: 1 1 160px;
+  min-width: 140px;
+}
+.footer__links-title {
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--color-text);
+  margin-bottom: 0.8rem;
+}
+.footer__links a {
+  display: block;
+  color: var(--color-text-secondary);
+  text-decoration: none;
+  font-weight: 400;
+  padding: 0.25rem 0;
+  font-size: 0.84rem;
+  transition: color 0.15s;
+}
+.footer__links a:hover {
+  color: var(--color-link);
+}
+
+/* ── Bottom bar ── */
+.footer__bottom {
+  border-top: 1px solid var(--color-bg);
+  padding: 1.2rem 0;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  font-size: 0.78rem;
+}
+.footer__bottom a {
+  color: var(--color-text-secondary);
+  text-decoration: none;
+  font-weight: 400;
+}
+.footer__bottom a:hover { color: var(--color-link); }
+
+/* ── Mobile ── */
+@media (max-width: 600px) {
+  .footer { padding-top: 2rem; }
+  .footer__grid { gap: var(--gap); flex-direction: column; }
+  .footer__brand { flex: 1 1 auto; }
+  .footer__links { flex: 1 1 auto; }
+  .footer__bottom { flex-direction: column; text-align: center; }
+}

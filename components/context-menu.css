@@ -1,0 +1,75 @@
+/* ============================================================
+   Component: CONTEXT MENU
+   Right-click popup. data-ctx-menu on wrapper, data-ctx-trigger
+   on the element that opens it (defaults to wrapper).
+   Variants: solid (default), soft
+   Sizes: sm, default
+   ============================================================ */
+
+/* ── Backdrop (closes menu on click outside) ── */
+.ctx-backdrop{position:fixed;inset:0;z-index:9997;display:none}
+.ctx-backdrop--show{display:block}
+
+/* ── Menu panel ── */
+.ctx-menu {
+  position: fixed;
+  z-index: 9998;
+  min-width: 140px;
+  max-width: 260px;
+  padding: 4px;
+  border-radius: var(--border-radius);
+  background: var(--color-bg);
+  border: 1px solid var(--color-bg-secondary);
+  box-shadow: 0 2px 10px color-mix(in srgb, #000 12%, transparent), 0 0 0 1px var(--color-bg-secondary);
+  opacity: 0;
+  transform: scale(0.96) translateY(-4px);
+  transform-origin: var(--ctx-origin, top left);
+  pointer-events: none;
+  transition: opacity 0.12s ease, transform 0.12s ease;
+}
+.ctx-menu--open{opacity:1;transform:scale(1) translateY(0);pointer-events:all}
+
+/* ── Soft variant ── */
+.ctx-menu--soft{background:var(--color-bg-secondary);border-color:transparent;box-shadow:0 2px 10px color-mix(in srgb,#000 6%,transparent)}
+
+/* ── Size: small ── */
+.ctx-menu--sm{min-width:120px;padding:3px}
+.ctx-menu--sm .ctx-menu__item{padding:5px 8px;font-size:.78rem;gap:8px}
+
+/* ── Items ── */
+.ctx-menu__item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  padding: 6px 8px;
+  font-size: .82rem;
+  font-family: inherit;
+  color: var(--color-text);
+  background: none;
+  border: none;
+  border-radius: calc(var(--border-radius) * 0.6);
+  cursor: pointer;
+  text-align: start;
+  line-height: 1;
+  transition: background .06s, color .06s;
+  white-space: nowrap;
+}
+.ctx-menu__item:hover{background:color-mix(in srgb,var(--color-text-secondary)12%,transparent)}
+.ctx-menu__item:focus-visible{outline:2px solid var(--color-link);outline-offset:-2px}
+
+/* ── Danger item ── */
+.ctx-menu__item--danger{color:var(--color-danger)}
+.ctx-menu__item--danger:hover{background:color-mix(in srgb,var(--color-danger)14%,transparent)}
+
+/* ── Separator ── */
+.ctx-menu__sep{height:1px;margin:3px 6px;background:var(--color-bg-secondary);border:none}
+
+/* ── Shortcut hint ── */
+.ctx-menu__shortcut{margin-inline-start:auto;font-size:.7rem;color:var(--color-text-secondary);letter-spacing:.02em;margin-inline-end:2px}
+
+/* ── Label (non-interactive header) ── */
+.ctx-menu__label{padding:4px 8px 2px;font-size:.68rem;font-weight:600;color:var(--color-text-secondary);text-transform:uppercase;letter-spacing:.06em}
+
+/* ── Submenu indicator ── */
+.ctx-menu__sub-arrow{margin-inline-start:auto;opacity:.5;font-size:.7rem}

@@ -1,0 +1,75 @@
+/* ============================================================
+   LAYER 4 — THEME: NOVA
+   High-tech electric blue on deep slate. Clean, precise,
+   dashboard-grade. For interfaces that mean business.
+   Auto-switches via prefers-color-scheme.
+   Force mode: <html data-theme-mode="light|dark">
+   ============================================================ */
+
+/* ── Dark mode (default): deep slate + electric blue ── */
+:root {
+  --color-bg:               #0b0f19;
+  --color-bg-secondary:     #141c2c;
+  --color-text:             #e0e8f8;
+  --color-text-secondary:   #6b80a8;
+  --color-link:             #3291ff;
+  --color-secondary:        #6c5ce7;
+  --color-secondary-accent: #6c5ce718;
+  --color-accent:           #3291ff14;
+  --color-shadow:           #00000055;
+  --color-scrollbar:        #1a2840;
+  --color-table:            #3291ff;
+  --color-button-text:      #ffffff;
+  --border-radius:          6px;
+}
+
+/* ── Light mode (auto): cool white + steel blue ── */
+@media (prefers-color-scheme: light) {
+  :root {
+    --color-bg:               #f5f7fc;
+    --color-bg-secondary:     #e4eaf5;
+    --color-text:             #101830;
+    --color-text-secondary:   #506088;
+    --color-link:             #1a5fdc;
+    --color-secondary:        #5b4ad8;
+    --color-secondary-accent: #5b4ad80d;
+    --color-accent:           #1a5fdc10;
+    --color-shadow:           #c4cde4;
+    --color-scrollbar:        #a0b4d0;
+    --color-table:            #1a5fdc;
+  --color-button-text:      #ffffff;
+    --border-radius:          6px;
+  }
+}
+
+/* ── Force mode overrides ── */
+:root[data-theme-mode="dark"] {
+  --color-bg:               #0b0f19;
+  --color-bg-secondary:     #141c2c;
+  --color-text:             #e0e8f8;
+  --color-text-secondary:   #6b80a8;
+  --color-link:             #3291ff;
+  --color-secondary:        #6c5ce7;
+  --color-secondary-accent: #6c5ce718;
+  --color-accent:           #3291ff14;
+  --color-shadow:           #00000055;
+  --color-scrollbar:        #1a2840;
+  --color-table:            #3291ff;
+  --color-button-text:      #ffffff;
+  --border-radius:          6px;
+}
+:root[data-theme-mode="light"] {
+  --color-bg:               #f5f7fc;
+  --color-bg-secondary:     #e4eaf5;
+  --color-text:             #101830;
+  --color-text-secondary:   #506088;
+  --color-link:             #1a5fdc;
+  --color-secondary:        #5b4ad8;
+  --color-secondary-accent: #5b4ad80d;
+  --color-accent:           #1a5fdc10;
+  --color-shadow:           #c4cde4;
+  --color-scrollbar:        #a0b4d0;
+  --color-table:            #1a5fdc;
+  --color-button-text:      #ffffff;
+  --border-radius:          6px;
+}

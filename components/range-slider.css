@@ -1,0 +1,18 @@
+/* ============================================================
+   Component Library
+   :root tokens. Theme-ready.
+   ============================================================ */
+
+/* --- C21: RANGE SLIDER --- */
+.range{display:flex;align-items:center;gap:12px}
+.range__input{-webkit-appearance:none;appearance:none;flex:1;height:6px;border-radius:3px;background:var(--color-bg-secondary);outline:none;cursor:pointer}
+.range__input::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:20px;height:20px;border-radius:50%;background:var(--color-link);border:2px solid #fff;box-shadow:0 1px 4px rgba(0,0,0,.2);cursor:pointer;transition:transform .12s}
+.range__input::-webkit-slider-thumb:hover{transform:scale(1.2)}
+.range__input::-moz-range-thumb{width:20px;height:20px;border-radius:50%;background:var(--color-link);border:2px solid #fff;box-shadow:0 1px 4px rgba(0,0,0,.2);cursor:pointer;box-sizing:border-box}
+.range__input::-moz-range-track{height:6px;border-radius:3px;background:var(--color-bg-secondary)}
+.range__val{min-width:42px;text-align:center;font-size:.82rem;font-weight:700;color:var(--color-text);font-family:'Consolas',monospace}
+
+/* Sizes */
+.range--sm .range__input{height:4px}
+.range--sm .range__input::-webkit-slider-thumb{width:16px;height:16px}
+.range--sm .range__input::-moz-range-thumb{width:16px;height:16px}

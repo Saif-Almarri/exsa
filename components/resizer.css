@@ -1,0 +1,72 @@
+/* ============================================================
+   Component: RESIZER
+   Horizontal drag handle for resizable panels.
+   Requires resizer.js for drag interaction.
+   Theme-ready: uses --color-bg-secondary, --border-radius.
+   ============================================================ */
+
+.resizer {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 1.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  color: var(--color-text-secondary);
+  background: #00000012;
+  border-inline-start: 1px solid var(--color-bg-secondary);
+  border-start-end-radius: var(--border-radius);
+  border-end-end-radius: var(--border-radius);
+  cursor: ew-resize;
+  user-select: none;
+  z-index: 5;
+  transition: color 0.15s, background 0.15s;
+}
+.resizer:hover,
+.resizer--active {
+  color: var(--color-text);
+  background: var(--color-bg-secondary);
+}
+
+/* Grip icon (three vertical dots) */
+.resizer::before {
+  content: '⋮';
+  line-height: 1;
+  pointer-events: none;
+}
+
+/* Left-edge variant */
+.resizer--left {
+  right: auto;
+  left: 0;
+  border-inline-start: none;
+  border-inline-end: 1px solid var(--color-bg-secondary);
+  border-start-end-radius: 0;
+  border-end-end-radius: 0;
+  border-start-start-radius: var(--border-radius);
+  border-end-start-radius: var(--border-radius);
+}
+
+/* Bottom-edge variant (vertical resize) */
+.resizer--bottom {
+  top: auto;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 1.75rem;
+  border-inline-start: none;
+  border-top: 1px solid var(--color-bg-secondary);
+  border-radius: 0 0 var(--border-radius) var(--border-radius);
+  cursor: ns-resize;
+}
+.resizer--bottom::before { content: '⋯'; }
+
+/* ── Resize target ── */
+.resizer__target {
+  overflow: hidden;
+  position: relative;
+}

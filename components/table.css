@@ -1,0 +1,56 @@
+/* ============================================================
+   Component: TABLE
+   .tbl for component mode, :where(.exsa table) for classless
+   Variants: striped, bordered, sm, responsive, status badges
+   ============================================================ */
+
+/* ── Wrapper ── */
+.table-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;border:1px solid var(--color-bg-secondary);border-radius:var(--border-radius)}
+.table-wrap::-webkit-scrollbar{height:5px}
+.table-wrap::-webkit-scrollbar-thumb{background:var(--color-bg-secondary);border-radius:3px}
+
+/* ── Component table ── */
+.tbl{width:100%;border-collapse:collapse;font-size:.84rem;color:var(--color-text);white-space:nowrap}
+.tbl thead{border-bottom:2px solid var(--color-bg-secondary)}
+.tbl th{padding:12px 16px;text-align:start;font-size:.72rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--color-text-secondary);background:var(--color-bg)}
+.tbl td{padding:11px 16px;border-bottom:1px solid var(--color-bg-secondary)}
+.tbl tbody tr{transition:background .12s}
+.tbl tbody tr:hover{background:var(--color-bg-secondary)}
+.tbl tbody tr:last-child td{border-bottom:none}
+
+/* Striped */
+.tbl--striped tbody tr:nth-child(even){background:color-mix(in srgb,var(--color-bg-secondary)40%,transparent)}
+.tbl--striped tbody tr:nth-child(even):hover{background:var(--color-bg-secondary)}
+
+/* Bordered */
+.tbl--bordered td,.tbl--bordered th{border:1px solid var(--color-bg-secondary)}
+.tbl--bordered thead{border-bottom-width:1px}
+
+/* Compact */
+.tbl--sm th,.tbl--sm td{padding:7px 12px;font-size:.76rem}
+
+/* Status badges */
+.tbl .tbl-badge{display:inline-block;padding:2px 10px;border-radius:99px;font-size:.68rem;font-weight:700;letter-spacing:.03em}
+.tbl-badge--success{background:rgba(76,175,80,.14);color:#388e3c}
+.tbl-badge--warning{background:rgba(255,152,0,.14);color:#e65100}
+.tbl-badge--danger{background:rgba(211,47,47,.12);color:#c62828;white-space:nowrap}
+
+/* Responsive card fallback */
+@media(max-width:640px){
+  .tbl--responsive thead{display:none}
+  .tbl--responsive,.tbl--responsive tbody,.tbl--responsive tr,.tbl--responsive td{display:block;white-space:normal}
+  .tbl--responsive tr{border:1px solid var(--color-bg-secondary);border-radius:var(--border-radius);margin-bottom:10px;padding:8px 0;background:var(--color-bg)}
+  .tbl--responsive td{border:none;padding:6px 16px;display:flex;justify-content:space-between;align-items:center;gap:8px}
+  .tbl--responsive td::before{content:attr(data-label);font-size:.68rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--color-text-secondary);flex-shrink:0}
+}
+
+/* ── Classless table (body.exsa) ── */
+@layer exsa.components {
+:where(.exsa table){border:1px solid var(--color-bg-secondary);border-radius:var(--border-radius);border-spacing:0;display:inline-block;max-width:100%;overflow-x:auto;padding:0;font-size:.84rem;color:var(--color-text)}
+:where(.exsa table td),:where(.exsa table th),:where(.exsa table tr){padding:.4rem .8rem;text-align:var(--justify-important)}
+:where(.exsa table thead){background-color:var(--color-table);border-collapse:collapse;border-radius:var(--border-radius);color:var(--color-bg);margin:0;padding:0}
+:where(.exsa table thead tr:first-child th:first-child){border-start-start-radius:var(--border-radius)}
+:where(.exsa table thead tr:first-child th:last-child){border-start-end-radius:var(--border-radius)}
+:where(.exsa table thead th:first-child),:where(.exsa table tr td:first-child){text-align:var(--justify-normal)}
+:where(.exsa table tr:nth-child(even)){background-color:var(--color-accent)}
+}

@@ -1,0 +1,73 @@
+/* ============================================================
+   LAYER 4 — THEME: CORAL
+   Warm pink-orange by default, deep plum in dark mode.
+   Auto-switches via prefers-color-scheme.
+   Force mode: <html data-theme-mode="light|dark">
+   ============================================================ */
+
+/* ── Light mode (default) ── */
+:root {
+  --color-bg:               #fff8f6;
+  --color-bg-secondary:     #ffe0d8;
+  --color-text:             #2d1810;
+  --color-text-secondary:   #7a5548;
+  --color-link:             #c42d0a;
+  --color-secondary:        #c2185b;
+  --color-secondary-accent: #c2185b0f;
+  --color-accent:           #dc391212;
+  --color-shadow:           #f5b8a8;
+  --color-scrollbar:        #f08070;
+  --color-table:            #dc3912;
+  --color-button-text:      var(--color-bg);
+  --border-radius:          12px;
+}
+
+/* ── Dark mode (auto) ── */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-bg:               #1a1018;
+    --color-bg-secondary:     #2a1a24;
+    --color-text:             #f0d8d8;
+    --color-text-secondary:   #c09898;
+    --color-link:             #f87171;
+    --color-secondary:        #f472b6;
+    --color-secondary-accent: #f472b618;
+    --color-accent:           #f8717114;
+    --color-shadow:           #00000033;
+    --color-scrollbar:        #4a2a38;
+    --color-table:            #f87171;
+  --color-button-text:      var(--color-bg);
+    --border-radius:          12px;
+  }
+}
+
+:root[data-theme-mode="light"] {
+  --color-bg:               #fff8f6;
+  --color-bg-secondary:     #ffe0d8;
+  --color-text:             #2d1810;
+  --color-text-secondary:   #7a5548;
+  --color-link:             #c42d0a;
+  --color-secondary:        #c2185b;
+  --color-secondary-accent: #c2185b0f;
+  --color-accent:           #dc391212;
+  --color-shadow:           #f5b8a8;
+  --color-scrollbar:        #f08070;
+  --color-table:            #dc3912;
+  --color-button-text:      var(--color-bg);
+  --border-radius:          12px;
+}
+:root[data-theme-mode="dark"] {
+  --color-bg:               #1a1018;
+  --color-bg-secondary:     #2a1a24;
+  --color-text:             #f0d8d8;
+  --color-text-secondary:   #c09898;
+  --color-link:             #f87171;
+  --color-secondary:        #f472b6;
+  --color-secondary-accent: #f472b618;
+  --color-accent:           #f8717114;
+  --color-shadow:           #00000033;
+  --color-scrollbar:        #4a2a38;
+  --color-table:            #f87171;
+  --color-button-text:      var(--color-bg);
+  --border-radius:          12px;
+}

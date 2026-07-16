@@ -1,0 +1,26 @@
+/* ============================================================
+   Component Library
+   :root tokens. Theme-ready.
+   ============================================================ */
+
+/* --- C2: DRAWER --- */
+.drawer__toggle{display:none}
+.drawer__backdrop{position:fixed;inset:0;z-index:900;background:rgba(0,0,0,.45);opacity:0;visibility:hidden;transition:opacity .25s,visibility .25s}
+.drawer__toggle:checked ~ .drawer__backdrop{opacity:1;visibility:visible}
+.drawer__panel{position:fixed;top:0;inset-inline-end:0;z-index:901;width:360px;max-width:88vw;height:100%;background:var(--color-bg);box-shadow:-4px 0 24px rgba(0,0,0,.12);transform:translateX(100%);transition:transform .3s cubic-bezier(.4,0,.2,1);display:flex;flex-direction:column;overflow-y:auto}
+.drawer__toggle:checked ~ .drawer__panel{transform:translateX(0)}
+.drawer__head{display:flex;align-items:center;justify-content:space-between;padding:16px 20px;border-bottom:1px solid var(--color-bg-secondary);flex-shrink:0}
+.drawer__title{font-size:1rem;font-weight:700;color:var(--color-text);margin:0}
+.drawer__close{width:32px;height:32px;border-radius:50%;border:none !important;background:transparent;color:var(--color-text-secondary);font-size:1.2rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .15s,color .15s;padding:0 !important;margin:0 !important}
+.drawer__close:hover{background:var(--color-bg-secondary);color:var(--color-text)}
+.drawer__body{padding:20px;flex:1;font-size:.88rem;color:var(--color-text);line-height:1.65}
+.drawer__body p{margin:.5rem 0 !important;width:auto !important}
+
+/* Left variant */
+.drawer--left .drawer__panel{inset-inline-end:auto;inset-inline-start:0;transform:translateX(-100%)}
+.drawer--left .drawer__toggle:checked ~ .drawer__panel{transform:translateX(0)}
+
+/* RTL: flip slide direction (translateX is physical, must override) */
+[dir="rtl"] .drawer__panel{transform:translateX(-100%)}
+[dir="rtl"] .drawer--left .drawer__panel{transform:translateX(100%)}
+[dir="rtl"] .drawer__toggle:checked ~ .drawer__panel{transform:translateX(0)}

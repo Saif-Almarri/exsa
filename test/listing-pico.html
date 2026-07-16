@@ -1,0 +1,892 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <meta name="description" content="Offers near you — Osahan Eat restaurant listing">
+  <title>Osahan Eat - Offers Near You</title>
+  <link rel="icon" type="image/jpeg" href="https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=64&h=64&fit=crop&q=80">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css">
+  <style>
+    :root {
+      --listing-accent: #28a745;
+      --listing-danger: #dc3545;
+      --listing-muted: #6c757d;
+    }
+
+    body > header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--pico-background-color);
+      border-bottom: 1px solid var(--pico-muted-border-color);
+      padding: 0.75rem 0;
+      margin-bottom: 0;
+    }
+
+    body > header nav {
+      --pico-nav-element-spacing-vertical: 0;
+    }
+
+    body > header .brand img {
+      height: 40px;
+      width: auto;
+    }
+
+    body > header details.dropdown summary::after {
+      display: none;
+    }
+
+    .nav-avatar {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      vertical-align: middle;
+      margin-right: 0.35rem;
+    }
+
+    .cart-badge,
+    .offer-badge,
+    .new-badge {
+      display: inline-block;
+      padding: 0.15rem 0.45rem;
+      border-radius: 0.25rem;
+      font-size: 0.75rem;
+      font-weight: 600;
+      line-height: 1.2;
+      color: #fff;
+      background: var(--listing-accent);
+      vertical-align: middle;
+    }
+
+    .new-badge { background: var(--listing-danger); }
+    .offer-badge.danger { background: var(--listing-danger); }
+    .offer-badge.dark { background: #212529; }
+    .offer-badge.warning { background: #ffc107; color: #212529; }
+
+    .hero {
+      text-align: center;
+      padding: 3rem 1rem;
+      background: #212529;
+      color: #fff;
+      margin-bottom: 0;
+    }
+
+    .hero h1 { color: #fff; margin-bottom: 0.35rem; }
+    .hero p { color: rgba(255, 255, 255, 0.65); margin: 0; }
+
+    .listing-layout {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+      padding-block: 2rem;
+    }
+
+    @media (min-width: 992px) {
+      .listing-layout {
+        grid-template-columns: 280px 1fr;
+        align-items: start;
+      }
+    }
+
+    .listing-toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    .listing-toolbar h2 {
+      margin: 0;
+      font-size: 1.25rem;
+    }
+
+    .listing-toolbar h2 small {
+      font-weight: 400;
+      color: var(--pico-muted-color);
+      margin-left: 0.5rem;
+    }
+
+    .filters article {
+      margin-bottom: 1rem;
+      padding: 0;
+    }
+
+    .filters article > header {
+      margin: 0;
+      padding: 1rem 1.25rem;
+      border-bottom: 1px solid var(--pico-muted-border-color);
+    }
+
+    .filters article > header h3 {
+      margin: 0;
+      font-size: 1.1rem;
+    }
+
+    .filters details {
+      border-bottom: 1px solid var(--pico-muted-border-color);
+      margin: 0;
+      padding: 0;
+    }
+
+    .filters details:last-child {
+      border-bottom: none;
+    }
+
+    .filters details summary {
+      padding: 1rem 1.25rem;
+      font-weight: 600;
+    }
+
+    .filters details[open] summary {
+      margin-bottom: 0;
+    }
+
+    .filter-body {
+      padding: 0 1.25rem 1.25rem;
+    }
+
+    .filter-body label {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      width: fit-content;
+      margin-bottom: 0.35rem;
+    }
+
+    .filter-body label small {
+      color: var(--listing-muted);
+      margin-left: 0.15rem;
+    }
+
+    .partner-box {
+      padding: 1.25rem;
+    }
+
+    .partner-box label {
+      width: fit-content;
+    }
+
+    .promo-note {
+      color: var(--listing-accent);
+      font-size: 0.875rem;
+    }
+
+    .categories {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
+      gap: 0.75rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .categories a {
+      text-align: center;
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .categories img {
+      width: 64px;
+      height: 64px;
+      object-fit: cover;
+      border-radius: 50%;
+      margin: 0 auto 0.35rem;
+      display: block;
+    }
+
+    .categories h4 {
+      margin: 0;
+      font-size: 0.85rem;
+    }
+
+    .categories p {
+      margin: 0;
+      font-size: 0.75rem;
+      color: var(--pico-muted-color);
+    }
+
+    .restaurant-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.25rem;
+    }
+
+    @media (min-width: 576px) {
+      .restaurant-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (min-width: 992px) {
+      .restaurant-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    .restaurant-card {
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .restaurant-card figure {
+      margin: 0;
+      position: relative;
+    }
+
+    .restaurant-card figure img {
+      width: 100%;
+      aspect-ratio: 16 / 10;
+      object-fit: cover;
+      display: block;
+    }
+
+    .restaurant-card .overlays {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+    }
+
+    .restaurant-card .overlays a {
+      pointer-events: auto;
+    }
+
+    .restaurant-card .star {
+      position: absolute;
+      top: 0.6rem;
+      left: 0.6rem;
+    }
+
+    .restaurant-card .heart {
+      position: absolute;
+      top: 0.6rem;
+      right: 0.6rem;
+      color: var(--listing-danger);
+      text-decoration: none;
+      font-size: 1.25rem;
+    }
+
+    .restaurant-card .promoted {
+      position: absolute;
+      bottom: 0.6rem;
+      left: 0.6rem;
+    }
+
+    .restaurant-card .body {
+      padding: 1rem;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .restaurant-card .body h3 {
+      margin: 0 0 0.35rem;
+      font-size: 1rem;
+    }
+
+    .restaurant-card .body h3 a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .restaurant-card .meta,
+    .restaurant-card .timing {
+      margin: 0 0 0.5rem;
+      font-size: 0.875rem;
+      color: var(--pico-muted-color);
+    }
+
+    .restaurant-card .timing {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .restaurant-card .timing time {
+      background: var(--pico-form-element-background-color);
+      padding: 0.2rem 0.5rem;
+      border-radius: 0.25rem;
+      color: var(--pico-color);
+      font-size: 0.8rem;
+    }
+
+    .restaurant-card .deal {
+      margin-top: auto;
+      font-size: 0.85rem;
+    }
+
+    .load-more {
+      text-align: center;
+      grid-column: 1 / -1;
+      margin-top: 0.5rem;
+    }
+
+    .cta-band {
+      text-align: center;
+      padding: 2rem 1rem;
+      border-top: 1px solid var(--pico-muted-border-color);
+      border-bottom: 1px solid var(--pico-muted-border-color);
+    }
+
+    .cta-band h2 {
+      margin: 0;
+      font-size: 1.1rem;
+    }
+
+    .site-footer {
+      padding-block: 2.5rem 1rem;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 2rem;
+      margin-bottom: 2rem;
+    }
+
+    @media (min-width: 768px) {
+      .footer-grid {
+        grid-template-columns: 2fr 1fr 1fr 1fr;
+      }
+    }
+
+    .site-footer h3 {
+      font-size: 1rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .site-footer ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .site-footer ul li {
+      margin-bottom: 0.35rem;
+    }
+
+    .newsletter-form {
+      display: flex;
+      gap: 0.5rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .newsletter-form input {
+      margin: 0;
+      flex: 1;
+    }
+
+    .newsletter-form button {
+      margin: 0;
+      width: auto;
+      white-space: nowrap;
+    }
+
+    .app-links {
+      display: flex;
+      gap: 0.75rem;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .app-links img {
+      height: 40px;
+      width: auto;
+    }
+
+    .popular-links {
+      font-size: 0.875rem;
+      line-height: 1.8;
+      color: var(--pico-muted-color);
+    }
+
+    .popular-links a {
+      color: var(--pico-muted-color);
+      text-decoration: none;
+    }
+
+    .popular-links a:hover {
+      color: var(--pico-primary);
+    }
+
+    .copyright {
+      text-align: center;
+      padding: 1.5rem 0;
+      border-top: 1px solid var(--pico-muted-border-color);
+      font-size: 0.875rem;
+    }
+
+    .cart-preview {
+      min-width: 280px;
+      max-width: 320px;
+    }
+
+    .cart-preview header {
+      margin-bottom: 0.75rem;
+    }
+
+    .cart-preview header img {
+      width: 100%;
+      border-radius: var(--pico-border-radius);
+      margin-bottom: 0.5rem;
+    }
+
+    .cart-preview .line {
+      display: flex;
+      justify-content: space-between;
+      gap: 0.5rem;
+      font-size: 0.875rem;
+      margin: 0.25rem 0;
+    }
+
+    .cart-preview footer {
+      border-top: 1px solid var(--pico-muted-border-color);
+      padding-top: 0.75rem;
+      margin-top: 0.75rem;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container">
+      <nav>
+        <ul>
+          <li>
+            <a class="brand" href="index.html">
+              <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=160&h=48&fit=crop&q=80" alt="Osahan Eat">
+            </a>
+          </li>
+        </ul>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li>
+            <a href="offers.html">Offers <span class="new-badge">New</span></a>
+          </li>
+          <li>
+            <details class="dropdown">
+              <summary>Restaurants</summary>
+              <ul dir="rtl">
+                <li><a href="listing.html">Listing</a></li>
+                <li><a href="detail.html">Detail + Cart</a></li>
+                <li><a href="checkout.html">Checkout</a></li>
+              </ul>
+            </details>
+          </li>
+          <li>
+            <details class="dropdown">
+              <summary>Pages</summary>
+              <ul dir="rtl">
+                <li><a href="track-order.html">Track Order</a></li>
+                <li><a href="invoice.html">Invoice</a></li>
+                <li><a href="login.html">Login</a></li>
+                <li><a href="register.html">Register</a></li>
+                <li><a href="404.html">404</a></li>
+                <li><a href="extra.html">Extra :)</a></li>
+              </ul>
+            </details>
+          </li>
+          <li>
+            <details class="dropdown">
+              <summary>
+                <img class="nav-avatar" src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=100&h=100&fit=crop&q=80" alt=""> My Account
+              </summary>
+              <ul dir="rtl">
+                <li><a href="orders.html#orders">Orders</a></li>
+                <li><a href="orders.html#offers">Offers</a></li>
+                <li><a href="orders.html#favourites">Favourites</a></li>
+                <li><a href="orders.html#payments">Payments</a></li>
+                <li><a href="orders.html#addresses">Addresses</a></li>
+              </ul>
+            </details>
+          </li>
+          <li>
+            <details class="dropdown">
+              <summary>Cart <span class="cart-badge">5</span></summary>
+              <ul dir="rtl">
+                <li>
+                  <article class="cart-preview">
+                    <header>
+                      <img src="https://images.unsplash.com/photo-1626645738196-c2a7c87a8f58?w=400&h=250&fit=crop&q=80" alt="Gus's World Famous Chicken">
+                      <strong>Gus's World Famous Chicken</strong>
+                      <p><small>310 S Front St, Memphis, USA</small></p>
+                      <p><a href="#">View Full Menu</a></p>
+                    </header>
+                    <div class="line"><span>Chicken Tikka Sub 12" × 1</span><span>$314</span></div>
+                    <div class="line"><span>Corn &amp; Peas Salad × 1</span><span>$209</span></div>
+                    <div class="line"><span>Veg Seekh Sub 6" × 1</span><span>$133</span></div>
+                    <div class="line"><span>Chicken Tikka Sub 12" × 1</span><span>$314</span></div>
+                    <div class="line"><span>Corn &amp; Peas Salad × 1</span><span>$209</span></div>
+                    <footer>
+                      <div class="line"><strong>Sub Total</strong><strong>$499</strong></div>
+                      <p><small>Extra charges may apply</small></p>
+                      <a href="checkout.html" role="button">Checkout</a>
+                    </footer>
+                  </article>
+                </li>
+              </ul>
+            </details>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero">
+    <h1>Offers Near You</h1>
+    <p>Best deals at your favourite restaurants</p>
+  </section>
+
+  <main class="container">
+    <div class="listing-toolbar">
+      <h2>OFFERS <small>299 restaurants</small></h2>
+      <label>
+        Sort by
+        <select name="sort" aria-label="Sort restaurants">
+          <option selected>Distance</option>
+          <option>No Of Offers</option>
+          <option>Rating</option>
+        </select>
+      </label>
+    </div>
+
+    <div class="listing-layout">
+      <aside class="filters">
+        <article>
+          <header><h3>Filter By</h3></header>
+
+          <details open>
+            <summary>Location</summary>
+            <div class="filter-body">
+              <label><input type="checkbox" name="loc"> Ludhiana Junction <small>230</small></label>
+              <label><input type="checkbox" name="loc"> Model Town <small>95</small></label>
+              <label><input type="checkbox" name="loc"> Civil Lines <small>35</small></label>
+              <label><input type="checkbox" name="loc"> Dugri <small>46</small></label>
+              <label><input type="checkbox" name="loc"> PAU <small>20</small></label>
+              <p><a href="#">See all</a></p>
+            </div>
+          </details>
+
+          <details open>
+            <summary>All cuisines</summary>
+            <div class="filter-body">
+              <input type="search" name="cuisine-search" placeholder="Start typing to search..." aria-label="Search cuisines">
+              <label><input type="checkbox" name="cuisine"> American <small>156</small></label>
+              <label><input type="checkbox" name="cuisine"> Pizza <small>120</small></label>
+              <label><input type="checkbox" name="cuisine"> Healthy <small>130</small></label>
+              <label><input type="checkbox" name="cuisine"> Vegetarian <small>120</small></label>
+              <label><input type="checkbox" name="cuisine"> Chinese <small>111</small></label>
+              <label><input type="checkbox" name="cuisine"> Hamburgers <small>95</small></label>
+              <label><input type="checkbox" name="cuisine"> Dessert <small>50</small></label>
+              <label><input type="checkbox" name="cuisine"> Chicken <small>32</small></label>
+              <label><input type="checkbox" name="cuisine"> Indian <small>156</small></label>
+              <p><a href="#">See all</a></p>
+            </div>
+          </details>
+
+          <details>
+            <summary>Feature</summary>
+            <div class="filter-body">
+              <label><input type="checkbox" name="feature"> Free Delivery <small>156</small></label>
+              <label><input type="checkbox" name="feature"> Coupons <small>120</small></label>
+              <label><input type="checkbox" name="feature"> Open Now [1:31am] <small>85</small></label>
+            </div>
+          </details>
+
+          <details>
+            <summary>Delivery time</summary>
+            <div class="filter-body">
+              <label><input type="checkbox" name="time"> Any Time</label>
+              <label><input type="checkbox" name="time"> 25 min</label>
+              <label><input type="checkbox" name="time"> 30 min</label>
+              <label><input type="checkbox" name="time"> 40 min</label>
+              <label><input type="checkbox" name="time"> 50 min</label>
+              <p><a href="#">See all</a></p>
+            </div>
+          </details>
+
+          <details>
+            <summary>Category</summary>
+            <div class="filter-body">
+              <label><input type="checkbox" name="category"> Delivery <small>156</small></label>
+              <label><input type="checkbox" name="category"> Dine-out <small>120</small></label>
+              <label><input type="checkbox" name="category"> Cafés <small>85</small></label>
+            </div>
+          </details>
+        </article>
+
+        <article class="partner-box">
+          <fieldset>
+            <label><input type="radio" name="partner" checked> Gold Partner</label>
+            <label><input type="radio" name="partner"> Order Food Online</label>
+            <label><input type="radio" name="partner"> Osahan Eat</label>
+          </fieldset>
+          <p class="promo-note">Use code OSAHAN50 to get 50% OFF (up to $30) on first 5 orders. T&amp;Cs apply.</p>
+        </article>
+      </aside>
+
+      <div>
+        <nav class="categories" aria-label="Cuisine categories">
+          <a href="#"><img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=400&h=300&fit=crop&q=80" alt=""><h4>American</h4><p>156</p></a>
+          <a href="#"><img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=400&h=300&fit=crop&q=80" alt=""><h4>Pizza</h4><p>120</p></a>
+          <a href="#"><img src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=400&h=300&fit=crop&q=80" alt=""><h4>Healthy</h4><p>130</p></a>
+          <a href="#"><img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400&h=300&fit=crop&q=80" alt=""><h4>Vegetarian</h4><p>120</p></a>
+          <a href="#"><img src="https://images.unsplash.com/photo-1569718212165-3a8278d5f624?w=400&h=300&fit=crop&q=80" alt=""><h4>Chinese</h4><p>111</p></a>
+          <a href="#"><img src="https://images.unsplash.com/photo-1550547660-d9450f859349?w=400&h=300&fit=crop&q=80" alt=""><h4>Hamburgers</h4><p>958</p></a>
+          <a href="#"><img src="https://images.unsplash.com/photo-1551024601-bec78aea704b?w=400&h=300&fit=crop&q=80" alt=""><h4>Dessert</h4><p>56</p></a>
+          <a href="#"><img src="https://images.unsplash.com/photo-1598103442097-8b74394b95c6?w=400&h=300&fit=crop&q=80" alt=""><h4>Chicken</h4><p>40</p></a>
+          <a href="#"><img src="https://images.unsplash.com/photo-1585937421612-70a008356fbe?w=400&h=300&fit=crop&q=80" alt=""><h4>Indian</h4><p>156</p></a>
+        </nav>
+
+        <div class="restaurant-grid">
+          <article class="restaurant-card">
+            <figure>
+              <a href="detail.html"><img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=400&h=300&fit=crop&q=80" alt="World Famous"></a>
+              <div class="overlays">
+                <span class="star"><span class="offer-badge">★ 3.1 (300+)</span></span>
+                <a class="heart" href="detail.html" aria-label="Favourite">♥</a>
+                <span class="promoted"><span class="offer-badge dark">Promoted</span></span>
+              </div>
+            </figure>
+            <div class="body">
+              <h3><a href="detail.html">World Famous</a></h3>
+              <p class="meta">North Indian • American • Pure veg</p>
+              <p class="timing"><time>20–25 min</time> <span>$250 FOR TWO</span></p>
+              <p class="deal"><span class="offer-badge">OFFER</span> <small>65% off | Use Coupon OSAHAN50</small></p>
+            </div>
+          </article>
+
+          <article class="restaurant-card">
+            <figure>
+              <a href="detail.html"><img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=400&h=300&fit=crop&q=80" alt="Famous Food"></a>
+              <div class="overlays">
+                <span class="star"><span class="offer-badge">★ 3.1 (300+)</span></span>
+                <a class="heart" href="detail.html" aria-label="Favourite">♥</a>
+                <span class="promoted"><span class="offer-badge dark">Promoted</span></span>
+              </div>
+            </figure>
+            <div class="body">
+              <h3><a href="detail.html">Famous Food</a></h3>
+              <p class="meta">North Indian • Indian • Pure veg</p>
+              <p class="timing"><time>15–25 min</time> <span>$250 FOR TWO</span></p>
+              <p class="deal"><span class="offer-badge danger">OFFER</span> <small>65% off | Use Coupon OSAHAN50</small></p>
+            </div>
+          </article>
+
+          <article class="restaurant-card">
+            <figure>
+              <a href="detail.html"><img src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=400&h=300&fit=crop&q=80" alt="Bite Me Sandwiches"></a>
+              <div class="overlays">
+                <span class="star"><span class="offer-badge warning">★ 3.1 (300+)</span></span>
+                <a class="heart" href="detail.html" aria-label="Favourite">♥</a>
+                <span class="promoted"><span class="offer-badge dark">Promoted</span></span>
+              </div>
+            </figure>
+            <div class="body">
+              <h3><a href="detail.html">Bite Me Sandwiches</a></h3>
+              <p class="meta">North Indian • Indian • Pure veg</p>
+              <p class="timing"><time>15–25 min</time> <span>$100 FOR TWO</span></p>
+              <p class="deal"><span class="offer-badge danger">OFFER</span> <small>65% off | Use Coupon OSAHAN50</small></p>
+            </div>
+          </article>
+
+          <article class="restaurant-card">
+            <figure>
+              <a href="detail.html"><img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400&h=300&fit=crop&q=80" alt="Famous Dave's Bar-B-Que"></a>
+              <div class="overlays">
+                <span class="star"><span class="offer-badge">★ 3.1 (300+)</span></span>
+                <a class="heart" href="detail.html" aria-label="Favourite">♥</a>
+                <span class="promoted"><span class="offer-badge dark">Promoted</span></span>
+              </div>
+            </figure>
+            <div class="body">
+              <h3><a href="detail.html">Famous Dave's Bar-B-Que</a></h3>
+              <p class="meta">Vegetarian • Indian • Pure veg</p>
+              <p class="timing"><time>15–30 min</time> <span>$350 FOR TWO</span></p>
+              <p class="deal"><span class="offer-badge danger">OFFER</span> <small>65% off | Use Coupon OSAHAN50</small></p>
+            </div>
+          </article>
+
+          <article class="restaurant-card">
+            <figure>
+              <a href="detail.html"><img src="https://images.unsplash.com/photo-1569718212165-3a8278d5f624?w=400&h=300&fit=crop&q=80" alt="Thai Famous Cuisine"></a>
+              <div class="overlays">
+                <span class="star"><span class="offer-badge">★ 3.1 (300+)</span></span>
+                <a class="heart" href="detail.html" aria-label="Favourite">♥</a>
+                <span class="promoted"><span class="offer-badge dark">Promoted</span></span>
+              </div>
+            </figure>
+            <div class="body">
+              <h3><a href="detail.html">Thai Famous Cuisine</a></h3>
+              <p class="meta">North Indian • Indian • Pure veg</p>
+              <p class="timing"><time>30–35 min</time> <span>$250 FOR TWO</span></p>
+              <p class="deal"><span class="offer-badge">OFFER</span> <small>65% off | Use Coupon OSAHAN50</small></p>
+            </div>
+          </article>
+
+          <article class="restaurant-card">
+            <figure>
+              <a href="detail.html"><img src="https://images.unsplash.com/photo-1550547660-d9450f859349?w=400&h=300&fit=crop&q=80" alt="The osahan Restaurant"></a>
+              <div class="overlays">
+                <span class="star"><span class="offer-badge">★ 3.1 (300+)</span></span>
+                <a class="heart" href="detail.html" aria-label="Favourite">♥</a>
+                <span class="promoted"><span class="offer-badge danger">Promoted</span></span>
+              </div>
+            </figure>
+            <div class="body">
+              <h3><a href="detail.html">The osahan Restaurant</a></h3>
+              <p class="meta">North • Hamburgers • Pure veg</p>
+              <p class="timing"><time>15–25 min</time> <span>$500 FOR TWO</span></p>
+              <p class="deal"><span class="offer-badge danger">OFFER</span> <small>65% off | Use Coupon OSAHAN50</small></p>
+            </div>
+          </article>
+
+          <article class="restaurant-card">
+            <figure>
+              <a href="detail.html"><img src="https://images.unsplash.com/photo-1551024601-bec78aea704b?w=400&h=300&fit=crop&q=80" alt="Stan's Restaurant"></a>
+              <div class="overlays">
+                <span class="star"><span class="offer-badge warning">★ 3.1 (300+)</span></span>
+                <a class="heart" href="detail.html" aria-label="Favourite">♥</a>
+                <span class="promoted"><span class="offer-badge dark">Promoted</span></span>
+              </div>
+            </figure>
+            <div class="body">
+              <h3><a href="detail.html">Stan's Restaurant</a></h3>
+              <p class="meta">North Indian • Indian • Pure veg</p>
+              <p class="timing"><time>15–25 min</time> <span>$250 FOR TWO</span></p>
+              <p class="deal"><span class="offer-badge danger">OFFER</span> <small>65% off | Use Coupon OSAHAN50</small></p>
+            </div>
+          </article>
+
+          <article class="restaurant-card">
+            <figure>
+              <a href="detail.html"><img src="https://images.unsplash.com/photo-1598103442097-8b74394b95c6?w=400&h=300&fit=crop&q=80" alt="Polo Lounge"></a>
+              <div class="overlays">
+                <span class="star"><span class="offer-badge">★ 3.1 (300+)</span></span>
+                <a class="heart" href="detail.html" aria-label="Favourite">♥</a>
+                <span class="promoted"><span class="offer-badge dark">Promoted</span></span>
+              </div>
+            </figure>
+            <div class="body">
+              <h3><a href="detail.html">Polo Lounge</a></h3>
+              <p class="meta">North Indian • Indian • Pure veg</p>
+              <p class="timing"><time>15–25 min</time> <span>$250 FOR TWO</span></p>
+              <p class="deal"><span class="offer-badge danger">OFFER</span> <small>65% off | Use Coupon OSAHAN50</small></p>
+            </div>
+          </article>
+
+          <article class="restaurant-card">
+            <figure>
+              <a href="detail.html"><img src="https://images.unsplash.com/photo-1585937421612-70a008356fbe?w=400&h=300&fit=crop&q=80" alt="Jack Fry's"></a>
+              <div class="overlays">
+                <span class="star"><span class="offer-badge">★ 3.1 (300+)</span></span>
+                <a class="heart" href="detail.html" aria-label="Favourite">♥</a>
+                <span class="promoted"><span class="offer-badge dark">Promoted</span></span>
+              </div>
+            </figure>
+            <div class="body">
+              <h3><a href="detail.html">Jack Fry's</a></h3>
+              <p class="meta">North Indian • Indian • Pure veg</p>
+              <p class="timing"><time>15–25 min</time> <span>$250 FOR TWO</span></p>
+              <p class="deal"><span class="offer-badge danger">OFFER</span> <small>65% off | Use Coupon OSAHAN50</small></p>
+            </div>
+          </article>
+
+          <div class="load-more">
+            <button type="button" aria-busy="true" disabled>Loading...</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <section class="cta-band">
+    <div class="container">
+      <h2>Operate food store or restaurants? <a href="login.html">Work With Us</a></h2>
+    </div>
+  </section>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <h3>Subscribe to our Newsletter</h3>
+          <form class="newsletter-form" onsubmit="return false;">
+            <input type="email" name="email" placeholder="Please enter your email" aria-label="Email">
+            <button type="submit">Subscribe</button>
+          </form>
+          <p><a href="register.html">Register now</a> to get updates on <a href="offers.html">Offers and Coupons</a></p>
+          <p><small>DOWNLOAD APP</small></p>
+          <div class="app-links">
+            <a href="#"><img src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg" alt="Google Play"></a>
+            <a href="#"><img src="https://upload.wikimedia.org/wikipedia/commons/3/3c/Download_on_the_App_Store_Badge.svg" alt="App Store"></a>
+          </div>
+        </div>
+        <div>
+          <h3>About OE</h3>
+          <ul>
+            <li><a href="#">About Us</a></li>
+            <li><a href="#">Culture</a></li>
+            <li><a href="#">Blog</a></li>
+            <li><a href="#">Careers</a></li>
+            <li><a href="#">Contact</a></li>
+          </ul>
+        </div>
+        <div>
+          <h3>For Foodies</h3>
+          <ul>
+            <li><a href="#">Community</a></li>
+            <li><a href="#">Developers</a></li>
+            <li><a href="#">Blogger Help</a></li>
+            <li><a href="#">Verified Users</a></li>
+            <li><a href="#">Code of Conduct</a></li>
+          </ul>
+        </div>
+        <div>
+          <h3>For Restaurants</h3>
+          <ul>
+            <li><a href="#">Advertise</a></li>
+            <li><a href="#">Add a Restaurant</a></li>
+            <li><a href="#">Claim your Listing</a></li>
+            <li><a href="#">For Businesses</a></li>
+            <li><a href="#">Owner Guidelines</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <p><strong>POPULAR COUNTRIES</strong></p>
+      <p class="popular-links">
+        <a href="#">Australia</a> | <a href="#">Brasil</a> | <a href="#">Canada</a> | <a href="#">Chile</a> |
+        <a href="#">Czech Republic</a> | <a href="#">India</a> | <a href="#">Indonesia</a> |
+        <a href="#">Ireland</a> | <a href="#">New Zealand</a> | <a href="#">United Kingdom</a> |
+        <a href="#">Turkey</a> | <a href="#">Philippines</a> | <a href="#">Sri Lanka</a>
+      </p>
+
+      <p><strong>POPULAR FOOD</strong></p>
+      <p class="popular-links">
+        <a href="#">Fast Food</a> | <a href="#">Chinese</a> | <a href="#">Street Food</a> |
+        <a href="#">Continental</a> | <a href="#">Mithai</a> | <a href="#">Cafe</a> |
+        <a href="#">South Indian</a> | <a href="#">Punjabi Food</a>
+      </p>
+
+      <div class="copyright">
+        <p>© Copyright 2020 Osahan Eat. All Rights Reserved</p>
+        <p>
+          <small>
+            Made with ♥ by
+            <a href="https://www.instagram.com/iamgurdeeposahan/" target="_blank" rel="noopener">Gurdeep Osahan</a>
+            —
+            <a href="https://askbootstrap.com/" target="_blank" rel="noopener">Ask Bootstrap</a>
+          </small>
+        </p>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

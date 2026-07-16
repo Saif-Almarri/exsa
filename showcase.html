@@ -1,0 +1,2197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EXSA — Component Library</title>
+  <link rel="icon" type="image/png" href="../logo.png">
+  <link rel="stylesheet" href="style.css?v=23">
+  <link id="theme-stylesheet" rel="stylesheet" href="themes/breeze.css?v=3">
+  <link rel="stylesheet" href="components/dashboard.css">
+  <link rel="stylesheet" href="components/slideshow.css">
+  <link rel="stylesheet" href="components/progress.css">
+  <link rel="stylesheet" href="components/music.css">
+  <link rel="stylesheet" href="components/donut.css?v=2">
+  <link rel="stylesheet" href="components/toggle.css">
+  <link rel="stylesheet" href="components/tabs.css">
+  <link rel="stylesheet" href="components/toast.css">
+  <link rel="stylesheet" href="components/tooltip.css">
+  <link rel="stylesheet" href="components/breadcrumbs.css">
+  <link rel="stylesheet" href="components/skeleton.css">
+  <link rel="stylesheet" href="components/spinner.css">
+  <link rel="stylesheet" href="components/rating.css">
+  <link rel="stylesheet" href="components/radio.css">
+  <link rel="stylesheet" href="components/checkbox.css">
+  <link rel="stylesheet" href="components/dropdown.css?v=2">
+  <link rel="stylesheet" href="components/input-group.css">
+  <link rel="stylesheet" href="components/video-gallery.css">
+  <link rel="stylesheet" href="components/modal.css">
+  <link rel="stylesheet" href="components/accordion.css">
+  <link rel="stylesheet" href="components/drawer.css?v=2">
+  <link rel="stylesheet" href="components/pricing-table.css">
+  <link rel="stylesheet" href="components/timeline.css">
+  <link rel="stylesheet" href="components/table.css">
+  <link rel="stylesheet" href="components/data-list.css">
+  <link rel="stylesheet" href="components/separator.css">
+  <link rel="stylesheet" href="components/lightbox.css">
+  <link rel="stylesheet" href="components/cookie-bar.css">
+  <link rel="stylesheet" href="components/alert.css">
+  <link rel="stylesheet" href="components/pagination.css">
+  <link rel="stylesheet" href="components/badge.css">
+  <link rel="stylesheet" href="components/avatar.css">
+  <link rel="stylesheet" href="components/card.css">
+  <link rel="stylesheet" href="components/range-slider.css">
+  <link rel="stylesheet" href="components/password-input.css?v=2">
+  <link rel="stylesheet" href="components/popover.css">
+  <link rel="stylesheet" href="components/back-top.css">
+  <link rel="stylesheet" href="components/stepper.css">
+  <link rel="stylesheet" href="components/buttons.css?v=2">
+  <link rel="stylesheet" href="components/resizer.css">
+  <link rel="stylesheet" href="components/topbar.css?v=15">
+  <link rel="stylesheet" href="components/footer.css">
+  <link rel="stylesheet" href="components/form-validation.css?v=3">
+  <link rel="stylesheet" href="components/select.css">
+  <link rel="stylesheet" href="components/date-picker.css">
+  <link rel="stylesheet" href="components/sidebar.css">
+  <link rel="stylesheet" href="components/color-picker.css">
+  <link rel="stylesheet" href="components/context-menu.css">
+
+  <link rel="stylesheet" href="demo.css?v=5">
+</head>
+<body class="exsa has-topbar">
+
+<a href="#main-content" class="skip-link">Skip to main content</a>
+
+<!-- ════════════════════════════════════════
+     TOPBAR
+═══════════════════════════════════════════ -->
+<header class="topbar" id="demo-topbar">
+  <!-- Left section: brand + nav -->
+  <div class="topbar__left">
+    <a href="#" class="topbar__brand"><img src="../logo.png" alt="EXSA" width="30" class="topbar__logo"> <span>EXSA</span> CSS Engine</a>
+    <nav aria-label="Topbar navigation">
+      <ul class="topbar__nav">
+        <li><a href="#" class="topbar__link"><span class="ic ic-search" style="width:14px;height:14px;"></span> Directory</a></li>
+        <li><a href="#" class="topbar__link"><span class="ic ic-star" style="width:14px;height:14px;"></span> Search</a></li>
+        <li class="topbar__dropdown">
+          <button class="topbar__link topbar__dd-trigger">Browse <span class="ic ic-chevdown" style="width:12px;height:12px;"></span></button>
+          <ul class="topbar__dd-menu">
+            <li><a href="#" class="topbar__dd-item"><span class="ic ic-edit"></span> Components</a></li>
+            <li><a href="generator.html" class="topbar__dd-item"><span class="ic ic-download"></span> Generator v2</a></li>
+            <li><a href="docs.html" class="topbar__dd-item"><span class="ic ic-edit"></span> Documentation</a></li>
+            <li><a href="cheatsheet.html" class="topbar__dd-item"><span class="ic ic-star"></span> Cheatsheet</a></li>
+          </ul>
+        </li>
+        <li class="topbar__dropdown">
+          <button class="topbar__link topbar__dd-trigger">More <span class="ic ic-chevdown" style="width:12px;height:12px;"></span></button>
+          <ul class="topbar__dd-menu">
+            <li><a href="#" class="topbar__dd-item">Documentation</a></li>
+            <li><a href="#" class="topbar__dd-item">Themes</a></li>
+            <li><a href="#" class="topbar__dd-item">About</a></li>
+            <li class="topbar__dd-divider"></li>
+            <li><a href="#" class="topbar__dd-item">GitHub</a></li>
+          </ul>
+        </li>
+      </ul>
+    </nav>
+  </div>
+  <!-- Right section: actions + toggles + avatar -->
+  <div class="topbar__right">
+    <a href="#" class="topbar__link">Login</a>
+    <a href="#" class="topbar__btn topbar__btn--primary">Join Us</a>
+    <button class="topbar__icon-btn" id="rtl-toggle-btn" aria-label="Toggle RTL direction" title="Toggle RTL/LTR direction">
+      <span class="ic ic-rtl" style="width:16px;height:16px;"></span>
+    </button>
+    <div class="avatar avatar--sm" style="cursor:pointer;">
+      <img src="https://picsum.photos/seed/admin/48/48" alt="User">
+    </div>
+  </div>
+  <button class="topbar__toggle" aria-label="Toggle menu"><span class="ic ic-menu"></span></button>
+</header>
+
+<!-- ════════════════════════════════════════
+     SIDEBAR
+═══════════════════════════════════════════ -->
+<aside class="doc-sidebar">
+  <div class="doc-sidebar__head">
+    <div class="doc-sidebar__theme">
+      <select id="theme-select" aria-label="Select theme">
+        <option value="breeze">Breeze</option>
+        <option value="night">Night</option>
+        <option value="sepia">Sepia</option>
+        <option value="forest">Forest</option>
+        <option value="coral">Coral</option>
+        <option value="steel">Steel</option>
+        <option value="ledger">Ledger</option>
+        <option value="clinic">Clinic</option>
+        <option value="prism">Prism</option>
+        <option value="mono">Mono</option>
+        <option value="console">Console</option>
+        <option value="nova">Nova</option>
+        <option value="volt">Volt</option>
+        <option value="ember">Ember</option>
+        <option value="abyss">Abyss</option>
+        <option value="shadow">Shadow</option>
+        <option value="ink">Ink</option>
+      </select>
+      <select id="mode-select" style="margin-top:6px;" aria-label="Select color mode">
+        <option value="">Auto mode</option>
+        <option value="light">Light mode</option>
+        <option value="dark">Dark mode</option>
+      </select>
+    </div>
+  </div>
+
+  <nav class="doc-sidebar__nav" id="sidebar-nav" data-scroll-spy aria-label="Component navigation">
+    <div class="doc-nav-group">
+      <div class="doc-nav-group__title">Layout</div>
+      <a href="#accordion">Accordion</a>
+      <a href="#drawer">Drawer</a>
+      <a href="#footer">Footer</a>
+      <a href="#modal">Modal Window</a>
+      <a href="#pricing">Pricing Table</a>
+    </div>
+    <div class="doc-nav-group">
+      <div class="doc-nav-group__title">Navigation</div>
+      <a href="#topbar">Topbar / Navbar</a>
+      <a href="#sidebar">Sidebar</a>
+      <a href="#back-top">Back to Top</a>
+      <a href="#breadcrumbs">Breadcrumbs</a>
+      <a href="#pagination">Pagination</a>
+      <a href="#stepper">Stepper</a>
+      <a href="#timeline">Timeline</a>
+      <a href="#tooltip">Tooltip</a>
+      <a href="#context-menu">Context Menu</a>
+    </div>
+    <div class="doc-nav-group">
+      <div class="doc-nav-group__title">Content</div>
+      <a href="#avatar">Avatar</a>
+      <a href="#badge">Badge</a>
+      <a href="#card">Card</a>
+      <a href="#table">Table</a>
+      <a href="#data-list">Data List</a>
+      <a href="#separator">Separator</a>
+    </div>
+    <div class="doc-nav-group">
+      <div class="doc-nav-group__title">Media</div>
+      <a href="#lightbox">Lightbox</a>
+      <a href="#music-player">Music Player</a>
+      <a href="#video-gallery">Video Gallery</a>
+      <a href="#slideshow" class="active">Slideshow</a>
+    </div>
+    <div class="doc-nav-group">
+      <div class="doc-nav-group__title">Data</div>
+      <a href="#donut-chart">Donut Chart</a>
+      <a href="#bar-chart">Bar Chart</a>
+      <a href="#progress">Progress Bars</a>
+      <a href="#range-slider">Range Slider</a>
+    </div>
+    <div class="doc-nav-group">
+      <div class="doc-nav-group__title">Actions</div>
+      <a href="#checkbox">Checkbox</a>
+      <a href="#color-picker">Color Picker</a>
+      <a href="#date-picker">Date Picker</a>
+      <a href="#dropdown">Dropdown Menu</a>
+      <a href="#form-validation">Form Validation</a>
+      <a href="#icon-btn">Icon Button</a>
+      <a href="#input-group">Input Group</a>
+      <a href="#loading-btn">Loading Button</a>
+      <a href="#password-input">Password Input</a>
+      <a href="#popover">Popover</a>
+      <a href="#radio">Radio Button</a>
+      <a href="#rating">Rating Stars</a>
+      <a href="#select">Styled Select</a>
+      <a href="#tabs">Tabs</a>
+      <a href="#toggle">Toggle Switch</a>
+      <a href="#buttons">Buttons</a>
+      <a href="#resizer">Panel Resizer</a>
+    </div>
+    <div class="doc-nav-group">
+      <div class="doc-nav-group__title">Feedback</div>
+      <a href="#alert">Alert</a>
+      <a href="#cookie-bar">Cookie Bar</a>
+      <a href="#skeleton">Skeleton Loader</a>
+      <a href="#spinner">Spinner</a>
+      <a href="#toast">Toast Notifications</a>
+    </div>
+  </nav>
+</aside>
+
+<!-- ════════════════════════════════════════
+     MAIN CONTENT
+═══════════════════════════════════════════ -->
+<main class="doc-main" id="main-content">
+
+<h1 class="sr-only">EXSA Component Library — 49 Components, 17 Themes</h1>
+
+<!-- ── ACCORDION ── -->
+  <section class="doc-section" id="accordion">
+    <div class="doc-section__header">
+      <h2 class="doc-section__title">Accordion</h2>
+      <p class="doc-section__desc">Pure CSS expandable sections using hidden <code>&lt;input type="checkbox"&gt;</code> and the <code>:checked</code> pseudo-class. Zero JavaScript. Active label uses <code>--color-link</code>. Add <code>.accordion--sm</code> for compact variant.</p>
+    </div>
+    <div class="doc-demo">
+      <div class="doc-demo__stage doc-demo__stage--block" style="max-width:560px;">
+        <div class="accordion">
+          <div class="accordion__item">
+            <input type="checkbox" class="accordion__trigger" id="acc1" checked>
+            <label class="accordion__label" for="acc1" aria-expanded="true">What design tokens does this use?</label>
+            <div class="accordion__panel" id="acc1-panel" role="region" aria-labelledby="acc1-label"><div class="accordion__panel-inner">12 CSS custom properties from the active theme file drive all colors. <code>--color-link</code> for the active label, <code>--color-bg-secondary</code> for hover states and borders, <code>--border-radius</code> for the container corners.</div></div>
+          </div>
+          <div class="accordion__item">
+            <input type="checkbox" class="accordion__trigger" id="acc2">
+            <label class="accordion__label" for="acc2" aria-expanded="false">Is it pure CSS or does it need JavaScript?</label>
+            <div class="accordion__panel" id="acc2-panel" role="region" aria-labelledby="acc2-label"><div class="accordion__panel-inner">Pure CSS. It uses a hidden checkbox input + the <code>:checked</code> pseudo-class to toggle the panel height. Same pattern as our Toggle Switch component.</div></div>
+          </div>
+          <div class="accordion__item">
+            <input type="checkbox" class="accordion__trigger" id="acc3">
+            <label class="accordion__label" for="acc3" aria-expanded="false">Can I nest accordions inside each other?</label>
+            <div class="accordion__panel" id="acc3-panel" role="region" aria-labelledby="acc3-label"><div class="accordion__panel-inner">Yes. Nest another <code>.accordion</code> block inside <code>.accordion__panel-inner</code>. Each nested accordion gets its own independent checkbox IDs. Works up to any depth.</div></div>
+          </div>
+        </div>
+      </div>
+      <div class="doc-demo__code">&lt;div class="<span class="hl-tag">accordion</span>"&gt;
+  &lt;div class="<span class="hl-tag">accordion__item</span>"&gt;
+    &lt;input type="<span class="hl-attr">checkbox</span>" class="<span class="hl-tag">accordion__trigger</span>" id="<span class="hl-val">a1</span>"&gt;
+    &lt;label class="<span class="hl-tag">accordion__label</span>" for="<span class="hl-val">a1</span>"&gt;Title&lt;/label&gt;
+    &lt;div class="<span class="hl-tag">accordion__panel</span>"&gt;
+      &lt;div class="<span class="hl-tag">accordion__panel-inner</span>"&gt;Content here&lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</div>
+    </div>
+  </section>
+
+  
+
+<!-- ── DRAWER ── -->
+  <section class="doc-section" id="drawer">
+    <div class="doc-section__header">
+      <h2 class="doc-section__title">Drawer</h2>
+      <p class="doc-section__desc">Slide-out panel triggered by a hidden checkbox. Includes backdrop overlay. Supports left variant with <code>.drawer--left</code>. Uses <code>--box-shadow</code> and <code>--color-bg</code> tokens. Pure CSS — no JavaScript required for the toggle.</p>
+    </div>
+    <div class="doc-demo">
+      <div class="doc-demo__stage">
+        <label class="btn btn--neutral" for="drawer-demo-toggle">Open Drawer</label>
+      </div>
+      <div class="doc-demo__code">&lt;input type="<span class="hl-attr">checkbox</span>" class="<span class="hl-tag">drawer__toggle</span>" id="<span class="hl-val">d1</span>"&gt;
+&lt;label class="<span class="hl-tag">drawer__backdrop</span>" for="<span class="hl-val">d1</span>"&gt;&lt;/label&gt;
+&lt;div class="<span class="hl-tag">drawer__panel</span>"&gt;
+  &lt;div class="<span class="hl-tag">drawer__head</span>"&gt;
+    &lt;h3 class="<span class="hl-tag">drawer__title</span>"&gt;Panel&lt;/h3&gt;
+    &lt;label class="<span class="hl-tag">drawer__close</span>" for="<span class="hl-val">d1</span>"&gt;&lt;span class="<span class="hl-tag">ic ic-close</span>"&gt;&lt;/span&gt;&lt;/label&gt;
+  &lt;/div&gt;
+  &lt;div class="<span class="hl-tag">drawer__body</span>"&gt;...&lt;/div&gt;
+&lt;/div&gt;</div>
+    </div>
+  </section>
+
+  
+
+<!-- ── FOOTER ── -->
+  <section class="doc-section" id="footer">
+    <div class="doc-section__header">
+      <h2 class="doc-section__title">Footer</h2>
+      <p class="doc-section__desc">Multi-column site footer with brand, link groups, and copyright bar. Optional tagline. Stacks vertically on mobile. Uses <code>--color-bg-secondary</code> and <code>--color-link</code> tokens.</p>
+    </div>
+    <div class="doc-demo">
+      <div class="doc-demo__stage doc-demo__stage--block" style="padding:0;">
+        <footer class="footer" style="margin-top:0;border-radius:var(--border-radius);">
+          <div class="footer__inner">
+            <div class="footer__grid">
+              <div class="footer__brand">
+                <div class="footer__logo"><img src="../logo.png" alt="EXSA" width="22" class="topbar__logo"> <span>CSS</span> Engine</div>
+                <p class="footer__tagline">A 4-layer CSS framework with token cascade, 13 themes, and a zero-build generator.</p>
+              </div>
+              <div class="footer__links">
+                <div class="footer__links-title">Product</div>
+                <a href="#">Components</a>
+                <a href="#">Themes</a>
+                <a href="#">Generator</a>
+              </div>
+              <div class="footer__links">
+                <div class="footer__links-title">Resources</div>
+                <a href="#">Documentation</a>
+                <a href="#">GitHub</a>
+                <a href="#">Changelog</a>
+              </div>
+              <div class="footer__links">
+                <div class="footer__links-title">Company</div>
+                <a href="#">About</a>
+                <a href="#">Contact</a>
+              </div>
+            </div>
+            <div class="footer__bottom">
+              <span> 2026 EXSA Framework. Built with zero JavaScript.</span>
+              <span><a href="#">Privacy</a> · <a href="#">Terms</a></span>
+            </div>
+          </div>
+        </footer>
+      </div>
+      <div class="doc-demo__code">&lt;footer class="<span class="hl-tag">footer</span>"&gt;
+  &lt;div class="<span class="hl-tag">footer__inner</span>"&gt;
+    &lt;div class="<span class="hl-tag">footer__grid</span>"&gt;
+      &lt;div class="<span class="hl-tag">footer__brand</span>"&gt;...&lt;/div&gt;
+      &lt;div class="<span class="hl-tag">footer__links</span>"&gt;...&lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class="<span class="hl-tag">footer__bottom</span>"&gt;...&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/footer&gt;</div>
+    </div>
+  </section>
+
+
+
+<!-- ── MODAL WINDOW ── -->
+  <section class="doc-section" id="modal">
+    <div class="doc-section__header">
+      <h2 class="doc-section__title">Modal Window</h2>
+      <p class="doc-section__desc">Accessible dialog overlay with backdrop click-to-close, Escape key dismissal, and focus trapping. Structure: <code>.modal__header</code> (title + close button), <code>.modal__body</code> (content), <code>.modal__footer</code> (action buttons). Three footer button variants: primary, default, danger. Open via <code>data-modal-open="id"</code> on a trigger button; the modal uses a matching <code>id</code>. Requires ~20 lines of JavaScript. Uses <code>--box-shadow</code> and <code>--border-radius</code> from theme tokens.</p>
+    </div>
+    <div class="doc-demo">
+      <div class="doc-demo__stage" style="gap:10px;">
+        <button class="btn btn--neutral" data-modal-open="demo-modal">Open Modal</button>
+      </div>
+      <div class="doc-demo__code">&lt;div class="<span class="hl-tag">modal modal--open</span>"&gt;
+  &lt;div class="<span class="hl-tag">modal__dialog</span>"&gt;
+    &lt;div class="<span class="hl-tag">modal__header</span>"&gt;
+      &lt;h3 class="<span class="hl-tag">modal__title</span>"&gt;Confirm Action&lt;/h3&gt;
+      &lt;button class="<span class="hl-tag">modal__close</span>"&gt;&lt;span class="<span class="hl-tag">ic ic-close</span>"&gt;&lt;/span&gt;&lt;/button&gt;
+    &lt;/div&gt;
+    &lt;div class="<span class="hl-tag">modal__body</span>"&gt;...&lt;/div&gt;
+    &lt;div class="<span class="hl-tag">modal__footer</span>"&gt;
+      &lt;button class="<span class="hl-tag">modal__btn</span>"&gt;Cancel&lt;/button&gt;
+      &lt;button class="<span class="hl-tag">modal__btn modal__btn--primary</span>"&gt;Confirm&lt;/button&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</div>
+    </div>
+  </section>
+
+  
+
+<!-- ── PRICING TABLE ── -->
+  <section class="doc-section" id="pricing">
+    <div class="doc-section__header">
+      <h2 class="doc-section__title">Pricing Table</h2>
+      <p class="doc-section__desc">Responsive pricing grid with featured plan highlight. Uses <code>--color-link</code> for the featured border and button, <code>--box-shadow</code> for hover lift, and <code>--border-radius</code> for cards and buttons.</p>
+    </div>
+    <div class="doc-demo">
+      <div class="doc-demo__stage doc-demo__stage--block">
+        <div class="pricing">
+          <div class="pricing__card">
+            <div class="pricing__name">Starter</div>
+            <div class="pricing__price"><sup>$</sup>9</div>
+            <div class="pricing__period">per month</div>
+            <ul class="pricing__features">
+              <li>5 projects</li>
+              <li>1 GB storage</li>
+              <li>Basic analytics</li>
+              <li class="pricing__feature--na">Priority support</li>
+              <li class="pricing__feature--na">Custom domain</li>
+            </ul>
+            <button class="pricing__btn">Get Started</button>
+          </div>
+          <div class="pricing__card pricing__card--featured">
+            <div class="pricing__badge">Most Popular</div>
+            <div class="pricing__name">Professional</div>
+            <div class="pricing__price"><sup>$</sup>29</div>
+            <div class="pricing__period">per month</div>
+            <ul class="pricing__features">
+              <li>50 projects</li>
+              <li>10 GB storage</li>
+              <li>Advanced analytics</li>
+              <li>Priority support</li>
+              <li>Custom domain</li>
+            </ul>
+            <button class="pricing__btn">Get Started</button>
+          </div>
+          <div class="pricing__card">
+            <div class="pricing__name">Enterprise</div>
+            <div class="pricing__price"><sup>$</sup>79</div>
+            <div class="pricing__period">per month</div>
+            <ul class="pricing__features">
+              <li>Unlimited projects</li>
+              <li>100 GB storage</li>
+              <li>Real-time analytics</li>
+              <li>24/7 phone support</li>
+              <li>Custom domain + SSL</li>
+            </ul>
+            <button class="pricing__btn">Get Started</button>
+          </div>
+        </div>
+      </div>
+      <div class="doc-demo__code">&lt;div class="<span class="hl-tag">pricing</span>"&gt;
+  &lt;div class="<span class="hl-tag">pricing__card pricing__card--featured</span>"&gt;
+    &lt;div class="<span class="hl-tag">pricing__badge</span>"&gt;Most Popular&lt;/div&gt;
+    &lt;div class="<span class="hl-tag">pricing__name</span>"&gt;Professional&lt;/div&gt;
+    &lt;div class="<span class="hl-tag">pricing__price</span>"&gt;&lt;sup&gt;$&lt;/sup&gt;29&lt;/div&gt;
+    &lt;ul class="<span class="hl-tag">pricing__features</span>"&gt;
+      &lt;li&gt;50 projects&lt;/li&gt;
+      &lt;li class="<span class="hl-tag">pricing__feature--na</span>"&gt;Custom domain&lt;/li&gt;
+    &lt;/ul&gt;
+    &lt;button class="<span class="hl-tag">pricing__btn</span>"&gt;Get Started&lt;/button&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</div>
+    </div>
+  </section>
+  
+<!-- ── TOPBAR ── -->
+  <section class="doc-section" id="topbar">
+    <div class="doc-section__header">
+      <h2 class="doc-section__title">Topbar / Navbar</h2>
+      <p class="doc-section__desc">Fixed top navigation bar with scroll shadow. Always solid <code>--color-bg</code> with a subtle shadow on scroll. Left section for brand + nav, right section for actions + avatar. Hamburger menu on mobile. <strong>The one at the very top of this page is a live example.</strong></p>
+    </div>
+    <div class="doc-demo">
+      <div class="doc-demo__stage">
+        <p style="font-size:.88rem;color:var(--color-text-secondary);">Scroll the page to see the topbar turn solid with a blur backdrop. Resize to mobile to try the hamburger menu.</p>
+      </div>
+      <div class="doc-demo__code">&lt;header class="<span class="hl-tag">topbar</span>"&gt;
+  &lt;div class="<span class="hl-tag">topbar__left</span>"&gt;
+    &lt;a href="<span class="hl-val">#</span>" class="<span class="hl-tag">topbar__brand</span>"&gt;&lt;span&gt;CSS&lt;/span&gt; Engine&lt;/a&gt;
+    &lt;nav&gt;
+      &lt;ul class="<span class="hl-tag">topbar__nav</span>"&gt;
+        &lt;li&gt;&lt;a href="<span class="hl-val">#</span>" class="<span class="hl-tag">topbar__link</span>"&gt;&lt;span class="<span class="hl-tag">ic ic-search</span>"&gt;&lt;/span&gt;Directory&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href="<span class="hl-val">#</span>" class="<span class="hl-tag">topbar__link</span>"&gt;Search&lt;/a&gt;&lt;/li&gt;
+        &lt;li class="<span class="hl-tag">topbar__dropdown</span>"&gt;...&lt;/li&gt;
+      &lt;/ul&gt;
+    &lt;/nav&gt;
+  &lt;/div&gt;
+  &lt;div class="<span class="hl-tag">topbar__right</span>"&gt;
+    &lt;a href="<span class="hl-val">#</span>" class="<span class="hl-tag">topbar__link</span>"&gt;Login&lt;/a&gt;
+    &lt;a href="<span class="hl-val">#</span>" class="<span class="hl-tag">topbar__btn topbar__btn--primary</span>"&gt;Join Us&lt;/a&gt;
+    &lt;div class="<span class="hl-tag">avatar avatar--sm</span>"&gt;...&lt;/div&gt;
+  &lt;/div&gt;
+  &lt;button class="<span class="hl-tag">topbar__toggle</span>"&gt;&lt;span class="<span class="hl-tag">ic ic-menu</span>"&gt;&lt;/span&gt;&lt;/button&gt;
+&lt;/header&gt;</div>
+    </div>
+  </section>
+
+<!-- ── SIDEBAR NAVIGATION ── -->
+  <section class="doc-section" id="sidebar">
+    <div class="doc-section__header">
+      <h2 class="doc-section__title">Sidebar Navigation</h2>
+      <p class="doc-section__desc">Vertical navigation sidebar with SVG icons, collapsible sub-menus, and active state highlighting. Token-driven via <code>--color-bg</code>, <code>--color-bg-secondary</code>, <code>--color-text</code>, and <code>--color-link</code>.</p>
+    </div>
+    <div class="doc-demo">
+      <div class="doc-demo__stage doc-demo__stage--block" style="padding:0;">
+        <div class="sidebar" style="height:420px;border-radius:var(--border-radius);">
+          <ul class="sidebar__nav">
+            <li><a href="#" class="sidebar__link sidebar__link--active">
+              <span class="ic ic-grip"></span> Dashboard
+            </a></li>
+            <li><a href="#" class="sidebar__link">
+              <span class="ic ic-user"></span> Profile
+            </a></li>
+            <li class="sidebar__sub">
+              <a href="#" class="sidebar__link">
+                <span class="ic ic-star"></span> Favourites
+                <span class="sidebar__arrow ic ic-chevdown" style="margin-left:auto;"></span>
+              </a>
+              <ul class="sidebar__sub-menu">
+                <li><a href="#" class="sidebar__link">Starred Items</a></li>
+                <li><a href="#" class="sidebar__link">Recent</a></li>
+              </ul>
+            </li>
+            <li class="sidebar__sub">
+              <a href="#" class="sidebar__link">
+                <span class="ic ic-mail"></span> Messages
+                <span class="sidebar__arrow ic ic-chevdown" style="margin-left:auto;"></span>
+              </a>
+              <ul class="sidebar__sub-menu">
+                <li><a href="#" class="sidebar__link">Inbox <span class="sidebar__badge">3</span></a></li>
+                <li><a href="#" class="sidebar__link">Sent</a></li>
+                <li><a href="#" class="sidebar__link">Drafts</a></li>
+              </ul>
+            </li>
+            <li class="sidebar__sub">
+              <a href="#" class="sidebar__link">
+                <span class="ic ic-search"></span> Search
+                <span class="sidebar__arrow ic ic-chevdown" style="margin-left:auto;"></span>
+              </a>
+              <ul class="sidebar__sub-menu">
+                <li><a href="#" class="sidebar__link">Quick Find</a></li>
+                <li><a href="#" class="sidebar__link">Advanced</a></li>
+              </ul>
+            </li>
+            <li><a href="#" class="sidebar__link">
+              <span class="ic ic-copy"></span> Documents
+            </a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="doc-demo__code">&lt;div class="<span class="hl-tag">sidebar</span>"&gt;
+  &lt;ul class="<span class="hl-tag">sidebar__nav</span>"&gt;
+    &lt;li&gt;&lt;a href="#" class="<span class="hl-tag">sidebar__link sidebar__link--active</span>"&gt;...&lt;/a&gt;&lt;/li&gt;
+    &lt;li class="<span class="hl-tag">sidebar__sub</span>"&gt;
+      &lt;a href="#" class="<span class="hl-tag">sidebar__link</span>"&gt;...&lt;span class="<span class="hl-tag">sidebar__arrow ic ic-chevdown</span>"&gt;&lt;/span&gt;&lt;/a&gt;
+      &lt;ul&gt;...&lt;/ul&gt;
+    &lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/div&gt;</div>
+    </div>
+  </section>
+  
+<!-- ── BACK TO TOP ── -->
+  <section class="doc-section" id="back-top">
+    <div class="doc-section__header">
+      <h2 class="doc-section__title">Back to Top</h2>
+      <p class="doc-section__desc">Floating button that appears after scrolling 300px. Smooth-scrolls to top on click. Uses <code>--color-link</code> for background. Fixed position, always visible in the bottom-right corner.</p>
+    </div>
+    <div class="doc-demo">
+      <div class="doc-demo__stage" style="min-height:120px;">
+        <p style="font-size:.88rem;color:var(--color-text-secondary);">Scroll down to see the button appear in the bottom-right corner. Click it to scroll back up.</p>
+      </div>
+      <div class="doc-demo__code">&lt;button class="<span class="hl-tag">back-top back-top--visible</span>" aria-label="<span class="hl-val">Back to top</span>"&gt;&lt;/button&gt;</div>
+    </div>
+  </section>
+
+  
+
+<!-- ── BREADCRUMBS ── -->
+  <section class="doc-section" id="breadcrumbs">
+    <div class="doc-section__header">
+      <h2 class="doc-section__title">Breadcrumbs</h2>
+      <p class="doc-section__desc">Path navigation showing the user's location in a site hierarchy. Wrap in <code>&lt;nav aria-label="breadcrumb"&gt;</code> for accessibility. Separators are inline <code>/</code> characters via <code>.breadcrumbs__sep</code> — swap for <code>&gt;</code> or <code>→</code> if preferred. Active page uses <code>.breadcrumbs__current</code> styled with <code>--color-text-secondary</code>; links use <code>--color-link</code>. Pure CSS, no JavaScript.</p>
+    </div>
+    <div class="doc-demo">
+      <div class="doc-demo__stage doc-demo__stage--block">
+        <ul class="breadcrumbs">
+          <li><a href="#">Dashboard</a><span class="breadcrumbs__sep">/</span></li>
+          <li><a href="#">Components</a><span class="breadcrumbs__sep">/</span></li>
+          <li><a href="#">Extended</a><span class="breadcrumbs__sep">/</span></li>
+          <li><span class="breadcrumbs__current">Slideshow</span></li>
+        </ul>
+      </div>
+      <div class="doc-demo__code">&lt;ul class="<span class="hl-tag">breadcrumbs</span>"&gt;
+  &lt;li&gt;&lt;a href="<span class="hl-val">#</span>"&gt;Dashboard&lt;/a&gt;&lt;span class="<span class="hl-tag">breadcrumbs__sep</span>"&gt;/&lt;/span&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;span class="<span class="hl-tag">breadcrumbs__current</span>"&gt;Slideshow&lt;/span&gt;&lt;/li&gt;
+&lt;/ul&gt;</div>
+    </div>
+  </section>
+
+  
+
+<!-- ── PAGINATION ── -->
+  <section class="doc-section" id="pagination">
+    <div class="doc-section__header">
+      <h2 class="doc-section__title">Pagination</h2>
+      <p class="doc-section__desc">Page navigation using a styled list. Active page uses <code>--color-link</code>. Disabled state uses reduced opacity. Add <code>.pagination--sm</code> for compact variant. Borders use <code>--color-bg-secondary</code>.</p>
+    </div>
+    <div class="doc-demo">
+      <div class="doc-demo__stage doc-demo__stage--block" style="gap:20px;">
+        <nav class="pagination" aria-label="Page navigation">
+          <span class="pagination__item"><a class="pagination__link pagination__link--disabled" href="#" aria-disabled="true"><span class="ic ic-chevleft"></span> Prev</a></span>
+          <span class="pagination__item"><a class="pagination__link pagination__link--active" href="#">1</a></span>
+          <span class="pagination__item"><a class="pagination__link" href="#">2</a></span>
+          <span class="pagination__item"><a class="pagination__link" href="#">3</a></span>
+          <span class="pagination__item"><span class="pagination__ellipsis">…</span></span>
+          <span class="pagination__item"><a class="pagination__link" href="#">8</a></span>
+          <span class="pagination__item"><a class="pagination__link" href="#">Next <span class="ic ic-chevright"></span></a></span>
+        </nav>
+        <nav class="pagination pagination--sm" aria-label="Compact pagination">
+          <span class="pagination__item"><a class="pagination__link" href="#">1</a></span>
+          <span class="pagination__item"><a class="pagination__link pagination__link--active" href="#">2</a></span>
+          <span class="pagination__item"><a class="pagination__link" href="#">3</a></span>
+        </nav>
+      </div>
+      <div class="doc-demo__code">&lt;nav class="<span class="hl-tag">pagination</span>"&gt;
+  &lt;span class="<span class="hl-tag">pagination__item</span>"&gt;
+    &lt;a class="<span class="hl-tag">pagination__link pagination__link--disabled</span>"&gt;&lt;span class="<span class="hl-tag">ic ic-chevleft</span>"&gt;&lt;/span&gt; Prev&lt;/a&gt;
+  &lt;/span&gt;
+  &lt;span class="<span class="hl-tag">pagination__item</span>"&gt;
+    &lt;a class="<span class="hl-tag">pagination__link pagination__link--active</span>"&gt;1&lt;/a&gt;
+  &lt;/span&gt;
+&lt;/nav&gt;</div>
+    </div>
+  </section>
+
+  
+
+<!-- ── STEPPER ── -->
+  <section class="doc-section" id="stepper">
+    <div class="doc-section__header">
+      <h2 class="doc-section__title">Stepper</h2>
+      <p class="doc-section__desc">Multi-step progress indicator with active and completed states. Connecting lines fill with <code>--color-link</code> when done. Supports horizontal and vertical (<code>.stepper--vertical</code>) layouts.</p>
+    </div>
+    <div class="doc-demo">
+      <div class="doc-demo__stage doc-demo__stage--block" style="gap:28px;max-width:600px;">
+        <div class="stepper">
+          <div class="stepper__step stepper__step--done">
+            <div class="stepper__dot"><span class="st-icon ic-check" style="width:14px;height:14px;"></span></div>
+            <span class="stepper__label">Cart</span>
+          </div>
+          <div class="stepper__step stepper__step--active">
+            <div class="stepper__dot">2</div>
+            <span class="stepper__label">Shipping</span>
+          </div>
+          <div class="stepper__step">
+            <div class="stepper__dot">3</div>
+            <span class="stepper__label">Payment</span>
+          </div>
+          <div class="stepper__step">
+            <div class="stepper__dot">4</div>
+            <span class="stepper__label">Confirm</span>
+          </div>
+        </div>
+      </div>
+      <div class="doc-demo__code">&lt;div class="<span class="hl-tag">stepper</span>"&gt;
+  &lt;div class="<span class="hl-tag">stepper__step stepper__step--done</span>"&gt;
+    &lt;div class="<span class="hl-tag">stepper__dot</span>"&gt;&lt;span class="<span class="hl-tag">st-icon ic-check</span>"&gt;&lt;/span&gt;&lt;/div&gt;
+    &lt;span class="<span class="hl-tag">stepper__label</span>"&gt;Cart&lt;/span&gt;
+  &lt;/div&gt;
+  &lt;div class="<span class="hl-tag">stepper__step stepper__step--active</span>"&gt;...&lt;/div&gt;
+&lt;/div&gt;</div>
+    </div>
+  </section>
+
+
+
+<!-- ── TIMELINE ── -->
+  <section class="doc-section" id="timeline">
+    <div class="doc-section__header">
+      <h2 class="doc-section__title">Timeline</h2>
+      <p class="doc-section__desc">Vertical timeline with dot markers and cards. Active item fills the dot with <code>--color-link</code>. The vertical line uses <code>--color-bg-secondary</code>. Add <code>.timeline--sm</code> for compact variant.</p>
+    </div>
+    <div class="doc-demo">
+      <div class="doc-demo__stage doc-demo__stage--block" style="max-width:520px;">
+        <div class="timeline">
+          <div class="timeline__item">
+            <div class="timeline__dot"></div>
+            <div class="timeline__content">
+              <div class="timeline__time">Jan 2026</div>
+              <h3 class="timeline__title">Project Kickoff</h3>
+              <p class="timeline__desc">Initial architecture defined. Token system designed with 12 CSS custom properties powering all 4 layers.</p>
+            </div>
+          </div>
+          <div class="timeline__item">
+            <div class="timeline__dot"></div>
+            <div class="timeline__content">
+              <div class="timeline__time">Mar 2026</div>
+              <h3 class="timeline__title">First 8 Components</h3>
+              <p class="timeline__desc">Slideshow, progress bars, toggle, tabs, charts, toast, tooltip, and breadcrumbs — all pure CSS.</p>
+            </div>
+          </div>
+          <div class="timeline__item timeline__item--active">
+            <div class="timeline__dot"></div>
+            <div class="timeline__content">
+              <div class="timeline__time">Jun 2026</div>
+              <h3 class="timeline__title">23 Components Complete</h3>
+              <p class="timeline__desc">Extended to 23 components across 6 categories. Theme engine supports 5 presets with live switching.</p>
+            </div>
+          </div>
+          <div class="timeline__item">
+            <div class="timeline__dot"></div>
+            <div class="timeline__content">
+              <div class="timeline__time">Jul 2026</div>
+              <h3 class="timeline__title">Export Engine v1</h3>
+              <p class="timeline__desc">Selective CSS export: cherry-pick components, bundle with base framework + chosen theme. One download.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="doc-demo__code">&lt;div class="<span class="hl-tag">timeline</span>"&gt;
+  &lt;div class="<span class="hl-tag">timeline__item timeline__item--active</span>"&gt;
+    &lt;div class="<span class="hl-tag">timeline__dot</span>"&gt;&lt;/div&gt;
+    &lt;div class="<span class="hl-tag">timeline__content</span>"&gt;
+      &lt;div class="<span class="hl-tag">timeline__time</span>"&gt;Jun 2026&lt;/div&gt;
+      &lt;h4 class="<span class="hl-tag">timeline__title</span>"&gt;Milestone&lt;/h4&gt;
+      &lt;p class="<span class="hl-tag">timeline__desc</span>"&gt;...&lt;/p&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</div>
+    </div>
+  </section>
+
+  
+
+<!-- ── TOOLTIP ── -->
+  <section class="doc-section" id="tooltip">
+    <div class="doc-section__header">
+      <h2 class="doc-section__title">Tooltip</h2>
+      <p class="doc-section__desc">Pure CSS hover tooltip using <code>::after</code> and <code>::before</code> pseudo-elements. Arrow created with border trick. Text color uses <code>--color-text</code>, background inverts it to <code>--color-bg</code>.</p>
+    </div>
+    <div class="doc-demo">
+      <div class="doc-demo__stage">
+        <p class="tooltip-demo-text">
+          Hover over
+          <span class="tooltip" data-tip="This tooltip is rendered entirely by CSS pseudo-elements. No JavaScript at all — it reads its text from the data-tip attribute and colors everything from CSS custom properties (theme tokens)." tabindex="0">this phrase</span>
+          to see the tooltip. Works on hover and keyboard focus.
+        </p>
+      </div>
+      <div class="doc-demo__code">&lt;span class="<span class="hl-tag">tooltip</span>" data-tip="<span class="hl-val">Tooltip text here</span>" tabindex="<span class="hl-val">0</span>"&gt;
+  hover me
+&lt;/span&gt;</div>
+    </div>
+  </section>
+
+<!-- ── CONTEXT MENU ── -->
+  <section class="doc-section" id="context-menu">
+    <div class="doc-section__header">
+      <h2 class="doc-section__title">Context Menu</h2>
+      <p class="doc-section__desc">Right-click popup menu with items, separators, shortcuts, and danger actions. Auto-positions within the viewport. Closes on outside click, Escape, or item selection. Solid and soft variants via <code>.ctx-menu--soft</code>. Compact size via <code>.ctx-menu--sm</code>.</p>
+    </div>
+    <div class="doc-demo">
+      <div class="doc-demo__stage">
+        <div data-ctx-menu style="width:320px;height:140px;background:var(--color-bg-secondary);border-radius:var(--border-radius);display:flex;align-items:center;justify-content:center;font-size:.85rem;color:var(--color-text-secondary);cursor:context-menu;">
+          Right-click anywhere in this box
+          <div class="ctx-menu ctx-menu--soft">
+            <div class="ctx-menu__label">Actions</div>
+            <button class="ctx-menu__item"><span class="ic ic-edit" style="width:14px;height:14px;"></span> Edit<span class="ctx-menu__shortcut">⌘E</span></button>
+            <button class="ctx-menu__item"><span class="ic ic-copy" style="width:14px;height:14px;"></span> Duplicate<span class="ctx-menu__shortcut">⌘D</span></button>
+            <hr class="ctx-menu__sep">
+            <button class="ctx-menu__item"><span class="ic ic-down" style="width:14px;height:14px;"></span> Archive<span class="ctx-menu__shortcut">⌘N</span></button>
+            <button class="ctx-menu__item">Share</button>
+            <hr class="ctx-menu__sep">
+            <button class="ctx-menu__item ctx-menu__item--danger"><span class="ic ic-trash" style="width:14px;height:14px;"></span> Delete<span class="ctx-menu__shortcut">⌘⌫</span></button>
+          </div>
+        </div>
+      </div>
+      <div class="doc-demo__code">&lt;div <span class="hl-attr">data-ctx-menu</span>&gt;
+  Right-click here
+  &lt;div class="<span class="hl-tag">ctx-menu ctx-menu--soft</span>"&gt;
+    &lt;div class="<span class="hl-tag">ctx-menu__label</span>"&gt;Actions&lt;/div&gt;
+    &lt;button class="<span class="hl-tag">ctx-menu__item</span>"&gt;Edit&lt;span class="<span class="hl-tag">ctx-menu__shortcut</span>"&gt;⌘E&lt;/span&gt;&lt;/button&gt;
+    &lt;hr class="<span class="hl-tag">ctx-menu__sep</span>"&gt;
+    &lt;button class="<span class="hl-tag">ctx-menu__item ctx-menu__item--danger</span>"&gt;Delete&lt;/button&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</div>
+    </div>
+  </section>
+  
+
+<!-- ── AVATAR ── -->
+  <section class="doc-section" id="avatar">
+    <div class="doc-section__header">
+      <h2 class="doc-section__title">Avatar</h2>
+      <p class="doc-section__desc">User profile images with status indicators. Five sizes from <code>--xs</code> to <code>--xl</code>. Supports rounded-square variant and grouped avatars. Fallback shows initials when no image. Uses <code>--color-bg-secondary</code> for fallback background.</p>
+    </div>
+    <div class="doc-demo">
+      <div class="doc-demo__stage" style="gap:16px;align-items:center;flex-wrap:wrap;">
+        <div class="avatar avatar--xs"><img src="https://picsum.photos/seed/ava1/100/100" alt="XS"><span class="avatar__status avatar__status--online"></span></div>
+        <div class="avatar avatar--sm"><img src="https://picsum.photos/seed/ava2/100/100" alt="SM"><span class="avatar__status avatar__status--away"></span></div>
+        <div class="avatar"><img src="https://picsum.photos/seed/ava3/100/100" alt="MD"><span class="avatar__status avatar__status--online"></span></div>
+        <div class="avatar avatar--lg"><span class="avatar__status avatar__status--busy"></span></div>
+        <div class="avatar avatar--xl"><img src="https://picsum.photos/seed/ava4/100/100" alt="XL"></div>
+        <div class="avatar avatar--rounded avatar--lg"><img src="https://picsum.photos/seed/ava5/100/100" alt="Rounded"></div>
+      </div>
+      <div class="doc-demo__stage" style="gap:0;padding-top:0;">
+        <div class="avatar-group">
+          <div class="avatar avatar--sm"><img src="https://picsum.photos/seed/g1/100/100" alt="1"></div>
+          <div class="avatar avatar--sm"><img src="https://picsum.photos/seed/g2/100/100" alt="2"></div>
+          <div class="avatar avatar--sm"><img src="https://picsum.photos/seed/g3/100/100" alt="3"></div>
+          <div class="avatar avatar--sm"><span class="avatar__fallback">+5</span></div>
+        </div>
+      </div>
+      <div class="doc-demo__code">&lt;div class="<span class="hl-tag">avatar avatar--sm</span>"&gt;
+  &lt;img src="<span class="hl-val">user.jpg</span>"&gt;
+  &lt;span class="<span class="hl-tag">avatar__status avatar__status--online</span>"&gt;&lt;/span&gt;
+&lt;/div&gt;
+&lt;div class="<span class="hl-tag">avatar avatar--lg</span>"&gt;
+  &lt;span class="<span class="hl-tag">avatar__fallback</span>"&gt;AB&lt;/span&gt;
+&lt;/div&gt;
+&lt;div class="<span class="hl-tag">avatar-group</span>"&gt;...&lt;/div&gt;</div>
+    </div>
+  </section>
+
+  
+
+<!-- ── BADGE ── -->
+  <section class="doc-section" id="badge">
+    <div class="doc-section__header">
+      <h2 class="doc-section__title">Badge</h2>
+      <p class="doc-section__desc">Small inline labels for status, counts, and categories. Five color variants, plus dot and count shapes. Primary variant uses <code>--color-link</code>; default uses <code>--color-bg-secondary</code>.</p>
+    </div>
+    <div class="doc-demo">
+      <div class="doc-demo__stage" style="gap:10px;flex-wrap:wrap;">
+        <span class="badge badge--default">Default</span>
+        <span class="badge badge--primary">Primary</span>
+        <span class="badge badge--success">Success</span>
+        <span class="badge badge--warning">Warning</span>
+        <span class="badge badge--danger">Danger</span>
+        <span class="badge badge--primary badge--count">14</span>
+        <span class="badge badge--dot badge--success" title="Online"></span>
+        <span class="badge badge--dot badge--warning" title="Away"></span>
+        <span class="badge badge--dot badge--danger" title="Offline"></span>
+      </div>
+      <div class="doc-demo__code">&lt;span class="<span class="hl-tag">badge badge--primary</span>"&gt;Primary&lt;/span&gt;
+&lt;span class="<span class="hl-tag">badge badge--success badge--count</span>"&gt;14&lt;/span&gt;
+&lt;span class="<span class="hl-tag">badge badge--dot badge--success</span>"&gt;&lt;/span&gt;</div>
+    </div>
+  </section>
+
+  
+
+<!-- ── CARD ── -->
+  <section class="doc-section" id="card">
+    <div class="doc-section__header">
+      <h2 class="doc-section__title">Card</h2>
+      <p class="doc-section__desc">Versatile content container with image, body, and footer slots. <code>.card--hoverable</code> lifts on hover using <code>--box-shadow</code>. <code>.card--horizontal</code> places image beside content. All colors reference theme tokens.</p>
+    </div>
+    <div class="doc-demo">
+      <div class="doc-demo__stage doc-demo__stage--block">
+        <div class="grid grid-auto-fit gap">
+          <div class="card card--hoverable">
+            <img class="card__image" src="https://picsum.photos/seed/card1/600/338" alt="Design tokens" loading="lazy">
+            <div class="card__body">
+              <h4 class="card__title">Design Tokens</h4>
+              <p class="card__text">12 CSS custom properties drive every component. Change one theme file to restyle the entire library.</p>
+            </div>
+            <div class="card__footer">
+              <span class="badge badge--primary">v2.4</span>
+              <span style="font-size:.72rem;color:var(--color-text-secondary);margin-left:auto;">Jul 2026</span>
+            </div>
+          </div>
+          <div class="card card--hoverable">
+            <img class="card__image" src="https://picsum.photos/seed/card2/600/338" alt="Export engine" loading="lazy">
+            <div class="card__body">
+              <h4 class="card__title">Export Engine</h4>
+              <p class="card__text">Select components, pick a theme, download a single CSS file. No build tools needed.</p>
+            </div>
+            <div class="card__footer">
+              <span class="badge badge--success">Ready</span>
+              <span style="font-size:.72rem;color:var(--color-text-secondary);margin-left:auto;">Jun 2026</span>
+            </div>
+          </div>
+          <div class="card card--hoverable">
+            <div class="card__body">
+              <h4 class="card__title">No Image Card</h4>
+              <p class="card__text">Cards work without images too. The body fills the full width. Great for text-only content like changelog entries or notifications.</p>
+            </div>
+            <div class="card__footer">
+              <span class="badge badge--default">Note</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="doc-demo__code">&lt;div class="<span class="hl-tag">card card--hoverable</span>"&gt;
+  &lt;img class="<span class="hl-tag">card__image</span>" src="<span class="hl-val">cover.jpg</span>"&gt;
+  &lt;div class="<span class="hl-tag">card__body</span>"&gt;
+    &lt;h4 class="<span class="hl-tag">card__title</span>"&gt;Title&lt;/h4&gt;
+    &lt;p class="<span class="hl-tag">card__text</span>"&gt;Description...&lt;/p&gt;
+  &lt;/div&gt;
+  &lt;div class="<span class="hl-tag">card__footer</span>"&gt;
+    &lt;span class="<span class="hl-tag">badge badge--primary</span>"&gt;Tag&lt;/span&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</div>
+    </div>
+  </section>
+  
+
+<!-- ── TABLE ── -->
+  <section class="doc-section" id="table">
+    <div class="doc-section__header">
+      <h2 class="doc-section__title">Table</h2>
+      <p class="doc-section__desc">Responsive data table with striped rows, hover states, and status badges. Add <code>.tbl--striped</code>, <code>.tbl--bordered</code>, <code>.tbl--sm</code>, or <code>.tbl--responsive</code> for card fallback on mobile. Uses <code>--color-bg-secondary</code> for borders and stripes.</p>
+    </div>
+    <div class="doc-demo">
+      <div class="doc-demo__stage doc-demo__stage--block">
+        <div class="table-wrap" style="max-width:700px;">
+          <table class="tbl tbl--striped tbl--responsive">
+            <thead>
+              <tr><th scope="col">Project</th><th scope="col">Owner</th><th scope="col">Status</th><th scope="col">Updated</th></tr>
+            </thead>
+            <tbody>
+              <tr><td data-label="Project">Token Engine</td><td data-label="Owner">Ana</td><td data-label="Status"><span class="tbl-badge tbl-badge--success">Active</span></td><td data-label="Updated">2h ago</td></tr>
+              <tr><td data-label="Project">Export CLI</td><td data-label="Owner">Ben</td><td data-label="Status"><span class="tbl-badge tbl-badge--warning">Review</span></td><td data-label="Updated">5h ago</td></tr>
+              <tr><td data-label="Project">Theme Builder</td><td data-label="Owner">Chen</td><td data-label="Status"><span class="tbl-badge tbl-badge--success">Active</span></td><td data-label="Updated">1d ago</td></tr>
+              <tr><td data-label="Project">Legacy Docs</td><td data-label="Owner">Dana</td><td data-label="Status"><span class="tbl-badge tbl-badge--danger">Archived</span></td><td data-label="Updated">12d ago</td></tr>
+              <tr><td data-label="Project">CDN Setup</td><td data-label="Owner">Eli</td><td data-label="Status"><span class="tbl-badge tbl-badge--success">Active</span></td><td data-label="Updated">3d ago</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="doc-demo__code">&lt;table class="<span class="hl-tag">tbl tbl--striped tbl--responsive</span>"&gt;
+  &lt;thead&gt;&lt;tr&gt;&lt;th&gt;Project&lt;/th&gt;...&lt;/tr&gt;&lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td data-label="<span class="hl-attr">Project</span>"&gt;Token Engine&lt;/td&gt;
+      &lt;td data-label="<span class="hl-attr">Status</span>"&gt;
+        &lt;span class="<span class="hl-tag">tbl-badge tbl-badge--success</span>"&gt;Active&lt;/span&gt;
+      &lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;</div>
+    </div>
+  </section>
+
+  
+
+<!-- ── DATA LIST ── -->
+  <section class="doc-section" id="data-list">
+    <div class="doc-section__header">
+      <h2 class="doc-section__title">Data List</h2>
+      <p class="doc-section__desc">Key-value metadata display using semantic <code>&lt;dl&gt;</code>, <code>&lt;dt&gt;</code>, <code>&lt;dd&gt;</code> elements. Horizontal by default, stack vertically with <code>.data-list--vertical</code>. Add <code>.data-list--bordered</code> for a card wrapper or <code>.data-list--striped</code> for alternating row backgrounds. Three sizes: <code>--sm</code>, default, <code>--lg</code>.</p>
+    </div>
+    <div class="doc-demo">
+      <div class="doc-demo__stage doc-demo__stage--block" style="gap:20px;">
+        <dl class="data-list data-list--bordered" style="max-width:420px;">
+          <div class="data-list__item">
+            <dt class="data-list__label">Name</dt>
+            <dd class="data-list__value">Sam Intelco</dd>
+          </div>
+          <div class="data-list__item">
+            <dt class="data-list__label">Email</dt>
+            <dd class="data-list__value">sam@intelco.com</dd>
+          </div>
+          <div class="data-list__item">
+            <dt class="data-list__label">Company</dt>
+            <dd class="data-list__value">intelco</dd>
+          </div>
+          <div class="data-list__item">
+            <dt class="data-list__label data-list__label--success">Status</dt>
+            <dd class="data-list__value"><span class="badge badge--success">Active</span></dd>
+          </div>
+        </dl>
+        <dl class="data-list data-list--vertical data-list--striped data-list--sm" style="max-width:420px;">
+          <div class="data-list__item">
+            <dt class="data-list__label data-list__label--primary">Repository</dt>
+            <dd class="data-list__value">github.com/exsa/framework</dd>
+          </div>
+          <div class="data-list__item">
+            <dt class="data-list__label">Version</dt>
+            <dd class="data-list__value">v1.0.0</dd>
+          </div>
+          <div class="data-list__item">
+            <dt class="data-list__label">License</dt>
+            <dd class="data-list__value">MIT</dd>
+          </div>
+        </dl>
+      </div>
+      <div class="doc-demo__code">&lt;dl class="<span class="hl-tag">data-list data-list--bordered</span>"&gt;
+  &lt;div class="<span class="hl-tag">data-list__item</span>"&gt;
+    &lt;dt class="<span class="hl-tag">data-list__label</span>"&gt;Name&lt;/dt&gt;
+    &lt;dd class="<span class="hl-tag">data-list__value</span>"&gt;Vlad Moroz&lt;/dd&gt;
+  &lt;/div&gt;
+  &lt;div class="<span class="hl-tag">data-list__item</span>"&gt;
+    &lt;dt class="<span class="hl-tag">data-list__label data-list__label--success</span>"&gt;Status&lt;/dt&gt;
+    &lt;dd class="<span class="hl-tag">data-list__value</span>"&gt;&lt;span class="<span class="hl-tag">badge badge--success</span>"&gt;Active&lt;/span&gt;&lt;/dd&gt;
+  &lt;/div&gt;
+&lt;/dl&gt;
+
+&lt;dl class="<span class="hl-tag">data-list data-list--vertical data-list--striped data-list--sm</span>"&gt;...&lt;/dl&gt;</div>
+    </div>
+  </section>
+
+<!-- ── SEPARATOR ── -->
+  <section class="doc-section" id="separator">
+    <div class="doc-section__header">
+      <h2 class="doc-section__title">Separator</h2>
+      <p class="doc-section__desc">Horizontal (<code>&lt;hr&gt;</code>) or vertical (<code>&lt;span&gt;</code>) divider line. Three sizes: <code>.sep--sm</code>, default, <code>.sep--lg</code>. Vertical via <code>.sep--vertical</code> — use <code>align-self:center</code> in flex parents to keep it centered. Line color uses <code>--color-bg-secondary</code>. Common in navbars, toolbars, sidebar sections, and between content blocks.</p>
+    </div>
+    <div class="doc-demo">
+      <div class="doc-demo__stage doc-demo__stage--block" style="max-width:520px;">
+        <!-- Horizontal examples -->
+        <p style="margin:0 0 4px;font-size:.78rem;color:var(--color-text-secondary);">HORIZONTAL</p>
+        <p style="margin:0;font-size:.85rem;">Tight spacing</p>
+        <hr class="sep sep--sm">
+        <p style="margin:0;font-size:.85rem;">Default spacing</p>
+        <hr class="sep">
+        <p style="margin:0;font-size:.85rem;">Loose spacing</p>
+        <hr class="sep sep--lg">
+        <p style="margin:0;font-size:.85rem;">After lg separator</p>
+        <!-- Vertical example in toolbar -->
+        <p style="margin:16px 0 6px;font-size:.78rem;color:var(--color-text-secondary);">VERTICAL (in a toolbar)</p>
+        <div style="display:flex;align-items:center;gap:0;background:var(--color-bg-secondary);border-radius:var(--border-radius);padding:6px 14px;">
+          <span style="font-size:.8rem;font-weight:600;">EXSA</span>
+          <span class="sep sep--vertical" style="height:18px;align-self:center;margin:0 10px;"></span>
+          <a href="#" style="font-size:.78rem;color:var(--color-link);text-decoration:none;">Features</a>
+          <a href="#" style="font-size:.78rem;color:var(--color-text-secondary);text-decoration:none;margin-left:12px;">Docs</a>
+          <a href="#" style="font-size:.78rem;color:var(--color-text-secondary);text-decoration:none;margin-left:12px;">Themes</a>
+          <span class="sep sep--vertical" style="height:18px;align-self:center;margin:0 10px;"></span>
+          <span class="badge badge--primary" style="font-size:.7rem;">v1.0</span>
+        </div>
+      </div>
+      <div class="doc-demo__code"><span class="hl-cmt">Horizontal — use &lt;hr&gt;</span>
+&lt;hr class="<span class="hl-tag">sep sep--sm</span>"&gt;
+&lt;hr class="<span class="hl-tag">sep</span>"&gt;
+&lt;hr class="<span class="hl-tag">sep sep--lg</span>"&gt;
+
+<span class="hl-cmt">Vertical — use &lt;span&gt; inside flex parent</span>
+&lt;span class="<span class="hl-tag">sep sep--vertical</span>" style="<span class="hl-attr">height</span>:<span class="hl-val">18px</span>;<span class="hl-attr">align-self</span>:<span class="hl-val">center</span>;"&gt;&lt;/span&gt;</div>
+    </div>
+  </section>
+
+<!-- ── LIGHTBOX ── -->
+  <section class="doc-section" id="lightbox">
+    <div class="doc-section__header">
+      <h2 class="doc-section__title">Lightbox Gallery</h2>
+      <p class="doc-section__desc">Thumbnail grid with click-to-expand fullscreen overlay. Click any thumbnail to open the lightbox; use prev/next arrow buttons or left/right keyboard keys to navigate. An image counter ("3 / 6") shows current position. Close via the × button, Escape key, or clicking the dark backdrop. Uses <code>--color-link</code> for the hover border on thumbnails and <code>--border-radius</code> for thumbnail corners. Requires ~25 lines of JavaScript. Complements the Video Gallery component.</p>
+    </div>
+    <div class="doc-demo">
+      <div class="doc-demo__stage doc-demo__stage--block">
+        <div class="lightbox-gallery" id="demo-lightbox">
+          <div class="lightbox-gallery__thumb"><img src="https://picsum.photos/seed/lb1/400/300" alt="Gallery 1" loading="lazy"></div>
+          <div class="lightbox-gallery__thumb"><img src="https://picsum.photos/seed/lb2/400/300" alt="Gallery 2" loading="lazy"></div>
+          <div class="lightbox-gallery__thumb"><img src="https://picsum.photos/seed/lb3/400/300" alt="Gallery 3" loading="lazy"></div>
+          <div class="lightbox-gallery__thumb"><img src="https://picsum.photos/seed/lb4/400/300" alt="Gallery 4" loading="lazy"></div>
+          <div class="lightbox-gallery__thumb"><img src="https://picsum.photos/seed/lb5/400/300" alt="Gallery 5" loading="lazy"></div>
+          <div class="lightbox-gallery__thumb"><img src="https://picsum.photos/seed/lb6/400/300" alt="Gallery 6" loading="lazy"></div>
+        </div>
+      </div>
+      <div class="doc-demo__code">&lt;div class="<span class="hl-tag">lightbox-gallery</span>"&gt;
+  &lt;div class="<span class="hl-tag">lightbox-gallery__thumb</span>"&gt;
+    &lt;img src="<span class="hl-val">photo.jpg</span>" alt="<span class="hl-val">Gallery</span>"&gt;
+  &lt;/div&gt;
+  &lt;!-- repeat for each image --&gt;
+&lt;/div&gt;</div>
+    </div>
+  </section>
+
+  
+
+<!-- ── MUSIC PLAYER ── -->
+  <section class="doc-section" id="music-player">
+    <div class="doc-section__header">
+      <h2 class="doc-section__title">Music Player</h2>
+      <p class="doc-section__desc">Music playback UI with two-part structure: a <code>.media-display</code> for album art + play overlay, and a <code>.media-bar</code> for transport controls (prev/play/next), time readout, and volume. Set <code>data-duration</code> (in seconds) on the <code>.music-player</code> wrapper to display total time. Requires ~20 lines of JavaScript for play/pause toggle and time tracking. Colors use <code>--color-link</code> for the play button and <code>--color-text</code> for time labels.</p>
+    </div>
+    <div class="doc-demo">
+      <div class="doc-demo__stage">
+        <div class="block music-player" data-duration="242" style="width:320px;margin:0;">
+          <div class="media-display" style="background-image:url('https://images.unsplash.com/photo-1511379938547-c1f69419868d?w=600&h=360&fit=crop');background-color:var(--color-bg-secondary);">
+            <button class="media-display__play music-player__overlay-play" id="mp-play2" aria-label="Play"><span class="ic ic-play" style="width:20px;height:20px;"></span></button>
+          </div>
+          <div class="media-bar">
+            <button class="media-bar__btn" aria-label="Previous"><span class="ic ic-chevleft" style="width:14px;height:14px;"></span></button>
+            <button class="media-bar__btn music-player__play" id="mp-btn2" aria-label="Play"><span class="ic ic-play" style="width:14px;height:14px;"></span></button>
+            <button class="media-bar__btn" aria-label="Next"><span class="ic ic-chevright" style="width:14px;height:14px;"></span></button>
+            <div class="media-bar__spacer"></div>
+            <span class="media-bar__time music-player__current" id="mp-curr2">1:26</span>
+            <span class="media-bar__sep">/</span>
+            <span class="media-bar__time">4:02</span>
+            <div class="media-bar__spacer"></div>
+            <button class="media-bar__btn" aria-label="Volume"><span class="ic ic-volume" style="width:14px;height:14px;"></span></button>
+          </div>
+        </div>
+      </div>
+      <div class="doc-demo__code">&lt;div class="<span class="hl-tag">media-display</span>"&gt;
+  &lt;button class="<span class="hl-tag">media-display__play</span>"&gt;&lt;span class="<span class="hl-tag">ic ic-play</span>"&gt;&lt;/span&gt;&lt;/button&gt;
+&lt;/div&gt;
+&lt;div class="<span class="hl-tag">media-bar</span>"&gt;
+  &lt;button class="<span class="hl-tag">media-bar__btn</span>"&gt;&lt;span class="<span class="hl-tag">ic ic-chevleft</span>"&gt;&lt;/span&gt;&lt;/button&gt;
+  &lt;button class="<span class="hl-tag">media-bar__btn</span>"&gt;&lt;span class="<span class="hl-tag">ic ic-play</span>"&gt;&lt;/span&gt;&lt;/button&gt;
+  &lt;span class="<span class="hl-tag">media-bar__time</span>"&gt;1:26&lt;/span&gt;
+&lt;/div&gt;</div>
+    </div>
+  </section>
+
+  
+
+<!-- ── VIDEO GALLERY ── -->
+  <section class="doc-section" id="video-gallery">
+    <div class="doc-section__header">
+      <h2 class="doc-section__title">Video Gallery</h2>
+      <p class="doc-section__desc">Responsive grid of video cards with thumbnail previews, play button overlay, and duration badges. Set the YouTube embed URL via <code>data-video</code> on each <code>.video-gallery__card</code>. Click any card to open it in a fullscreen modal player with the embedded video. Each card shows a thumbnail, play icon overlay, duration badge, title, and metadata line. Requires ~20 lines of JavaScript for the modal player. Colors use <code>--color-link</code> for the play icon, <code>--color-bg-secondary</code> for duration badges, and <code>--border-radius</code> for cards.</p>
+    </div>
+    <div class="doc-demo">
+      <div class="doc-demo__stage doc-demo__stage--block">
+        <div class="video-gallery">
+          <div class="video-gallery__card" data-video="https://www.youtube.com/embed/aqz-KE-bpKQ">
+            <div class="video-gallery__thumb">
+              <img src="https://picsum.photos/seed/burger/600/338" alt="Homemade Burger" loading="lazy" onerror="this.style.display='none'">
+              <div class="video-gallery__play"></div>
+              <span class="video-gallery__duration">8:58</span>
+            </div>
+            <div class="video-gallery__info">
+              <p class="video-gallery__title">Homemade Burger</p>
+              <p class="video-gallery__meta">4K • 8:58</p>
+            </div>
+          </div>
+          <div class="video-gallery__card" data-video="https://www.youtube.com/embed/aqz-KE-bpKQ">
+            <div class="video-gallery__thumb">
+              <img src="https://picsum.photos/seed/pasta/600/338" alt="Ricotta Ravioli" loading="lazy" onerror="this.style.display='none'">
+              <div class="video-gallery__play"></div>
+              <span class="video-gallery__duration">1:28</span>
+            </div>
+            <div class="video-gallery__info">
+              <p class="video-gallery__title">Ricotta Ravioli</p>
+              <p class="video-gallery__meta">HD • 1:28</p>
+            </div>
+          </div>
+          <div class="video-gallery__card" data-video="https://www.youtube.com/embed/aqz-KE-bpKQ">
+            <div class="video-gallery__thumb">
+              <img src="https://picsum.photos/seed/pancakes/600/338" alt="Pancakes" loading="lazy" onerror="this.style.display='none'">
+              <div class="video-gallery__play"></div>
+              <span class="video-gallery__duration">5:59</span>
+            </div>
+            <div class="video-gallery__info">
+              <p class="video-gallery__title">Pancakes</p>
+              <p class="video-gallery__meta">4K • 5:59</p>
+            </div>
+          </div>
+          <div class="video-gallery__card" data-video="https://www.youtube.com/embed/aqz-KE-bpKQ">
+            <div class="video-gallery__thumb">
+              <img src="https://picsum.photos/seed/pesto/600/338" alt="Pesto Pasta" loading="lazy" onerror="this.style.display='none'">
+              <div class="video-gallery__play"></div>
+              <span class="video-gallery__duration">7:18</span>
+            </div>
+            <div class="video-gallery__info">
+              <p class="video-gallery__title">Pesto Pasta</p>
+              <p class="video-gallery__meta">HD • 7:18</p>
+            </div>
+          </div>
+          <div class="video-gallery__card" data-video="https://www.youtube.com/embed/aqz-KE-bpKQ">
+            <div class="video-gallery__thumb">
+              <img src="https://picsum.photos/seed/gelato/600/338" alt="Homemade Gelato" loading="lazy" onerror="this.style.display='none'">
+              <div class="video-gallery__play"></div>
+              <span class="video-gallery__duration">4:06</span>
+            </div>
+            <div class="video-gallery__info">
+              <p class="video-gallery__title">Homemade Gelato</p>
+              <p class="video-gallery__meta">4K • 4:06</p>
+            </div>
+          </div>
+          <div class="video-gallery__card" data-video="https://www.youtube.com/embed/aqz-KE-bpKQ">
+            <div class="video-gallery__thumb">
+              <img src="https://picsum.photos/seed/eggs/600/338" alt="Eggs On Toast" loading="lazy" onerror="this.style.display='none'">
+              <div class="video-gallery__play"></div>
+              <span class="video-gallery__duration">7:52</span>
+            </div>
+            <div class="video-gallery__info">
+              <p class="video-gallery__title">Eggs On Toast</p>
+              <p class="video-gallery__meta">HD • 7:52</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="doc-demo__code">&lt;div class="<span class="hl-tag">video-gallery</span>"&gt;
+  &lt;div class="<span class="hl-tag">video-gallery__card</span>" data-video="<span class="hl-val">https://...</span>"&gt;
+    &lt;div class="<span class="hl-tag">video-gallery__thumb</span>"&gt;
+      &lt;img src="<span class="hl-val">preview.jpg</span>" alt="<span class="hl-val">Title</span>"&gt;
+      &lt;div class="<span class="hl-tag">video-gallery__play</span>"&gt;&lt;/div&gt;
+      &lt;span class="<span class="hl-tag">video-gallery__duration</span>"&gt;8:58&lt;/span&gt;
+    &lt;/div&gt;
+    &lt;div class="<span class="hl-tag">video-gallery__info</span>"&gt;
+      &lt;p class="<span class="hl-tag">video-gallery__title</span>"&gt;Title&lt;/p&gt;
+      &lt;p class="<span class="hl-tag">video-gallery__meta</span>"&gt;4K • 8:58&lt;/p&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</div>
+    </div>
+  </section>
+  
+
+<!-- ── SLIDESHOW ── -->
+  <section class="doc-section" id="slideshow">
+    <div class="doc-section__header">
+      <h2 class="doc-section__title">Slideshow</h2>
+      <p class="doc-section__desc">Accessible image carousel with ARIA <code>role="region"</code> and <code>aria-roledescription="carousel"</code>. Auto-advances every 5 seconds — pauses on hover via <code>.slideshow--paused</code>. Each slide supports an optional <code>&lt;figcaption&gt;</code>. Prev/next arrow buttons and dot navigation are generated by JavaScript (~30 lines). Active dot uses <code>--color-link</code>; container corners use <code>--border-radius</code>. Wrap multiple slideshows by giving each a unique <code>id</code>.</p>
+    </div>
+    <div class="doc-demo">
+      <div class="doc-demo__stage doc-demo__stage--block">
+        <div class="slideshow" id="s1" role="region" aria-label="Demo slideshow" aria-roledescription="carousel" style="max-width:600px;">
+          <div class="slideshow__track" id="s1-track">
+            <div class="slideshow__slide" role="group" aria-roledescription="slide" aria-label="1 of 4">
+              <img src="https://picsum.photos/seed/arch01/800/450" alt="Modular component architecture" loading="lazy">
+              <figcaption>Token-driven component architecture</figcaption>
+            </div>
+            <div class="slideshow__slide" role="group" aria-roledescription="slide" aria-label="2 of 4">
+              <img src="https://picsum.photos/seed/colors02/800/450" alt="Theme color palettes" loading="lazy">
+              <figcaption>Five themes from 12 variables</figcaption>
+            </div>
+            <div class="slideshow__slide" role="group" aria-roledescription="slide" aria-label="3 of 4">
+              <img src="https://picsum.photos/seed/package03/800/450" alt="CSS bundle package" loading="lazy">
+              <figcaption>Download full CSS — own it</figcaption>
+            </div>
+            <div class="slideshow__slide" role="group" aria-roledescription="slide" aria-label="4 of 4">
+              <img src="https://picsum.photos/seed/speed04/800/450" alt="Fast performance" loading="lazy">
+              <figcaption>Zero runtime dependencies</figcaption>
+            </div>
+          </div>
+          <button class="slideshow__arrow slideshow__arrow--prev" aria-label="Previous"><span class="ic ic-chevleft" style="width:18px;height:18px;"></span></button>
+          <button class="slideshow__arrow slideshow__arrow--next" aria-label="Next"><span class="ic ic-chevright" style="width:18px;height:18px;"></span></button>
+          <div class="slideshow__dots" id="s1-dots"></div>
+        </div>
+      </div>
+      <div class="doc-demo__code">&lt;div class="<span class="hl-tag">slideshow</span>"&gt;
+  &lt;div class="<span class="hl-tag">slideshow__track</span>"&gt;
+    &lt;div class="<span class="hl-tag">slideshow__slide</span>"&gt;...&lt;/div&gt;
+  &lt;/div&gt;
+  &lt;button class="<span class="hl-tag">slideshow__arrow slideshow__arrow--prev</span>"&gt;&lt;span class="<span class="hl-tag">ic ic-chevleft</span>"&gt;&lt;/span&gt;&lt;/button&gt;
+  &lt;button class="<span class="hl-tag">slideshow__arrow slideshow__arrow--next</span>"&gt;&lt;span class="<span class="hl-tag">ic ic-chevright</span>"&gt;&lt;/span&gt;&lt;/button&gt;
+  &lt;div class="<span class="hl-tag">slideshow__dots</span>"&gt;...&lt;/div&gt;
+&lt;/div&gt;</div>
+    </div>
+  </section>
+
+  
+
+<!-- ── DONUT CHART ── -->
+  <section class="doc-section" id="donut-chart">
+    <div class="doc-section__header">
+      <h2 class="doc-section__title">Donut Chart</h2>
+      <p class="doc-section__desc">Pure CSS donut chart using the clip-rect technique. Up to 4 slices, each controlled by a CSS variable: <code>--slice1</code> through <code>--slice4</code> (set as percentages, e.g. <code>21%</code>). Slice colors are set inline via <code>background</code> on each <code>.donut__slice .fill</code>. Center displays a value and label via <code>.donut__center-val</code> and <code>.donut__center-label</code>. Pair with <code>.donut-legend</code> for labeled items with percentages. Zero JavaScript.</p>
+    </div>
+    <div class="doc-demo">
+      <div class="doc-demo__stage">
+        <div style="width:300px;">
+          <div class="donut">
+            <div class="donut__slice donut__slice--1"><div class="fill"></div></div>
+            <div class="donut__slice donut__slice--2"><div class="fill"></div></div>
+            <div class="donut__slice donut__slice--3"><div class="fill"></div></div>
+            <div class="donut__slice donut__slice--4"><div class="fill"></div></div>
+            <div class="donut__center">
+              <div class="donut__center-val">JUNE</div>
+              <div class="donut__center-label">2026</div>
+            </div>
+          </div>
+          <div class="donut-legend">
+            <div class="donut-legend__item">
+              <p class="donut-legend__label" style="border-top-color:var(--color-link);">iOS</p>
+              <p class="donut-legend__pct">21%</p>
+            </div>
+            <div class="donut-legend__item">
+              <p class="donut-legend__label" style="border-top-color:var(--color-secondary);">Mac</p>
+              <p class="donut-legend__pct">48%</p>
+            </div>
+            <div class="donut-legend__item">
+              <p class="donut-legend__label" style="border-top-color:var(--color-text-secondary);">Linux</p>
+              <p class="donut-legend__pct">9%</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="doc-demo__code">&lt;div class="<span class="hl-tag">donut</span>"&gt;
+  &lt;div class="<span class="hl-tag">donut__slice donut__slice--1</span>"&gt;&lt;div class="<span class="hl-tag">fill</span>"&gt;&lt;/div&gt;&lt;/div&gt;
+  &lt;div class="<span class="hl-tag">donut__slice donut__slice--2</span>"&gt;&lt;div class="<span class="hl-tag">fill</span>"&gt;&lt;/div&gt;&lt;/div&gt;
+  &lt;div class="<span class="hl-tag">donut__center</span>"&gt;...&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="<span class="hl-tag">donut-legend</span>"&gt;...&lt;/div&gt;</div>
+    </div>
+  </section>
+
+  
+
+<!-- ── BAR CHART ── -->
+  <section class="doc-section" id="bar-chart">
+    <div class="doc-section__header">
+      <h2 class="doc-section__title">Bar Chart</h2>
+      <p class="doc-section__desc">Horizontal bar chart built from stacked <code>.bar-row</code> elements. Each row has a <code>.bar-row__label</code> (left), a <code>.bar-row__track</code> with a <code>.bar-row__fill</code> bar, and a <code>.bar-row__val</code> (right). Set bar width via the CSS variable <code>--bar-w</code> (0–100%) on the fill element. Bar color is set via inline <code>background</code> — use <code>--color-link</code>, <code>--color-secondary</code>, or any token. Track background uses <code>--color-bg-secondary</code>. Pure CSS, no JavaScript.</p>
+    </div>
+    <div class="doc-demo">
+      <div class="doc-demo__stage doc-demo__stage--block">
+        <div class="bar-row"><span class="bar-row__label">Apr</span><div class="bar-row__track"><div class="bar-row__fill" style="--bar-w:62%;background:var(--color-link);"></div></div><span class="bar-row__val">24k</span></div>
+        <div class="bar-row"><span class="bar-row__label">May</span><div class="bar-row__track"><div class="bar-row__fill" style="--bar-w:80%;background:var(--color-link);"></div></div><span class="bar-row__val">31k</span></div>
+        <div class="bar-row"><span class="bar-row__label">Jun</span><div class="bar-row__track"><div class="bar-row__fill" style="--bar-w:98%;background:var(--color-secondary);"></div></div><span class="bar-row__val">38k</span></div>
+        <div class="bar-row"><span class="bar-row__label">Jul</span><div class="bar-row__track"><div class="bar-row__fill" style="--bar-w:72%;background:var(--color-link);"></div></div><span class="bar-row__val">28k</span></div>
+        <div class="bar-row"><span class="bar-row__label">Aug</span><div class="bar-row__track"><div class="bar-row__fill" style="--bar-w:100%;background:var(--color-secondary);"></div></div><span class="bar-row__val">44k</span></div>
+      </div>
+      <div class="doc-demo__code">&lt;div class="<span class="hl-tag">bar-row</span>"&gt;
+  &lt;span class="<span class="hl-tag">bar-row__label</span>"&gt;Apr&lt;/span&gt;
+  &lt;div class="<span class="hl-tag">bar-row__track</span>"&gt;
+    &lt;div class="<span class="hl-tag">bar-row__fill</span>" style="<span class="hl-attr">--bar-w</span>:<span class="hl-val">62%</span>"&gt;&lt;/div&gt;
+  &lt;/div&gt;
+  &lt;span class="<span class="hl-tag">bar-row__val</span>"&gt;24k&lt;/span&gt;
+&lt;/div&gt;</div>
+    </div>
+  </section>
+
+  
+
+<!-- ── PROGRESS BARS ── -->
+  <section class="doc-section" id="progress">
+    <div class="doc-section__header">
+      <h2 class="doc-section__title">Progress Bars</h2>
+      <p class="doc-section__desc">Progress indicator with icon, label, percentage readout, and gradient-filled track. Set fill width with <code>--fill-pct</code> (0–100%) and color with <code>--fill-clr</code> on the <code>.progress-item__fill</code> element. The fill renders as a gradient from the chosen color to a lighter tint. Each <code>.progress-item</code> contains a head row (<code>.progress-item__head</code>) with optional icon, label, and percentage, plus a track. Uses <code>--color-bg-secondary</code> for the empty track. Pure CSS — no JavaScript needed.</p>
+    </div>
+    <div class="doc-demo">
+      <div class="doc-demo__stage doc-demo__stage--block" style="max-width:420px;">
+        <div class="progress-item">
+          <div class="progress-item__head"><span class="progress-item__icon"><span class="ic ic-download"></span></span><span class="progress-item__label">Downloading assets...</span><span class="progress-item__pct">81%</span></div>
+          <div class="progress-item__track"><div class="progress-item__fill" style="--fill-pct:81%;--fill-clr:var(--color-link);"></div></div>
+        </div>
+        <div class="progress-item">
+          <div class="progress-item__head"><span class="progress-item__icon"><span class="ic ic-chevup"></span></span><span class="progress-item__label">Uploading build...</span><span class="progress-item__pct">43%</span></div>
+          <div class="progress-item__track"><div class="progress-item__fill" style="--fill-pct:43%;--fill-clr:var(--color-secondary);"></div></div>
+        </div>
+        <div class="progress-item">
+          <div class="progress-item__head"><span class="progress-item__icon"><span class="ic ic-grip"></span></span><span class="progress-item__label">CSS compiling...</span><span class="progress-item__pct">96%</span></div>
+          <div class="progress-item__track"><div class="progress-item__fill" style="--fill-pct:96%;--fill-clr:var(--color-link);"></div></div>
+        </div>
+      </div>
+      <div class="doc-demo__code">&lt;div class="<span class="hl-tag">progress-item</span>"&gt;
+  &lt;div class="<span class="hl-tag">progress-item__head</span>"&gt;...&lt;/div&gt;
+  &lt;div class="<span class="hl-tag">progress-item__track</span>"&gt;
+    &lt;div class="<span class="hl-tag">progress-item__fill</span>" style="<span class="hl-attr">--fill-pct</span>:<span class="hl-val">81%</span>;<span class="hl-attr">--fill-clr</span>:<span class="hl-val">var(--color-link)</span>"&gt;&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</div>
+    </div>
+  </section>
+
+  
+
+<!-- ── RANGE SLIDER ── -->
+  <section class="doc-section" id="range-slider">
+    <div class="doc-section__header">
+      <h2 class="doc-section__title">Range Slider</h2>
+      <p class="doc-section__desc">Custom styled <code>&lt;input type="range"&gt;</code> with live value display. Thumb uses <code>--color-link</code> fill with white border. Track uses <code>--color-bg-secondary</code>. Add <code>.range--sm</code> for compact variant.</p>
+    </div>
+    <div class="doc-demo">
+      <div class="doc-demo__stage doc-demo__stage--block" style="max-width:420px;gap:20px;">
+        <div class="range">
+          <input type="range" class="range__input" id="rng1" min="0" max="100" value="65" aria-label="Volume level">
+          <span class="range__val" id="rng1-val">65</span>
+        </div>
+        <div class="range">
+          <input type="range" class="range__input" id="rng2" min="0" max="100" value="32" aria-label="Brightness level">
+          <span class="range__val" id="rng2-val">32</span>
+        </div>
+        <div class="range range--sm">
+          <input type="range" class="range__input" id="rng3" min="0" max="100" value="88" aria-label="Zoom level">
+          <span class="range__val" id="rng3-val">88</span>
+        </div>
+      </div>
+      <div class="doc-demo__code">&lt;div class="<span class="hl-tag">range</span>"&gt;
+  &lt;input type="<span class="hl-attr">range</span>" class="<span class="hl-tag">range__input</span>" value="<span class="hl-val">65</span>"&gt;
+  &lt;span class="<span class="hl-tag">range__val</span>"&gt;65&lt;/span&gt;
+&lt;/div&gt;</div>
+    </div>
+  </section>
+
+  
+
+<!-- ── CHECKBOX (C14) ── -->
+  <section class="doc-section" id="checkbox">
+    <div class="doc-section__header">
+      <h2 class="doc-section__title">Checkbox</h2>
+      <p class="doc-section__desc">Custom checkbox with animated SVG checkmark. Checked state fills the box with <code>--color-link</code>; the check icon draws in with a stroke animation. Add the <code>disabled</code> attribute to the hidden <code>&lt;input&gt;</code> for a muted, non-interactive state. Label goes after <code>.checkbox__box</code> inside the <code>&lt;label&gt;</code> wrapper. Pure CSS using <code>:checked</code> on the hidden input — no JavaScript. Group checkboxes by sharing a common context in a <code>&lt;fieldset&gt;</code>.</p>
+    </div>
+    <div class="doc-demo">
+      <div class="doc-demo__stage" style="flex-direction:column;align-items:flex-start;gap:6px;">
+        <label class="checkbox"><input type="checkbox" checked><span class="checkbox__box"></span><span class="checkbox__label">Accept terms of service</span></label>
+        <label class="checkbox"><input type="checkbox"><span class="checkbox__box"></span><span class="checkbox__label">Subscribe to newsletter</span></label>
+        <label class="checkbox"><input type="checkbox" checked><span class="checkbox__box"></span><span class="checkbox__label">Enable analytics</span></label>
+      </div>
+      <div class="doc-demo__code">&lt;label class="<span class="hl-tag">checkbox</span>"&gt;
+  &lt;input type="<span class="hl-attr">checkbox</span>" checked&gt;
+  &lt;span class="<span class="hl-tag">checkbox__box</span>"&gt;&lt;/span&gt;
+  &lt;span class="<span class="hl-tag">checkbox__label</span>"&gt;Accept terms&lt;/span&gt;
+&lt;/label&gt;</div>
+    </div>
+  </section>
+
+  
+
+<!-- ── COLOR PICKER ── -->
+  <section class="doc-section" id="color-picker">
+    <div class="doc-section__header">
+      <h2 class="doc-section__title">Color Picker</h2>
+      <p class="doc-section__desc">Styled wrapper around the native <code>&lt;input type="color"&gt;</code>. Click the swatch to open the OS color picker. Hex value displays below. Three sizes: default, <code>.color-picker--sm</code>, <code>.color-picker--lg</code>.</p>
+    </div>
+    <div class="doc-demo">
+      <div class="doc-demo__stage" style="gap:24px;flex-wrap:wrap;">
+        <div class="color-picker" id="cp-demo">
+          <span class="color-picker__label">Theme Color</span>
+          <div class="color-picker__swatch">
+            <input type="color" class="color-picker__input" value="#3b82f6" aria-label="Pick a theme color">
+          </div>
+          <span class="color-picker__value"></span>
+        </div>
+        <div class="color-picker color-picker--sm" id="cp-sm">
+          <div class="color-picker__swatch">
+            <input type="color" class="color-picker__input" value="#ef4444" aria-label="Pick a color">
+          </div>
+          <span class="color-picker__value"></span>
+        </div>
+        <div class="color-picker color-picker--lg" id="cp-lg">
+          <div class="color-picker__swatch">
+            <input type="color" class="color-picker__input" value="#22c55e" aria-label="Pick a color">
+          </div>
+          <span class="color-picker__value"></span>
+        </div>
+      </div>
+      <div class="doc-demo__code">&lt;div class="<span class="hl-tag">color-picker</span>"&gt;
+  &lt;div class="<span class="hl-tag">color-picker__swatch</span>"&gt;
+    &lt;input type="<span class="hl-attr">color</span>" class="<span class="hl-tag">color-picker__input</span>" value="<span class="hl-val">#3b82f6</span>"&gt;
+  &lt;/div&gt;
+  &lt;span class="<span class="hl-tag">color-picker__value</span>"&gt;&lt;/span&gt;
+&lt;/div&gt;</div>
+    </div>
+  </section>
+
+  
+<!-- ── DATE PICKER ── -->
+  <section class="doc-section" id="date-picker">
+    <div class="doc-section__header">
+      <h2 class="doc-section__title">Date Picker</h2>
+      <p class="doc-section__desc">Interactive calendar popup with month navigation, today highlight, and click-to-select dates. Click the input to open. Adapted from GeeksForGeeks. Uses <code>--color-link</code>, <code>--color-bg-secondary</code>, and <code>--border-radius</code> tokens.</p>
+    </div>
+    <div class="doc-demo">
+      <div class="doc-demo__stage">
+        <div class="date-picker__wrapper" id="dp-demo" style="width:260px;">
+          <div style="position:relative;display:flex;align-items:center;">
+            <span class="ic ic-calendar" style="position:absolute;left:10px;top:0px;z-index:1;width:16px;height:40px;pointer-events:none;"></span>
+            <input type="text" class="date-picker__input" placeholder="Pick a date..." readonly style="padding-left:34px;" aria-label="Pick a date">
+          </div>
+          <div class="date-picker">
+            <div class="date-picker__header">
+              <button class="date-picker__nav date-picker__nav--prev" aria-label="Previous month"><span class="ic ic-chevleft"></span></button>
+              <span class="date-picker__header-date">July 2026</span>
+              <button class="date-picker__nav date-picker__nav--next" aria-label="Next month"><span class="ic ic-chevright"></span></button>
+            </div>
+            <div class="date-picker__weekdays"><span>Sun</span><span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span></div>
+            <div class="date-picker__dates"></div>
+          </div>
+        </div>
+      </div>
+      <div class="doc-demo__code">&lt;div class="<span class="hl-tag">date-picker__wrapper</span>"&gt;
+  &lt;input class="<span class="hl-tag">date-picker__input</span>" placeholder="<span class="hl-val">Pick a date...</span>" readonly&gt;
+  &lt;div class="<span class="hl-tag">date-picker</span>"&gt;
+    &lt;div class="<span class="hl-tag">date-picker__header</span>"&gt;
+      &lt;button class="<span class="hl-tag">date-picker__nav--prev</span>"&gt;&lt;/button&gt;
+      &lt;span class="<span class="hl-tag">date-picker__header-date</span>"&gt;&lt;/span&gt;
+      &lt;button class="<span class="hl-tag">date-picker__nav--next</span>"&gt;&lt;/button&gt;
+    &lt;/div&gt;
+    &lt;div class="<span class="hl-tag">date-picker__weekdays</span>"&gt;...&lt;/div&gt;
+    &lt;div class="<span class="hl-tag">date-picker__dates</span>"&gt;&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</div>
+    </div>
+  </section>
+
+  
+
+<!-- ── DROPDOWN MENU (C16) ── -->
+  <section class="doc-section" id="dropdown">
+    <div class="doc-section__header">
+      <h2 class="doc-section__title">Dropdown Menu</h2>
+      <p class="doc-section__desc">Click-to-toggle floating menu with items, shortcuts, separators, labels, and danger actions. Solid (default) and soft variants via <code>.dropdown--soft</code>. Compact size via <code>.dropdown--sm</code>. Uses <code>--box-shadow</code> and <code>--border-radius</code> from theme tokens.</p>
+    </div>
+    <div class="doc-demo">
+      <div class="doc-demo__stage" style="gap:16px;min-height:240px;">
+        <div class="dropdown" id="dd-solid">
+          <button class="dropdown__trigger">Options <span class="dropdown__arrow">▾</span></button>
+          <div class="dropdown__menu">
+            <div class="dropdown__label">Actions</div>
+            <button class="dropdown__item"><span class="dd-icon ic-edit"></span> Edit<span class="dropdown__shortcut">⌘E</span></button>
+            <button class="dropdown__item"><span class="dd-icon ic-copy"></span> Duplicate<span class="dropdown__shortcut">⌘D</span></button>
+            <div class="dropdown__divider"></div>
+            <button class="dropdown__item"><span class="dd-icon ic-down"></span> Archive<span class="dropdown__shortcut">⌘N</span></button>
+            <button class="dropdown__item">Share</button>
+            <div class="dropdown__divider"></div>
+            <button class="dropdown__item dropdown__item--danger"><span class="dd-icon ic-trash"></span> Delete<span class="dropdown__shortcut">⌘⌫</span></button>
+          </div>
+        </div>
+        <div class="dropdown dropdown--soft dropdown--sm" id="dd-soft">
+          <button class="dropdown__trigger">Soft <span class="dropdown__arrow">▾</span></button>
+          <div class="dropdown__menu">
+            <button class="dropdown__item">Settings</button>
+            <button class="dropdown__item">Profile</button>
+            <div class="dropdown__divider"></div>
+            <button class="dropdown__item dropdown__item--danger">Sign out</button>
+          </div>
+        </div>
+      </div>
+      <div class="doc-demo__code">&lt;div class="<span class="hl-tag">dropdown</span>"&gt;
+  &lt;button class="<span class="hl-tag">dropdown__trigger</span>"&gt;Options &lt;span class="<span class="hl-tag">dropdown__arrow</span>"&gt;&lt;/span&gt;&lt;/button&gt;
+  &lt;div class="<span class="hl-tag">dropdown__menu</span>"&gt;
+    &lt;div class="<span class="hl-tag">dropdown__label</span>"&gt;Actions&lt;/div&gt;
+    &lt;button class="<span class="hl-tag">dropdown__item</span>"&gt;Edit&lt;span class="<span class="hl-tag">dropdown__shortcut</span>"&gt;⌘E&lt;/span&gt;&lt;/button&gt;
+    &lt;div class="<span class="hl-tag">dropdown__divider</span>"&gt;&lt;/div&gt;
+    &lt;button class="<span class="hl-tag">dropdown__item dropdown__item--danger</span>"&gt;Delete&lt;/button&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class="<span class="hl-tag">dropdown dropdown--soft dropdown--sm</span>"&gt;...&lt;/div&gt;</div>
+    </div>
+  </section>
+
+  
+
+<!-- ── FORM VALIDATION ── -->
+  <section class="doc-section" id="form-validation">
+    <div class="doc-section__header">
+      <h2 class="doc-section__title">Form Validation</h2>
+      <p class="doc-section__desc">Input error and success states with icon indicators and helper text. Uses semantic <code>--color-error</code> and <code>--color-success</code> tokens with focus-ring shadows. Add <code>.input--error</code>, <code>.input--success</code>, or <code>.form-helper--error</code> to any input.</p>
+    </div>
+    <div class="doc-demo">
+      <div class="doc-demo__stage doc-demo__stage--block" style="max-width:400px;">
+        <label style="font-weight:600;font-size:.85rem;margin-bottom:4px;">Email Address</label>
+        <input type="text" class="input--error" value="user@com" style="display:block;width:100%;padding:0.55rem 0.8rem;font-size:.9rem;border:1px solid var(--color-bg-secondary);border-radius:var(--border-radius);outline:none;">
+        <span class="form-helper form-helper--error">Please enter a valid email address.</span>
+
+        <label style="font-weight:600;font-size:.85rem;margin-bottom:4px;">Username</label>
+        <input type="text" class="input--success" value="john_doe" style="display:block;width:100%;padding:0.55rem 0.8rem;font-size:.9rem;border:1px solid var(--color-bg-secondary);border-radius:var(--border-radius);outline:none;">
+        <span class="form-helper form-helper--success">Username is available.</span>
+
+        <label style="font-weight:600;font-size:.85rem;margin-bottom:4px;">Password</label>
+        <input type="password" value="123" style="display:block;width:100%;padding:0.55rem 0.8rem;font-size:.9rem;border:1px solid var(--color-bg-secondary);border-radius:var(--border-radius);outline:none;">
+        <span class="form-helper">Must be at least 8 characters with one number.</span>
+      </div>
+      <div class="doc-demo__code">&lt;input class="<span class="hl-tag">input--error</span>" value="<span class="hl-val">user@com</span>"&gt;
+&lt;span class="<span class="hl-tag">form-helper form-helper--error</span>"&gt;Invalid email&lt;/span&gt;
+
+&lt;input class="<span class="hl-tag">input--success</span>" value="<span class="hl-val">john_doe</span>"&gt;
+&lt;span class="<span class="hl-tag">form-helper form-helper--success</span>"&gt;Available&lt;/span&gt;</div>
+    </div>
+  </section>
+
+  
+
+<!-- ── ICON BUTTON (C15) ── -->
+  <section class="doc-section" id="icon-btn">
+    <div class="doc-section__header">
+      <h2 class="doc-section__title">Icon Button</h2>
+      <p class="doc-section__desc">Now part of <code>buttons.css</code>. Use <code>.btn .btn--icon</code> for circular icon-only buttons, or <code>.btn .btn--radius-full</code> for pill-shaped icon+label combos. Combine with <code>.btn--surface</code>, <code>.btn--ghost</code>, or <code>.btn--outline</code> for styling.</p>
+    </div>
+    <div class="doc-demo">
+      <div class="doc-demo__stage" style="gap:12px;">
+        <button class="btn btn--surface"><span class="ic ic-star" style="width:16px;height:16px;"></span> Like</button>
+        <button class="btn btn--primary btn--radius-full"><span class="ic ic-star-f" style="width:16px;height:16px;"></span> Star</button>
+        <button class="btn btn--ghost"><span class="ic ic-search" style="width:16px;height:16px;"></span> Settings</button>
+        <button class="btn btn--icon btn--primary" aria-label="Search"><span class="ic ic-search"></span></button>
+      </div>
+      <div class="doc-demo__code">&lt;!-- icon + label, card-like --&gt;
+&lt;button class="<span class="hl-tag">btn btn--surface</span>"&gt;&lt;span class="<span class="hl-tag">ic ic-star</span>"&gt;&lt;/span&gt; Like&lt;/button&gt;
+
+&lt;!-- icon + label, pill, solid --&gt;
+&lt;button class="<span class="hl-tag">btn btn--primary btn--radius-full</span>"&gt;&lt;span class="<span class="hl-tag">ic ic-star-f</span>"&gt;&lt;/span&gt; Star&lt;/button&gt;
+
+&lt;!-- icon + label, ghost --&gt;
+&lt;button class="<span class="hl-tag">btn btn--ghost</span>"&gt;&lt;span class="<span class="hl-tag">ic ic-search</span>"&gt;&lt;/span&gt; Settings&lt;/button&gt;
+
+&lt;!-- icon-only, circular --&gt;
+&lt;button class="<span class="hl-tag">btn btn--icon btn--primary</span>" aria-label="Search"&gt;&lt;span class="<span class="hl-tag">ic ic-search</span>"&gt;&lt;/span&gt;&lt;/button&gt;</div>
+    </div>
+  </section>
+
+  
+
+<!-- ── INPUT GROUP (C17) ── -->
+  <section class="doc-section" id="input-group">
+    <div class="doc-section__header">
+      <h2 class="doc-section__title">Input Group</h2>
+      <p class="doc-section__desc">Label + icon/addon + input combined into one visual unit with a shared focus ring. Two adornment types: <code>.input-group__icon</code> for leading SVG icons (mail, search, user) and <code>.input-group__addon</code> for text prefixes like "https://". The focus ring uses <code>--color-link</code> blended semi-transparently. The wrap border uses <code>--color-bg-secondary</code>. Optional <code>.input-group__label</code> sits above the wrap. Works with <code>type="email"</code>, <code>type="text"</code>, <code>type="search"</code>, and <code>type="password"</code>.</p>
+    </div>
+    <div class="doc-demo">
+      <div class="doc-demo__stage doc-demo__stage--block" style="max-width:380px;">
+        <div class="input-group">
+          <label class="input-group__label">Email Address</label>
+          <div class="input-group__wrap">
+            <span class="input-group__icon"><span class="ig-icon ic-mail"></span></span>
+            <input class="input-group__input" type="email" placeholder="you@example.com">
+          </div>
+        </div>
+        <div class="input-group">
+          <label class="input-group__label">Website</label>
+          <div class="input-group__wrap">
+            <span class="input-group__addon">https://</span>
+            <input class="input-group__input" type="text" placeholder="yoursite.com">
+          </div>
+        </div>
+        <div class="input-group">
+          <label class="input-group__label">Search</label>
+          <div class="input-group__wrap">
+            <span class="input-group__icon"><span class="ig-icon ic-search"></span></span>
+            <input class="input-group__input" type="text" placeholder="Search components...">
+          </div>
+        </div>
+      </div>
+      <div class="doc-demo__code">&lt;div class="<span class="hl-tag">input-group</span>"&gt;
+  &lt;label class="<span class="hl-tag">input-group__label</span>"&gt;Email&lt;/label&gt;
+  &lt;div class="<span class="hl-tag">input-group__wrap</span>"&gt;
+    &lt;span class="<span class="hl-tag">input-group__icon</span>"&gt;&lt;span class="<span class="hl-tag">ig-icon ic-mail</span>"&gt;&lt;/span&gt;&lt;/span&gt;
+    &lt;input class="<span class="hl-tag">input-group__input</span>" type="<span class="hl-attr">email</span>"&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</div>
+    </div>
+  </section>
+
+  
+
+<!-- ── LOADING BUTTON ── -->
+  <section class="doc-section" id="loading-btn">
+    <div class="doc-section__header">
+      <h2 class="doc-section__title">Loading Button</h2>
+      <p class="doc-section__desc">Built-in loading state via <code>.btn--loading</code>. Text hides, spinner appears centered — works on all variants. Outline/ghost/soft/surface variants get a link-colored spinner. No extra markup needed.</p>
+    </div>
+    <div class="doc-demo">
+      <div class="doc-demo__stage" style="gap:12px;">
+        <button class="btn btn--loading btn--primary">Submit</button>
+        <button class="btn btn--loading btn--outline">Save</button>
+        <button class="btn btn--loading btn--soft">Processing</button>
+        <button class="btn btn--loading btn--neutral">Upload</button>
+      </div>
+      <div class="doc-demo__code">&lt;button class="<span class="hl-tag">btn btn--loading btn--primary</span>"&gt;Submit&lt;/button&gt;
+&lt;button class="<span class="hl-tag">btn btn--loading btn--outline</span>"&gt;Save&lt;/button&gt;
+&lt;button class="<span class="hl-tag">btn btn--loading btn--soft</span>"&gt;Processing&lt;/button&gt;</div>
+    </div>
+  </section>
+
+  
+
+<!-- ── PASSWORD INPUT ── -->
+  <section class="doc-section" id="password-input">
+    <div class="doc-section__header">
+      <h2 class="doc-section__title">Password Input</h2>
+      <p class="doc-section__desc">Password field with inline show/hide toggle. Focus ring uses <code>--color-link</code>. Toggle button reveals the plain-text value by swapping input type. Requires ~8 lines of JavaScript.</p>
+    </div>
+    <div class="doc-demo">
+      <div class="doc-demo__stage">
+        <div class="password-input">
+          <input type="password" class="password-input__field" id="pw-demo" value="supersecret" placeholder="Enter password">
+          <button type="button" class="password-input__toggle" id="pw-toggle" aria-label="Show password">
+            <svg viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+          </button>
+        </div>
+      </div>
+      <div class="doc-demo__code">&lt;div class="<span class="hl-tag">password-input</span>"&gt;
+  &lt;input type="<span class="hl-attr">password</span>" class="<span class="hl-tag">password-input__field</span>"&gt;
+  &lt;button class="<span class="hl-tag">password-input__toggle</span>"&gt;&lt;svg&gt;...&lt;/svg&gt;&lt;/button&gt;
+&lt;/div&gt;</div>
+    </div>
+  </section>
+
+  
+
+<!-- ── POPOVER ── -->
+  <section class="doc-section" id="popover">
+    <div class="doc-section__header">
+      <h2 class="doc-section__title">Popover</h2>
+      <p class="doc-section__desc">Click-triggered floating card for rich content — forms, text, media, or actions. Arrow points to the trigger. Four sizes: <code>--sm</code>, default, <code>--lg</code>, <code>--xl</code>. Align with <code>.popover--align-start</code> or <code>.popover--align-end</code>. Closes on outside click or Escape.</p>
+    </div>
+    <div class="doc-demo">
+      <div class="doc-demo__stage" style="gap:12px;min-height:260px;">
+        <div class="popover" id="pop-demo">
+          <button class="btn btn--soft popover__trigger">💬 Comment</button>
+          <div class="popover__content" style="width:300px;">
+            <div class="popover__arrow"></div>
+            <div style="display:flex;gap:10px;align-items:flex-start;">
+              <div class="avatar avatar--sm"><img src="https://picsum.photos/seed/pop1/48/48" alt="User"></div>
+              <div style="flex:1;">
+                <textarea placeholder="Write a comment…" style="width:100%;height:80px;padding:8px;font-size:.82rem;border:1px solid var(--color-bg-secondary);border-radius:var(--border-radius);resize:vertical;font-family:inherit;" aria-label="Comment"></textarea>
+                <div style="display:flex;justify-content:space-between;align-items:center;margin-top:10px;">
+                  <label style="font-size:.78rem;display:flex;align-items:center;gap:4px;cursor:pointer;"><input type="checkbox" style="accent-color:var(--color-link);"> Send to group</label>
+                  <button class="btn btn--primary btn--sm">Comment</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="popover popover--sm popover--align-end" id="pop-sm">
+          <button class="btn btn--ghost popover__trigger">⚙️</button>
+          <div class="popover__content">
+            <div class="popover__arrow"></div>
+            <p style="margin:0 0 8px;font-size:.85rem;font-weight:600;">Notifications</p>
+            <p style="margin:0;font-size:.8rem;color:var(--color-text-secondary);">You have 3 unread messages and 1 pending invite.</p>
+            <button class="btn btn--primary btn--sm btn--block" style="margin-top:12px;">View all</button>
+          </div>
+        </div>
+      </div>
+      <div class="doc-demo__code">&lt;div class="<span class="hl-tag">popover</span>"&gt;
+  &lt;button class="<span class="hl-tag">popover__trigger</span>"&gt;💬 Comment&lt;/button&gt;
+  &lt;div class="<span class="hl-tag">popover__content</span>"&gt;
+    &lt;div class="<span class="hl-tag">popover__arrow</span>"&gt;&lt;/div&gt;
+    &lt;textarea placeholder="Write a comment…"&gt;&lt;/textarea&gt;
+    &lt;button&gt;Comment&lt;/button&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class="<span class="hl-tag">popover popover--sm popover--align-end</span>"&gt;...&lt;/div&gt;</div>
+    </div>
+  </section>
+
+<!-- ── RADIO BUTTON (C13) ── -->
+  <section class="doc-section" id="radio">
+    <div class="doc-section__header">
+      <h2 class="doc-section__title">Radio Button</h2>
+      <p class="doc-section__desc">Styled radio button group. Each <code>&lt;label class="radio"&gt;</code> wraps a hidden <code>&lt;input type="radio"&gt;</code>, a <code>.radio__circle</code> (outer ring + inner dot), and a <code>.radio__label</code>. All inputs in a group share the same <code>name</code> attribute for mutual exclusion. Checked state fills the inner dot with <code>--color-link</code>; the outer ring uses <code>--color-bg-secondary</code>. Add the <code>disabled</code> attribute to the input for a muted, non-interactive option. Pure CSS — no JavaScript required.</p>
+    </div>
+    <div class="doc-demo">
+      <div class="doc-demo__stage" style="flex-direction:column;align-items:flex-start;gap:6px;">
+        <label class="radio"><input type="radio" name="demo-radio" checked><span class="radio__circle"></span><span class="radio__label">Light theme</span></label>
+        <label class="radio"><input type="radio" name="demo-radio"><span class="radio__circle"></span><span class="radio__label">Dark theme</span></label>
+        <label class="radio"><input type="radio" name="demo-radio"><span class="radio__circle"></span><span class="radio__label">System preference</span></label>
+      </div>
+      <div class="doc-demo__code">&lt;label class="<span class="hl-tag">radio</span>"&gt;
+  &lt;input type="<span class="hl-attr">radio</span>" name="<span class="hl-val">theme</span>" checked&gt;
+  &lt;span class="<span class="hl-tag">radio__circle</span>"&gt;&lt;/span&gt;
+  &lt;span class="<span class="hl-tag">radio__label</span>"&gt;Light theme&lt;/span&gt;
+&lt;/label&gt;</div>
+    </div>
+  </section>
+
+  
+
+<!-- ── RATING STARS ── -->
+  <section class="doc-section" id="rating">
+    <div class="doc-section__header">
+      <h2 class="doc-section__title">Rating Stars</h2>
+      <p class="doc-section__desc">Interactive 5-star rating. Click to set, hover to preview. Uses CSS direction trick for right-to-left fill. Requires ~10 lines of JavaScript for click handling.</p>
+    </div>
+    <div class="doc-demo">
+      <div class="doc-demo__stage">
+        <div class="rating" id="demo-rating2" aria-label="Star rating">
+          <input type="radio" name="rating2" value="5" id="r2-5"><label class="rating__star" for="r2-5">★</label>
+          <input type="radio" name="rating2" value="4" id="r2-4"><label class="rating__star" for="r2-4">★</label>
+          <input type="radio" name="rating2" value="3" id="r2-3"><label class="rating__star" for="r2-3">★</label>
+          <input type="radio" name="rating2" value="2" id="r2-2"><label class="rating__star" for="r2-2">★</label>
+          <input type="radio" name="rating2" value="1" id="r2-1"><label class="rating__star" for="r2-1">★</label>
+        </div>
+        <span class="rating__value" id="rating-val2">3 / 5</span>
+      </div>
+      <div class="doc-demo__code">&lt;div class="<span class="hl-tag">rating</span>"&gt;
+  &lt;input type="<span class="hl-attr">radio</span>" ...&gt;&lt;label class="<span class="hl-tag">rating__star</span>"&gt;★&lt;/label&gt;
+  &lt;!-- repeat 5 times --&gt;
+&lt;/div&gt;
+&lt;span class="<span class="hl-tag">rating__value</span>"&gt;3 / 5&lt;/span&gt;</div>
+    </div>
+  </section>
+
+  
+
+<!-- ── STYLED SELECT ── -->
+  <section class="doc-section" id="select">
+    <div class="doc-section__header">
+      <h2 class="doc-section__title">Styled Select</h2>
+      <p class="doc-section__desc">Custom <code>&lt;select&gt;</code> wrapper with chevron icon, focus ring, and size variants. Uses <code>--color-link</code> for focus and <code>--color-text-secondary</code> for the chevron. Add <code>.select--sm</code> or <code>.select--lg</code> for compact/large variants.</p>
+    </div>
+    <div class="doc-demo">
+      <div class="doc-demo__stage doc-demo__stage--block" style="max-width:420px;gap:16px;">
+        <div class="select">
+          <select class="select__field">
+            <option>Choose a theme...</option>
+            <option>Breeze</option>
+            <option>Night</option>
+            <option>Forest</option>
+            <option>Coral</option>
+          </select>
+        </div>
+        <div class="select select--sm">
+          <select class="select__field">
+            <option>Compact select</option>
+            <option>Option 1</option>
+            <option>Option 2</option>
+          </select>
+        </div>
+        <div class="select select--lg">
+          <select class="select__field">
+            <option>Large select</option>
+            <option>Option 1</option>
+            <option>Option 2</option>
+          </select>
+        </div>
+        <div class="select select--error">
+          <select class="select__field">
+            <option>Error state</option>
+          </select>
+        </div>
+        <div class="select">
+          <select class="select__field" disabled>
+            <option>Disabled select</option>
+          </select>
+        </div>
+      </div>
+      <div class="doc-demo__code">&lt;div class="<span class="hl-tag">select</span>"&gt;
+  &lt;select class="<span class="hl-tag">select__field</span>"&gt;
+    &lt;option&gt;Choose...&lt;/option&gt;
+  &lt;/select&gt;
+&lt;/div&gt;
+&lt;div class="<span class="hl-tag">select select--sm</span>"&gt;...&lt;/div&gt;
+&lt;div class="<span class="hl-tag">select select--lg</span>"&gt;...&lt;/div&gt;</div>
+    </div>
+  </section>
+
+ 
+<!-- ── TABS ── -->
+  <section class="doc-section" id="tabs">
+    <div class="doc-section__header">
+      <h2 class="doc-section__title">Tabs</h2>
+      <p class="doc-section__desc">Tabbed interface for switching between content panels. Click a <code>.tabs__tab</code> to show its matching panel — linked by matching the tab's <code>data-panel</code> value to a panel's <code>id</code> prefixed with <code>panel-</code>. Active tab gets a bottom border in <code>--color-link</code>. Requires ~15 lines of JavaScript to toggle panels. Optional modifiers: <code>.tabs--vertical</code> for side tabs, <code>.tabs--full</code> for equal-width tabs filling the container. Panels use <code>.tabs__panel--active</code> to control visibility.</p>
+    </div>
+    <div class="doc-demo">
+      <div class="doc-demo__stage doc-demo__stage--block">
+        <div class="tabs" id="demo-tabs2">
+          <button class="tabs__tab tabs__tab--active" data-panel="dt1">Overview</button>
+          <button class="tabs__tab" data-panel="dt2">Tokens</button>
+          <button class="tabs__tab" data-panel="dt3">Usage</button>
+        </div>
+        <div style="padding:16px 0 4px;">
+          <div class="tabs__panel tabs__panel--active" id="panel-dt1">
+            <p style="font-size:0.88rem;">Tab components use <code>--color-link</code> for the active indicator line. The border and text colors follow the active theme from the CSS custom properties token file.</p>
+          </div>
+          <div class="tabs__panel" id="panel-dt2">
+            <p style="font-size:0.88rem;">12 CSS custom properties drive every visual aspect. Change one theme file and all components — tabs, toggles, spinners, everything — update simultaneously.</p>
+          </div>
+          <div class="tabs__panel" id="panel-dt3">
+            <p style="font-size:0.88rem;">Add <code>components.css</code> alongside <code>style.css</code>. Pick a theme. Zero configuration. All 12 components ready to use.</p>
+          </div>
+        </div>
+      </div>
+      <div class="doc-demo__code">&lt;div class="<span class="hl-tag">tabs</span>"&gt;
+  &lt;button class="<span class="hl-tag">tabs__tab tabs__tab--active</span>"&gt;Overview&lt;/button&gt;
+  &lt;button class="<span class="hl-tag">tabs__tab</span>"&gt;Tokens&lt;/button&gt;
+  &lt;button class="<span class="hl-tag">tabs__tab</span>"&gt;Usage&lt;/button&gt;
+&lt;/div&gt;
+&lt;div class="<span class="hl-tag">tabs__panel tabs__panel--active</span>"&gt;...&lt;/div&gt;</div>
+    </div>
+  </section>
+
+  
+
+<!-- ── TOGGLE SWITCH ── -->
+  <section class="doc-section" id="toggle">
+    <div class="doc-section__header">
+      <h2 class="doc-section__title">Toggle Switch</h2>
+      <p class="doc-section__desc">Pure CSS toggle switch built on a hidden <code>&lt;input type="checkbox"&gt;</code> with the <code>:checked</code> pseudo-class. Active (on) state fills the track with <code>--color-link</code> and slides the thumb knob to the right. Add <code>.toggle--sm</code> for a compact 36px-wide variant. Add the <code>disabled</code> attribute to the input for a muted, non-interactive state. Label text goes after the track inside the <code>&lt;label&gt;</code> wrapper. Zero JavaScript.</p>
+    </div>
+    <div class="doc-demo">
+      <div class="doc-demo__stage" style="flex-direction:column;align-items:flex-start;gap:20px;">
+        <label class="toggle"><input type="checkbox" checked><span class="toggle__track"></span><span class="toggle__label">Email notifications</span></label>
+        <label class="toggle"><input type="checkbox"><span class="toggle__track"></span><span class="toggle__label">Dark sidebar</span></label>
+        <label class="toggle"><input type="checkbox" checked><span class="toggle__track"></span><span class="toggle__label">Auto-save preferences</span></label>
+        <label class="toggle toggle--sm"><input type="checkbox" checked><span class="toggle__track"></span><span class="toggle__label">Compact mode</span></label>
+      </div>
+      <div class="doc-demo__code">&lt;label class="<span class="hl-tag">toggle</span>"&gt;
+  &lt;input type="<span class="hl-attr">checkbox</span>" checked&gt;
+  &lt;span class="<span class="hl-tag">toggle__track</span>"&gt;&lt;/span&gt;
+  &lt;span class="<span class="hl-tag">toggle__label</span>"&gt;Email notifications&lt;/span&gt;
+&lt;/label&gt;
+&lt;label class="<span class="hl-tag">toggle toggle--sm</span>"&gt; &lt;!-- compact variant --&gt;
+  &lt;input type="<span class="hl-attr">checkbox</span>" checked&gt;
+  ...
+&lt;/label&gt;</div>
+    </div>
+  </section>
+
+  
+
+<!-- ── BUTTONS ── -->
+  <section class="doc-section" id="buttons">
+    <div class="doc-section__header">
+      <h2 class="doc-section__title">Buttons</h2>
+      <p class="doc-section__desc">Button system with 9 variants, 4 sizes, and built-in loading. Theme-aware: uses <code>--color-link</code>, <code>--color-success</code>, <code>--color-danger</code>, <code>--color-warning</code> tokens. Works on both <code>&lt;button&gt;</code> and <code>&lt;a&gt;</code> elements. Mods: <code>.btn--xs</code>, <code>.btn--sm</code>, <code>.btn--lg</code>, <code>.btn--icon</code>, <code>.btn--block</code>, <code>.btn--loading</code>, <code>.btn--high-contrast</code>, <code>.btn--radius-full</code>, <code>.btn--radius-none</code>, and <code>disabled</code>.</p>
+    </div>
+    <div class="doc-demo">
+      <div class="doc-demo__stage doc-demo__stage--block" style="gap:12px;">
+
+        <!-- Solid variants -->
+        <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;">
+          <span style="font-size:.75rem;color:var(--color-text-secondary);min-width:60px;">Solid</span>
+          <button class="btn btn--primary">Primary</button>
+          <button class="btn btn--success">Success</button>
+          <button class="btn btn--danger">Danger</button>
+          <button class="btn btn--warning">Warning</button>
+          <button class="btn btn--neutral">Neutral</button>
+        </div>
+
+        <!-- Subtle variants -->
+        <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;">
+          <span style="font-size:.75rem;color:var(--color-text-secondary);min-width:60px;">Subtle</span>
+          <button class="btn btn--outline">Outline</button>
+          <button class="btn btn--ghost">Ghost</button>
+          <button class="btn btn--soft">Soft</button>
+          <button class="btn btn--surface">Surface</button>
+        </div>
+
+        <!-- High Contrast -->
+        <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;">
+          <span style="font-size:.75rem;color:var(--color-text-secondary);min-width:60px;">HC</span>
+          <button class="btn btn--outline btn--high-contrast">Outline</button>
+          <button class="btn btn--soft btn--high-contrast">Soft</button>
+          <button class="btn btn--ghost btn--high-contrast">Ghost</button>
+          <button class="btn btn--surface btn--high-contrast">Surface</button>
+        </div>
+
+        <!-- Sizes -->
+        <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;">
+          <span style="font-size:.75rem;color:var(--color-text-secondary);min-width:60px;">Sizes</span>
+          <button class="btn btn--primary btn--xs">X-Small</button>
+          <button class="btn btn--primary btn--sm">Small</button>
+          <button class="btn btn--primary">Default</button>
+          <button class="btn btn--primary btn--lg">Large</button>
+        </div>
+
+        <!-- Mods -->
+        <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;">
+          <span style="font-size:.75rem;color:var(--color-text-secondary);min-width:60px;">Mods</span>
+          <button class="btn btn--danger btn--icon btn--sm" aria-label="Delete"><span class="ic ic-close" style="width:14px;height:14px;"></span></button>
+          <button class="btn btn--primary btn--radius-full">Pill</button>
+          <button class="btn btn--primary btn--radius-none">Square</button>
+          <button class="btn btn--primary btn--block">Full-Width Block</button>
+        </div>
+
+        <!-- States -->
+        <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;">
+          <span style="font-size:.75rem;color:var(--color-text-secondary);min-width:60px;">States</span>
+          <button class="btn btn--primary" disabled>Disabled</button>
+          <button class="btn btn--loading btn--primary">Loading</button>
+          <button class="btn btn--loading btn--outline">Loading Outline</button>
+        </div>
+
+      </div>
+      <div class="doc-demo__code">&lt;!-- 9 variants: solid + subtle --&gt;
+&lt;button class="<span class="hl-tag">btn btn--primary</span>"&gt;Primary&lt;/button&gt;
+&lt;button class="<span class="hl-tag">btn btn--soft</span>"&gt;Soft&lt;/button&gt;
+&lt;button class="<span class="hl-tag">btn btn--surface</span>"&gt;Surface&lt;/button&gt;
+
+&lt;!-- 4 sizes --&gt;
+&lt;button class="<span class="hl-tag">btn btn--primary btn--xs</span>"&gt;XS&lt;/button&gt;
+&lt;button class="<span class="hl-tag">btn btn--primary btn--sm</span>"&gt;SM&lt;/button&gt;
+&lt;button class="<span class="hl-tag">btn btn--primary</span>"&gt;Default&lt;/button&gt;
+&lt;button class="<span class="hl-tag">btn btn--primary btn--lg</span>"&gt;LG&lt;/button&gt;
+
+&lt;!-- mods: high-contrast, radius, block, loading --&gt;
+&lt;button class="<span class="hl-tag">btn btn--soft btn--high-contrast</span>"&gt;HC Soft&lt;/button&gt;
+&lt;button class="<span class="hl-tag">btn btn--primary btn--radius-full</span>"&gt;Pill&lt;/button&gt;
+&lt;button class="<span class="hl-tag">btn btn--primary btn--block</span>"&gt;Block&lt;/button&gt;
+&lt;button class="<span class="hl-tag">btn btn--loading btn--primary</span>"&gt;Loading&lt;/button&gt;</div>
+    </div>
+  </section>
+
+<!-- ── PANEL RESIZER ── -->
+  <section class="doc-section" id="resizer">
+    <div class="doc-section__header">
+      <h2 class="doc-section__title">Panel Resizer</h2>
+      <p class="doc-section__desc">Drag handle for resizable panels. Horizontal (<code>ew-resize</code>) and vertical (<code>ns-resize</code>) variants. Drag the <code>⋮</code> grip to resize the parent panel. Uses <code>--color-bg</code> and <code>--color-bg-secondary</code> tokens.</p>
+    </div>
+    <div class="doc-demo">
+      <div class="doc-demo__stage doc-demo__stage--block" style="gap:16px;">
+        <div class="resizer__target" style="width:320px;height:120px;background:var(--color-bg-secondary);border-radius:var(--border-radius);display:flex;align-items:center;justify-content:center;font-size:.82rem;color:var(--color-text-secondary);position:relative;">
+          Drag the handle →
+          <div class="resizer"></div>
+        </div>
+      </div>
+      <div class="doc-demo__code">&lt;div class="<span class="hl-tag">resizer__target</span>" style="<span class="hl-attr">width:320px</span>"&gt;
+  &lt;div class="<span class="hl-tag">resizer</span>"&gt;&lt;/div&gt;
+  ...panel content...
+&lt;/div&gt;
+&lt;!-- also: .resizer--left | .resizer--bottom --&gt;</div>
+    </div>
+  </section>
+
+<!-- ── ALERT ── -->
+  <section class="doc-section" id="alert">
+    <div class="doc-section__header">
+      <h2 class="doc-section__title">Alert / Notice</h2>
+      <p class="doc-section__desc">Contextual feedback messages with four color variants, three styles (soft, outline, surface), and three sizes. Soft is the default tinted-background style. Outline uses a colored border with transparent background. Surface is card-like. Info variant uses <code>--color-link</code>; others use fixed semantic colors.</p>
+    </div>
+    <div class="doc-demo">
+      <div class="doc-demo__stage doc-demo__stage--block" style="gap:10px;max-width:620px;">
+        <!-- Soft (default) -->
+        <div class="alert alert--info">
+          <span class="alert__icon"><span class="a-icon ic-info"></span></span>
+          <div class="alert__body"><div class="alert__title">Soft Info</div><p class="alert__msg">Default tinted style. Uses <code>--color-link</code> at 10% opacity for background.</p></div>
+        </div>
+        <!-- Outline -->
+        <div class="alert alert--outline alert--success">
+          <span class="alert__icon"><span class="a-icon ic-check"></span></span>
+          <div class="alert__body"><div class="alert__title">Outline Success</div><p class="alert__msg">Transparent background, colored border. Good for minimal UIs.</p></div>
+        </div>
+        <!-- Surface -->
+        <div class="alert alert--surface">
+          <span class="alert__icon"><span class="a-icon ic-info"></span></span>
+          <div class="alert__body"><div class="alert__title">Surface Style</div><p class="alert__msg">Card-like with subtle shadow. Neutral, works with any theme.</p></div>
+        </div>
+        <!-- Warning soft -->
+        <div class="alert alert--warning alert--sm">
+          <span class="alert__icon"><span class="a-icon ic-warn"></span></span>
+          <div class="alert__body"><div class="alert__title">Small Warning</div><p class="alert__msg">Compact <code>alert--sm</code> size for tight spaces.</p></div>
+        </div>
+        <!-- Danger large -->
+        <div class="alert alert--danger alert--lg">
+          <span class="alert__icon"><span class="a-icon ic-error"></span></span>
+          <div class="alert__body"><div class="alert__title">Large Danger</div><p class="alert__msg">Large <code>alert--lg</code> size. Build failed — check your theme file for missing variables.</p></div>
+          <button class="alert__close" onclick="this.parentElement.remove()" aria-label="Dismiss"><span class="a-icon ic-close"></span></button>
+        </div>
+      </div>
+      <div class="doc-demo__code">&lt;!-- Soft (default) --&gt;
+&lt;div class="<span class="hl-tag">alert alert--info</span>"&gt;...&lt;/div&gt;
+
+&lt;!-- Outline --&gt;
+&lt;div class="<span class="hl-tag">alert alert--outline alert--success</span>"&gt;...&lt;/div&gt;
+
+&lt;!-- Surface --&gt;
+&lt;div class="<span class="hl-tag">alert alert--surface</span>"&gt;...&lt;/div&gt;
+
+&lt;!-- Sizes --&gt;
+&lt;div class="<span class="hl-tag">alert alert--warning alert--sm</span>"&gt;...&lt;/div&gt;
+&lt;div class="<span class="hl-tag">alert alert--danger alert--lg</span>"&gt;...&lt;/div&gt;</div>
+    </div>
+  </section>
+
+  
+
+<!-- ── COOKIE BAR ── -->
+  <section class="doc-section" id="cookie-bar">
+    <div class="doc-section__header">
+      <h2 class="doc-section__title">Cookie Consent Bar</h2>
+      <p class="doc-section__desc">Fixed cookie consent banner that slides up from the bottom on first visit. Dismissal is stored in <code>localStorage</code> so it won't reappear after accepting or dismissing. Add <code>.cookie-bar--top</code> to pin it to the top of the viewport instead of the bottom. Accept button uses <code>--color-link</code>; the bar background uses <code>--color-bg</code>. Requires ~10 lines of JavaScript for show/hide and localStorage persistence.</p>
+    </div>
+    <div class="doc-demo">
+      <div class="doc-demo__stage" style="gap:10px;">
+        <button class="btn btn--neutral" data-cookie-reset>Show Cookie Bar</button>
+      </div>
+      <div class="doc-demo__code">&lt;div class="<span class="hl-tag">cookie-bar cookie-bar--visible</span>"&gt;
+  &lt;p class="<span class="hl-tag">cookie-bar__text</span>"&gt;We use cookies...&lt;/p&gt;
+  &lt;div class="<span class="hl-tag">cookie-bar__actions</span>"&gt;
+    &lt;button class="<span class="hl-tag">cookie-bar__btn cookie-bar__btn--accept</span>"&gt;Accept&lt;/button&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</div>
+    </div>
+  </section>
+  
+
+<!-- ── SKELETON LOADER ── -->
+  <section class="doc-section" id="skeleton">
+    <div class="doc-section__header">
+      <h2 class="doc-section__title">Skeleton Loader</h2>
+      <p class="doc-section__desc">Shimmer placeholder for loading states. Pure CSS animation sliding a gradient across the element via <code>background-position</code>. The shimmer shifts between <code>--color-bg-secondary</code> and a lighter tint. Shape modifiers on <code>.skeleton__line</code>: <code>--circle</code> (round avatar, 40px), <code>--h2</code> (thick heading, 60% height), <code>--medium</code> (half-width line), <code>--short</code> (quarter-width line), <code>--btn</code> (pill-shaped button). Compose realistic page skeletons by combining shapes inside a <code>.skeleton</code> wrapper. Zero JavaScript — pure CSS animation.</p>
+    </div>
+    <div class="doc-demo">
+      <div class="doc-demo__stage doc-demo__stage--block">
+        <div class="skeleton" style="max-width:400px;">
+          <div class="skeleton__row">
+            <div class="skeleton__line skeleton__line--circle"></div>
+            <div class="skeleton__line skeleton__line--h2"></div>
+          </div>
+          <div class="skeleton__line"></div>
+          <div class="skeleton__line skeleton__line--medium"></div>
+          <div class="skeleton__line skeleton__line--short"></div>
+          <div class="skeleton__line"></div>
+          <div class="skeleton__line skeleton__line--btn"></div>
+        </div>
+      </div>
+      <div class="doc-demo__code">&lt;div class="<span class="hl-tag">skeleton</span>"&gt;
+  &lt;div class="<span class="hl-tag">skeleton__line skeleton__line--circle</span>"&gt;&lt;/div&gt;
+  &lt;div class="<span class="hl-tag">skeleton__line skeleton__line--h2</span>"&gt;&lt;/div&gt;
+  &lt;div class="<span class="hl-tag">skeleton__line skeleton__line--btn</span>"&gt;&lt;/div&gt;
+&lt;/div&gt;</div>
+    </div>
+  </section>
+
+  
+
+<!-- ── SPINNER ── -->
+  <section class="doc-section" id="spinner">
+    <div class="doc-section__header">
+      <h2 class="doc-section__title">Spinner</h2>
+      <p class="doc-section__desc">CSS-only loading spinner using the border technique: a full circle with a transparent portion creates the spinning arc. The colored arc uses <code>--color-link</code>, the inactive track uses <code>--color-bg-secondary</code>. Three sizes: <code>.spinner--sm</code> (16px), default (24px), <code>.spinner--lg</code> (36px). Use inline within buttons or text, or center it in a container with flex/grid. To override the arc color, set <code>border-top-color</code> inline. Pure CSS animation via <code>@keyframes spin</code> — zero JavaScript.</p>
+    </div>
+    <div class="doc-demo">
+      <div class="doc-demo__stage" style="gap:24px;">
+        <div class="spinner spinner--sm"></div>
+        <div class="spinner"></div>
+        <div class="spinner spinner--lg"></div>
+      </div>
+      <div class="doc-demo__code">&lt;div class="<span class="hl-tag">spinner spinner--sm</span>"&gt;&lt;/div&gt;
+&lt;div class="<span class="hl-tag">spinner</span>"&gt;&lt;/div&gt;
+&lt;div class="<span class="hl-tag">spinner spinner--lg</span>"&gt;&lt;/div&gt;</div>
+    </div>
+  </section>
+
+  
+
+<!-- ── TOAST NOTIFICATIONS ── -->
+  <section class="doc-section" id="toast">
+    <div class="doc-section__header">
+      <h2 class="doc-section__title">Toast Notifications</h2>
+      <p class="doc-section__desc">Temporary notification that appears in the bottom-right corner and auto-dismisses after 3 seconds. Three semantic variants: <code>.toast--success</code> (green), <code>.toast--error</code> (red), <code>.toast--info</code> (neutral). Each toast contains an icon, message, and optional close button. Toasts stack vertically and slide in/out with a CSS transition. Requires a <code>#toast-container</code> element on the page and ~15 lines of JavaScript to create and remove toasts. Uses <code>--border-radius</code> and <code>--box-shadow</code> from the theme.</p>
+    </div>
+    <div class="doc-demo">
+      <div class="doc-demo__stage" style="gap:10px;">
+        <button class="btn btn--success" data-msg="File saved successfully!" data-type="success">Success Toast</button>
+        <button class="btn btn--danger" data-msg="Connection failed. Retrying..." data-type="error">Error Toast</button>
+        <button class="btn btn--neutral" data-msg="New update available (v2.4)" data-type="info">Info Toast</button>
+      </div>
+      <div class="doc-demo__code">&lt;div class="<span class="hl-tag">toast toast--success</span>"&gt;
+  &lt;span class="<span class="hl-tag">toast__icon</span>"&gt;&lt;span class="<span class="hl-tag">a-icon ic-check</span>"&gt;&lt;/span&gt;&lt;/span&gt;
+  &lt;span class="<span class="hl-tag">toast__msg</span>"&gt;File saved!&lt;/span&gt;
+  &lt;button class="<span class="hl-tag">toast__close</span>"&gt;&lt;span class="<span class="hl-tag">a-icon ic-close</span>"&gt;&lt;/span&gt;&lt;/button&gt;
+&lt;/div&gt;</div>
+    </div>
+  </section>
+
+  
+
+</main>
+
+<!-- Video Modal -->
+<div class="video-modal video-gallery__modal" id="video-modal">
+  <div class="video-modal__inner">
+    <button class="video-modal__close video-gallery__close" id="video-modal-close" aria-label="Close video"><span class="ic ic-close" style="width:20px;height:20px;"></span></button>
+    <div class="video-modal__iframe-wrap video-gallery__frame" id="video-modal-frame"></div>
+  </div>
+</div>
+
+<!-- Demo Modal -->
+<div class="modal" id="demo-modal">
+  <div class="modal__dialog">
+    <div class="modal__header">
+      <h3 class="modal__title">Confirm Action</h3>
+      <button class="modal__close" id="demo-modal-close" aria-label="Close"><span class="ic ic-close"></span></button>
+    </div>
+    <div class="modal__body">
+      <p>Are you sure you want to proceed? This modal uses <code>--color-bg</code>, <code>--box-shadow</code>, and <code>--border-radius</code> tokens from the active theme.</p>
+    </div>
+    <div class="modal__footer">
+      <button class="modal__btn modal__cancel" id="demo-modal-cancel">Cancel</button>
+      <button class="modal__btn modal__btn--primary modal__confirm" id="demo-modal-confirm">Confirm</button>
+    </div>
+  </div>
+</div>
+
+<!-- Demo Drawer -->
+<input type="checkbox" class="drawer__toggle" id="drawer-demo-toggle">
+<label class="drawer__backdrop" for="drawer-demo-toggle"></label>
+<div class="drawer__panel">
+  <div class="drawer__head">
+    <h3 class="drawer__title">Settings Panel</h3>
+    <label class="drawer__close" for="drawer-demo-toggle"><span class="ic ic-close"></span></label>
+  </div>
+  <div class="drawer__body">
+    <p>This panel slides in from the right using pure CSS. The toggle is a hidden checkbox — click the backdrop or close button to dismiss.</p>
+    <p>It reads <code>--color-bg</code> for its background, <code>--color-bg-secondary</code> for borders, and uses <code>box-shadow</code> for depth.</p>
+    <p style="margin-top:16px;"><label class="toggle"><input type="checkbox" checked><span class="toggle__track"></span><span class="toggle__label">Dark sidebar</span></label></p>
+    <p style="margin-top:8px;"><label class="toggle toggle--sm"><input type="checkbox"><span class="toggle__track"></span><span class="toggle__label">Compact mode</span></label></p>
+  </div>
+</div>
+
+<!-- Lightbox Overlay -->
+<div class="lightbox lightbox-gallery__overlay" id="demo-lightbox-overlay">
+  <button class="lightbox__close lightbox-gallery__close" id="lb-close" aria-label="Close"><span class="ic ic-close" style="width:20px;height:20px;"></span></button>
+  <button class="lightbox__prev lightbox-gallery__prev" id="lb-prev" aria-label="Previous"><span class="ic ic-chevleft" style="width:20px;height:20px;"></span></button>
+  <button class="lightbox__next lightbox-gallery__next" id="lb-next" aria-label="Next"><span class="ic ic-chevright" style="width:20px;height:20px;"></span></button>
+  <img class="lightbox__img lightbox-gallery__img" id="lb-img" src="" alt="">
+  <span class="lightbox__counter lightbox-gallery__counter" id="lb-counter"></span>
+</div>
+
+<!-- Cookie Consent Bar -->
+<div class="cookie-bar" id="live-cookie-bar">
+  <p class="cookie-bar__text">This site uses cookies to remember your theme preference. <a href="#">Learn more</a></p>
+  <div class="cookie-bar__actions">
+    <button class="cookie-bar__btn cookie-bar__dismiss" id="cookie-dismiss">Dismiss</button>
+    <button class="cookie-bar__btn cookie-bar__btn--accept cookie-bar__accept" id="cookie-accept">Accept All</button>
+  </div>
+</div>
+
+<!-- Toast container -->
+<div class="toast-container" id="toast-container" aria-live="polite" role="status"></div>
+
+<!-- Back to Top -->
+<button class="back-top" id="back-top-btn" aria-label="Back to top"></button>
+
+<!-- ════════════════════════════════════════
+     SCRIPTS
+═══════════════════════════════════════════ -->
+<script src="components.js?v=13"></script>
+<script>
+/* ── Dark/Light mode toggle for showcase ── */
+(function(){
+  const sel=document.getElementById('mode-select');
+  const html=document.documentElement;
+
+  // Restore saved mode
+  const saved=localStorage.getItem('css-mode');
+  if(saved){ sel.value=saved; html.setAttribute('data-theme-mode',saved); }
+
+  sel.addEventListener('change',function(){
+    const v=this.value;
+    if(v){ html.setAttribute('data-theme-mode',v); localStorage.setItem('css-mode',v); }
+    else { html.removeAttribute('data-theme-mode'); localStorage.removeItem('css-mode'); }
+  });
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,24 @@
+/* ============================================================
+   Component Library
+   :root tokens. Theme-ready.
+   ============================================================ */
+
+/* --- C9: TIMELINE --- */
+.timeline{position:relative;padding-inline-start:28px}
+.timeline::before{content:'';position:absolute;inset-inline-start:11px;top:4px;bottom:4px;width:2px;background:var(--color-bg-secondary);border-radius:1px}
+.timeline__item{position:relative;padding-bottom:28px}
+.timeline__item:last-child{padding-bottom:0}
+.timeline__dot{position:absolute;inset-inline-start:-25px;top:6px;width:18px;height:18px;border-radius:50%;background:var(--color-bg);border:2px solid var(--color-link);z-index:1}
+.timeline__item--active .timeline__dot{background:var(--color-link);box-shadow:0 0 0 4px rgba(0,0,0,.06)}
+.timeline__content{background:var(--color-bg);border:1px solid var(--color-bg-secondary);border-radius:var(--border-radius);padding:14px 18px}
+.timeline__title{font-size:.88rem;font-weight:700;color:var(--color-text);margin:0 0 4px}
+.timeline__time{font-size:.7rem;font-weight:600;color:var(--color-text-secondary);letter-spacing:.04em;text-transform:uppercase;margin-bottom:6px}
+.timeline__desc{font-size:.8rem;color:var(--color-text-secondary);line-height:1.6;margin:0 !important;width:auto !important}
+
+/* Compact variant */
+.timeline--sm{padding-inline-start:22px}
+.timeline--sm::before{inset-inline-start:8px}
+.timeline--sm .timeline__dot{inset-inline-start:-17px;width:10px;height:10px}
+.timeline--sm .timeline__content{padding:10px 14px}
+.timeline--sm .timeline__title{font-size:.8rem}
+.timeline--sm .timeline__desc{font-size:.72rem}

@@ -1,0 +1,87 @@
+/* ============================================================
+   LAYER 4 — THEME: VOLT
+   Deep navy blue with electric yellow accents. High-voltage
+   contrast — dark enough for focus, bright enough to guide.
+   Auto-switches via prefers-color-scheme.
+   Force mode: <html data-theme-mode="light|dark">
+   ============================================================ */
+
+/* ── Dark mode (default): deep navy + yellow lines ── */
+:root {
+  --color-bg:               #030416;
+  --color-bg-secondary:     #180b2b;
+  --color-text:             #dce4f0;
+  --color-text-secondary:   #404a66;
+  --color-link:             #7a0ac4;
+  --color-secondary:        #4a90d9;
+  --color-secondary-accent: #4a90d915;
+  --color-accent:           #f5c84214;
+  --color-shadow:           #00000066;
+  --color-scrollbar:        #1a2a48;
+  --color-table:            #b6ef06;
+  --color-button-text:      #0a0f1e;
+  --color-success:          #22c55e;
+  --color-success-hover:    #16a34a;
+  --color-danger:           #ef4444;
+  --color-danger-hover:     #dc2626;
+  --color-warning:          #f59e0b;
+  --color-warning-hover:    #d97706;
+  --border-radius:          5px;
+}
+
+/* ── Light mode (auto): soft cream + navy accent ── */
+@media (prefers-color-scheme: light) {
+  :root {
+    --color-bg:               #d3d4eb   ;
+    --color-bg-secondary:     #d8daea ;
+    --color-text:             #0f1628;
+    --color-text-secondary:   #404a66;
+    --color-link:             #7a0ac4;
+    --color-secondary:        #ff00e0 ;
+    --color-secondary-accent: #b8860b0d;
+    --color-accent:           #0f1f4810;
+    --color-shadow:           #c6c0d0;
+    --color-scrollbar:        #a298b0;
+    --color-table:            #0f1f48;
+    --color-button-text:      #0f1628;
+    --border-radius:          5px;
+  }
+}
+
+/* ── Force mode overrides ── */
+:root[data-theme-mode="dark"] {
+  --color-bg:               #030416;
+  --color-bg-secondary:     #180b2b;
+  --color-text:             #dce4f0;
+  --color-text-secondary:   #404a66;
+  --color-link:             #7a0ac4;
+  --color-secondary:        #4a90d9;
+  --color-secondary-accent: #4a90d915;
+  --color-accent:           #f5c84214;
+  --color-shadow:           #00000066;
+  --color-scrollbar:        #1a2a48;
+  --color-table:            #b6ef06;
+  --color-button-text:      #0a0f1e;
+  --color-success:          #22c55e;
+  --color-success-hover:    #16a34a;
+  --color-danger:           #ef4444;
+  --color-danger-hover:     #dc2626;
+  --color-warning:          #f59e0b;
+  --color-warning-hover:    #d97706;
+  --border-radius:          5px;
+}
+:root[data-theme-mode="light"] {
+  --color-bg:               #d3d4eb   ;
+  --color-bg-secondary:     #d8daea ;
+  --color-text:             #0f1628;
+  --color-text-secondary:   #404a66;
+  --color-link:             #7a0ac4;
+  --color-secondary:        #ff00e0 ;
+  --color-secondary-accent: #b8860b0d;
+  --color-accent:           #0f1f4810;
+  --color-shadow:           #c6c0d0;
+  --color-scrollbar:        #a298b0;
+  --color-table:            #0f1f48;
+  --color-button-text:      #ffffff;
+  --border-radius:          5px;
+}

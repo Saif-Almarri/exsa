@@ -1,0 +1,87 @@
+/* ============================================================
+   LAYER 4 — THEME: SHADOW
+   Soft grey + violet by default. Pure dark + subtle purple
+   in dark mode. Minimal, moody, no distractions.
+   Auto-switches via prefers-color-scheme.
+   Force mode: <html data-theme-mode="light|dark">
+   ============================================================ */
+
+/* ── Light mode (default): soft grey + violet ── */
+:root {
+  --color-bg:               #fafafa;
+  --color-bg-secondary:     #e8e8e8;
+  --color-text:             #1a1a1a;
+  --color-text-secondary:   #6a6a6a;
+  --color-link:             #7c3aed;
+  --color-secondary:        #6d28d9;
+  --color-secondary-accent: #6d28d90d;
+  --color-accent:           #7c3aed10;
+  --color-shadow:           #cccccc;
+  --color-scrollbar:        #aaaaaa;
+  --color-table:            #7c3aed;
+  --color-button-text:      #ffffff;
+  --border-radius:          8px;
+}
+
+/* ── Dark mode (auto): pure dark + violet ── */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-bg:               #121212;
+    --color-bg-secondary:     #1e1e1e;
+    --color-text:             #d4d4d4;
+    --color-text-secondary:   #888888;
+    --color-link:             #a78bfa;
+    --color-secondary:        #8b5cf6;
+    --color-secondary-accent: #8b5cf618;
+    --color-accent:           #a78bfa12;
+    --color-shadow:           #00000088;
+    --color-scrollbar:        #2a2a2a;
+    --color-table:            #a78bfa;
+    --color-button-text:      #121212;
+    --color-success:          #4ade80;
+    --color-success-hover:    #22c55e;
+    --color-danger:           #f87171;
+    --color-danger-hover:     #ef4444;
+    --color-warning:          #fbbf24;
+    --color-warning-hover:    #f59e0b;
+    --border-radius:          8px;
+  }
+}
+
+/* ── Force mode overrides ── */
+:root[data-theme-mode="dark"] {
+  --color-bg:               #121212;
+  --color-bg-secondary:     #1e1e1e;
+  --color-text:             #d4d4d4;
+  --color-text-secondary:   #888888;
+  --color-link:             #a78bfa;
+  --color-secondary:        #8b5cf6;
+  --color-secondary-accent: #8b5cf618;
+  --color-accent:           #a78bfa12;
+  --color-shadow:           #00000088;
+  --color-scrollbar:        #2a2a2a;
+  --color-table:            #a78bfa;
+  --color-button-text:      #121212;
+  --color-success:          #4ade80;
+  --color-success-hover:    #22c55e;
+  --color-danger:           #f87171;
+  --color-danger-hover:     #ef4444;
+  --color-warning:          #fbbf24;
+  --color-warning-hover:    #f59e0b;
+  --border-radius:          8px;
+}
+:root[data-theme-mode="light"] {
+  --color-bg:               #fafafa;
+  --color-bg-secondary:     #e8e8e8;
+  --color-text:             #1a1a1a;
+  --color-text-secondary:   #6a6a6a;
+  --color-link:             #7c3aed;
+  --color-secondary:        #6d28d9;
+  --color-secondary-accent: #6d28d90d;
+  --color-accent:           #7c3aed10;
+  --color-shadow:           #cccccc;
+  --color-scrollbar:        #aaaaaa;
+  --color-table:            #7c3aed;
+  --color-button-text:      #ffffff;
+  --border-radius:          8px;
+}

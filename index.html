@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EXSA — The Next Generation of CSS</title>
+  <meta name="description" content="EXSA is a 5-layer CSS framework built on tokens, not tools. 11.8 KB. 49 components. 17 themes. Zero build step. Zero specificity.">
+  <link rel="icon" type="image/png" href="../logo.png">
+  <link rel="stylesheet" href="style.css?v=24">
+  <link id="theme-stylesheet" rel="stylesheet" href="themes/breeze.css?v=3">
+  <link rel="stylesheet" href="components/topbar.css?v=15">
+  <link rel="stylesheet" href="components/buttons.css?v=2">
+  <link rel="stylesheet" href="components/badge.css">
+  <link rel="stylesheet" href="components/separator.css">
+  <link rel="stylesheet" href="components/card.css">
+  <link rel="stylesheet" href="components/dropdown.css?v=2">
+  <link rel="stylesheet" href="components/avatar.css">
+  <style>
+    .ic{display:inline-block;width:16px;height:16px;vertical-align:middle;flex-shrink:0;background-color:currentColor;-webkit-mask-size:contain;-webkit-mask-position:center;-webkit-mask-repeat:no-repeat;mask-size:contain;mask-position:center;mask-repeat:no-repeat}
+    .ic-chevdown{-webkit-mask-image:url('components/icons/chevron-down.svg');mask-image:url('components/icons/chevron-down.svg')}
+    .ic-menu{-webkit-mask-image:url('components/icons/menu.svg');mask-image:url('components/icons/menu.svg')}
+
+    /* ── Page Layout ── */
+    .pg{max-width:1080px;margin:0 auto;padding:100px 20px 80px}
+
+    /* ── Hero ── */
+    .hero{text-align:center;padding:40px 0 60px}
+    .hero__logo{display:block;margin:0 auto 24px}
+    .hero__eyebrow{font-size:.78rem;font-weight:600;padding:4px 14px;border-radius:99px;background:color-mix(in srgb,var(--color-link)12%,transparent);color:var(--color-link);display:inline-block;margin-bottom:16px;letter-spacing:.02em}
+    .hero h1{font-size:clamp(2.2rem,5vw,3.4rem);font-weight:800;line-height:1.12;margin:0 0 20px;text-wrap:balance}
+    .hero h1 span{background:linear-gradient(135deg,var(--color-link),var(--color-secondary));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+    .hero__sub{font-size:1.08rem;color:var(--color-text-secondary);max-width:620px;margin:0 auto 32px;line-height:1.65}
+    .hero__actions{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+
+    /* ── Stats Bar ── */
+    .stats-bar{display:flex;justify-content:center;gap:48px;flex-wrap:wrap;padding:36px 0;border-top:1px solid var(--color-bg-secondary);border-bottom:1px solid var(--color-bg-secondary);margin:20px 0 60px}
+    .stat{text-align:center}
+    .stat__num{font-size:2.2rem;font-weight:800;line-height:1;background:linear-gradient(135deg,var(--color-link),var(--color-secondary));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+    .stat__label{font-size:.78rem;color:var(--color-text-secondary);margin-top:4px}
+
+    /* ── Sections ── */
+    .sec{padding:48px 0}
+    .sec--alt{background:var(--color-bg-secondary);margin:0 -20px;padding:48px 20px}
+    .sec__label{font-size:.7rem;text-transform:uppercase;letter-spacing:.08em;color:var(--color-link);font-weight:700;margin-bottom:8px}
+    .sec h2{font-size:1.8rem;font-weight:700;margin:0 0 8px}
+    .sec__sub{color:var(--color-text-secondary);font-size:.95rem;max-width:600px;line-height:1.6;margin:0 0 32px}
+
+    /* ── Architecture Diagram ── */
+    .arch{max-width:700px;margin:0 auto}
+    .arch__layer{display:flex;align-items:center;gap:16px;padding:16px 20px;border-radius:var(--border-radius);position:relative;margin-bottom:0}
+    .arch__layer:nth-child(1){background:color-mix(in srgb,var(--color-link)10%,var(--color-bg));border:2px solid var(--color-link)}
+    .arch__layer:nth-child(2){background:color-mix(in srgb,var(--color-secondary)10%,var(--color-bg));border:2px solid var(--color-secondary);margin-left:24px}
+    .arch__layer:nth-child(3){background:color-mix(in srgb,var(--color-link)6%,var(--color-bg));border:2px solid var(--color-bg-secondary);margin-left:48px}
+    .arch__layer:nth-child(4){background:color-mix(in srgb,var(--color-secondary)6%,var(--color-bg));border:2px solid var(--color-bg-secondary);margin-left:72px}
+    .arch__layer:nth-child(5){background:color-mix(in srgb,var(--color-link)4%,var(--color-bg));border:2px solid var(--color-bg-secondary);margin-left:96px}
+    .arch__num{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.85rem;flex-shrink:0}
+    .arch__layer:nth-child(1) .arch__num{background:var(--color-link);color:#fff}
+    .arch__layer:nth-child(2) .arch__num{background:var(--color-secondary);color:#fff}
+    .arch__layer:nth-child(3) .arch__num,.arch__layer:nth-child(4) .arch__num,.arch__layer:nth-child(5) .arch__num{background:var(--color-bg-secondary);color:var(--color-text)}
+    .arch__info h4{margin:0 0 2px;font-size:.92rem}
+    .arch__info p{margin:0;font-size:.78rem;color:var(--color-text-secondary)}
+    .arch__info code{font-size:.7rem;background:var(--color-bg);padding:1px 6px;border-radius:3px;display:inline-block;margin-top:4px}
+
+    /* ── Comparison Grid ── */
+    .cmp{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px}
+    .cmp__card{background:var(--color-bg);border:1px solid var(--color-bg-secondary);border-radius:var(--border-radius);padding:24px}
+    .cmp__card h4{font-size:1rem;margin:0 0 6px}
+    .cmp__card p{font-size:.82rem;color:var(--color-text-secondary);line-height:1.5;margin:0}
+
+    /* ── Code Block ── */
+    .code-blk{background:var(--color-bg);border:1px solid var(--color-bg-secondary);border-radius:var(--border-radius);overflow:hidden;margin:20px 0}
+    .code-blk__bar{display:flex;align-items:center;gap:8px;padding:10px 16px;background:var(--color-bg-secondary);border-bottom:1px solid var(--color-bg-secondary)}
+    .code-blk__dot{width:8px;height:8px;border-radius:50%;background:var(--color-bg-secondary)}
+    .code-blk__dot:first-child{background:#ef4444}
+    .code-blk__dot:nth-child(2){background:#f59e0b}
+    .code-blk__dot:nth-child(3){background:#22c55e}
+    .code-blk__title{font-size:.72rem;color:var(--color-text-secondary);margin-left:auto;font-family:monospace}
+    .code-blk pre{margin:0;padding:16px 20px;font-size:.78rem;line-height:1.7;color:var(--color-text-secondary);overflow-x:auto}
+    .code-blk .tag{color:var(--color-link)}.code-blk .attr{color:var(--color-secondary)}.code-blk .val{color:#16a34a}.code-blk .cmt{color:var(--color-text-secondary);opacity:.5;font-style:italic}
+
+    /* ── Why Grid ── */
+    .why-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px}
+    .why-item{display:flex;gap:14px}
+    .why-item__icon{width:44px;height:44px;border-radius:var(--border-radius);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:1.2rem;background:color-mix(in srgb,var(--color-link)10%,transparent)}
+    .why-item h4{font-size:.92rem;margin:0 0 4px}
+    .why-item p{font-size:.8rem;color:var(--color-text-secondary);line-height:1.5;margin:0}
+
+    /* ── CTA ── */
+    .cta{text-align:center;background:linear-gradient(135deg,color-mix(in srgb,var(--color-link)8%,var(--color-bg)),color-mix(in srgb,var(--color-secondary)5%,var(--color-bg)));border:1px solid var(--color-bg-secondary);border-radius:calc(var(--border-radius)*1.5);padding:48px 32px}
+    .cta h2{font-size:2rem;margin:0 0 12px}
+    .cta p{color:var(--color-text-secondary);max-width:500px;margin:0 auto 24px;line-height:1.6;font-size:.95rem}
+
+    /* ── Footer ── */
+    .pg-footer{display:flex;justify-content:space-between;padding-top:20px;margin-top:40px;border-top:1px solid var(--color-bg-secondary);font-size:.75rem;color:var(--color-text-secondary);flex-wrap:wrap;gap:12px}
+
+    /* ── Theme Switcher ── */
+    .theme-dots{display:flex;align-items:center;gap:6px;margin-left:12px}
+    .theme-dot{width:16px;height:16px;border-radius:50%;border:2px solid transparent;cursor:pointer;transition:border-color .15s,transform .15s;padding:0}
+    .theme-dot:hover{transform:scale(1.2)}
+    .theme-dot--active{border-color:var(--color-link);box-shadow:0 0 0 2px color-mix(in srgb,var(--color-link)30%,transparent)}
+    .theme-dot--breeze{background:linear-gradient(135deg,#e8f0fe,#118bee)}
+    .theme-dot--night{background:linear-gradient(135deg,#1c1f2e,#60a5fa)}
+    .theme-dot--sepia{background:linear-gradient(135deg,#ede4cc,#b68b24)}
+    .theme-dot--forest{background:linear-gradient(135deg,#cce8d8,#2d6a4f)}
+    .theme-dot--coral{background:linear-gradient(135deg,#ffe0d8,#e8610b)}
+
+    @media(max-width:768px){
+      .stats-bar{gap:24px}
+      .arch__layer{margin-left:0!important}
+      .hero{padding:20px 0 40px}
+    }
+  </style>
+</head>
+<body class="has-topbar">
+
+<a href="#main-content" class="skip-link">Skip to main content</a>
+
+<!-- ═══════════════ TOPBAR ═══════════════ -->
+<header class="topbar" id="demo-topbar">
+  <div class="topbar__left">
+    <a href="index.html" class="topbar__brand"><img src="../logo.png" alt="EXSA" width="28" class="topbar__logo"> EXSA</a>
+    <nav aria-label="Topbar navigation">
+      <ul class="topbar__nav">
+        <li><a href="#architecture" class="topbar__link">How</a></li>
+        <li><a href="#why" class="topbar__link">Why</a></li>
+        <li><a href="docs.html" class="topbar__link">Docs</a></li>
+        <li class="topbar__dropdown">
+          <button class="topbar__link topbar__dd-trigger">Tools <span class="ic ic-chevdown" style="width:12px;height:12px;"></span></button>
+          <ul class="topbar__dd-menu">
+            <li><a href="showcase.html" class="topbar__dd-item">Component Showcase</a></li>
+            <li><a href="cheatsheet.html" class="topbar__dd-item">Cheatsheet</a></li>
+            <li><a href="generator.html" class="topbar__dd-item">Bundle Generator</a></li>
+          </ul>
+        </li>
+      </ul>
+    </nav>
+  </div>
+  <div class="topbar__right">
+    <div class="theme-dots" title="Switch theme">
+      <button class="theme-dot theme-dot--breeze" data-theme="breeze" aria-label="Breeze theme"></button>
+      <button class="theme-dot theme-dot--night" data-theme="night" aria-label="Night theme"></button>
+      <button class="theme-dot theme-dot--sepia" data-theme="sepia" aria-label="Sepia theme"></button>
+      <button class="theme-dot theme-dot--forest" data-theme="forest" aria-label="Forest theme"></button>
+      <button class="theme-dot theme-dot--coral" data-theme="coral" aria-label="Coral theme"></button>
+    </div>
+    <a href="generator.html" class="topbar__btn topbar__btn--primary">Download</a>
+  </div>
+  <button class="topbar__toggle" aria-label="Toggle menu"><span class="ic ic-menu"></span></button>
+</header>
+
+<!-- ═══════════════ MAIN ═══════════════ -->
+<main class="pg" id="main-content">
+
+  <!-- ── Hero ── -->
+  <section class="hero">
+    <img src="../logo.png" alt="EXSA" width="96" height="96" class="hero__logo" style="border-radius:16px;">
+    <div class="hero__eyebrow">The Next Generation of CSS</div>
+    <h1>A framework where <span>tokens</span> do the work,<br>not tools</h1>
+    <p class="hero__sub">EXSA is built on one idea: CSS custom properties should drive everything — colors, spacing, components, themes. No CLI. No bundler. No config file. Just a cascade that knows when to step aside.</p>
+    <div class="hero__actions">
+      <a href="showcase.html" class="btn btn--primary btn--lg">Browse Components</a>
+      <a href="#architecture" class="btn btn--outline btn--lg">See How It Works</a>
+    </div>
+  </section>
+
+  <!-- ── Stats ── -->
+  <div class="stats-bar">
+    <div class="stat"><div class="stat__num">11.8<span style="font-size:1rem;">KB</span></div><div class="stat__label">Core Size</div></div>
+    <div class="stat"><div class="stat__num">49</div><div class="stat__label">Components</div></div>
+    <div class="stat"><div class="stat__num">17</div><div class="stat__label">Themes</div></div>
+    <div class="stat"><div class="stat__num">5</div><div class="stat__label">@layers</div></div>
+    <div class="stat"><div class="stat__num">0</div><div class="stat__label">Build Steps</div></div>
+  </div>
+
+  <!-- ── Architecture ── -->
+  <section class="sec" id="architecture">
+    <div class="sec__label">The Cascade</div>
+    <h2>5 layers. Each with one job.</h2>
+    <p class="sec__sub">CSS <code>@layer</code> is the most underused feature in the language. EXSA builds its entire architecture on it — each layer feeds the next, and themes sit outside the cascade so they always win.</p>
+
+    <div class="arch">
+      <div class="arch__layer">
+        <div class="arch__num">1</div>
+        <div class="arch__info">
+          <h4>Tokens</h4>
+          <p>36 CSS custom properties. Colors, spacing, typography, shadows. The single source of truth.</p>
+          <code>--color-link · --gap · --border-radius · --box-shadow</code>
+        </div>
+      </div>
+      <div class="arch__layer">
+        <div class="arch__num">2</div>
+        <div class="arch__info">
+          <h4>Reset</h4>
+          <p>Box model, focus rings, scrollbars, RTL, reduced motion, forced-colors, skip links.</p>
+          <code>box-sizing · :focus-visible · [dir=rtl] · prefers-reduced-motion</code>
+        </div>
+      </div>
+      <div class="arch__layer">
+        <div class="arch__num">3</div>
+        <div class="arch__info">
+          <h4>Layout</h4>
+          <p>65+ flex and grid utilities. No prefix. No breakpoint memorization. Just compose.</p>
+          <code>.flex · .grid · .container · .gap-md · .grid-auto-fit</code>
+        </div>
+      </div>
+      <div class="arch__layer">
+        <div class="arch__num">4</div>
+        <div class="arch__info">
+          <h4>Elements</h4>
+          <p>Classless HTML styling — but only for unclassed elements. Add a class, the framework stays out of your way.</p>
+          <code>&lt;section&gt; gets cards · &lt;section class="my-app"&gt; doesn't</code>
+        </div>
+      </div>
+      <div class="arch__layer">
+        <div class="arch__num">5</div>
+        <div class="arch__info">
+          <h4>Components</h4>
+          <p>49 plug-and-play components. Each is one CSS file. Link only what you need. All use <code>:where()</code> for zero specificity.</p>
+          <code>accordion · modal · toast · tabs · card · table · dropdown</code>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── What Makes It Different ─── -->
+  <section class="sec sec--alt" id="why">
+    <div class="sec__label">The Difference</div>
+    <h2>Three ideas no other framework combines</h2>
+    <p class="sec__sub">Each one exists somewhere. Together, they're unique to EXSA.</p>
+
+    <div class="why-grid">
+      <div class="why-item">
+        <div class="why-item__icon" style="background:color-mix(in srgb,var(--color-link)10%,transparent);">⚡</div>
+        <div>
+          <h4>Guarded Classless</h4>
+          <p>Add <code>body class="exsa"</code> to get automatic HTML styling. But add any class to a structural element — <code>&lt;section class="my-layout"&gt;</code> — and EXSA steps aside. No fighting. No <code>!important</code>. You're in control.</p>
+        </div>
+      </div>
+      <div class="why-item">
+        <div class="why-item__icon" style="background:color-mix(in srgb,var(--color-secondary)10%,transparent);">🎯</div>
+        <div>
+          <h4>Zero Specificity Everywhere</h4>
+          <p>Every base style uses <code>:where()</code> for a specificity of zero. Your custom CSS — even a single class — always wins. No specificity wars. No <code>!important</code> arms race.</p>
+        </div>
+      </div>
+      <div class="why-item">
+        <div class="why-item__icon" style="background:color-mix(in srgb,var(--color-success)10%,transparent);">🎨</div>
+        <div>
+          <h4>Runtime Theming via Tokens</h4>
+          <p>All 49 components share the same 36 CSS custom properties. Swap one theme file — every component, every color, every shadow updates instantly. No recompile. No rebuild.</p>
+        </div>
+      </div>
+      <div class="why-item">
+        <div class="why-item__icon" style="background:color-mix(in srgb,var(--color-warning)10%,transparent);">♿</div>
+        <div>
+          <h4>A11y Baked Into the Reset</h4>
+          <p><code>forced-colors: active</code> for Windows High Contrast Mode. <code>prefers-reduced-motion</code> disables all animations. <code>prefers-contrast</code> adjusts borders. Skip links. Focus rings. Not an afterthought — layer 2.</p>
+        </div>
+      </div>
+      <div class="why-item">
+        <div class="why-item__icon" style="background:color-mix(in srgb,var(--color-danger)10%,transparent);">📦</div>
+        <div>
+          <h4>Tree-Shakeable by Design</h4>
+          <p>Every component is its own CSS file. During development, link what you need. For production, the Generator bundles only your selected components into one file. No dead styles.</p>
+        </div>
+      </div>
+      <div class="why-item">
+        <div class="why-item__icon" style="background:color-mix(in srgb,var(--color-link)10%,transparent);">🚀</div>
+        <div>
+          <h4>Zero Build Step. Forever.</h4>
+          <p>No <code>npm install</code>. No <code>webpack</code>. No <code>postcss.config.js</code>. Just <code>&lt;link&gt;</code> tags and you're building. Works with any server that serves static files. PHP, Python, Node, nginx, Apache, Caddy — doesn't matter.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Code Comparison ── -->
+  <section class="sec">
+    <div class="sec__label">Side by Side</div>
+    <h2>The same card. Two philosophies.</h2>
+    <p class="sec__sub">EXSA uses semantic component classes driven by tokens. Tailwind uses atomic utilities. See what happens when you change themes.</p>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;">
+      <div class="code-blk">
+        <div class="code-blk__bar">
+          <div class="code-blk__dot"></div><div class="code-blk__dot"></div><div class="code-blk__dot"></div>
+          <span class="code-blk__title">EXSA — 4 classes</span>
+        </div>
+        <pre><span class="tag">&lt;div</span> <span class="attr">class</span>=<span class="val">"card"</span><span class="tag">&gt;</span>
+  <span class="tag">&lt;div</span> <span class="attr">class</span>=<span class="val">"card__body"</span><span class="tag">&gt;</span>
+    <span class="tag">&lt;h3</span> <span class="attr">class</span>=<span class="val">"card__title"</span><span class="tag">&gt;</span>Hello<span class="tag">&lt;/h3&gt;</span>
+    <span class="tag">&lt;p</span> <span class="attr">class</span>=<span class="val">"card__text"</span><span class="tag">&gt;</span>Content.<span class="tag">&lt;/p&gt;</span>
+  <span class="tag">&lt;/div&gt;</span>
+<span class="tag">&lt;/div&gt;</span>
+
+<span class="cmt">Swap theme → one file. Done.</span></pre>
+      </div>
+      <div class="code-blk">
+        <div class="code-blk__bar">
+          <div class="code-blk__dot"></div><div class="code-blk__dot"></div><div class="code-blk__dot"></div>
+          <span class="code-blk__title">Tailwind — 13+ classes</span>
+        </div>
+        <pre><span class="tag">&lt;div</span> <span class="attr">class</span>=<span class="val">"bg-white rounded-lg
+ shadow-md p-6 max-w-sm
+ border border-gray-200"</span><span class="tag">&gt;</span>
+  <span class="tag">&lt;h3</span> <span class="attr">class</span>=<span class="val">"text-lg font-semibold
+ text-gray-900 mb-2"</span><span class="tag">&gt;</span>Hello<span class="tag">&lt;/h3&gt;</span>
+  <span class="tag">&lt;p</span> <span class="attr">class</span>=<span class="val">"text-sm
+ text-gray-600"</span><span class="tag">&gt;</span>Content.<span class="tag">&lt;/p&gt;</span>
+<span class="tag">&lt;/div&gt;</span>
+
+<span class="cmt">Swap theme → edit every class.</span></pre>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── A11y ── -->
+  <section class="sec sec--alt">
+    <div class="sec__label">Accessibility</div>
+    <h2>Layer 2 is the accessibility layer</h2>
+    <p class="sec__sub">Most frameworks treat accessibility as a plugin or a checklist. EXSA puts it in the reset — before layout, before components. It's not optional.</p>
+
+    <div class="cmp">
+      <div class="cmp__card">
+        <h4>🖥️ Windows High Contrast Mode</h4>
+        <p><code>@media (forced-colors: active)</code> switches the focus ring to system colors and reveals screen-reader-only text. Works out of the box — no configuration.</p>
+      </div>
+      <div class="cmp__card">
+        <h4>🎯 Reduced Motion</h4>
+        <p><code>prefers-reduced-motion: reduce</code> disables all CSS animations, transitions, and smooth scrolling. The <code>:target</code> highlight animation is explicitly disabled.</p>
+      </div>
+      <div class="cmp__card">
+        <h4>🎨 Contrast Preferences</h4>
+        <p><code>prefers-contrast: high</code> boosts borders to full opacity and thickens link underlines. <code>prefers-contrast: low</code> softens borders — without thinning text.</p>
+      </div>
+      <div class="cmp__card">
+        <h4>⌨️ Keyboard Navigation</h4>
+        <p>Skip-to-content link. Visible focus rings on <code>:focus-visible</code>. No outline on mouse clicks. <code>scroll-behavior: smooth</code> with a reduced-motion fallback.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── CTA ── -->
+  <section class="sec">
+    <div class="cta">
+      <h2>Ready to try tokens over tools?</h2>
+      <p>Browse 49 components, grab the cheatsheet, or use the Generator to build a custom bundle — no build step, no config, just the CSS you need.</p>
+      <div class="hero__actions">
+        <a href="showcase.html" class="btn btn--primary btn--lg">Component Showcase</a>
+        <a href="cheatsheet.html" class="btn btn--outline btn--lg">Cheatsheet</a>
+        <a href="generator.html" class="btn btn--ghost btn--lg">Generator</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Footer ── -->
+  <footer class="pg-footer">
+    <span>EXSA v1.0 · MIT License · 11.8 KB core</span>
+    <span>Tokens, not tools.</span>
+  </footer>
+
+</main>
+
+<script src="components.js?v=13"></script>
+<script>
+/* ── Theme Switcher ── */
+(function(){
+  var link = document.getElementById('theme-stylesheet');
+  var dots = document.querySelectorAll('.theme-dot');
+
+  function apply(name) {
+    link.href = 'themes/' + name + '.css';
+    localStorage.setItem('exsa-theme', name);
+    dots.forEach(function(d) {
+      d.classList.toggle('theme-dot--active', d.getAttribute('data-theme') === name);
+    });
+  }
+
+  dots.forEach(function(dot) {
+    dot.addEventListener('click', function() {
+      apply(this.getAttribute('data-theme'));
+    });
+  });
+
+  var saved = localStorage.getItem('exsa-theme');
+  if (saved) apply(saved);
+  else dots[0].classList.add('theme-dot--active');
+})();
+</script>
+</body>
+</html>

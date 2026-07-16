@@ -1,0 +1,26 @@
+/* ============================================================
+   Component Library
+   :root tokens. Theme-ready.
+   ============================================================ */
+
+/* --- C4: PRICING TABLE --- */
+.pricing{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:20px;align-items:start}
+.pricing__card{background:var(--color-bg);border:1px solid var(--color-bg-secondary);border-radius:var(--border-radius);padding:20px 20px;text-align:center;transition:box-shadow .25s,transform .25s;position:relative;}
+.pricing__card:hover{box-shadow:var(--box-shadow)}
+.pricing__card--featured{border-color:var(--color-link);box-shadow:0 0 0 1px var(--color-link),var(--box-shadow);transform:scale(1.03);z-index:1}
+.pricing__card--featured:hover{transform:scale(1.04)}
+.pricing__badge{position:absolute;top:-11px;left:50%;transform:translateX(-50%);background:var(--color-link);color:#fff;font-size:.66rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:3px 14px;border-radius:99px;white-space:nowrap}
+.pricing__name{font-size:.75rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--color-text-secondary);margin-bottom:8px}
+.pricing__price{font-size:2.2rem;font-weight:800;color:var(--color-text);line-height:1;margin-bottom:2px}
+.pricing__price sup{font-size:1rem !important;font-weight:600;vertical-align:super;background:transparent !important;color:var(--color-text) !important;padding:0 !important;margin:0 !important;border-radius:0;position:static;top:auto}
+.pricing__period{font-size:.72rem;color:var(--color-text-secondary);margin-bottom:14px}
+.pricing__features{list-style:none;padding:0;margin:0 0 18px;text-align: start}
+.pricing__features li{padding:5px 0 !important;font-size:.8rem;color:var(--color-text);border-bottom:1px solid var(--color-bg-secondary)}
+.pricing__features li:last-child{border-bottom:none}
+.pricing__features li::before{content:'✓ ';color:var(--color-link);font-weight:700;margin-right:4px}
+.pricing__features .pricing__feature--na{color:var(--color-text-secondary);text-decoration:line-through}
+.pricing__features .pricing__feature--na::before{content:'✕ ';color:var(--color-text-secondary)}
+.pricing__btn{display:block;width:100%;padding:8px 0 !important;border-radius:var(--border-radius);font-size:.82rem !important;font-weight:700;cursor:pointer;border:1px solid var(--color-link);background:transparent;color:var(--color-link);transition:background .18s,color .18s;font-family:inherit;text-align:center;margin:0 !important}
+.pricing__btn:hover{background:var(--color-link);color:#fff;filter:none !important}
+.pricing__card--featured .pricing__btn{background:var(--color-link) !important;color:#fff !important}
+.pricing__card--featured .pricing__btn:hover{opacity:.88;filter:none !important}

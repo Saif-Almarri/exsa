@@ -1,0 +1,63 @@
+/* ============================================================
+   Form Validation States
+   .input--error | .input--success | .form-helper
+   Token-driven — uses semantic color variables.
+   ============================================================ */
+
+/* ── Semantic Colors (form-specific backgrounds) ── */
+/* ── Input / Textarea / Select states ── */
+.input--error,
+.textarea--error,
+select.select--error {
+  border-color: var(--color-danger) !important;
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-danger) 15%, transparent) !important;
+}
+.input--success,
+.textarea--success,
+select.select--success {
+  border-color: var(--color-success) !important;
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-success) 15%, transparent) !important;
+}
+
+/* ── Form helper text ── */
+.form-helper {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.8rem;
+  margin-top: -0.6rem;
+  margin-bottom: 0.8rem;
+  line-height: 1.4;
+  color: var(--color-text-secondary);
+}
+.form-helper::before {
+  content: "";
+  display: inline-block;
+  width: 14px; height: 14px;
+  flex-shrink: 0;
+  background-color: currentColor;
+  -webkit-mask: url('icons/info.svg') center/contain no-repeat;
+          mask: url('icons/info.svg') center/contain no-repeat;
+}
+
+.form-helper--error {
+  color: var(--color-error, #dc2626);
+}
+.form-helper--error::before {
+  -webkit-mask-image: url('icons/x-circle.svg');
+          mask-image: url('icons/x-circle.svg');
+}
+
+.form-helper--success {
+  color: var(--color-success);
+}
+.form-helper--success::before {
+  -webkit-mask-image: url('icons/check.svg');
+          mask-image: url('icons/check.svg');
+}
+
+/* ── Inline feedback inside input groups ── */
+.input-group .form-helper {
+  margin-top: 4px;
+  margin-bottom: 0;
+}

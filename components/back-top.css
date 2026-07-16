@@ -1,0 +1,10 @@
+/* ============================================================
+   Component Library
+   :root tokens. Theme-ready.
+   ============================================================ */
+
+/* --- C5: BACK TO TOP --- */
+.back-top{position:fixed;bottom:28px;inset-inline-end:28px;z-index:800;width:44px;height:44px;border-radius:50%;background:var(--color-link);color:#fff;border:none !important;font-size:1.1rem;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 14px rgba(0,0,0,.18);opacity:0;visibility:hidden;transform:translateY(10px);transition:opacity .25s,visibility .25s,transform .25s,background .15s;padding:0 !important;margin:0 !important;line-height:1}
+.back-top--visible{opacity:1;visibility:visible;transform:translateY(0)}
+.back-top:hover{opacity:.85;filter:none !important}
+.back-top::after{content:'';display:block;width:20px;height:20px;background:currentColor;mask:url('icons/arrow-up.svg') center/contain no-repeat;-webkit-mask:url('icons/arrow-up.svg') center/contain no-repeat}

@@ -1,0 +1,87 @@
+/* ============================================================
+   LAYER 4 — THEME: EMBER
+   Warm cream + amber by default. Deep charcoal + glowing
+   embers in dark mode. Campfire warmth.
+   Auto-switches via prefers-color-scheme.
+   Force mode: <html data-theme-mode="light|dark">
+   ============================================================ */
+
+/* ── Light mode (default): warm cream + amber ── */
+:root {
+  --color-bg:               #fef9f0;
+  --color-bg-secondary:     #f5e6d0;
+  --color-text:             #2a1e10;
+  --color-text-secondary:   #7a6850;
+  --color-link:             #c87030;
+  --color-secondary:        #a05030;
+  --color-secondary-accent: #a050300d;
+  --color-accent:           #c8703010;
+  --color-shadow:           #dcc8a8;
+  --color-scrollbar:        #c0a888;
+  --color-table:            #c87030;
+  --color-button-text:      #ffffff;
+  --border-radius:          6px;
+}
+
+/* ── Dark mode (auto): charcoal + amber glow ── */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-bg:               #181410;
+    --color-bg-secondary:     #241e18;
+    --color-text:             #e8dcc8;
+    --color-text-secondary:   #9e8e78;
+    --color-link:             #e8943a;
+    --color-secondary:        #c87040;
+    --color-secondary-accent: #c8704018;
+    --color-accent:           #e8943a14;
+    --color-shadow:           #00000066;
+    --color-scrollbar:        #2a2218;
+    --color-table:            #e8943a;
+    --color-button-text:      #181410;
+    --color-success:          #4ade80;
+    --color-success-hover:    #22c55e;
+    --color-danger:           #f87171;
+    --color-danger-hover:     #ef4444;
+    --color-warning:          #fbbf24;
+    --color-warning-hover:    #f59e0b;
+    --border-radius:          6px;
+  }
+}
+
+/* ── Force mode overrides ── */
+:root[data-theme-mode="dark"] {
+  --color-bg:               #181410;
+  --color-bg-secondary:     #241e18;
+  --color-text:             #e8dcc8;
+  --color-text-secondary:   #9e8e78;
+  --color-link:             #e8943a;
+  --color-secondary:        #c87040;
+  --color-secondary-accent: #c8704018;
+  --color-accent:           #e8943a14;
+  --color-shadow:           #00000066;
+  --color-scrollbar:        #2a2218;
+  --color-table:            #e8943a;
+  --color-button-text:      #181410;
+  --color-success:          #4ade80;
+  --color-success-hover:    #22c55e;
+  --color-danger:           #f87171;
+  --color-danger-hover:     #ef4444;
+  --color-warning:          #fbbf24;
+  --color-warning-hover:    #f59e0b;
+  --border-radius:          6px;
+}
+:root[data-theme-mode="light"] {
+  --color-bg:               #fef9f0;
+  --color-bg-secondary:     #f5e6d0;
+  --color-text:             #2a1e10;
+  --color-text-secondary:   #7a6850;
+  --color-link:             #c87030;
+  --color-secondary:        #a05030;
+  --color-secondary-accent: #a050300d;
+  --color-accent:           #c8703010;
+  --color-shadow:           #dcc8a8;
+  --color-scrollbar:        #c0a888;
+  --color-table:            #c87030;
+  --color-button-text:      #ffffff;
+  --border-radius:          6px;
+}

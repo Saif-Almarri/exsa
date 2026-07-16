@@ -1,0 +1,16 @@
+# EXSA — .gitignore
+
+# Test files
+test/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+*.code-workspace
+
+# Temp
+*.tmp
+*.zip

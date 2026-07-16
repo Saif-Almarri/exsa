@@ -1,0 +1,73 @@
+/* ============================================================
+   LAYER 4 — THEME: SEPIA
+   Warm paper tones by default, deep espresso in dark mode.
+   Auto-switches via prefers-color-scheme.
+   Force mode: <html data-theme-mode="light|dark">
+   ============================================================ */
+
+/* ── Light mode (default) ── */
+:root {
+  --color-bg:               #fdf6e3;
+  --color-bg-secondary:     #ede4cc;
+  --color-text:             #3b2f2f;
+  --color-text-secondary:   #6b5e4e;
+  --color-link:             #8b4513;
+  --color-secondary:        #b5460f;
+  --color-secondary-accent: #b5460f0f;
+  --color-accent:           #8b451312;
+  --color-shadow:           #d4c09a;
+  --color-scrollbar:        #c8b080;
+  --color-table:            #8b4513;
+  --color-button-text:      var(--color-bg);
+  --border-radius:          3px;
+}
+
+/* ── Dark mode (auto) ── */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-bg:               #1e1814;
+    --color-bg-secondary:     #2c221c;
+    --color-text:             #e8dcc8;
+    --color-text-secondary:   #a89880;
+    --color-link:             #d4956b;
+    --color-secondary:        #c77a4a;
+    --color-secondary-accent: #c77a4a18;
+    --color-accent:           #d4956b14;
+    --color-shadow:           #00000033;
+    --color-scrollbar:        #4a3a2e;
+    --color-table:            #d4956b;
+  --color-button-text:      var(--color-bg);
+    --border-radius:          3px;
+  }
+}
+
+:root[data-theme-mode="light"] {
+  --color-bg:               #fdf6e3;
+  --color-bg-secondary:     #ede4cc;
+  --color-text:             #3b2f2f;
+  --color-text-secondary:   #6b5e4e;
+  --color-link:             #8b4513;
+  --color-secondary:        #b5460f;
+  --color-secondary-accent: #b5460f0f;
+  --color-accent:           #8b451312;
+  --color-shadow:           #d4c09a;
+  --color-scrollbar:        #c8b080;
+  --color-table:            #8b4513;
+  --color-button-text:      var(--color-bg);
+  --border-radius:          3px;
+}
+:root[data-theme-mode="dark"] {
+  --color-bg:               #1e1814;
+  --color-bg-secondary:     #2c221c;
+  --color-text:             #e8dcc8;
+  --color-text-secondary:   #a89880;
+  --color-link:             #d4956b;
+  --color-secondary:        #c77a4a;
+  --color-secondary-accent: #c77a4a18;
+  --color-accent:           #d4956b14;
+  --color-shadow:           #00000033;
+  --color-scrollbar:        #4a3a2e;
+  --color-table:            #d4956b;
+  --color-button-text:      var(--color-bg);
+  --border-radius:          3px;
+}

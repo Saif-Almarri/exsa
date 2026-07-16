@@ -1,0 +1,87 @@
+/* ============================================================
+   LAYER 4 — THEME: ABYSS
+   Cool white + teal by default. Deep ocean blue-black +
+   cyan in dark mode. Immersive, high contrast.
+   Auto-switches via prefers-color-scheme.
+   Force mode: <html data-theme-mode="light|dark">
+   ============================================================ */
+
+/* ── Light mode (default): cool white + teal ── */
+:root {
+  --color-bg:               #f0f6fa;
+  --color-bg-secondary:     #dce8f0;
+  --color-text:             #0e1a28;
+  --color-text-secondary:   #5a7a90;
+  --color-link:             #2a8a84;
+  --color-secondary:        #4a7a9a;
+  --color-secondary-accent: #4a7a9a0d;
+  --color-accent:           #2a8a8410;
+  --color-shadow:           #c4d4e4;
+  --color-scrollbar:        #a0b8c8;
+  --color-table:            #2a8a84;
+  --color-button-text:      #ffffff;
+  --border-radius:          4px;
+}
+
+/* ── Dark mode (auto): deep ocean + cyan ── */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-bg:               #0a0e14;
+    --color-bg-secondary:     #121a24;
+    --color-text:             #c8d8e8;
+    --color-text-secondary:   #6a8aa8;
+    --color-link:             #38b2ac;
+    --color-secondary:        #5a8aac;
+    --color-secondary-accent: #5a8aac18;
+    --color-accent:           #38b2ac14;
+    --color-shadow:           #00000066;
+    --color-scrollbar:        #1a2a3a;
+    --color-table:            #38b2ac;
+    --color-button-text:      #0a0e14;
+    --color-success:          #4ade80;
+    --color-success-hover:    #22c55e;
+    --color-danger:           #f87171;
+    --color-danger-hover:     #ef4444;
+    --color-warning:          #fbbf24;
+    --color-warning-hover:    #f59e0b;
+    --border-radius:          4px;
+  }
+}
+
+/* ── Force mode overrides ── */
+:root[data-theme-mode="dark"] {
+  --color-bg:               #0a0e14;
+  --color-bg-secondary:     #121a24;
+  --color-text:             #c8d8e8;
+  --color-text-secondary:   #6a8aa8;
+  --color-link:             #38b2ac;
+  --color-secondary:        #5a8aac;
+  --color-secondary-accent: #5a8aac18;
+  --color-accent:           #38b2ac14;
+  --color-shadow:           #00000066;
+  --color-scrollbar:        #1a2a3a;
+  --color-table:            #38b2ac;
+  --color-button-text:      #0a0e14;
+  --color-success:          #4ade80;
+  --color-success-hover:    #22c55e;
+  --color-danger:           #f87171;
+  --color-danger-hover:     #ef4444;
+  --color-warning:          #fbbf24;
+  --color-warning-hover:    #f59e0b;
+  --border-radius:          4px;
+}
+:root[data-theme-mode="light"] {
+  --color-bg:               #f0f6fa;
+  --color-bg-secondary:     #dce8f0;
+  --color-text:             #0e1a28;
+  --color-text-secondary:   #5a7a90;
+  --color-link:             #2a8a84;
+  --color-secondary:        #4a7a9a;
+  --color-secondary-accent: #4a7a9a0d;
+  --color-accent:           #2a8a8410;
+  --color-shadow:           #c4d4e4;
+  --color-scrollbar:        #a0b8c8;
+  --color-table:            #2a8a84;
+  --color-button-text:      #ffffff;
+  --border-radius:          4px;
+}

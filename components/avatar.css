@@ -1,0 +1,45 @@
+/* ============================================================
+   Component Library
+   :root tokens. Theme-ready.
+   ============================================================ */
+
+/* --- C11: AVATAR --- */
+.avatar{display:inline-flex;align-items:center;justify-content:center;width:44px;height:44px;border-radius:50%;background:var(--color-bg-secondary);color:var(--color-text-secondary);font-size:.9rem;font-weight:700;overflow:hidden;flex-shrink:0;position:relative}
+.avatar img{width:100%;height:100%;object-fit:cover;display:block;position:relative;z-index:1}
+/* Default person icon when no image */
+.avatar::before{content:'';position:absolute;inset:0;background:currentColor;mask:url('icons/user.svg') center/55% no-repeat;-webkit-mask:url('icons/user.svg') center/55% no-repeat;opacity:.45;z-index:0}
+.avatar img:not([src]),.avatar img[src='']{display:none}
+.avatar__fallback{line-height:1;position:relative;z-index:1}
+
+/* Sizes */
+.avatar--xs{width:26px;height:26px;font-size:.6rem}
+.avatar--sm{width:34px;height:34px;font-size:.76rem}
+.avatar--lg{width:56px;height:56px;font-size:1.2rem}
+.avatar--xl{width:72px;height:72px;font-size:1.6rem}
+
+/* Rounded square */
+.avatar--rounded{border-radius:var(--border-radius)}
+
+/* Color variants */
+.avatar--primary{background:var(--color-link);color:#fff}
+.avatar--success{background:#4caf50;color:#fff}
+.avatar--danger{background:#d32f2f;color:#fff}
+.avatar--warning{background:#ff9800;color:#fff}
+
+/* Inner icon styling */
+.avatar .ic{display:block;width:55%;height:55%;position:relative;z-index:1}
+.avatar .ic::before{width:100%;height:100%}
+
+/* Status dot */
+.avatar__status{position:absolute;bottom:2px;inset-inline-end:2px;width:12px;height:12px;border-radius:50%;border:2px solid var(--color-bg);box-sizing:border-box;z-index:2}
+.avatar__status--online{background:#4caf50}
+.avatar__status--away{background:#ff9800}
+.avatar__status--busy{background:#d32f2f}
+.avatar--xs .avatar__status{width:8px;height:8px;bottom:0;inset-inline-end:0}
+.avatar--sm .avatar__status{width:10px;height:10px}
+
+/* Group */
+.avatar-group{display:flex}
+.avatar-group .avatar{margin-inline-start:-10px;border:2px solid var(--color-bg)}
+.avatar-group .avatar:first-child{margin-inline-start:0}
+.avatar-group .avatar--xs{margin-inline-start:-6px}

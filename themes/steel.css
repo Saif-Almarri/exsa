@@ -1,0 +1,73 @@
+/* ============================================================
+   LAYER 4 — THEME: STEEL
+   Industrial warm concrete by default, dark iron in dark mode.
+   Auto-switches via prefers-color-scheme.
+   Force mode: <html data-theme-mode="light|dark">
+   ============================================================ */
+
+/* ── Light mode (default) ── */
+:root {
+  --color-bg:               #faf8f5;
+  --color-bg-secondary:     #e8e0d5;
+  --color-text:             #1e1b18;
+  --color-text-secondary:   #6b6058;
+  --color-link:             #c44a08;
+  --color-secondary:        #3b4b5e;
+  --color-secondary-accent: #3b4b5e0d;
+  --color-accent:           #e8610b10;
+  --color-shadow:           #ccc0b4;
+  --color-scrollbar:        #b8a898;
+  --color-table:            #e8610b;
+  --color-button-text:      var(--color-bg);
+  --border-radius:          3px;
+}
+
+/* ── Dark mode (auto) ── */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-bg:               #181614;
+    --color-bg-secondary:     #26211c;
+    --color-text:             #e8e0d8;
+    --color-text-secondary:   #a09888;
+    --color-link:             #fb923c;
+    --color-secondary:        #94a3b8;
+    --color-secondary-accent: #94a3b815;
+    --color-accent:           #fb923c14;
+    --color-shadow:           #00000033;
+    --color-scrollbar:        #3a322a;
+    --color-table:            #fb923c;
+  --color-button-text:      var(--color-bg);
+    --border-radius:          3px;
+  }
+}
+
+:root[data-theme-mode="light"] {
+  --color-bg:               #faf8f5;
+  --color-bg-secondary:     #e8e0d5;
+  --color-text:             #1e1b18;
+  --color-text-secondary:   #6b6058;
+  --color-link:             #c44a08;
+  --color-secondary:        #3b4b5e;
+  --color-secondary-accent: #3b4b5e0d;
+  --color-accent:           #e8610b10;
+  --color-shadow:           #ccc0b4;
+  --color-scrollbar:        #b8a898;
+  --color-table:            #e8610b;
+  --color-button-text:      var(--color-bg);
+  --border-radius:          3px;
+}
+:root[data-theme-mode="dark"] {
+  --color-bg:               #181614;
+  --color-bg-secondary:     #26211c;
+  --color-text:             #e8e0d8;
+  --color-text-secondary:   #a09888;
+  --color-link:             #fb923c;
+  --color-secondary:        #94a3b8;
+  --color-secondary-accent: #94a3b815;
+  --color-accent:           #fb923c14;
+  --color-shadow:           #00000033;
+  --color-scrollbar:        #3a322a;
+  --color-table:            #fb923c;
+  --color-button-text:      var(--color-bg);
+  --border-radius:          3px;
+}

@@ -1,0 +1,84 @@
+/* ============================================================
+   LAYER 4 — THEME: NIGHT
+   Dark by default, light variant for daytime.
+   Auto-switches via prefers-color-scheme.
+   Force mode: <html data-theme-mode="light|dark">
+   ============================================================ */
+
+/* ── Dark mode (default for Night) ── */
+:root {
+  --color-bg:               #0f1117;
+  --color-bg-secondary:     #1c1f2e;
+  --color-text:             #e2e8f0;
+  --color-text-secondary:   #64748b;
+  --color-link:             #60a5fa;
+  --color-secondary:        #c084fc;
+  --color-secondary-accent: #c084fc12;
+  --color-accent:           #60a5fa12;
+  --color-shadow:           #00000055;
+  --color-scrollbar:        #334155;
+  --color-table:            #3b82f6;
+  --color-success:          #22c55e;
+  --color-success-hover:    #16a34a;
+  --color-danger:           #ef4444;
+  --color-danger-hover:     #dc2626;
+  --color-warning:          #f59e0b;
+  --color-warning-hover:    #d97706;
+  --border-radius:          6px;
+}
+
+/* ── Light mode (auto) ── */
+@media (prefers-color-scheme: light) {
+  :root {
+    --color-bg:               #f8fafc;
+    --color-bg-secondary:     #e2e8f0;
+    --color-text:             #0f172a;
+    --color-text-secondary:   #64748b;
+    --color-link:             #2563eb;
+    --color-secondary:        #7c3aed;
+    --color-secondary-accent: #7c3aed0d;
+    --color-accent:           #2563eb10;
+    --color-shadow:           #cbd5e1;
+    --color-scrollbar:        #94a3b8;
+    --color-table:            #2563eb;
+  --color-button-text:      #ffffff;
+    --border-radius:          6px;
+  }
+}
+
+/* ── Force mode overrides ── */
+:root[data-theme-mode="dark"] {
+  --color-bg:               #0f1117;
+  --color-bg-secondary:     #1c1f2e;
+  --color-text:             #e2e8f0;
+  --color-text-secondary:   #64748b;
+  --color-link:             #60a5fa;
+  --color-secondary:        #c084fc;
+  --color-secondary-accent: #c084fc12;
+  --color-accent:           #60a5fa12;
+  --color-shadow:           #00000055;
+  --color-scrollbar:        #334155;
+  --color-table:            #3b82f6;
+  --color-success:          #22c55e;
+  --color-success-hover:    #16a34a;
+  --color-danger:           #ef4444;
+  --color-danger-hover:     #dc2626;
+  --color-warning:          #f59e0b;
+  --color-warning-hover:    #d97706;
+  --border-radius:          6px;
+}
+:root[data-theme-mode="light"] {
+  --color-bg:               #f8fafc;
+  --color-bg-secondary:     #e2e8f0;
+  --color-text:             #0f172a;
+  --color-text-secondary:   #64748b;
+  --color-link:             #2563eb;
+  --color-secondary:        #7c3aed;
+  --color-secondary-accent: #7c3aed0d;
+  --color-accent:           #2563eb10;
+  --color-shadow:           #cbd5e1;
+  --color-scrollbar:        #94a3b8;
+  --color-table:            #2563eb;
+  --color-button-text:      #ffffff;
+  --border-radius:          6px;
+}

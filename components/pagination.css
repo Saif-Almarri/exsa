@@ -1,0 +1,19 @@
+/* ============================================================
+   Component Library
+   :root tokens. Theme-ready.
+   ============================================================ */
+
+/* --- C7: PAGINATION --- */
+.pagination{display:flex;align-items:center;gap:4px;flex-wrap:wrap;list-style:none;padding:0;margin:0 !important;font-weight:normal;justify-content:flex-start}
+.pagination__item{display:inline-flex}
+.pagination__link{display:inline-flex;align-items:center;justify-content:center;min-width:36px;height:36px;padding:0 10px;border-radius:var(--border-radius);font-size:.82rem;font-weight:600;color:var(--color-text);text-decoration:none !important;border:1px solid var(--color-bg-secondary);background:var(--color-bg);transition:background .15s,color .15s,border-color .15s;cursor:pointer}
+.pagination__link:hover{background:var(--color-bg-secondary);border-color:var(--color-bg-secondary);filter:none !important}
+.pagination__link:visited{color:var(--color-text) !important}
+.pagination__link--active{background:var(--color-link);color:#fff !important;border-color:var(--color-link)}
+.pagination__link--active:hover{background:var(--color-link);filter:none !important}
+.pagination__link--disabled{opacity:.4;pointer-events:none;cursor:default}
+.pagination__ellipsis{display:inline-flex;align-items:center;justify-content:center;min-width:36px;height:36px;font-size:.82rem;color:var(--color-text-secondary);letter-spacing:.08em}
+
+/* Compact */
+.pagination--sm .pagination__link{min-width:30px;height:30px;font-size:.74rem}
+.pagination--sm .pagination__ellipsis{min-width:30px;height:30px;font-size:.74rem}

@@ -1,0 +1,35 @@
+/* ============================================================
+   Component: POPOVER
+   Click-triggered floating card for rich content (forms, text).
+   Sizes: sm, default, lg, xl
+   ============================================================ */
+
+/* ── Trigger ── */
+.popover{position:relative;display:inline-block}
+
+/* ── Content panel ── */
+.popover__content{position:absolute;z-index:9996;top:calc(100% + 8px);inset-inline-start:50%;transform:translateX(-50%);width:320px;max-width:calc(100vw - 32px);background:var(--color-bg);border:1px solid var(--color-bg-secondary);border-radius:var(--border-radius);box-shadow:0 4px 20px color-mix(in srgb,#000 12%,transparent),0 0 0 1px color-mix(in srgb,var(--color-bg-secondary)50%,transparent);padding:16px;opacity:0;transform:translateX(-50%) scale(.95) translateY(-4px);transform-origin:top center;pointer-events:none;transition:opacity .15s,transform .15s}
+.popover--open .popover__content{opacity:1;transform:translateX(-50%) scale(1) translateY(0);pointer-events:all}
+
+/* ── Arrow ── */
+.popover__arrow{position:absolute;top:-6px;inset-inline-start:50%;transform:translateX(-50%);width:12px;height:6px;overflow:hidden}
+.popover__arrow::before{content:'';display:block;width:8px;height:8px;background:var(--color-bg);border:1px solid var(--color-bg-secondary);transform:rotate(45deg);margin:2px auto -6px}
+
+/* ── Sizes ── */
+.popover--sm .popover__content{width:240px;padding:12px}
+.popover--lg .popover__content{width:400px;padding:20px}
+.popover--xl .popover__content{width:520px;padding:24px}
+
+/* ── Align: start (left) ── */
+.popover--align-start .popover__content{inset-inline-start:0;transform:translateX(0) scale(.95) translateY(-4px);transform-origin:top left}
+.popover--align-start.popover--open .popover__content{transform:translateX(0) scale(1) translateY(0)}
+.popover--align-start .popover__arrow{inset-inline-start:20px;transform:none}
+
+/* ── Align: end (right) ── */
+.popover--align-end .popover__content{inset-inline-start:auto;inset-inline-end:0;transform:translateX(0) scale(.95) translateY(-4px);transform-origin:top right}
+.popover--align-end.popover--open .popover__content{transform:translateX(0) scale(1) translateY(0)}
+.popover--align-end .popover__arrow{inset-inline-start:auto;inset-inline-end:20px;transform:none}
+
+/* ── Backdrop ── */
+.popover__backdrop{position:fixed;inset:0;z-index:9995;display:none}
+.popover--open .popover__backdrop{display:block}

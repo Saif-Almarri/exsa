@@ -1,0 +1,9 @@
+/* ============================================================
+   Component Library
+   :root tokens. Theme-ready.
+   ============================================================ */
+
+/* --- C20: PROGRESS BARS --- */
+.progress-item{margin-bottom:14px}.progress-item:last-child{margin-bottom:0}.progress-item__head{display:flex;align-items:center;gap:9px;margin-bottom:5px}.progress-item__icon{font-size:15px;color:var(--color-text-secondary)}.progress-item__label{flex:1;font-size:.8rem;color:var(--color-text)}.progress-item__pct{font-size:.78rem;font-weight:600;color:var(--color-text-secondary);font-family:'Consolas',monospace}
+.progress-item__track{width:100%;height:18px;border-radius:var(--border-radius);overflow:hidden;background:var(--dash-bar-track,color-mix(in srgb,var(--color-bg-secondary)60%,transparent))}
+.progress-item__fill{height:100%;border-radius:var(--border-radius);width:var(--fill-pct,50%);background:linear-gradient(to right,var(--fill-clr,var(--color-link)),color-mix(in srgb,var(--fill-clr,var(--color-link))78%,#000))}

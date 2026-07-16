@@ -1,0 +1,7 @@
+/* ============================================================
+   Component Library
+   :root tokens. Theme-ready.
+   ============================================================ */
+   
+/* --- C29: RATING STARS --- */
+.rating{display:inline-flex;gap:4px;direction:rtl}.rating input{display:none}.rating__star{font-size:1.5rem;color:var(--color-bg-secondary);cursor:pointer;transition:color .15s,transform .12s;user-select:none;line-height:1}.rating__star:hover{transform:scale(1.15)}.rating__star:hover,.rating__star:hover~.rating__star{color:#f59e0b}.rating__star--active{color:#f59e0b}.rating--readonly .rating__star{cursor:default;pointer-events:none}.rating__value{font-size:.82rem;color:var(--color-text-secondary);margin-left:8px;font-family:'Consolas',monospace}

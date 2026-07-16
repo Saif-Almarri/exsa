@@ -1,0 +1,70 @@
+/* ============================================================
+   LAYER 4 — THEME: LEDGER
+   Crisp navy-gold by default, dark slate in dark mode.
+   Auto-switches via prefers-color-scheme.
+   Force mode: <html data-theme-mode="light|dark">
+   ============================================================ */
+
+/* ── Light mode (default) ── */
+:root {
+  --color-bg:               #ffffff;
+  --color-bg-secondary:     #eef1f7;
+  --color-text:             #0f1a2e;
+  --color-text-secondary:   #5a6478;
+  --color-link:             #8b6914;
+  --color-secondary:        #1e3a5f;
+  --color-secondary-accent: #1e3a5f0b;
+  --color-accent:           #b68b2410;
+  --color-shadow:           #d5dae4;
+  --color-scrollbar:        #b0bdd0;
+  --color-table:            #1e3a5f;
+  --border-radius:          4px;
+}
+
+/* ── Dark mode (auto) ── */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-bg:               #0d1520;
+    --color-bg-secondary:     #182333;
+    --color-text:             #e2e8f0;
+    --color-text-secondary:   #8899b0;
+    --color-link:             #eab308;
+    --color-secondary:        #60a5fa;
+    --color-secondary-accent: #60a5fa15;
+    --color-accent:           #eab30812;
+    --color-shadow:           #00000044;
+    --color-scrollbar:        #1e3050;
+    --color-table:            #3b82f6;
+    --color-button-text:      #0d1520;
+    --border-radius:          4px;
+  }
+}
+
+:root[data-theme-mode="light"] {
+  --color-bg:               #ffffff;
+  --color-bg-secondary:     #eef1f7;
+  --color-text:             #0f1a2e;
+  --color-text-secondary:   #5a6478;
+  --color-link:             #8b6914;
+  --color-secondary:        #1e3a5f;
+  --color-secondary-accent: #1e3a5f0b;
+  --color-accent:           #b68b2410;
+  --color-shadow:           #d5dae4;
+  --color-scrollbar:        #b0bdd0;
+  --color-table:            #1e3a5f;
+  --border-radius:          4px;
+}
+:root[data-theme-mode="dark"] {
+  --color-bg:               #0d1520;
+  --color-bg-secondary:     #182333;
+  --color-text:             #e2e8f0;
+  --color-text-secondary:   #8899b0;
+  --color-link:             #eab308;
+  --color-secondary:        #60a5fa;
+  --color-secondary-accent: #60a5fa15;
+  --color-accent:           #eab30812;
+  --color-shadow:           #00000044;
+  --color-scrollbar:        #1e3050;
+  --color-table:            #3b82f6;
+    --color-button-text:      #0d1520;
+}

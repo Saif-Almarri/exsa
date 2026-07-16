@@ -1,0 +1,7 @@
+/* ============================================================
+   Component Library
+   :root tokens. Theme-ready.
+   ============================================================ */
+   
+/* --- C34: SKELETON LOADER --- */
+.skeleton{display:flex;flex-direction:column;gap:12px}.skeleton__line{height:14px;border-radius:var(--border-radius);background:linear-gradient(90deg,var(--color-bg-secondary) 25%,color-mix(in srgb,var(--color-bg-secondary)60%,var(--color-text))50%,var(--color-bg-secondary)75%);background-size:200% 100%;animation:shimmer 1.6s ease-in-out infinite;width:100%}.skeleton__line--short{width:60%}.skeleton__line--medium{width:85%}.skeleton__line--circle{width:44px;height:44px;border-radius:50%;flex-shrink:0}.skeleton__line--h2{height:22px;width:50%}.skeleton__line--btn{height:36px;width:120px}.skeleton__row{display:flex;gap:14px;align-items:center}.skeleton__row .skeleton__line{flex:1}@keyframes shimmer{from{background-position:200% 0}to{background-position:-200% 0}}

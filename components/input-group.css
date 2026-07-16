@@ -1,0 +1,7 @@
+/* ============================================================
+   Component Library
+   :root tokens. Theme-ready.
+   ============================================================ */
+   
+/* --- C25: INPUT GROUP --- */
+.input-group{display:flex;flex-direction:column;gap:5px}.input-group__label{font-size:.82rem;font-weight:600;color:var(--color-text)}.input-group__wrap{display:flex;align-items:center;border:1px solid var(--color-bg-secondary);border-radius:var(--border-radius);background:var(--color-bg);overflow:hidden;transition:border-color .18s}.input-group__wrap:focus-within{border-color:var(--color-link);box-shadow:0 0 0 3px color-mix(in srgb,var(--color-link)15%,transparent)}.input-group__icon{padding:0 12px;font-size:1rem;color:var(--color-text-secondary);flex-shrink:0}.input-group__input{flex:1;border:none;outline:none;padding:9px 12px 9px 0;font-size:.88rem;font-family:inherit;color:var(--color-text);background:transparent;margin:0;box-shadow:none;border-radius:0;min-width:0}.input-group__input::placeholder{color:var(--color-text-secondary)}.input-group__addon{padding:0 12px;font-size:.82rem;color:var(--color-text-secondary);background:var(--color-bg-secondary);line-height:38px;flex-shrink:0}

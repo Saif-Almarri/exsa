@@ -1,0 +1,25 @@
+/* ============================================================
+   Component Library
+   :root tokens. Theme-ready.
+   ============================================================ */
+
+/* --- C1: ACCORDION --- */
+.accordion{border:1px solid var(--color-bg-secondary);border-radius:var(--border-radius);overflow:hidden}
+.accordion__item{border-bottom:1px solid var(--color-bg-secondary)}
+.accordion__item:last-child{border-bottom:none}
+.accordion__trigger{display:none}
+.accordion__label{display:flex;align-items:center;justify-content:space-between;padding:14px 18px;font-size:.9rem;font-weight:600;color:var(--color-text);cursor:pointer;user-select:none;transition:background .15s,color .15s;gap:12px}
+.accordion__label:hover{background:var(--color-bg-secondary)}
+.accordion__label::after{content:'+';font-size:1.2rem;font-weight:400;color:var(--color-text-secondary);transition:transform .25s;flex-shrink:0}
+.accordion__trigger:checked + .accordion__label,
+.accordion__label[aria-expanded="true"]{color:var(--color-link)}
+.accordion__trigger:checked + .accordion__label::after,
+.accordion__label[aria-expanded="true"]::after{transform:rotate(45deg)}
+.accordion__panel{max-height:0;overflow:hidden;transition:max-height .35s ease,padding .35s ease}
+.accordion__panel-inner{padding:0 18px 16px;font-size:.84rem;color:var(--color-text-secondary);line-height:1.7}
+.accordion__trigger:checked ~ .accordion__panel,
+.accordion__label[aria-expanded="true"] ~ .accordion__panel{max-height:400px}
+
+/* Compact variant */
+.accordion--sm .accordion__label{padding:10px 14px;font-size:.82rem}
+.accordion--sm .accordion__panel-inner{padding:0 14px 12px;font-size:.78rem}

@@ -1,0 +1,7 @@
+/* ============================================================
+   Component Library
+   :root tokens. Theme-ready.
+   ============================================================ */
+   
+/* --- C10: TOOLTIP --- */
+.tooltip{position:relative;cursor:help;border-bottom:1px dotted var(--color-text-secondary);display:inline}.tooltip::after{content:attr(data-tip);position:absolute;bottom:calc(100% + 8px);left:50%;transform:translateX(-50%) scale(.8);padding:6px 12px;background:var(--color-text);color:var(--color-bg);font-size:.75rem;font-weight:500;border-radius:var(--border-radius);white-space:nowrap;pointer-events:none;opacity:0;transition:opacity .15s,transform .15s;z-index:100;line-height:1.5}.tooltip::before{content:'';position:absolute;bottom:calc(100% + 2px);left:50%;transform:translateX(-50%);border:5px solid transparent;border-top-color:var(--color-text);opacity:0;transition:opacity .15s;pointer-events:none}.tooltip:hover::after,.tooltip:focus-visible::after{opacity:1;transform:translateX(-50%) scale(1)}.tooltip:hover::before,.tooltip:focus-visible::before{opacity:1}

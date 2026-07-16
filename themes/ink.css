@@ -1,0 +1,87 @@
+/* ============================================================
+   LAYER 4 — THEME: INK
+   Warm paper + dark ink by default. Near-black + parchment
+   text in dark mode. High contrast, comfortable reading.
+   Auto-switches via prefers-color-scheme.
+   Force mode: <html data-theme-mode="light|dark">
+   ============================================================ */
+
+/* ── Light mode (default): warm paper + dark ink ── */
+:root {
+  --color-bg:               #f8f4e8;
+  --color-bg-secondary:     #ebe4d0;
+  --color-text:             #1a1814;
+  --color-text-secondary:   #6a6458;
+  --color-link:             #8a6a30;
+  --color-secondary:        #6a5030;
+  --color-secondary-accent: #6a50300d;
+  --color-accent:           #8a6a3010;
+  --color-shadow:           #d4ccb8;
+  --color-scrollbar:        #b8b098;
+  --color-table:            #8a6a30;
+  --color-button-text:      #ffffff;
+  --border-radius:          3px;
+}
+
+/* ── Dark mode (auto): ink + parchment text ── */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-bg:               #0f0f0c;
+    --color-bg-secondary:     #1a1a14;
+    --color-text:             #d4cebc;
+    --color-text-secondary:   #8a8478;
+    --color-link:             #c4a44a;
+    --color-secondary:        #a08040;
+    --color-secondary-accent: #a0804018;
+    --color-accent:           #c4a44a14;
+    --color-shadow:           #00000088;
+    --color-scrollbar:        #2a2a20;
+    --color-table:            #c4a44a;
+    --color-button-text:      #0f0f0c;
+    --color-success:          #4ade80;
+    --color-success-hover:    #22c55e;
+    --color-danger:           #f87171;
+    --color-danger-hover:     #ef4444;
+    --color-warning:          #fbbf24;
+    --color-warning-hover:    #f59e0b;
+    --border-radius:          3px;
+  }
+}
+
+/* ── Force mode overrides ── */
+:root[data-theme-mode="dark"] {
+  --color-bg:               #0f0f0c;
+  --color-bg-secondary:     #1a1a14;
+  --color-text:             #d4cebc;
+  --color-text-secondary:   #8a8478;
+  --color-link:             #c4a44a;
+  --color-secondary:        #a08040;
+  --color-secondary-accent: #a0804018;
+  --color-accent:           #c4a44a14;
+  --color-shadow:           #00000088;
+  --color-scrollbar:        #2a2a20;
+  --color-table:            #c4a44a;
+  --color-button-text:      #0f0f0c;
+  --color-success:          #4ade80;
+  --color-success-hover:    #22c55e;
+  --color-danger:           #f87171;
+  --color-danger-hover:     #ef4444;
+  --color-warning:          #fbbf24;
+  --color-warning-hover:    #f59e0b;
+  --border-radius:          3px;
+}
+:root[data-theme-mode="light"] {
+  --color-bg:               #f8f4e8;
+  --color-bg-secondary:     #ebe4d0;
+  --color-text:             #1a1814;
+  --color-text-secondary:   #6a6458;
+  --color-link:             #8a6a30;
+  --color-secondary:        #6a5030;
+  --color-secondary-accent: #6a50300d;
+  --color-accent:           #8a6a3010;
+  --color-shadow:           #d4ccb8;
+  --color-scrollbar:        #b8b098;
+  --color-table:            #8a6a30;
+  --color-button-text:      #ffffff;
+  --border-radius:          3px;
+}

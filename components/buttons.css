@@ -1,0 +1,196 @@
+/* ============================================================
+   Component: BUTTONS
+   Variants: primary, success, danger, warning, neutral,
+             outline, ghost, soft, surface
+   Sizes: xs, sm, default, lg
+   Mods: high-contrast, radius-full, radius-none, loading, block
+   Theme-ready: uses --color-link, --color-bg, etc.
+   ============================================================ */
+
+/* ── Base button reset ── */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  font-family: inherit;
+  font-size: 0.88rem;
+  font-weight: 600;
+  line-height: 1;           /* tight: height = padding×2 + font-size */
+  padding: 10px 20px;
+  border-radius: var(--border-radius);
+  border: 2px solid transparent;
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s, color 0.15s, box-shadow 0.15s, transform 0.1s;
+  text-decoration: none;
+  white-space: nowrap;
+  user-select: none;
+  vertical-align: middle;
+}
+.btn:active { transform: scale(0.97); }
+.btn:disabled,
+.btn--disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* ── Solid variants ── */
+
+/* Primary (link color) */
+.btn--primary {
+  background: var(--color-link);
+  border-color: var(--color-link);
+  color: var(--color-button-text, #fff);
+}
+.btn--primary:hover { filter: brightness(1.1); }
+
+/* Success (green) */
+.btn--success {
+  background: var(--color-success);
+  border-color: var(--color-success);
+  color: #fff;
+}
+.btn--success:hover { background: var(--color-success-hover); border-color: var(--color-success-hover); }
+
+/* Danger (red) */
+.btn--danger {
+  background: var(--color-danger);
+  border-color: var(--color-danger);
+  color: #fff;
+}
+.btn--danger:hover { background: var(--color-danger-hover); border-color: var(--color-danger-hover); }
+
+/* Warning (amber) */
+.btn--warning {
+  background: var(--color-warning);
+  border-color: var(--color-warning);
+  color: #fff;
+}
+.btn--warning:hover { background: var(--color-warning-hover); border-color: var(--color-warning-hover); }
+
+/* Neutral (grey, theme-aware) */
+.btn--neutral {
+  background: var(--color-bg-secondary);
+  border-color: var(--color-bg-secondary);
+  color: var(--color-text);
+}
+.btn--neutral:hover { filter: brightness(0.95); }
+
+/* ── Subtle variants ── */
+
+/* Outline */
+.btn--outline {
+  background: transparent;
+  border-color: var(--color-link);
+  color: var(--color-link);
+}
+.btn--outline:hover { background: var(--color-link); color: var(--color-button-text, #fff); }
+
+/* Ghost */
+.btn--ghost {
+  background: transparent;
+  border-color: transparent;
+  color: var(--color-text);
+}
+.btn--ghost:hover { background: var(--color-bg-secondary); }
+
+/* Soft — subtle tint, no border, inherits link hue */
+.btn--soft {
+  background: color-mix(in srgb, var(--color-link) 12%, transparent);
+  border-color: transparent;
+  color: var(--color-link);
+}
+.btn--soft:hover { background: color-mix(in srgb, var(--color-link) 20%, transparent); }
+
+/* Surface — card-like, raised */
+.btn--surface {
+  background: var(--color-bg);
+  border-color: var(--color-bg-secondary);
+  color: var(--color-text);
+  box-shadow: 0 1px 3px color-mix(in srgb, var(--color-text-secondary) 12%, transparent);
+}
+.btn--surface:hover { background: var(--color-bg-secondary); border-color: color-mix(in srgb, var(--color-text-secondary) 30%, transparent); }
+
+/* ── High Contrast Modifier ── */
+.btn--high-contrast.btn--outline,
+.btn--high-contrast.btn--ghost,
+.btn--high-contrast.btn--soft,
+.btn--high-contrast.btn--surface {
+  background: var(--color-link);
+  border-color: var(--color-link);
+  color: var(--color-button-text, #fff);
+}
+.btn--high-contrast.btn--outline:hover,
+.btn--high-contrast.btn--ghost:hover,
+.btn--high-contrast.btn--soft:hover,
+.btn--high-contrast.btn--surface:hover { filter: brightness(1.1); }
+
+/* ── Sizes ── */
+
+.btn--xs {
+  font-size: 0.7rem;
+  padding: 4px 10px;
+  border-radius: calc(var(--border-radius) * 0.6);
+  gap: 4px;
+}
+
+.btn--sm {
+  font-size: 0.78rem;
+  padding: 6px 14px;
+  border-radius: calc(var(--border-radius) * 0.75);
+  gap: 5px;
+}
+
+.btn--lg {
+  font-size: 1rem;
+  padding: 13px 26px;
+  border-radius: calc(var(--border-radius) * 1.25);
+  gap: 8px;
+}
+
+/* ── Icon-only button ── */
+.btn--icon {
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  border-radius: 50%;
+}
+.btn--icon.btn--xs { width: 26px; height: 26px; }
+.btn--icon.btn--sm { width: 32px; height: 32px; }
+.btn--icon.btn--lg { width: 50px; height: 50px; }
+
+/* ── Block (full width) ── */
+.btn--block { display: flex; width: 100%; }
+
+/* ── Radius variants ── */
+.btn--radius-full { border-radius: 9999px; }
+.btn--radius-none  { border-radius: 0; }
+
+/* ── Loading state ── */
+.btn--loading {
+  position: relative;
+  color: transparent !important;
+  pointer-events: none;
+}
+.btn--loading::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  width: 18px; height: 18px;
+  border: 2px solid rgba(255,255,255,0.3);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: btn-spin 0.6s linear infinite;
+}
+/* Spinner color for light-background variants */
+.btn--loading.btn--outline::after,
+.btn--loading.btn--ghost::after,
+.btn--loading.btn--soft::after,
+.btn--loading.btn--surface::after,
+.btn--loading.btn--neutral::after {
+  border-color: color-mix(in srgb, var(--color-link) 25%, transparent);
+  border-top-color: var(--color-link);
+}
+@keyframes btn-spin { to { transform: rotate(360deg); } }

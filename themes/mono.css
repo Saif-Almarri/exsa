@@ -1,0 +1,75 @@
+/* ============================================================
+   LAYER 4 — THEME: MONO
+   Pure black and white. Zero color, maximum contrast.
+   Light: white surface, black text. Dark: inverted.
+   Auto-switches via prefers-color-scheme.
+   Force mode: <html data-theme-mode="light|dark">
+   ============================================================ */
+
+/* ── Light mode (default): white surface, black ink ── */
+:root {
+  --color-bg:               #ffffff;
+  --color-bg-secondary:     #f0f0f0;
+  --color-text:             #000000;
+  --color-text-secondary:   #666666;
+  --color-link:             #000000;
+  --color-secondary:        #333333;
+  --color-secondary-accent: #3333330d;
+  --color-accent:           #0000000a;
+  --color-shadow:           #cccccc;
+  --color-scrollbar:        #aaaaaa;
+  --color-table:            #000000;
+  --color-button-text:      #ffffff;
+  --border-radius:          4px;
+}
+
+/* ── Dark mode (auto): black surface, white ink ── */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-bg:               #000000;
+    --color-bg-secondary:     #1a1a1a;
+    --color-text:             #ffffff;
+    --color-text-secondary:   #999999;
+    --color-link:             #ffffff;
+    --color-secondary:        #cccccc;
+    --color-secondary-accent: #cccccc15;
+    --color-accent:           #ffffff12;
+    --color-shadow:           #00000088;
+    --color-scrollbar:        #333333;
+    --color-table:            #ffffff;
+  --color-button-text:      #000000;
+    --border-radius:          4px;
+  }
+}
+
+/* ── Force mode overrides ── */
+:root[data-theme-mode="light"] {
+  --color-bg:               #ffffff;
+  --color-bg-secondary:     #f0f0f0;
+  --color-text:             #000000;
+  --color-text-secondary:   #666666;
+  --color-link:             #000000;
+  --color-secondary:        #333333;
+  --color-secondary-accent: #3333330d;
+  --color-accent:           #0000000a;
+  --color-shadow:           #cccccc;
+  --color-scrollbar:        #aaaaaa;
+  --color-table:            #000000;
+  --color-button-text:      #ffffff;
+  --border-radius:          4px;
+}
+:root[data-theme-mode="dark"] {
+  --color-bg:               #000000;
+  --color-bg-secondary:     #1a1a1a;
+  --color-text:             #ffffff;
+  --color-text-secondary:   #999999;
+  --color-link:             #ffffff;
+  --color-secondary:        #cccccc;
+  --color-secondary-accent: #cccccc15;
+  --color-accent:           #ffffff12;
+  --color-shadow:           #00000088;
+  --color-scrollbar:        #333333;
+  --color-table:            #ffffff;
+  --color-button-text:      #000000;
+  --border-radius:          4px;
+}

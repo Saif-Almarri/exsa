@@ -1,0 +1,55 @@
+{
+  "name": "exsa",
+  "version": "1.0.0",
+  "description": "A 5-layer CSS framework built on tokens, not tools. 11.8 KB core. 49 components. 17 themes. Zero build step.",
+  "author": "EXSA",
+  "license": "SEE LICENSE IN LICENSE",
+  "homepage": "https://github.com/exsa/exsa#readme",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/exsa/exsa.git"
+  },
+  "bugs": {
+    "url": "https://github.com/exsa/exsa/issues"
+  },
+  "keywords": [
+    "css",
+    "css-framework",
+    "design-system",
+    "design-tokens",
+    "classless",
+    "bem",
+    "zero-build",
+    "lightweight",
+    "theming",
+    "custom-properties",
+    "css-layers",
+    "accessibility",
+    "a11y"
+  ],
+  "main": "style.css",
+  "style": "style.css",
+  "files": [
+    "style.css",
+    "components.js",
+    "tokens.json",
+    "manifest.json",
+    "README.md",
+    "LICENSE",
+    "components/",
+    "themes/"
+  ],
+  "exports": {
+    ".": "./style.css",
+    "./tokens": "./tokens.json",
+    "./manifest": "./manifest.json",
+    "./components/*": "./components/*",
+    "./themes/*": "./themes/*"
+  },
+  "browserslist": [
+    "Chrome >= 88",
+    "Firefox >= 97",
+    "Safari >= 15.4",
+    "Edge >= 88"
+  ]
+}

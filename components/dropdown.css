@@ -1,0 +1,46 @@
+/* ============================================================
+   Component: DROPDOWN MENU
+   Click-triggered popup with items, separators, shortcuts.
+   Variants: solid (default), soft
+   Sizes: sm, default
+   ============================================================ */
+
+/* ── Container ── */
+.dropdown{position:relative;display:inline-block}
+
+/* ── Trigger ── */
+.dropdown__trigger{display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:var(--border-radius);border:1px solid var(--color-bg-secondary);background:var(--color-bg);color:var(--color-text);font-size:.88rem;font-weight:500;cursor:pointer;font-family:inherit;transition:background .15s,border-color .15s,box-shadow .15s;line-height:1.4;white-space:nowrap}
+.dropdown__trigger:hover{background:var(--color-bg-secondary);border-color:color-mix(in srgb,var(--color-text-secondary)30%,transparent)}
+.dropdown__trigger:focus-visible{outline:2px solid var(--color-link);outline-offset:2px}
+.dropdown__arrow{font-size:1rem;transition:transform .18s;opacity:.5}
+.dropdown--open .dropdown__arrow{transform:rotate(180deg)}
+
+/* ── Menu panel ── */
+.dropdown__menu{position:absolute;top:calc(100% + 4px);inset-inline-start:0;min-width:160px;background:var(--color-bg);border:1px solid var(--color-bg-secondary);border-radius:var(--border-radius);box-shadow:0 4px 16px color-mix(in srgb,#000 10%,transparent),0 0 0 1px color-mix(in srgb,var(--color-bg-secondary)60%,transparent);padding:4px;z-index:100;opacity:0;transform:scale(.95) translateY(-4px);transform-origin:top left;pointer-events:none;transition:opacity .12s,transform .12s}
+.dropdown--open .dropdown__menu{opacity:1;transform:scale(1) translateY(0);pointer-events:all}
+
+/* ── Soft variant ── */
+.dropdown--soft .dropdown__menu{background:var(--color-bg-secondary);border-color:transparent;box-shadow:0 4px 12px color-mix(in srgb,#000 6%,transparent)}
+
+/* ── Size: small ── */
+.dropdown--sm .dropdown__trigger{padding:5px 12px;font-size:.8rem}
+.dropdown--sm .dropdown__menu{min-width:130px;padding:3px}
+.dropdown--sm .dropdown__item{padding:5px 8px;font-size:.78rem}
+
+/* ── Items ── */
+.dropdown__item{display:flex;align-items:center;gap:8px;width:100%;padding:6px 8px;font-size:.84rem;color:var(--color-text);background:none;border:none;border-radius:calc(var(--border-radius)*.6);cursor:pointer;text-align:start;font-family:inherit;line-height:1;transition:background .06s}
+.dropdown__item:hover{background:color-mix(in srgb,var(--color-text-secondary)10%,transparent)}
+.dropdown__item:focus-visible{outline:2px solid var(--color-link);outline-offset:-2px}
+
+/* ── Danger item ── */
+.dropdown__item--danger{color:var(--color-danger)}
+.dropdown__item--danger:hover{background:color-mix(in srgb,var(--color-danger)12%,transparent)}
+
+/* ── Shortcut hint ── */
+.dropdown__shortcut{margin-inline-start:auto;font-size:.68rem;color:var(--color-text-secondary);letter-spacing:.02em}
+
+/* ── Separator ── */
+.dropdown__divider{height:1px;background:var(--color-bg-secondary);margin:3px 6px}
+
+/* ── Label (non-interactive header) ── */
+.dropdown__label{padding:6px 8px 2px;font-size:.68rem;font-weight:600;color:var(--color-text-secondary);text-transform:uppercase;letter-spacing:.06em}
