@@ -14,3 +14,29 @@ Thumbs.db
 # Temp
 *.tmp
 *.zip
+
+# Website HTML pages (for exsa.dev — not part of the framework)
+index.html
+docs.html
+showcase.html
+cheatsheet.html
+generator.html
+
+# Website-specific CSS
+demo.css
+landing.css
+
+# Server config
+.htaccess
+showcase.html
+docs.html
+cheatsheet.html
+generator.html
+compare.html
+demo.css
+landing.css
+e.png
+layers.png
+exsa.css-data.json
+gaps.md
+*.zip

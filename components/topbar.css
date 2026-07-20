@@ -41,6 +41,9 @@
 
 /* Brand / Logo */
 .topbar__brand {
+  display: flex;
+  align-items: center;
+  gap: 6px;
   font-size: 1.05rem;
   font-weight: 700;
   color: var(--color-text);
@@ -49,6 +52,7 @@
   white-space: nowrap;
   flex-shrink: 0;
 }
+.topbar__logo { flex-shrink: 0; }
 .topbar__brand span { color: var(--color-link); }
 
 /* Nav container */

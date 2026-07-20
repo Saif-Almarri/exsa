@@ -1,6 +1,15 @@
-/* EXSA v1.0 — Copyright (c) 2026 Saif. See LICENSE.
+/* Copyright © 2026 Saif Almarri. EXSA CSS Framework. All rights reserved. See LICENSE.
    5 @layers: tokens → reset → layout → elements → components
-   Themes & user CSS are unlayered — always win. Cheatsheet: docs/README.md */
+   Themes & user CSS are unlayered — always win. Cheatsheet: docs/README.md
+
+   ── Guarded Classless scope ──
+   Every classless rule below is written as :where(.exsa <ancestor>:not([class]) ...)
+   so a class on the *structural ancestor* (header/main/footer/section/article/nav)
+   fully opts that whole subtree out — including nested cards, callouts, and dropdowns.
+   Two exceptions are intentionally NOT scoped to .exsa or guarded: .sr-only and
+   .skip-link/:target are universal a11y utilities that work even on pages that never
+   opt into class="exsa", by design.
+*/
 
 /* ── Layer order ── */
 @layer exsa.tokens, exsa.reset, exsa.layout, exsa.elements, exsa.components;
@@ -22,6 +31,7 @@
   --gap-xs:0.25rem;--gap-sm:0.5rem;--gap-md:0.75rem;--gap:1rem;--gap-lg:1.5rem;--gap-xl:2rem;--gap-2xl:3rem;
 }
 
+/* Auto dark mode — follows OS */
 @media (prefers-color-scheme:dark){
 :root {
   --color-bg:#333;--color-bg-secondary:#555;--color-text:#f7f7f7;--color-text-secondary:#aaa;
@@ -31,6 +41,24 @@
   --color-danger-hover:#dc2626;--color-warning:#f59e0b;--color-warning-hover:#d97706;
 }}
 
+/* Forced dark — <html data-theme-mode="dark">, ignores OS preference */
+:root[data-theme-mode="dark"] {
+  --color-bg:#333;--color-bg-secondary:#555;--color-text:#f7f7f7;--color-text-secondary:#aaa;
+  --color-link:#0097fc;--color-secondary:#e20de9;--color-secondary-accent:#e20de94f;
+  --color-accent:#0097fc4f;--color-scrollbar:#555;--color-shadow:#bbbbbb20;--color-table:#0097fc;
+  --color-success:#22c55e;--color-success-hover:#16a34a;--color-danger:#ef4444;
+  --color-danger-hover:#dc2626;--color-warning:#f59e0b;--color-warning-hover:#d97706;
+}
+
+/* Forced light — <html data-theme-mode="light">, ignores OS preference */
+:root[data-theme-mode="light"] {
+  --color-bg:#fff;--color-bg-secondary:#e9e9e9;--color-text:#000;--color-text-secondary:#757575;
+  --color-link:#118bee;--color-secondary:#920de9;--color-secondary-accent:#920de90b;
+  --color-accent:#118bee15;--color-shadow:#f4f4f4;--color-scrollbar:#cacae8;--color-table:#118bee;
+  --color-success:#16a34a;--color-success-hover:#15803d;--color-danger:#dc2626;
+  --color-danger-hover:#b91c1c;--color-warning:#d97706;--color-warning-hover:#b45309;
+}
+
 } /* tokens */
 
 @layer exsa.reset {
@@ -38,10 +66,16 @@
 *,*::before,*::after{box-sizing:border-box}
 :focus-visible{outline:2px solid var(--color-link);outline-offset:2px;border-radius:2px}
 :focus:not(:focus-visible){outline:none}
-/* Windows High Contrast Mode — use system colors for visibility */
+
+/* Universal a11y utility — intentionally unscoped, works without class="exsa" */
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+
+/* Windows High Contrast Mode — use system colors for visibility.
+   Declared after the base rules above in the same layer, so it wins by
+   source order alone — no !important needed. */
 @media(forced-colors:active){
   :focus-visible{outline:2px solid Highlight;outline-offset:2px}
-  .sr-only{clip:auto;clip-path:none;position:static!important;width:auto;height:auto}
+  .sr-only{clip:auto;clip-path:none;position:static;width:auto;height:auto}
 }
 /* High contrast preference — boost borders and text weight */
 @media(prefers-contrast:high){
@@ -60,7 +94,7 @@
 html{scroll-behavior:smooth}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}:target{animation:none}*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
 [dir=rtl]{direction:rtl;unicode-bidi:isolate}
-[dir=rtl] .slideshow__track{direction:ltr}
+[dir=rtl] .slideshow__track{direction:ltr} /* owned here: cross-component RTL quirks are centralized in core by design */
 body{background:var(--color-bg);color:var(--color-text);font-family:var(--font-family);line-height:var(--line-height);margin:0;overflow-x:hidden;padding:0}
 h1,h2,h3,h4,h5,h6{line-height:var(--line-height);text-wrap:balance;margin:0 0 var(--gap-md)}
 img,svg,video{max-width:100%}
@@ -68,11 +102,10 @@ figure{margin:0;padding:0}
 figure img{max-width:100%}
 figure figcaption{color:var(--color-text-secondary)}
 [hidden]{display:none}
-.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
-/* Skip link — hidden until focused, then visible for keyboard users */
+
+/* Universal a11y utilities — intentionally unscoped, work without class="exsa" */
 .skip-link{position:absolute;top:-100px;left:0;background:var(--color-link);color:#fff;padding:var(--gap-sm) var(--gap);z-index:10000;font-weight:700;border-radius:0 0 var(--border-radius) 0;text-decoration:none;transition:top .15s}
 .skip-link:focus{top:0}
-/* Anchor target highlight — brief flash when jumping to a section */
 :target{scroll-margin-top:80px;animation:exsa-target-flash 1.2s ease-out}
 @keyframes exsa-target-flash{0%{background:var(--color-accent)}100%{background:transparent}}
 
@@ -138,32 +171,90 @@ figure figcaption{color:var(--color-text-secondary)}
 :where(.exsa hr){background-color:var(--color-bg-secondary);border:none;height:1px;margin:var(--gap-2xl) 0;width:100%}
 :where(.exsa details){margin:var(--gap) 0}
 :where(.exsa details summary){font-weight:bold;cursor:pointer}
-/* Structural containers — guarded so classed elements are left alone */
+
+/* Structural containers — guarded so a class on header/main/footer opts the WHOLE subtree out */
 :where(.exsa header:not([class])),:where(.exsa main:not([class])),:where(.exsa footer:not([class])){margin:0 auto;max-width:var(--width-content);padding:var(--gap-2xl) var(--gap)}
 :where(.exsa article header),:where(.exsa div header),:where(.exsa main header){padding-top:0}
 :where(.exsa header:not([class])){text-align:var(--justify-important)}
 :where(.exsa header:not([class]) nav img){margin:var(--gap) 0}
-/* Section layout — container queries work on ANY section (classed or not) */
+
+/* Section layout — container queries work on ANY section (classed or not);
+   the flex/card/callout styling below is guarded to unclassed ancestors only. */
 :where(.exsa section){container-type:inline-size}
 :where(.exsa section:not([class])){display:flex;flex-wrap:wrap;justify-content:var(--justify-important)}
 :where(.exsa section header){padding-top:0;width:100%}
 :where(.exsa section img),:where(.exsa article img){max-width:100%}
 :where(.exsa section pre){overflow:auto}
-:where(.exsa section aside){border:1px solid var(--color-bg-secondary);border-radius:var(--border-radius);box-shadow:var(--box-shadow) var(--color-shadow);margin:var(--gap);padding:var(--gap-lg);width:var(--width-card)}
-:where(.exsa section aside:hover){box-shadow:var(--box-shadow) var(--color-bg-secondary)}
-@container(max-width:320px){:where(.exsa section aside){margin:var(--gap-sm);padding:var(--gap-md);width:auto}}
-@container(min-width:500px){:where(.exsa section aside){padding:var(--gap-lg)}}
-:where(.exsa article>aside){background:var(--color-secondary-accent);border-inline-start:4px solid var(--color-secondary);padding:0 var(--gap-sm)}
-:where(.exsa article>aside a){color:var(--color-secondary)}
-:where(.exsa nav){align-items:center;display:flex;font-weight:bold;justify-content:space-between;margin-bottom:var(--gap-xl)}
-:where(.exsa nav ul){list-style:none;padding:0}
-:where(.exsa nav ul li){display:inline-block;margin:0 var(--gap-sm);position:relative;text-align:start}
-:where(.exsa nav ul li:hover ul),:where(.exsa nav ul li:focus-within ul){display:block}
-:where(.exsa nav ul li ul){background:var(--color-bg);border:1px solid var(--color-bg-secondary);border-radius:var(--border-radius);box-shadow:var(--box-shadow) var(--color-shadow);display:none;height:auto;inset-inline-start:-2px;padding:var(--gap-sm) var(--gap);position:absolute;top:1.7rem;white-space:nowrap;width:auto;z-index:1}
-:where(.exsa nav ul li ul::before){content:"";position:absolute;inset-inline:0;top:calc(var(--gap-sm) * -1);height:var(--gap-sm)}
-:where(.exsa nav ul li ul li),:where(.exsa nav ul li ul li a){display:block}
-@media(max-width:768px){:where(.exsa nav){flex-wrap:wrap}:where(.exsa nav ul li){width:calc(100% - 1em)}:where(.exsa nav ul li ul){border:none;box-shadow:none;display:none;position:static}:where(.exsa nav ul li:focus-within>ul){display:block}}
+
+/* Card — guarded: <section class="my-app"><aside> no longer gets card styling */
+:where(.exsa section:not([class]) aside){border:1px solid var(--color-bg-secondary);border-radius:var(--border-radius);box-shadow:var(--box-shadow) var(--color-shadow);margin:var(--gap);padding:var(--gap-lg);width:var(--width-card)}
+:where(.exsa section:not([class]) aside:hover){box-shadow:var(--box-shadow) var(--color-bg-secondary)}
+@container(max-width:320px){:where(.exsa section:not([class]) aside){margin:var(--gap-sm);padding:var(--gap-md);width:auto}}
+@container(min-width:500px){:where(.exsa section:not([class]) aside){padding:var(--gap-lg)}}
+
+/* Callout — guarded: <article class="my-app"><aside> no longer gets callout styling */
+:where(.exsa article:not([class])>aside){background:var(--color-secondary-accent);border-inline-start:4px solid var(--color-secondary);padding:0 var(--gap-sm)}
+:where(.exsa article:not([class])>aside a){color:var(--color-secondary)}
+
+/* Nav — guarded: a class on <nav> opts the whole dropdown/collapse subtree out */
+:where(.exsa nav:not([class])){align-items:center;display:flex;font-weight:bold;justify-content:space-between;margin-bottom:var(--gap-xl)}
+:where(.exsa nav:not([class]) ul){list-style:none;padding:0}
+:where(.exsa nav:not([class]) ul li){display:inline-block;margin:0 var(--gap-sm);position:relative;text-align:start}
+:where(.exsa nav:not([class]) ul li:hover ul),:where(.exsa nav:not([class]) ul li:focus-within ul){display:block}
+:where(.exsa nav:not([class]) ul li ul){background:var(--color-bg);border:1px solid var(--color-bg-secondary);border-radius:var(--border-radius);box-shadow:var(--box-shadow) var(--color-shadow);display:none;height:auto;inset-inline-start:-2px;padding:var(--gap-sm) var(--gap);position:absolute;top:1.7rem;white-space:nowrap;width:auto;z-index:1}
+:where(.exsa nav:not([class]) ul li ul::before){content:"";position:absolute;inset-inline:0;top:calc(var(--gap-sm) * -1);height:var(--gap-sm)}
+:where(.exsa nav:not([class]) ul li ul li),:where(.exsa nav:not([class]) ul li ul li a){display:block}
+@media(max-width:768px){:where(.exsa nav:not([class])){flex-wrap:wrap}:where(.exsa nav:not([class]) ul li){width:calc(100% - 1em)}:where(.exsa nav:not([class]) ul li ul){border:none;box-shadow:none;display:none;position:static}:where(.exsa nav:not([class]) ul li:focus-within>ul){display:block}}
+
+/* ── Table baseline ──
+   Bare borders, header background, cell padding. For striping, hover rows,
+   and responsive wrapping, link table.css.
+   Guarded — <table class="my-table"> opts the whole table out. */
+:where(.exsa table:not([class])){border:1px solid var(--color-bg-secondary);border-radius:var(--border-radius);border-spacing:0;display:inline-block;max-width:100%;overflow-x:auto;padding:0;font-size:.84rem;color:var(--color-text)}
+:where(.exsa table:not([class]) td),:where(.exsa table:not([class]) th),:where(.exsa table:not([class]) tr){padding:.4rem .8rem;text-align:var(--justify-important)}
+:where(.exsa table:not([class]) thead){background-color:var(--color-table);border-collapse:collapse;border-radius:var(--border-radius);color:var(--color-bg);margin:0;padding:0}
+:where(.exsa table:not([class]) thead tr:first-child th:first-child){border-start-start-radius:var(--border-radius)}
+:where(.exsa table:not([class]) thead tr:first-child th:last-child){border-start-end-radius:var(--border-radius)}
+:where(.exsa table:not([class]) thead th:first-child),:where(.exsa table:not([class]) tr td:first-child){text-align:var(--justify-normal)}
+
+/* ── Form baseline ──
+   Input, textarea, select, and label styling. For validation feedback
+   (:user-invalid, required asterisks), link form-base.css.
+   Guarded — <form class="my-form"> opts the whole form out. */
+:where(.exsa form:not([class])){border:1px solid var(--color-bg-secondary);border-radius:var(--border-radius);box-shadow:var(--box-shadow) var(--color-shadow);display:block;max-width:var(--width-card-wide);min-width:var(--width-card);padding:1.5rem;text-align:var(--justify-normal)}
+:where(.exsa form:not([class]) header){margin:1.5rem 0;padding:1.5rem 0}
+:where(.exsa form:not([class]) label){display:block;font-weight:bold;margin-bottom:.2rem}
+:where(.exsa form:not([class]) input),:where(.exsa form:not([class]) select),:where(.exsa form:not([class]) textarea){border:1px solid var(--color-bg-secondary);border-radius:var(--border-radius);display:block;font-size:inherit;margin-bottom:1rem;max-width:var(--width-card-wide);padding:.4rem .8rem}
+:where(.exsa form:not([class]) input[type=checkbox]),:where(.exsa form:not([class]) input[type=radio]){display:inline-block}
+:where(.exsa form:not([class]) input[type=checkbox]+label),:where(.exsa form:not([class]) input[type=radio]+label){display:inline-block;font-weight:normal;position:relative;top:1px}
+:where(.exsa form:not([class]) input[type=range]){padding:.4rem 0}
+:where(.exsa form:not([class]) input[type=text]),:where(.exsa form:not([class]) input[type=password]),:where(.exsa form:not([class]) input[type=email]),:where(.exsa form:not([class]) textarea){width:calc(100% - 1.6rem)}
+:where(.exsa form:not([class]) input[readonly]),:where(.exsa form:not([class]) textarea[readonly]){background-color:var(--color-bg-secondary)}
+
+/* ── Blockquote baseline ──
+   Guarded — <blockquote class="pullquote"> opts out. */
+:where(.exsa blockquote:not([class])){display:block;font-size:x-large;line-height:var(--line-height);margin:1rem auto;max-width:var(--width-card-medium);padding:1.5rem 1rem;text-align:var(--justify-important)}
+:where(.exsa blockquote:not([class]) footer){color:var(--color-text-secondary);display:block;font-size:small;line-height:var(--line-height);padding:1.5rem 0}
+
+/* ── Dialog baseline ──
+   Guarded — <dialog class="custom-modal"> opts out. */
+:where(.exsa dialog:not([class])){max-width:90%;max-height:85dvh;margin:auto;padding-block:0;padding-inline:20px;border:1px solid var(--color-bg-secondary);border-radius:.5rem;overscroll-behavior:contain;scroll-behavior:smooth;scrollbar-width:none;-ms-overflow-style:none;scrollbar-color:transparent transparent;animation:dialog-enter .25s ease-in-out forwards}
+:where(.exsa dialog:not([class]))::-webkit-scrollbar{width:0;display:none}
+:where(.exsa dialog:not([class]))::-webkit-scrollbar-track{background:transparent}
+:where(.exsa dialog:not([class]))::-webkit-scrollbar-thumb{background-color:transparent}
+@media(min-width:650px){:where(.exsa dialog:not([class])){max-width:39rem}}
+:where(.exsa dialog:not([class]))::backdrop{background-color:rgba(0,0,0,.5)}
+@keyframes dialog-enter{from{opacity:0;transform:translateY(10%)}to{opacity:1;transform:translateY(0)}}
+:where(.exsa dialog:not([class]) hr){margin-block:1rem}
+
+/* ── Button baseline ──
+   Neutral button with hover and click feedback. For color variants
+   (primary, danger, success, etc.) and sizes, link buttons.css.
+   Guarded — <button class="special"> opts out. */
+:where(.exsa button:not([class])){display:inline-flex;align-items:center;justify-content:center;gap:6px;font-family:inherit;font-size:.88rem;font-weight:600;line-height:1;padding:10px 20px;border-radius:var(--border-radius);border:2px solid var(--color-bg-secondary);background:var(--color-bg);color:var(--color-text);cursor:pointer;transition:background .15s,border-color .15s,transform .1s;text-decoration:none;white-space:nowrap;user-select:none}
+:where(.exsa button:not([class]):hover){background:var(--color-bg-secondary);border-color:var(--color-text-secondary)}
+:where(.exsa button:not([class]):active){transform:scale(.97)}
 
 } /* elements */
 
-/* ── Component blueprints: link components/form-base.css for form/table/blockquote/dialog classless styles ── */
+/* ── Component blueprints: link form-base.css for form validation (:user-invalid, required asterisks) ── */

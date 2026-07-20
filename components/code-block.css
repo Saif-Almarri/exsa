@@ -1,0 +1,137 @@
+/* ============================================================
+   Component: CODE BLOCK
+   Sizes: default, sm
+   Features: header bar with language label, copy-to-clipboard
+             button with "Copied!" feedback state.
+   Tokens:  --color-bg, --color-bg-secondary, --color-text,
+            --color-text-secondary, --color-link, --color-success,
+            --border-radius
+   ============================================================ */
+
+/* ── Base wrapper ── */
+.code-block {
+  position: relative;
+  background: var(--color-bg-secondary);
+  border-radius: var(--border-radius);
+  overflow: hidden;
+  border: 1px solid color-mix(in srgb, var(--color-bg-secondary) 70%, var(--color-text));
+}
+
+/* ── Header bar ── */
+.code-block__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 6px 12px;
+  background: color-mix(in srgb, var(--color-bg) 50%, var(--color-bg-secondary));
+  border-bottom: 1px solid var(--color-bg-secondary);
+  font-size: .78rem;
+}
+
+.code-block__lang {
+  font-weight: 600;
+  color: var(--color-text-secondary);
+  text-transform: uppercase;
+  letter-spacing: .04em;
+  font-size: .7rem;
+}
+
+/* ── Code body ── */
+.code-block__body {
+  margin: 0;
+  padding: 14px 16px;
+  overflow-x: auto;
+  font-family: "SF Mono", "Fira Code", "Fira Mono", "Roboto Mono", Menlo, Monaco, Consolas, monospace;
+  font-size: .82rem;
+  line-height: 1.6;
+  color: var(--color-text);
+  background: transparent;
+  tab-size: 2;
+  white-space: pre;
+}
+
+.code-block__body code {
+  font-family: inherit;
+  font-size: inherit;
+  background: none;
+  padding: 0;
+  color: inherit;
+}
+
+/* ── Syntax highlighting (reuses .hl-* classes from demo.css) ── */
+.code-block__body .hl-tag   { color: var(--color-link); }
+.code-block__body .hl-attr  { color: var(--color-secondary); }
+.code-block__body .hl-val   { color: #e67e22; }
+.code-block__body .hl-cmt   { color: var(--color-text-secondary); opacity: 0.6; font-style: italic; }
+
+/* ── Copy button ── */
+.code-block__copy {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 8px;
+  font-size: .72rem;
+  font-weight: 600;
+  font-family: inherit;
+  color: var(--color-text-secondary);
+  background: var(--color-bg);
+  border: 1px solid var(--color-bg-secondary);
+  border-radius: calc(var(--border-radius) * .75);
+  cursor: pointer;
+  transition: color .15s, border-color .15s;
+  line-height: 1.2;
+}
+
+.code-block__copy:hover {
+  color: var(--color-link);
+  border-color: var(--color-link);
+}
+
+.code-block__copy .ic-copy {
+  width: 13px;
+  height: 13px;
+  opacity: .7;
+  transition: opacity .15s;
+}
+
+.code-block__copy:hover .ic-copy {
+  opacity: 1;
+}
+
+/* ── Copied feedback state ── */
+.code-block__copy--copied {
+  color: var(--color-success);
+  border-color: var(--color-success);
+  pointer-events: none;
+}
+
+.code-block__copy--copied .ic-copy {
+  background-color: var(--color-success);
+  opacity: 1;
+  -webkit-mask-image: url('icons/check.svg');
+          mask-image: url('icons/check.svg');
+}
+
+/* ── Headerless variant — copy overlays code area ── */
+.code-block--no-header .code-block__copy {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  z-index: 1;
+}
+
+/* ── Compact size ── */
+.code-block--sm .code-block__header {
+  padding: 4px 10px;
+  font-size: .7rem;
+}
+
+.code-block--sm .code-block__body {
+  padding: 10px 12px;
+  font-size: .75rem;
+}
+
+.code-block--sm .code-block__copy {
+  padding: 3px 6px;
+  font-size: .68rem;
+}

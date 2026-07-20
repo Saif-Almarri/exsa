@@ -1,6 +1,7 @@
 /* ============================================================
    Component: TABLE
-   .tbl for component mode, :where(.exsa table) for classless
+   .tbl for component mode — striping, hover, responsive, badges.
+   Classless baseline (bare borders, header bg) is in style.css.
    Variants: striped, bordered, sm, responsive, status badges
    ============================================================ */
 
@@ -42,15 +43,4 @@
   .tbl--responsive tr{border:1px solid var(--color-bg-secondary);border-radius:var(--border-radius);margin-bottom:10px;padding:8px 0;background:var(--color-bg)}
   .tbl--responsive td{border:none;padding:6px 16px;display:flex;justify-content:space-between;align-items:center;gap:8px}
   .tbl--responsive td::before{content:attr(data-label);font-size:.68rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--color-text-secondary);flex-shrink:0}
-}
-
-/* ── Classless table (body.exsa) ── */
-@layer exsa.components {
-:where(.exsa table){border:1px solid var(--color-bg-secondary);border-radius:var(--border-radius);border-spacing:0;display:inline-block;max-width:100%;overflow-x:auto;padding:0;font-size:.84rem;color:var(--color-text)}
-:where(.exsa table td),:where(.exsa table th),:where(.exsa table tr){padding:.4rem .8rem;text-align:var(--justify-important)}
-:where(.exsa table thead){background-color:var(--color-table);border-collapse:collapse;border-radius:var(--border-radius);color:var(--color-bg);margin:0;padding:0}
-:where(.exsa table thead tr:first-child th:first-child){border-start-start-radius:var(--border-radius)}
-:where(.exsa table thead tr:first-child th:last-child){border-start-end-radius:var(--border-radius)}
-:where(.exsa table thead th:first-child),:where(.exsa table tr td:first-child){text-align:var(--justify-normal)}
-:where(.exsa table tr:nth-child(even)){background-color:var(--color-accent)}
 }

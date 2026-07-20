@@ -1,12 +1,59 @@
-# EXSA — The CSS Framework Built on Tokens, Not Tools
+# EXSA CSS Framework — Built on Tokens, Not Tools
 
-> **Link two files. Get a complete design system. Change one token — every component recolors.**
->
-> No CLI. No npm. No build step. No config. Just CSS.
+**EXSA is a lightweight CSS framework.** 19.5 KB core. 50 components. 17 themes. Zero build step. Works with any server — just link two CSS files and start building.
+
+> *Link two files. Get a complete design system. Change one token — every component recolors.*
+
+---
+
+## Why EXSA?
+
+CSS frameworks force a choice: utility-first means memorizing hundreds of classes. Component-first means fighting specificity. Both mean build steps, config files, and `npm install`.
+
+EXSA chooses a third path.
+
+**Tokens are the design system.** 36 CSS custom properties drive 50 components, 17 themes, and every utility. Change `--color-link` in one place — every button, badge, link, and card recolors instantly. No recompile. No variable hunt across 2,000 files.
+
+**Classes are optional.** Add `class="exsa"` to `<body>` and plain HTML — `<nav>`, `<section>`, `<table>`, `<form>`, `<button>`, `<blockquote>`, `<dialog>` — becomes a styled UI. Add any class to a structural element and EXSA steps aside. Zero specificity. No `!important`. You're always in control.
+
+**There is no build.** No CLI. No PostCSS. No config file. Just `<link>` two files and you have a complete design system. Works with PHP, Python, Node, nginx, Apache — any server that serves static files.
+
+**Components are files, not dependencies.** Every component is a single CSS file (~1 KB). Link what you need. The Generator bundles only your selected components into one file — zero dead styles.
+
+In short: EXSA is what happens when you trust CSS custom properties, `@layer`, and `:where()` to do the work that frameworks usually delegate to tools.
+
+## Built for Where CSS Is Going
+
+EXSA isn't designed for CSS as it was in 2015. It's designed for CSS as it is now — and where CSS is headed in the future.
+
+Every architectural choice — `@layer` for cascade control, custom properties for theming, `:where()` for zero specificity, container queries for responsive cards — is built on W3C standards that browsers are actively investing in. As those standards mature, EXSA's foundation strengthens. No framework churn. No migration guides. No "version 2 with breaking changes."
+
+The codebase is intentionally small (~600 lines of core CSS) so it can evolve with the language rather than fight it. When CSS adds a native `popover` — swap the popover component. When `scroll-driven animations` land — add a file. The architecture stays the same.
 
 ---
 
 ## Quick Start
+
+### Getting the files
+
+```bash
+# Clone the framework only (no website pages)
+git clone https://github.com/Saif-Almarri/exsa.git
+```
+
+Or download the latest ZIP from [GitHub Releases](https://github.com/Saif-Almarri/exsa/releases) — you'll get the same files.
+
+Your project folder needs these:
+```
+your-project/
+├── style.css          ← core
+├── components/        ← 50 component CSS files
+├── themes/            ← 17 theme files
+├── components.js       ← interactive behaviors (optional)
+└── your-page.html
+```
+
+### Link and build
 
 ```html
 <!-- 1. Core (tokens, reset, layout, element styles) -->
@@ -35,10 +82,22 @@
       <p>This card's colors come from tokens. Change the theme file — it recolors instantly.</p>
     </aside>
   </section>
+
+  <table>
+    <thead><tr><th>Name</th><th>Role</th></tr></thead>
+    <tbody>
+      <tr><td>Alice</td><td>Engineer</td></tr>
+      <tr><td>Bob</td><td>Designer</td></tr>
+    </tbody>
+  </table>
+
+  <button>Click Me</button>
 </body>
 ```
 
-That's it. You now have: styled navigation with dropdowns, card components, form elements, tables, blockquotes, a responsive grid system, and full dark/light mode — all from semantic HTML with zero component classes.
+That's it. Every element above — the nav bar with dropdowns, the card, the table, the button — is styled by EXSA's classless layer. **Zero component classes. Zero component files linked.** Plain HTML, baseline styling, always overridable.
+
+This is the EXSA model: classless styles give you a respectable baseline for free. When you need more — striped rows, hover effects, color variants — link the dedicated component file (`table.css`, `buttons.css`, etc.) and add the component classes. You upgrade when you're ready. You never fight the framework.
 
 ---
 
@@ -53,7 +112,7 @@ Priority  Layer                 Covers
   2       @layer exsa.reset     Box model, focus rings, RTL, body
   3       @layer exsa.layout    Flex, grid, containers, breakpoints
   4       @layer exsa.elements  Classless element styles (.exsa)
-  5       @layer exsa.components Form, table, blockquote, dialog
+  5       @layer exsa.components 50 BEM components, zero specificity
 
   ∞       Unlayered             Themes & user CSS — always win
 ```
@@ -234,9 +293,8 @@ Opt-in by adding `class="exsa"` to `<body>`. All styling happens through semanti
 </form>
 ```
 
-- `:has(:user-invalid)` auto-highlights form border when validation fails
-- `label:has(+ :required)::after` auto-adds red asterisk — no extra markup
 - Styled inputs, selects, textareas, checkboxes, radios
+- For validation feedback (<code>:user-invalid</code>, required asterisks), link <code>form-base.css</code>
 
 ### Tables
 
@@ -250,7 +308,7 @@ Opt-in by adding `class="exsa"` to `<body>`. All styling happens through semanti
 </table>
 ```
 
-- Striped rows, styled header, rounded corners
+- Styled header with background, rounded corners, cell padding
 - Cells wrap naturally (no forced `nowrap`)
 - Corners use logical properties — auto-flip in RTL
 
@@ -258,6 +316,7 @@ Opt-in by adding `class="exsa"` to `<body>`. All styling happens through semanti
 
 | Element | Styling |
 |---|---|
+| `<button>` | Neutral bordered button with hover and click feedback |
 | `<blockquote>` | Centered, large text, optional `<footer>` for attribution |
 | `<dialog>` | Animated entry, backdrop, scrollable, responsive width |
 | `<code>`, `<pre>` | Inline code blocks, pre-wrapped pre blocks |
@@ -281,7 +340,7 @@ Set `data-theme-mode` on `<html>`:
 <html>                          <!-- auto — follows OS preference -->
 ```
 
-### 13 Themes
+### 17 Themes
 
 | Theme | Vibe | Default mode |
 |---|---|---|
@@ -298,8 +357,12 @@ Set `data-theme-mode` on `<html>`:
 | **Nova** | Deep slate + electric blue | Dark |
 | **Prism** | Cool slate + teal | Light |
 | **Volt** | Navy + electric yellow | Dark |
+| **Abyss** | Deep purple & charcoal | Dark |
+| **Ember** | Warm amber & brown | Light |
+| **Ink** | High-contrast black & white | Light |
+| **Shadow** | Muted grey & slate | Dark |
 
-Every theme is ~30 lines of CSS custom properties. All 13 pass WCAG AA contrast.
+Every theme is ~30 lines of CSS custom properties. All 17 pass WCAG AA contrast.
 
 ### Runtime theme switching
 
@@ -312,7 +375,7 @@ document.getElementById('theme-link').href = 'themes/night.css';
 
 ## Components
 
-EXSA ships 42 standalone component CSS files in `components/`. Each is ~1 KB, self-contained, and token-driven.
+EXSA ships 50 standalone component CSS files in `components/`. Each is ~1 KB, self-contained, and token-driven.
 
 ### Using components
 
@@ -341,13 +404,13 @@ EXSA ships 42 standalone component CSS files in `components/`. Each is ~1 KB, se
 
 Sizes: `.btn--sm`, `.btn--lg` | Modifiers: `.btn--icon`, `.btn--block` | State: `disabled`
 
-### Full component list (42)
+### Full component list (50)
 
 | Category | Components |
 |---|---|
 | **Layout** | Accordion, Drawer, Footer, Modal, Pricing Table |
 | **Navigation** | Topbar, Sidebar, Back to Top, Breadcrumbs, Pagination, Stepper, Timeline, Tooltip |
-| **Content** | Avatar, Badge, Card, Table |
+| **Content** | Avatar, Badge, Card, Code Block, Table |
 | **Media** | Lightbox, Music Player, Video Gallery, Slideshow |
 | **Data** | Donut Chart, Bar Chart, Progress Bars, Range Slider |
 | **Actions** | Buttons, Checkbox, Color Picker, Date Picker, Dropdown, Form Validation, Icon Button, Input Group, Loading Button, Password Input, Radio, Rating, Select, Tabs, Toggle, Panel Resizer |
@@ -359,7 +422,7 @@ Sizes: `.btn--sm`, `.btn--lg` | Modifiers: `.btn--icon`, `.btn--block` | State: 
 
 The **EXSA Generator** (`generator.html`) lets you cherry-pick components and themes, then download a single ZIP with only what you need.
 
-1. Select components (or all 42)
+1. Select components (or all 50)
 2. Pick a theme (or bundle multiple)
 3. Choose options: minify, include comments
 4. Download ZIP — ready to deploy
@@ -378,14 +441,14 @@ EXSA targets WCAG 2.1 AA compliance.
 | `prefers-reduced-motion` | Disables animations for users who prefer reduced motion |
 | Skip link | `.skip-link` — visually hidden until focused |
 | `.sr-only` | Screen-reader-only content utility |
-| Color contrast | All 13 themes pass WCAG AA (4.5:1+) |
+| Color contrast | All 17 themes pass WCAG AA (4.5:1+) |
 | Logical properties | `border-inline-start`, `inset-inline-end`, etc. — auto-flip in RTL |
 | `prefers-color-scheme` | Auto dark/light mode |
 | `@container` queries | Cards respond to container width, not just viewport |
 
 ### Still in progress
 
-- Full keyboard audit across all 42 components
+- Full keyboard audit across all 50 components
 - Screen reader testing (NVDA, VoiceOver)
 - Focus trap management in modals/drawers
 
@@ -399,7 +462,7 @@ To activate: your workspace `.vscode/settings.json` should contain:
 
 ```json
 {
-  "css.customData": ["./concept_d/exsa.css-data.json"]
+  "css.customData": ["./exsa.css-data.json"]
 }
 ```
 
@@ -432,11 +495,11 @@ Then:
 
 | File | Size |
 |---|---|
-| `style.css` | ~11 KB (~600 lines) |
+| `style.css` | ~19.5 KB (~230 lines) |
 | Each theme | ~1 KB (~30 lines) |
 | Each component | ~1 KB |
-| Full framework (core + theme) | ~12 KB |
-| Typical deploy (core + theme + 10 components) | ~22 KB |
+| Full framework (core + theme) | ~20.5 KB |
+| Typical deploy (core + theme + 10 components) | ~30 KB |
 | `exsa.css-data.json` | ~4 KB |
 
 No minification needed — the files are already compact. The Generator can minify for production.
@@ -447,17 +510,17 @@ No minification needed — the files are already compact. The Generator can mini
 
 | | EXSA | Bootstrap | Tailwind |
 |---|---|---|---|
-| **Build step** | None | None (SCSS optional) | Required (PostCSS) |
-| **npm install** | No | Yes (or CDN) | Yes |
-| **File size (base)** | ~11 KB | ~50 KB (minified grid+reboot) | ~4 KB (compiled, no utilities yet) |
+| **Build step** | None | None (SCSS optional) | Yes (PostCSS/CLI) |
+| **npm install** | No | Yes | Yes |
+| **File size (base)** | ~19.5 KB | ~50 KB (minified grid+reboot) | ~4 KB (compiled, no utilities yet) |
 | **Classless mode** | Yes (`.exsa`) | No | No |
-| **Runtime theming** | 13 themes, live-swappable | Light/dark in 5.3 | Dark mode with `dark:` |
+| **Runtime theming** | 17 themes, live-swappable | Light/dark in 5.3 | Dark mode with `dark:` |
 | **CSS Grid utilities** | Yes | Limited | Yes |
 | **`@layer` cascade** | Yes — 5 layers | No | Yes (v3.2+) |
 | **`:has()` support** | Yes | No | No |
 | **Container queries** | Yes | No | Yes (v3.2+) |
 | **VS Code IntelliSense** | Custom data file, zero extensions | Requires extension | Requires official plugin |
-| **Component library** | 42 token-driven components | 20+ components | None (Headless UI separate) |
+| **Component library** | 50 token-driven components | 20+ components | None (Headless UI separate) |
 | **Specificity model** | Zero (`:where()` + `@layer`) | Normal | Normal |
 
 ---
@@ -468,18 +531,17 @@ No minification needed — the files are already compact. The Generator can mini
 root
 ├── style.css              Core (tokens, reset, layout, elements, components)
 ├── exsa.css-data.json     VS Code IntelliSense definitions
-├── showcase.html          42-component demo page
+├── showcase.html          50-component demo page
 ├── index.html             Landing page
 ├── generator.html         Component/theme bundle builder
-├── compare.html           EXSA vs Bootstrap visual comparison
 ├── README.md              This file
 ├── layers.png             Cascade diagram
 ├── themes/
-│   ├── breeze.css         ← 13 theme files
+│   ├── breeze.css         ← 17 theme files
 │   ├── night.css
 │   └── ...
 ├── components/
-│   ├── buttons.css        ← 42 component files
+│   ├── buttons.css        ← 50 component files
 │   ├── modal.css
 │   └── ...
 ├── components.js          JavaScript behaviors (class-driven, portable)

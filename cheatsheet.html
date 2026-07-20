@@ -3,8 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline'; img-src 'self' https: data:; font-src 'self'">
+  <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
   <title>EXSA — Cheatsheet</title>
-  <link rel="icon" type="image/png" href="../logo.png">
+  <link rel="icon" type="image/png" href="logo.png">
   <link rel="stylesheet" href="style.css?v=24">
   <link id="theme-stylesheet" rel="stylesheet" href="themes/breeze.css?v=3">
   <link rel="stylesheet" href="components/topbar.css?v=15">
@@ -87,7 +89,7 @@
 <!-- ═══════════════════ TOPBAR ═══════════════════ -->
 <header class="topbar" id="demo-topbar">
   <div class="topbar__left">
-    <a href="index.html" class="topbar__brand"><img src="../logo.png" alt="EXSA" width="28" class="topbar__logo"> <span>EXSA</span> Cheatsheet</a>
+    <a href="index.html" class="topbar__brand"><img src="logo.png" alt="EXSA" width="32" class="topbar__logo"> <span>EXSA</span> Cheatsheet</a>
     <nav aria-label="Topbar navigation">
       <ul class="topbar__nav">
         <li><a href="docs.html" class="topbar__link">Docs</a></li>
@@ -315,6 +317,11 @@
         <tr><td><code>:where(.exsa section aside)</code></td><td class="hl-desc">Card with border, shadow, hover lift. Container queries at 320/500px</td><td class="hl-desc">--width-card, --box-shadow</td></tr>
         <tr><td><code>:where(.exsa article>aside)</code></td><td class="hl-desc">Callout box with left border accent</td><td class="hl-desc">--color-secondary, --color-secondary-accent</td></tr>
         <tr><td><code>:where(.exsa nav ul li ul)</code></td><td class="hl-desc">Dropdown menu, hidden by default, revealed on hover/focus</td><td class="hl-desc">--color-bg, --box-shadow, --border-radius</td></tr>
+        <tr><td><code>:where(.exsa table:not([class]))</code></td><td class="hl-desc">Bordered, header background color, cell padding, rounded corners</td><td class="hl-desc">--color-table, --color-bg-secondary, --border-radius</td></tr>
+        <tr><td><code>:where(.exsa form:not([class]))</code></td><td class="hl-desc">Card-style wrapper with border, shadow, padding. Styled inputs, textareas, selects, labels inside</td><td class="hl-desc">--color-bg-secondary, --box-shadow, --width-card-wide</td></tr>
+        <tr><td><code>:where(.exsa button:not([class]))</code></td><td class="hl-desc">Neutral bordered button, hover bg change, click scale</td><td class="hl-desc">--color-bg, --color-bg-secondary, --border-radius</td></tr>
+        <tr><td><code>:where(.exsa blockquote:not([class]))</code></td><td class="hl-desc">Centered, large text. Optional footer in muted color.</td><td class="hl-desc">--width-card-medium, --color-text-secondary</td></tr>
+        <tr><td><code>:where(.exsa dialog:not([class]))</code></td><td class="hl-desc">Modal with backdrop, entry animation, responsive width, hidden scrollbar</td><td class="hl-desc">--color-bg-secondary, --border-radius</td></tr>
       </tbody>
     </table>
   </section>
@@ -324,7 +331,7 @@
     <div class="cs-layer__head">
       <div class="cs-layer__num">5</div>
       <h2 class="cs-layer__title">Components</h2>
-      <span class="cs-layer__badge">49 components · 7 categories</span>
+      <span class="cs-layer__badge">50 components · 7 categories</span>
     </div>
     <p style="font-size:0.85rem;color:var(--color-text-secondary);margin:0 0 12px;">Each component is a single CSS file. Link only what you need. All use <code>:where()</code> for zero specificity.</p>
 
@@ -369,6 +376,7 @@
         <tr><td>Table</td><td><code>.tbl</code></td><td class="hl-desc">.tbl--striped, .tbl--bordered, .tbl--sm, .tbl--responsive</td><td class="hl-desc">--color-bg-secondary</td></tr>
         <tr><td>Data List</td><td><code>.data-list</code></td><td class="hl-desc">.data-list--vertical, .data-list--bordered, .data-list--striped, --sm/--lg</td><td class="hl-desc">--color-link</td></tr>
         <tr><td>Separator</td><td><code>.sep</code></td><td class="hl-desc">.sep--sm, .sep--lg, .sep--vertical</td><td class="hl-desc">--color-bg-secondary</td></tr>
+        <tr><td>Code Block</td><td><code>.code-block</code></td><td class="hl-desc">.code-block--no-header, .code-block--sm, .code-block__copy</td><td class="hl-desc">--color-bg-secondary, --color-link, --color-success</td></tr>
       </tbody>
     </table>
 
@@ -442,5 +450,7 @@
 <div class="toast-container" id="toast-container" aria-live="polite" role="status"></div>
 
 <!-- No JS needed — this is a read-only reference page -->
+
+<script src="components.js?v=13"></script>
 </body>
 </html>

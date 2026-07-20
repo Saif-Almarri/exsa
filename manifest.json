@@ -22,13 +22,13 @@
     },
     "5_components": {
       "label": "Layer 5 — Components",
-      "desc": "49 plug-and-play components. Single CSS files."
+      "desc": "50 plug-and-play components. Single CSS files."
     }
   },
 
   "core": {
     "css": ["style.css?v=24"],
-    "description": "Complete core (11.8 KB): tokens, reset, layout utilities, optional .exsa element styles. One file, one link."
+    "description": "Complete core (19.5 KB): tokens, reset, layout utilities, classless element styles for nav, table, form, button, blockquote, dialog, and more. One file, one link."
   },
 
   "layout": {
@@ -59,7 +59,7 @@
   "categories": [
     { "id": "layout",     "name": "Layout",     "components": ["accordion", "drawer", "footer", "modal", "pricing-table", "sidebar"] },
     { "id": "navigation", "name": "Navigation", "components": ["topbar", "back-top", "breadcrumbs", "pagination", "stepper", "timeline", "tooltip", "context-menu"] },
-    { "id": "content",    "name": "Content",    "components": ["avatar", "badge", "card", "table", "data-list", "separator"] },
+    { "id": "content",    "name": "Content",    "components": ["avatar", "badge", "card", "code-block", "table", "data-list", "separator"] },
     { "id": "media",      "name": "Media",      "components": ["lightbox", "music", "slideshow", "video-gallery"] },
     { "id": "data",       "name": "Data",       "components": ["dashboard", "donut", "progress", "range-slider"] },
     { "id": "actions",    "name": "Actions",    "components": ["checkbox", "color-picker", "date-picker", "dropdown", "form-validation", "input-group", "password-input", "popover", "radio", "rating", "select", "tabs", "toggle", "buttons", "resizer"] },
@@ -93,6 +93,8 @@
 
     { "id": "separator",      "name": "Separator",            "category": "content",    "css": "components/separator.css",       "js": null,             "pureCss": true,  "desc": "Horizontal or vertical divider. Three sizes: sm, default, lg. Uses --color-bg-secondary." },
 
+    { "id": "code-block",       "name": "Code Block",             "category": "content",    "css": "components/code-block.css",       "js": "code-block",       "pureCss": false, "icons": ["copy.svg", "check.svg"], "desc": "Syntax-highlighted code block with header bar, language label, and copy-to-clipboard button with Copied! feedback. No-header and compact variants." },
+
     { "id": "lightbox",       "name": "Lightbox",           "category": "media",      "css": "components/lightbox.css",       "js": "lightbox",       "pureCss": false, "desc": "Fullscreen image gallery overlay with thumbnail grid, prev/next, and keyboard nav." },
     { "id": "music",          "name": "Music Player",       "category": "media",      "css": "components/music.css",          "js": "music",          "pureCss": false, "icons": ["play.svg","pause.svg"], "desc": "Audio player UI with play/pause, progress bar, and time display." },
     { "id": "video-gallery",  "name": "Video Gallery",      "category": "media",      "css": "components/video-gallery.css",  "js": "video-gallery",  "pureCss": false, "desc": "Responsive video card grid. Click opens iframe modal with autoplay." },
@@ -123,7 +125,7 @@
     { "id": "skeleton",       "name": "Skeleton Loader",    "category": "feedback",   "css": "components/skeleton.css",       "js": null,             "pureCss": true,  "desc": "Content placeholder shimmer animation for loading states. Pure CSS." },
     { "id": "spinner",        "name": "Spinner",            "category": "feedback",   "css": "components/spinner.css",        "js": null,             "pureCss": true,  "desc": "CSS-only loading spinner with size and color variants." },
     { "id": "toast",          "name": "Toast Notifications", "category": "feedback",  "css": "components/toast.css",          "js": "toast",          "pureCss": false, "icons": ["check.svg","x.svg","info.svg"], "desc": "Corner notification popups (success/error/info). Auto-dismiss with animation." },
-    { "id": "form-base",      "name": "Form / Table / Dialog Blueprints", "category": "feedback", "css": "components/form-base.css", "js": null, "pureCss": true, "desc": "Classless form, table, blockquote, and dialog styles for <body class='exsa'>. Link after style.css for full classless HTML support." },
+    { "id": "form-base",      "name": "Form Validation Helpers", "category": "feedback", "css": "components/form-base.css", "js": null, "pureCss": true, "desc": "Auto-detects :user-invalid forms and adds required-field asterisks. Classless form/table/blockquote/dialog baselines are now in style.css." },
 
     { "id": "buttons",        "name": "Buttons",            "category": "actions",    "css": "components/buttons.css",        "js": null,             "pureCss": true,  "desc": "Button system with 9 variants (primary, success, danger, warning, neutral, outline, ghost, soft, surface), 4 sizes (xs, sm, default, lg), built-in loading spinner, high-contrast mode, pill/square radius, icon-only, and block." },
     { "id": "resizer",        "name": "Panel Resizer",      "category": "actions",    "css": "components/resizer.css",        "js": "resizer",        "pureCss": false, "icons": ["grip.svg"], "desc": "Drag handle for resizable panels. Horizontal and vertical variants. Requires JS." }
@@ -154,7 +156,8 @@
     { "id": "focus-trap",    "name": "Focus Trap Utility",  "source": "components.js", "marker": "Focus Trap Utility",        "desc": "Trap keyboard focus inside a container (modal, drawer, lightbox). Required by modal/drawer/lightbox/video-gallery." },
     { "id": "rtl-toggle",    "name": "RTL Toggle",          "source": "components.js", "marker": "Topbar Toggles (RTL)",       "desc": "Toggle html[dir] between ltr/rtl with localStorage persistence" },
     { "id": "context-menu",  "name": "Context Menu",        "source": "components.js", "marker": "Context Menu",               "desc": "Right-click popup with viewport clamping, backdrop dismiss, and Escape key" },
-    { "id": "popover",       "name": "Popover",              "source": "components.js", "marker": "Popover",                     "desc": "Click-triggered floating card with backdrop dismiss, Escape key, and single-open enforcement" }
+    { "id": "popover",       "name": "Popover",              "source": "components.js", "marker": "Popover",                     "desc": "Click-triggered floating card with backdrop dismiss, Escape key, and single-open enforcement" },
+    { "id": "code-block",      "name": "Code Block Copy",        "source": "components.js", "marker": "Code Block",                "desc": "Copy code content to clipboard with 'Copied!' feedback state" }
   ],
 
   "icons": {
@@ -180,7 +183,8 @@
     "slideshow":      ["chevron-left.svg", "chevron-right.svg"],
     "stepper":        ["check.svg"],
     "toast":          ["check.svg", "x.svg", "info.svg"],
-    "tooltip":        []
+    "tooltip":        [],
+    "code-block":       ["copy.svg", "check.svg"]
   },
 
   "output": {

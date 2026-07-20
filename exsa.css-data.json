@@ -5,8 +5,8 @@
     { "name": "@layer exsa.tokens", "description": "EXSA Layer 1 — Design tokens (:root custom properties)" },
     { "name": "@layer exsa.reset", "description": "EXSA Layer 2 — Box model, focus, scrollbar, RTL, body defaults" },
     { "name": "@layer exsa.layout", "description": "EXSA Layer 3 — Flex, grid, containers, breakpoints" },
-    { "name": "@layer exsa.elements", "description": "EXSA Layer 4 — Classless element styles (opt-in via .exsa)" },
-    { "name": "@layer exsa.components", "description": "EXSA Layer 5 — Component blueprints (form, table, blockquote, dialog)" }
+    { "name": "@layer exsa.elements", "description": "EXSA Layer 4 — Classless element styles for nav, table, form, button, blockquote, dialog, and more (opt-in via .exsa)" },
+    { "name": "@layer exsa.components", "description": "EXSA Layer 5 — 50 plug-and-play BEM components. Each is one CSS file." }
   ],
 
   "properties": [

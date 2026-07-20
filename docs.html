@@ -3,8 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline'; img-src 'self' https: data:; font-src 'self'">
+  <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
   <title>EXSA — Documentation</title>
-  <link rel="icon" type="image/png" href="../logo.png">
+  <link rel="icon" type="image/png" href="logo.png">
   <link rel="stylesheet" href="style.css?v=24">
   <link id="theme-stylesheet" rel="stylesheet" href="themes/breeze.css?v=3">
   <link rel="stylesheet" href="components/topbar.css?v=15">
@@ -53,7 +55,7 @@
 <!-- ═══════════════ TOPBAR ═══════════════ -->
 <header class="topbar">
   <div class="topbar__left">
-    <a href="index.html" class="topbar__brand"><img src="../logo.png" alt="EXSA" width="28" class="topbar__logo"> EXSA Docs</a>
+    <a href="index.html" class="topbar__brand"><img src="logo.png" alt="EXSA" width="32" class="topbar__logo"> <span>EXSA</span> Docs</a>
     <nav aria-label="Topbar navigation">
       <ul class="topbar__nav">
         <li><a href="index.html" class="topbar__link">Home</a></li>
@@ -116,10 +118,10 @@
     <p>EXSA has <strong>zero dependencies</strong>. No <code>npm</code>, no <code>webpack</code>, no build step. It works with any server that serves static files — Apache, nginx, PHP, Python, Node, Caddy, or just opening <code>.html</code> files directly.</p>
 
     <h3>1. Download or clone</h3>
-    <pre><code><span class="hl-cmt"># Option A: Copy the concept_d/ folder into your project</span>
+    <pre><code><span class="hl-cmt"># Option A: Copy the exsa/ folder into your project</span>
 your-project/
   ├── style.css          <span class="hl-cmt">← core: tokens, reset, layout, elements</span>
-  ├── components/        <span class="hl-cmt">← 49 component CSS files</span>
+  ├── components/        <span class="hl-cmt">← 50 component CSS files</span>
   ├── components.js       <span class="hl-cmt">← interactive behaviors</span>
   └── themes/            <span class="hl-cmt">← 17 theme files</span></code></pre>
 
@@ -127,7 +129,7 @@ your-project/
     <pre><code><span class="hl-tag">&lt;link</span> <span class="hl-attr">rel</span>=<span class="hl-val">"stylesheet"</span> <span class="hl-attr">href</span>=<span class="hl-val">"style.css"</span><span class="hl-tag">&gt;</span>
 <span class="hl-tag">&lt;link</span> <span class="hl-attr">rel</span>=<span class="hl-val">"stylesheet"</span> <span class="hl-attr">href</span>=<span class="hl-val">"themes/breeze.css"</span><span class="hl-tag">&gt;</span></code></pre>
 
-    <div class="callout"><strong>That's it.</strong> The core (<code>style.css</code>) is 11.8 KB and includes tokens, reset, layout utilities, and classless element styles. The theme file overrides ~12 color tokens. You're ready to build.</div>
+    <div class="callout"><strong>That's it.</strong> The core (<code>style.css</code>) is 19.5 KB and includes tokens, reset, layout utilities, and classless element styles. The theme file overrides ~17 color tokens. You're ready to build.</div>
 
     <!-- ═══════════ FIRST PAGE ═══════════ -->
     <h2 id="first-page">Your First Page</h2>
@@ -167,7 +169,7 @@ your-project/
 <span class="hl-tag">&lt;/body&gt;</span>
 <span class="hl-tag">&lt;/html&gt;</span></code></pre>
 
-    <p>The <code>&lt;header&gt;</code> is centered and padded. The <code>&lt;nav&gt;</code> is a flex row. <code>&lt;aside&gt;</code> elements inside <code>&lt;section&gt;</code> become cards. All of this happens <strong>without a single class</strong> — it's the classless engine working.</p>
+    <p>The <code>&lt;header&gt;</code> is centered and padded. The <code>&lt;nav&gt;</code> is a flex row with dropdowns. <code>&lt;aside&gt;</code> elements inside <code>&lt;section&gt;</code> become cards. A plain <code>&lt;table&gt;</code> gets borders and header styling. A plain <code>&lt;button&gt;</code> gets padding, border, and hover feedback. All of this happens <strong>without a single class</strong> — it's the classless engine working.</p>
 
     <!-- ═══════════ ADDING COMPONENTS ═══════════ -->
     <h2 id="adding-components">Adding Components</h2>
@@ -214,10 +216,10 @@ your-project/
     <p>65+ utility classes for flex, grid, gap, containers, positioning, text alignment, overflow, and responsive breakpoints. Always on. No prefix.</p>
 
     <h3>Layer 4: Elements</h3>
-    <p>Classless HTML styling — activated by <code>body class="exsa"</code>. Styles <code>&lt;p&gt;</code>, <code>&lt;a&gt;</code>, <code>&lt;code&gt;</code>, <code>&lt;pre&gt;</code>, <code>&lt;nav&gt;</code>, <code>&lt;section&gt;</code>, <code>&lt;aside&gt;</code>, and more. Uses <code>:where()</code> for zero specificity.</p>
+    <p>Classless HTML styling — activated by <code>body class="exsa"</code>. Styles <code>&lt;p&gt;</code>, <code>&lt;a&gt;</code>, <code>&lt;code&gt;</code>, <code>&lt;pre&gt;</code>, <code>&lt;nav&gt;</code>, <code>&lt;section&gt;</code>, <code>&lt;aside&gt;</code>, <code>&lt;table&gt;</code>, <code>&lt;form&gt;</code>, <code>&lt;button&gt;</code>, <code>&lt;blockquote&gt;</code>, <code>&lt;dialog&gt;</code>, and more. Uses <code>:where()</code> for zero specificity.</p>
 
     <h3>Layer 5: Components</h3>
-    <p>49 self-contained components — each is one CSS file. Link only what you need. All use <code>:where()</code> for zero specificity.</p>
+    <p>50 self-contained components — each is one CSS file. Link only what you need. All use <code>:where()</code> for zero specificity.</p>
 
     <!-- ═══════════ TOKENS ═══════════ -->
     <h2 id="tokens">Tokens — The Source of Truth</h2>
@@ -255,29 +257,36 @@ your-project/
       <li><code>&lt;code&gt;</code> — inline code with accent background, border-radius, padding</li>
       <li><code>&lt;pre&gt;</code> — block code with max-width, padding, scroll overflow</li>
       <li><code>&lt;hr&gt;</code> — 1px divider, 3rem margin</li>
-      <li><code>&lt;nav&gt;</code> — flex row, space-between, bold, 2rem bottom margin</li>
-      <li><code>&lt;section&gt;</code> — flex-wrap container for cards (unguarded sections only)</li>
+      <li><code>&lt;nav&gt;</code> — flex row, space-between, bold, dropdown menus</li>
+      <li><code>&lt;section&gt;</code> — flex-wrap container for cards</li>
       <li><code>&lt;aside&gt;</code> — card with border, shadow, hover lift, container-responsive padding</li>
+      <li><code>&lt;table&gt;</code> — bordered, header background, cell padding</li>
+      <li><code>&lt;form&gt;</code> — card-style wrapper with styled inputs, labels, selects, textareas</li>
+      <li><code>&lt;button&gt;</code> — neutral bordered button with hover and click feedback</li>
+      <li><code>&lt;blockquote&gt;</code> — centered, large text with optional attribution footer</li>
+      <li><code>&lt;dialog&gt;</code> — modal with backdrop, animation, and responsive width</li>
     </ul>
     <p>All classless styles use <code>:where()</code> — specificity of <strong>zero</strong>. A single class from your own CSS always wins.</p>
 
     <!-- ═══════════ GUARDED ═══════════ -->
     <h2 id="guarded">Guarded Styles</h2>
-    <p>EXSA uses <code>:not([class])</code> on structural container rules — <code>&lt;section&gt;</code>, <code>&lt;header&gt;</code>, <code>&lt;main&gt;</code>, <code>&lt;footer&gt;</code>. If you add any class to these elements, the framework's layout rules step aside.</p>
+    <p>EXSA uses <code>:not([class])</code> on all classless element rules — <code>&lt;section&gt;</code>, <code>&lt;header&gt;</code>, <code>&lt;main&gt;</code>, <code>&lt;footer&gt;</code>, <code>&lt;nav&gt;</code>, <code>&lt;table&gt;</code>, <code>&lt;form&gt;</code>, <code>&lt;button&gt;</code>, <code>&lt;blockquote&gt;</code>, <code>&lt;dialog&gt;</code>. If you add any class to these elements, EXSA's styling steps aside completely.</p>
 
-    <pre><code><span class="hl-cmt">&lt;!-- Framework styles this: flex-wrap, centered cards --&gt;</span>
+    <pre><code><span class="hl-cmt">&lt;!-- EXSA styles this: flex-wrap, centered cards --&gt;</span>
 <span class="hl-tag">&lt;section&gt;</span>
   <span class="hl-tag">&lt;aside&gt;</span>Card 1<span class="hl-tag">&lt;/aside&gt;</span>
   <span class="hl-tag">&lt;aside&gt;</span>Card 2<span class="hl-tag">&lt;/aside&gt;</span>
 <span class="hl-tag">&lt;/section&gt;</span>
 
-<span class="hl-cmt">&lt;!-- Framework stays out — you're in control --&gt;</span>
+<span class="hl-cmt">&lt;!-- EXSA styles this: bordered, header bg, cell padding --&gt;</span>
+<span class="hl-tag">&lt;table&gt;</span>...<span class="hl-tag">&lt;/table&gt;</span>
+
+<span class="hl-cmt">&lt;!-- EXSA stays out — you're in control --&gt;</span>
 <span class="hl-tag">&lt;section</span> <span class="hl-attr">class</span>=<span class="hl-val">"my-custom-layout"</span><span class="hl-tag">&gt;</span>
-  <span class="hl-cmt">&lt;!-- display, flex-wrap, justify-content NOT set by EXSA --&gt;</span>
-  <span class="hl-cmt">&lt;!-- But &lt;aside&gt; cards inside STILL get styled --&gt;</span>
+  <span class="hl-tag">&lt;table</span> <span class="hl-attr">class</span>=<span class="hl-val">"data-grid"</span><span class="hl-tag">&gt;</span>...<span class="hl-tag">&lt;/table&gt;</span>
 <span class="hl-tag">&lt;/section&gt;</span></code></pre>
 
-    <div class="callout"><strong>Child styles are never guarded.</strong> Even inside a classed <code>&lt;section&gt;</code>, child <code>&lt;aside&gt;</code> elements still get card styling. <code>&lt;nav&gt;</code> children (<code>&lt;ul&gt;</code>, <code>&lt;li&gt;</code>) always get dropdown behavior. Only the container's layout properties are guarded.</div>
+    <div class="callout"><strong>The rule is simple:</strong> add any class to an element and EXSA steps aside. <code>&lt;table class="data-grid"&gt;</code> — no borders, no header bg. <code>&lt;button class="special"&gt;</code> — no padding, no border, no hover. You get a clean slate. Then add the component file (<code>table.css</code>, <code>buttons.css</code>) and use BEM classes for the upgraded experience.</div>
 
     <!-- ═══════════ THEMING ═══════════ -->
     <h2 id="how-themes-work">How Themes Work</h2>
@@ -298,7 +307,7 @@ your-project/
   <span class="hl-attr">--color-table</span>: <span class="hl-val">#60a5fa</span>;
 }</code></pre>
 
-    <p>Swap themes by changing one <code>&lt;link&gt;</code> href. All 49 components, all element styles, all utilities — everything recolors instantly. No rebuild.</p>
+    <p>Swap themes by changing one <code>&lt;link&gt;</code> href. All 50 components, all element styles, all utilities — everything recolors instantly. No rebuild.</p>
 
     <!-- ═══════════ CUSTOM THEME ═══════════ -->
     <h2 id="custom-theme">Creating a Custom Theme</h2>
@@ -384,7 +393,7 @@ your-project/
 
     <!-- ═══════════ BEM NAMING ═══════════ -->
     <h2 id="bem-naming">BEM Naming Convention</h2>
-    <p>EXSA uses BEM (Block, Element, Modifier) for all component classes. It's the simplest way to guarantee zero naming collisions across 49 components — no build tool required.</p>
+    <p>EXSA uses BEM (Block, Element, Modifier) for all component classes. It's the simplest way to guarantee zero naming collisions across 50 components — no build tool required.</p>
 
     <h3>The three rules</h3>
     <table style="width:100%;border-collapse:collapse;font-size:.85rem;margin-bottom:16px">
@@ -477,7 +486,7 @@ your-project/
         <tr><td style="padding:4px 10px"><code>.navbar</code></td><td style="padding:4px 10px"><code>.topbar</code></td><td style="padding:4px 10px">Fixed top, scroll shadow, mobile hamburger</td></tr>
         <tr><td style="padding:4px 10px"><code>.modal</code></td><td style="padding:4px 10px"><code>.modal</code></td><td style="padding:4px 10px">Nested dialog with header/body/footer</td></tr>
         <tr><td style="padding:4px 10px"><code>.spinner-border</code></td><td style="padding:4px 10px"><code>.spinner</code></td><td style="padding:4px 10px">3 sizes, pure CSS</td></tr>
-        <tr><td style="padding:4px 10px">160 KB</td><td style="padding:4px 10px">11.8 KB core + components</td><td style="padding:4px 10px">~13x smaller core</td></tr>
+        <tr><td style="padding:4px 10px">160 KB</td><td style="padding:4px 10px">19.5 KB core + components</td><td style="padding:4px 10px">~8x smaller core</td></tr>
       </tbody>
     </table>
 

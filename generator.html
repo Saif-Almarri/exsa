@@ -3,17 +3,28 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline'; img-src 'self' https: data:; font-src 'self'">
+  <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
   <title>CSS Bundle Builder — EXSA</title>
-  <link rel="icon" type="image/png" href="../logo.png">
+  <link rel="icon" type="image/png" href="logo.png">
   <link id="theme-stylesheet" rel="stylesheet" href="themes/breeze.css">
+  <link rel="stylesheet" href="style.css?v=24">
+  <link rel="stylesheet" href="components/topbar.css?v=15">
+  <link rel="stylesheet" href="components/dropdown.css?v=2">
+  <link rel="stylesheet" href="components/buttons.css?v=2">
+  <link rel="stylesheet" href="components/badge.css">
   <style>
     /* ── Reset ── */
     *, *::before, *::after { box-sizing: border-box; }
     html { scroll-behavior: smooth; }
     @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
     html, body { height: auto; overflow: auto; margin: 0; padding: 0; }
+    /* Topbar icons */
+    .ic{display:inline-block;width:16px;height:16px;vertical-align:middle;flex-shrink:0;background-color:currentColor;-webkit-mask-size:contain;-webkit-mask-position:center;-webkit-mask-repeat:no-repeat;mask-size:contain;mask-position:center;mask-repeat:no-repeat}
+    .ic-chevdown{-webkit-mask-image:url('components/icons/chevron-down.svg');mask-image:url('components/icons/chevron-down.svg')}
+    .ic-menu{-webkit-mask-image:url('components/icons/menu.svg');mask-image:url('components/icons/menu.svg')}
     body {
-      max-width: 960px; margin: 0 auto; padding: 0 24px 60px;
+      max-width: 960px; margin: 0 auto; padding: 72px 24px 60px;
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
       font-size: 14px; line-height: 1.6; color: var(--color-text); background: var(--color-bg);
       -webkit-font-smoothing: antialiased;
@@ -27,19 +38,6 @@
     }
     a { color: var(--color-link); text-decoration: none; }
     a:hover { text-decoration: underline; }
-
-    /* ── Header ── */
-    .gb-header {
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 24px 0 18px;
-      border-bottom: 2px solid var(--color-bg-secondary);
-      margin-bottom: 28px;
-    }
-    .gb-logo { font-size: 20px; font-weight: 700; color: var(--color-text); letter-spacing: -0.02em; }
-    .gb-logo b { color: var(--color-link); font-weight: 800; }
-    .gb-back { font-size: 12px; color: var(--color-text-secondary); text-decoration: none; }
-    .gb-back:hover { color: var(--color-link); text-decoration: none; }
-    .gb-back:hover { color: var(--color-link); }
 
     /* ── Section headings ── */
     .gb-sec { margin-bottom: 28px; }
@@ -66,6 +64,7 @@
       line-height: 1.4 !important;
       margin: 0 !important;
       transition: border-color 150ms, background 150ms;
+      width: 100px;
     }
     .gb-theme-btn input[type="checkbox"] {
       position: absolute; opacity: 0; width: 0; height: 0; pointer-events: none;
@@ -222,22 +221,32 @@
     }
   </style>
 </head>
-<body class="exsa">
+<body class="has-topbar">
 
-<!-- ════════════════════════════════════════
-     HEADER
-═══════════════════════════════════════════ -->
-<header class="gb-header">
-  <div class="gb-logo"><img src="../logo.png" alt="EXSA" width="22" height="22" class="topbar__logo"> <b>CSS</b> Bundle Builder</div>
-  <a href="docs.html" style="font-size:.82rem;color:var(--color-text-secondary);text-decoration:none;">Docs</a>
-  <a href="showcase.html" class="gb-back">Showcase</a>
+<!-- ═══════════════ TOPBAR ═══════════════ -->
+<header class="topbar">
+  <div class="topbar__left">
+    <a href="index.html" class="topbar__brand"><img src="logo.png" alt="EXSA" width="32" class="topbar__logo"> <span>EXSA</span> Generator</a>
+    <nav aria-label="Topbar navigation">
+      <ul class="topbar__nav">
+        <li><a href="index.html" class="topbar__link">Home</a></li>
+        <li><a href="docs.html" class="topbar__link">Docs</a></li>
+        <li><a href="showcase.html" class="topbar__link">Showcase</a></li>
+        <li><a href="cheatsheet.html" class="topbar__link">Cheatsheet</a></li>
+      </ul>
+    </nav>
+  </div>
+  <div class="topbar__right">
+    <span class="badge" style="font-size:.72rem">v1.0</span>
+  </div>
+  <button class="topbar__toggle" aria-label="Toggle menu"><span class="ic ic-menu"></span></button>
 </header>
 
 <!-- ════════════════════════════════════════
      THEME
 ═══════════════════════════════════════════ -->
 <section class="gb-sec">
-  <div class="gb-sec__title">Theme</div>
+  <div class="gb-sec__title">Themes (Multi-selection)</div>
   <div class="gb-themes" id="theme-grid"></div>
 </section>
 
@@ -300,9 +309,10 @@
   <div class="gb-preview" id="gen-preview"></div>
 </section>
 
+<script src="components.js?v=13"></script>
 <script>
 /* ═══════════════════════════════════════════════════════════
-   CSS BUNDLE BUILDER v2 — Single-page, no emoji, no sidebar
+   CSS BUNDLE BUILDER v2 
    Driven by manifest.json
    ═══════════════════════════════════════════════════════════ */
 

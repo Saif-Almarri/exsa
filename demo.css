@@ -238,26 +238,10 @@ body.has-topbar {
 .doc-demo__stage--block { flex-direction: column !important; align-items: stretch !important; }
 .doc-demo__stage--left  { justify-content: flex-start !important; }
 .doc-demo__code {
-  background: var(--color-bg-secondary) !important;
-  padding: 14px 20px !important;
-  border-top: 1px solid var(--color-bg-secondary) !important;
-  font-family: 'Consolas', 'Courier New', monospace !important;
-  font-size: 12px !important;
-  line-height: 1.7 !important;
-  color: var(--color-text-secondary) !important;
-  white-space: pre-wrap !important;
-  word-break: break-all !important;
-  overflow-x: auto !important;
+  /* Code blocks now wrapped in .code-box component — styling handled by code-box.css */
   margin: 0 !important;
   max-width: none !important;
-  border-radius: 0 !important;
 }
-.doc-demo__code::-webkit-scrollbar { height: 4px !important; }
-.doc-demo__code::-webkit-scrollbar-thumb { background: var(--color-text-secondary) !important; border-radius: 2px !important; }
-.doc-demo__code .hl-tag   { color: var(--color-link) !important; }
-.doc-demo__code .hl-attr  { color: var(--color-secondary) !important; }
-.doc-demo__code .hl-val   { color: #e67e22 !important; }
-.doc-demo__code .hl-cmt   { color: var(--color-text-secondary) !important; opacity: 0.6 !important; font-style: italic !important; }
 
 /* Demo trigger buttons now use .btn component classes (buttons.css) — no overrides needed */
 
