@@ -143,21 +143,30 @@ EXSA does not try to serve everyone. It serves a specific developer, exceptional
 | **Theme-first projects** | 17 themes ready. Need a custom one? Override 37 tokens in one file. Every component recolors instantly. |
 | **Anyone tired of specificity wars** | Unlayered CSS always wins. You will never write `!important` to override EXSA. |
 
-### ❌ EXSA is NOT for:
+### ❌ EXSA is a poor fit for:
 
-| Scenario | Why EXSA isn't the right tool |
-|----------|-------------------------------|
-| **Complex SPAs** (React, Vue, Svelte apps with state management) | EXSA is CSS, not JavaScript. Use it alongside your JS framework for styling, but it doesn't integrate as a component library. |
-| **Enterprise data grids** (virtual scrolling, inline editing, server-side pagination) | Those are JavaScript components with complex state. EXSA's `.tbl` handles display tables, not interactive data engines. |
-| **Developers who want `npm install` + `import`** | EXSA is deliberately build-step-free. If you need JS module imports, the framework philosophy doesn't align. |
+| Scenario | Why |
+|----------|-----|
+| **Developers who need `npm install` + JS import** | EXSA is deliberately build-step-free. If you require `import 'exsa'` in your bundler, the philosophy doesn't align. The CSS itself still works in any project — you just link it differently. |
 | **Teams needing a full design system out of the box** | EXSA provides tokens, not design opinions. The 17 themes prove the same component can look completely different. You bring the design direction. |
-| **Drag-and-drop, rich text editors, real-time collaboration** | These are JavaScript problems. EXSA styles them beautifully, but doesn't implement them. |
+| **Enterprise data grids** (virtual scrolling, inline editing, server-side pagination) | These are JavaScript problems solved by libraries like AG Grid or TanStack Table — not CSS frameworks. EXSA styles such grids beautifully, but doesn't implement their logic. (Neither does Tailwind or Bootstrap.) |
+
+### ⚠️ SPAs — EXSA works, but with caveats
+
+EXSA is CSS. It works in any HTML page regardless of what JavaScript framework renders it. You can use it with React, Vue, Svelte, or vanilla JS — just `<link>` the CSS files in your `index.html` and use EXSA's classes in your components.
+
+What you *won't* get:
+- No `npm install exsa` (by design — it's a `<link>` tag, not a package)
+- No `<Button variant="primary">` React wrapper (you use `class="btn btn--primary"`)
+- No tree-shaking via JS imports (use the Generator to bundle only what you use)
+
+For many SPAs, this is perfectly fine. Bootstrap is used in React apps the same way every day. If you want framework-specific wrappers, they're community-contributable — the CSS works regardless.
 
 ### The honest answer
 
-No CSS framework covers every developer. Tailwind doesn't do classless. Bootstrap doesn't do token-driven theming. Pico doesn't do components. Open Props doesn't do classless. Each owns a niche.
+No CSS framework covers every use case. Tailwind's model is utilities. Bootstrap's is opinionated components. Pico's is classless simplicity.
 
-EXSA's niche is: **content-rich websites built by developers who value semantic HTML, want instant theme swapping, and refuse to fight their own framework.** If that's you, EXSA is the best tool you'll find. If it's not, use what works — and that's fine.
+EXSA's niche is: **content-rich websites built by developers who value semantic HTML, want instant theme swapping, and refuse to fight their own framework.** It works in SPAs, it styles data grids, it serves marketing pages — because at the end of the day, it's just CSS. But its soul is in the developer experience it was designed for: no build step, no specificity battles, no framework friction.
 
 ---
 
