@@ -1,8 +1,5 @@
 # EXSA — .gitignore
 
-# Test files
-test/
-
 # OS files
 .DS_Store
 Thumbs.db
@@ -27,10 +24,5 @@ landing.css
 .htaccess
 nginx.conf
 
-# Deleted assets
-layers.png
-e.png
 
-# Drafts
-gaps.md
-compare.html
+
