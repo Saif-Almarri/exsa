@@ -596,4 +596,4 @@ Copyright © 2026 Saif Almarri. EXSA CSS Framework. All rights reserved. — see
 
 ---
 
-*Built on the idea that CSS custom properties are the design system. @layer enforces the cascade. Themes are just token overrides. Components are just files. No build step. No config. Just CSS, the way it was meant to work.*
+*Built on the idea that CSS custom properties are the design system. @layer enforces the cascade. Themes are just token overrides. Components are just files. Semantic HTML works out of the box — add a class, the framework gets out of your way. No build step. No config. Just CSS, the way it was meant to work.*
