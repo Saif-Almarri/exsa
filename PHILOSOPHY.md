@@ -76,7 +76,7 @@ Each layer feeds the next. Themes and user CSS sit *outside* all layers — unla
 
 - **Not a utility framework.** EXSA believes component classes (`card`, `btn--primary`) carry more meaning than atomic utilities (`bg-white rounded-lg shadow-md p-6`). Semantic HTML should work without 12 classes on a div.
 - **Not a design system.** EXSA ships no design opinions — 17 themes prove the same component can look completely different. The tokens are the system. You bring the design.
-- **Not a JavaScript framework.** No React, Vue, or Svelte integration. No `npm install`. Just `<link>` tags and HTML. Works with any backend that serves static files.
+- **Not a JavaScript framework.** No React, Vue, or Svelte wrappers needed. EXSA is CSS — it works with any backend, any static server, and yes, `npm install exsa` if you prefer packages over `<link>` tags.
 - **Not a "minimal" framework.** 50 components, 17 themes, 85+ layout utilities, a bundle generator, and a classless engine. Small in KB. Not small in capability.
 
 ---
@@ -85,9 +85,9 @@ Each layer feeds the next. Themes and user CSS sit *outside* all layers — unla
 
 1. **Defer to the developer.** Guarded Classless. Zero specificity. Unlayered user CSS always wins.
 2. **Tokens are the truth.** Components don't have colors. They have `var(--color-link)`. Themes are just token overrides.
-3. **One file, one component.** No monolithic CSS. Link only what you need. The Generator bundles them for production.
+3. **One file, one component.** No monolithic CSS. Link only what you need. For production, the **Generator** bundles only your selected components — same outcome as tree-shaking, no build step needed.
 4. **The platform is the framework.** `@layer`, `:where()`, custom properties, container queries, `prefers-reduced-motion`, `forced-colors` — EXSA doesn't reinvent. It orchestrates what browsers already do.
-5. **Zero build step, forever.** No bundler, no CLI, no config file. This is not a temporary state. It is a permanent design constraint.
+5. **Zero build step, forever.** No bundler, no CLI, no config file required. `<link>` tags always work. `npm install` works too. The Generator handles optimization when you're ready. This is not a temporary state. It is a permanent design constraint.
 
 ---
 
@@ -147,20 +147,33 @@ EXSA does not try to serve everyone. It serves a specific developer, exceptional
 
 | Scenario | Why |
 |----------|-----|
-| **Developers who need `npm install` + JS import** | EXSA is deliberately build-step-free. If you require `import 'exsa'` in your bundler, the philosophy doesn't align. The CSS itself still works in any project — you just link it differently. |
 | **Teams needing a full design system out of the box** | EXSA provides tokens, not design opinions. The 17 themes prove the same component can look completely different. You bring the design direction. |
 | **Enterprise data grids** (virtual scrolling, inline editing, server-side pagination) | These are JavaScript problems solved by libraries like AG Grid or TanStack Table — not CSS frameworks. EXSA styles such grids beautifully, but doesn't implement their logic. (Neither does Tailwind or Bootstrap.) |
 
 ### ⚠️ SPAs — EXSA works, but with caveats
 
-EXSA is CSS. It works in any HTML page regardless of what JavaScript framework renders it. You can use it with React, Vue, Svelte, or vanilla JS — just `<link>` the CSS files in your `index.html` and use EXSA's classes in your components.
+EXSA is CSS. It works in any HTML page regardless of what JavaScript framework renders it. You can use it with React, Vue, Svelte, or vanilla JS.
+
+**Two ways to add EXSA to any project:**
+
+```html
+<!-- Option 1: <link> tags (zero config) -->
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="themes/breeze.css">
+```
+
+```bash
+# Option 2: npm (for JS workflow devs)
+npm install exsa
+```
+
+**The Generator is EXSA's answer to tree-shaking.** During development, link individual component CSS files. For production, the Generator bundles only your selected components into a single file — same result as JS tree-shaking, but no build step required. You get the best of both: development flexibility without production bloat.
 
 What you *won't* get:
-- No `npm install exsa` (by design — it's a `<link>` tag, not a package)
-- No `<Button variant="primary">` React wrapper (you use `class="btn btn--primary"`)
-- No tree-shaking via JS imports (use the Generator to bundle only what you use)
+- No `<Button variant="primary">` React wrapper (you use `class="btn btn--primary"` — the CSS works the same)
+- No JS import-based tree-shaking (use the Generator — same outcome, no bundler needed)
 
-For many SPAs, this is perfectly fine. Bootstrap is used in React apps the same way every day. If you want framework-specific wrappers, they're community-contributable — the CSS works regardless.
+For most SPAs, this works perfectly. Bootstrap has been used in React apps via `<link>` tags for years. If the community wants framework-specific wrappers, the CSS is ready for them.
 
 ### The honest answer
 
