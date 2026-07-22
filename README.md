@@ -20,7 +20,7 @@ EXSA chooses a third path.
 
 **Components are files, not dependencies.** Every component is a single CSS file (~1 KB). Link what you need. The Generator bundles only your selected components into one file — zero dead styles.
 
-In short: EXSA is what happens when you trust CSS custom properties, `@layer`, and `:where()` to do the work that frameworks usually delegate to tools.
+In short: EXSA is what happens when you trust CSS custom properties, `@layer`, and `:where()` to do the work that frameworks usually delegate to tools. Its signature feature — **Guarded Classless™** — styles semantic HTML automatically, then steps aside the moment you add a single class. No fighting. No `!important`. Ever.
 
 ## Built for Where CSS Is Going
 
@@ -111,7 +111,7 @@ Priority  Layer                 Covers
   1       @layer exsa.tokens    37 CSS custom properties in :root
   2       @layer exsa.reset     Box model, focus rings, RTL, body
   3       @layer exsa.layout    Flex, grid, containers, breakpoints
-  4       @layer exsa.elements  Classless element styles (.exsa)
+  4       @layer exsa.elements  Guarded Classless — semantic HTML with instant opt-out
   5       @layer exsa.components 50 BEM components, zero specificity
 
   ∞       Unlayered             Themes & user CSS — always win
@@ -242,9 +242,9 @@ Always active — no `.exsa` prefix needed.
 
 ---
 
-## Classless Elements
+## Guarded Classless
 
-Opt-in by adding `class="exsa"` to `<body>`. All styling happens through semantic HTML — no component classes needed.
+EXSA's signature feature. Opt-in by adding `class="exsa"` to `<body>`. Semantic HTML elements — `<nav>`, `<table>`, `<form>`, `<button>`, `<blockquote>`, `<dialog>`, `<aside>` — get automatic baseline styling. Add any class to any of those elements and EXSA instantly steps aside. Zero specificity. No `!important`. You're always in control.
 
 ### Navigation
 
@@ -515,7 +515,7 @@ No minification needed — the files are already compact. The Generator can mini
 | **Build step** | None | None (SCSS optional) | Yes (PostCSS/CLI) |
 | **npm install** | No | Yes | Yes |
 | **File size (base)** | ~19.5 KB | ~50 KB (minified grid+reboot) | ~4 KB (compiled, no utilities yet) |
-| **Classless mode** | Yes (`.exsa`) | No | No |
+| **Guarded Classless™** | Yes — semantic HTML with opt-out | No | No |
 | **Runtime theming** | 17 themes, live-swappable | Light/dark in 5.3 | Dark mode with `dark:` |
 | **CSS Grid utilities** | Yes | Limited | Yes |
 | **`@layer` cascade** | Yes — 5 layers | No | Yes (v3.2+) |
