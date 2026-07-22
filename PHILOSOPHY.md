@@ -99,6 +99,30 @@ CSS frameworks have spent a decade oscillating between two extremes:
 
 EXSA offers a third path: **token-driven components with classless fallback.** Semantic HTML gets a respectable baseline for free. Components upgrade the experience when you're ready. Themes swap instantly. The framework never fights you.
 
+---
+
+## The Competitive Landscape — EXSA's Position
+
+No other framework occupies the intersection EXSA does.
+
+| Category | Example | Components | Tokens | Classless | Guarded* |
+|----------|---------|:---:|:---:|:---:|:---:|
+| Utility | Tailwind, UnoCSS | ❌ | ❌ | ❌ | ❌ |
+| Traditional | Bootstrap, Bulma | ✅ | ❌ | ❌ | ❌ |
+| Token-only | Open Props, Pollen | ❌ | ✅ | ❌ | ❌ |
+| Classless | Pico, Water, Simple, Sakura | ❌ | ❌ | ✅ | ❌ |
+| **EXSA** | — | ✅ 50 | ✅ 37 | ✅ | ✅ |
+
+*\*Guarded = styles automatically, but steps aside when you add any class*
+
+**Open Props** (Adam Argyle, Google) is philosophically closest — design tokens as CSS variables. But it ships zero components. You get `--size-3`; you don't get `.card`, `.modal`, or `.toast`. EXSA gives you both: the token system *and* 50 components already wired to it.
+
+**Pico CSS** (~13K GitHub stars) proved developers want classless semantic HTML styling. But it has no guard — add a class and Pico still imposes its styles. You fight it with specificity. And it offers very few components beyond forms and typography.
+
+**Water.css, MVP.css, Simple.css, Sakura** — all classless, all beautiful for simple pages. None have components. None have a guard. None are token-driven. They style unconditionally and leave you to override.
+
+The classless frameworks validated the demand. But they all hit the same wall: the framework and the developer fight for control. EXSA is the only one that solved this — `:not([class])` means the framework defers to the developer by default.
+
 This is CSS, the way it was meant to work.
 
 ---
