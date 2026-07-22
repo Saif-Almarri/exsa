@@ -590,7 +590,7 @@ root
 
 ## License
 
-MIT — see LICENSE file.
+Copyright © 2026 Saif Almarri. EXSA CSS Framework. All rights reserved. — see LICENSE file.
 
 ---
 
