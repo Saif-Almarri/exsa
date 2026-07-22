@@ -143,13 +143,6 @@ EXSA does not try to serve everyone. It serves a specific developer, exceptional
 | **Theme-first projects** | 17 themes ready. Need a custom one? Override 37 tokens in one file. Every component recolors instantly. |
 | **Anyone tired of specificity wars** | Unlayered CSS always wins. You will never write `!important` to override EXSA. |
 
-### ❌ EXSA is a poor fit for:
-
-| Scenario | Why |
-|----------|-----|
-| **Teams needing a full design system out of the box** | EXSA provides tokens, not design opinions. The 17 themes prove the same component can look completely different. You bring the design direction. |
-| **Enterprise data grids** (virtual scrolling, inline editing, server-side pagination) | These are JavaScript problems solved by libraries like AG Grid or TanStack Table — not CSS frameworks. EXSA styles such grids beautifully, but doesn't implement their logic. (Neither does Tailwind or Bootstrap.) |
-
 ### ⚠️ SPAs — EXSA works, but with caveats
 
 EXSA is CSS. It works in any HTML page regardless of what JavaScript framework renders it. You can use it with React, Vue, Svelte, or vanilla JS.
@@ -177,9 +170,9 @@ For most SPAs, this works perfectly. Bootstrap has been used in React apps via `
 
 ### The honest answer
 
-No CSS framework covers every use case. Tailwind's model is utilities. Bootstrap's is opinionated components. Pico's is classless simplicity.
+EXSA is universal. It styles any project that renders HTML — backend, frontend, static, dynamic, SPA, or plain file. PHP, Python, Ruby, Node, React, Vue, Svelte, Hugo, WordPress — doesn't matter. CSS works everywhere. EXSA is CSS.
 
-EXSA's niche is: **content-rich websites built by developers who value semantic HTML, want instant theme swapping, and refuse to fight their own framework.** It works in SPAs, it styles data grids, it serves marketing pages — because at the end of the day, it's just CSS. But its soul is in the developer experience it was designed for: no build step, no specificity battles, no framework friction.
+What makes it different isn't *where* it works — it's *how* it works: no build step required, no specificity battles, no framework friction. That experience is what EXSA was designed for. But the CSS itself? Universal.
 
 ---
 
