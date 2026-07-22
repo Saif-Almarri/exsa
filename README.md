@@ -3,6 +3,8 @@
 **EXSA is a lightweight CSS framework.** 19.5 KB core. 50 components. 17 themes. Zero build step. Works with any server — just link two CSS files and start building.
 
 > *Link two files. Get a complete design system. Change one token — every component recolors.*
+>
+> 📖 **Read the Philosophy:** [Why EXSA exists, and why no framework could have done this before](PHILOSOPHY.md)
 
 ---
 
