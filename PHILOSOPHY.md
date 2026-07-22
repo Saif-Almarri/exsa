@@ -127,4 +127,38 @@ This is CSS, the way it was meant to work.
 
 ---
 
+## Who EXSA Is For
+
+EXSA does not try to serve everyone. It serves a specific developer, exceptionally well.
+
+### ✅ EXSA is for:
+
+| Developer | Why EXSA fits |
+|-----------|--------------|
+| **Backend developers** (PHP, Python, Ruby, Go, Node) | You don't want `npm install` just to style a button. Two `<link>` tags and you're done. |
+| **Static site builders** (Hugo, Jekyll, Eleventy, plain HTML) | Semantic HTML already has structure. EXSA styles it without classes. |
+| **Content-heavy sites** (docs, blogs, marketing pages, portfolios) | Guarded Classless means your content team writes HTML, and it looks good automatically. |
+| **Solo developers & freelancers** | No config. No bundler. One framework across all your projects regardless of backend. |
+| **Accessibility-focused teams** | Layer 2 is the a11y layer — forced-colors, reduced-motion, focus rings, skip links. Not a plugin. |
+| **Theme-first projects** | 17 themes ready. Need a custom one? Override 37 tokens in one file. Every component recolors instantly. |
+| **Anyone tired of specificity wars** | Unlayered CSS always wins. You will never write `!important` to override EXSA. |
+
+### ❌ EXSA is NOT for:
+
+| Scenario | Why EXSA isn't the right tool |
+|----------|-------------------------------|
+| **Complex SPAs** (React, Vue, Svelte apps with state management) | EXSA is CSS, not JavaScript. Use it alongside your JS framework for styling, but it doesn't integrate as a component library. |
+| **Enterprise data grids** (virtual scrolling, inline editing, server-side pagination) | Those are JavaScript components with complex state. EXSA's `.tbl` handles display tables, not interactive data engines. |
+| **Developers who want `npm install` + `import`** | EXSA is deliberately build-step-free. If you need JS module imports, the framework philosophy doesn't align. |
+| **Teams needing a full design system out of the box** | EXSA provides tokens, not design opinions. The 17 themes prove the same component can look completely different. You bring the design direction. |
+| **Drag-and-drop, rich text editors, real-time collaboration** | These are JavaScript problems. EXSA styles them beautifully, but doesn't implement them. |
+
+### The honest answer
+
+No CSS framework covers every developer. Tailwind doesn't do classless. Bootstrap doesn't do token-driven theming. Pico doesn't do components. Open Props doesn't do classless. Each owns a niche.
+
+EXSA's niche is: **content-rich websites built by developers who value semantic HTML, want instant theme swapping, and refuse to fight their own framework.** If that's you, EXSA is the best tool you'll find. If it's not, use what works — and that's fine.
+
+---
+
 *Written by Saif Almarri, July 2026. EXSA CSS Framework.*
