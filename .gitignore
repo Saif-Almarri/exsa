@@ -15,14 +15,8 @@ Thumbs.db
 *.tmp
 *.zip
 
-# Website HTML pages (for exsa.dev — not part of the framework)
-index.html
-docs.html
-showcase.html
-cheatsheet.html
-generator.html
-
-# PHP pages (server-specific headers)
+# Site pages (live at exsa.dev — not part of the framework distribution)
+*.html
 *.php
 
 # Website-specific CSS
