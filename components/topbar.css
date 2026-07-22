@@ -52,7 +52,7 @@
   white-space: nowrap;
   flex-shrink: 0;
 }
-.topbar__logo { flex-shrink: 0; }
+.topbar__logo { display: block; flex-shrink: 0; }
 .topbar__brand span { color: var(--color-link); }
 
 /* Nav container */

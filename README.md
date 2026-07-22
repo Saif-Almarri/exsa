@@ -12,7 +12,7 @@ CSS frameworks force a choice: utility-first means memorizing hundreds of classe
 
 EXSA chooses a third path.
 
-**Tokens are the design system.** 36 CSS custom properties drive 50 components, 17 themes, and every utility. Change `--color-link` in one place — every button, badge, link, and card recolors instantly. No recompile. No variable hunt across 2,000 files.
+**Tokens are the design system.** 37 CSS custom properties drive 50 components, 17 themes, and every utility. Change `--color-link` in one place — every button, badge, link, and card recolors instantly. No recompile. No variable hunt across 2,000 files.
 
 **Classes are optional.** Add `class="exsa"` to `<body>` and plain HTML — `<nav>`, `<section>`, `<table>`, `<form>`, `<button>`, `<blockquote>`, `<dialog>` — becomes a styled UI. Add any class to a structural element and EXSA steps aside. Zero specificity. No `!important`. You're always in control.
 
@@ -108,7 +108,7 @@ EXSA uses CSS `@layer` to enforce a browser-native cascade. **Unlayered user CSS
 ```
 Priority  Layer                 Covers
 ────────  ────────────────────  ──────────────────────────────────
-  1       @layer exsa.tokens    36 CSS custom properties in :root
+  1       @layer exsa.tokens    37 CSS custom properties in :root
   2       @layer exsa.reset     Box model, focus rings, RTL, body
   3       @layer exsa.layout    Flex, grid, containers, breakpoints
   4       @layer exsa.elements  Classless element styles (.exsa)
@@ -131,7 +131,7 @@ Priority  Layer                 Covers
 
 ## Design Tokens
 
-All 36 tokens live in `:root` inside `@layer exsa.tokens`. Themes override them by being unlayered. **Export:** [`tokens.json`](tokens.json) for Figma, JS, or Tailwind config.
+All 37 tokens live in `:root` inside `@layer exsa.tokens`. Themes override them by being unlayered. **Export:** [`tokens.json`](tokens.json) for Figma, JS, or Tailwind config.
 
 ### Base colors
 
@@ -177,9 +177,11 @@ All 36 tokens live in `:root` inside `@layer exsa.tokens`. Themes override them 
 |---|---|
 | `--gap-xs` | `0.25rem` |
 | `--gap-sm` | `0.5rem` |
+| `--gap-md` | `0.75rem` |
 | `--gap` | `1rem` |
 | `--gap-lg` | `1.5rem` |
 | `--gap-xl` | `2rem` |
+| `--gap-2xl` | `3rem` |
 
 ---
 
@@ -420,7 +422,7 @@ Sizes: `.btn--sm`, `.btn--lg` | Modifiers: `.btn--icon`, `.btn--block` | State: 
 
 ## Generator
 
-The **EXSA Generator** (`generator.html`) lets you cherry-pick components and themes, then download a single ZIP with only what you need.
+The **EXSA Generator** (`generator.php`) lets you cherry-pick components and themes, then download a single ZIP with only what you need.
 
 1. Select components (or all 50)
 2. Pick a theme (or bundle multiple)
@@ -456,7 +458,7 @@ EXSA targets WCAG 2.1 AA compliance.
 
 ## VS Code IntelliSense
 
-EXSA ships a CSS custom data file (`exsa.css-data.json`) that enables autocomplete and hover documentation for all 36 tokens and 5 `@layer` names — **zero extensions required**.
+EXSA ships a CSS custom data file (`exsa.css-data.json`) that enables autocomplete and hover documentation for all 37 tokens and 5 `@layer` names — **zero extensions required**.
 
 To activate: your workspace `.vscode/settings.json` should contain:
 
@@ -467,7 +469,7 @@ To activate: your workspace `.vscode/settings.json` should contain:
 ```
 
 Then:
-- Type `var(--color-` → see all 36 tokens with descriptions
+- Type `var(--color-` → see all 37 tokens with descriptions
 - Hover any token → see its default value and purpose
 - Type `@layer exsa.` → see the 5 layer names
 
@@ -531,9 +533,9 @@ No minification needed — the files are already compact. The Generator can mini
 root
 ├── style.css              Core (tokens, reset, layout, elements, components)
 ├── exsa.css-data.json     VS Code IntelliSense definitions
-├── showcase.html          50-component demo page
-├── index.html             Landing page
-├── generator.html         Component/theme bundle builder
+├── showcase.php           50-component demo page
+├── index.php              Landing page
+├── generator.php          Component/theme bundle builder
 ├── README.md              This file
 ├── layers.png             Cascade diagram
 ├── themes/

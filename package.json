@@ -1,7 +1,7 @@
 {
   "name": "exsa",
   "version": "1.0.0",
-  "description": "A 5-layer CSS framework built on tokens, not tools. 11.8 KB core. 49 components. 17 themes. Zero build step.",
+  "description": "A 5-layer CSS framework built on tokens, not tools. 19.5 KB core. 50 components. 17 themes. Zero build step.",
   "author": "EXSA",
   "license": "SEE LICENSE IN LICENSE",
   "homepage": "https://github.com/exsa/exsa#readme",

@@ -6,7 +6,7 @@
   "layers": {
     "1_tokens": {
       "label": "Layer 1 — Tokens (CSS custom properties)",
-      "desc": "36 design tokens. Colors, spacing, shadows, type."
+      "desc": "37 design tokens. Colors, spacing, shadows, type."
     },
     "2_reset": {
       "label": "Layer 2 — Reset",

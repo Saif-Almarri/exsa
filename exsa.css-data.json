@@ -43,8 +43,10 @@
     { "name": "--width-content", "description": "Max page content width. Default: 1080px" },
     { "name": "--gap-xs", "description": "Extra-small gap. Default: 0.25rem" },
     { "name": "--gap-sm", "description": "Small gap. Default: 0.5rem" },
+    { "name": "--gap-md", "description": "Medium gap. Default: 0.75rem" },
     { "name": "--gap", "description": "Default gap. Default: 1rem" },
     { "name": "--gap-lg", "description": "Large gap. Default: 1.5rem" },
-    { "name": "--gap-xl", "description": "Extra-large gap. Default: 2rem" }
+    { "name": "--gap-xl", "description": "Extra-large gap. Default: 2rem" },
+    { "name": "--gap-2xl", "description": "2x-large gap. Default: 3rem" }
   ]
 }
