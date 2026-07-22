@@ -532,12 +532,13 @@ No minification needed — the files are already compact. The Generator can mini
 ```
 root
 ├── style.css              Core (tokens, reset, layout, elements, components)
+├── components.js          JavaScript behaviors (class-driven, portable)
+├── manifest.json          Component & theme registry
+├── tokens.json            Design token export (Figma, JS, Tailwind)
 ├── exsa.css-data.json     VS Code IntelliSense definitions
-├── showcase.php           50-component demo page
-├── index.php              Landing page
-├── generator.php          Component/theme bundle builder
+├── package.json           NPM metadata
 ├── README.md              This file
-├── layers.png             Cascade diagram
+├── LICENSE                License
 ├── themes/
 │   ├── breeze.css         ← 17 theme files
 │   ├── night.css
@@ -546,8 +547,7 @@ root
 │   ├── buttons.css        ← 50 component files
 │   ├── modal.css
 │   └── ...
-├── components.js          JavaScript behaviors (class-driven, portable)
-└── demo.css               Showcase page styles
+└── components/icons/      SVG icon library
 ```
 
 ---
