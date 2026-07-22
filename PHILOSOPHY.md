@@ -129,50 +129,7 @@ This is CSS, the way it was meant to work.
 
 ## Who EXSA Is For
 
-EXSA does not try to serve everyone. It serves a specific developer, exceptionally well.
-
-### ✅ EXSA is for:
-
-| Developer | Why EXSA fits |
-|-----------|--------------|
-| **Backend developers** (PHP, Python, Ruby, Go, Node) | You don't want `npm install` just to style a button. Two `<link>` tags and you're done. |
-| **Static site builders** (Hugo, Jekyll, Eleventy, plain HTML) | Semantic HTML already has structure. EXSA styles it without classes. |
-| **Content-heavy sites** (docs, blogs, marketing pages, portfolios) | Guarded Classless means your content team writes HTML, and it looks good automatically. |
-| **Solo developers & freelancers** | No config. No bundler. One framework across all your projects regardless of backend. |
-| **Accessibility-focused teams** | Layer 2 is the a11y layer — forced-colors, reduced-motion, focus rings, skip links. Not a plugin. |
-| **Theme-first projects** | 17 themes ready. Need a custom one? Override 37 tokens in one file. Every component recolors instantly. |
-| **Anyone tired of specificity wars** | Unlayered CSS always wins. You will never write `!important` to override EXSA. |
-
-### ⚠️ SPAs — EXSA works, but with caveats
-
-EXSA is CSS. It works in any HTML page regardless of what JavaScript framework renders it. You can use it with React, Vue, Svelte, or vanilla JS.
-
-**Two ways to add EXSA to any project:**
-
-```html
-<!-- Option 1: <link> tags (zero config) -->
-<link rel="stylesheet" href="style.css">
-<link rel="stylesheet" href="themes/breeze.css">
-```
-
-```bash
-# Option 2: npm (for JS workflow devs)
-npm install exsa
-```
-
-**The Generator is EXSA's answer to tree-shaking.** During development, link individual component CSS files. For production, the Generator bundles only your selected components into a single file — same result as JS tree-shaking, but no build step required. You get the best of both: development flexibility without production bloat.
-
-What you *won't* get:
-- No `<Button variant="primary">` React wrapper (you use `class="btn btn--primary"` — the CSS works the same)
-- No JS import-based tree-shaking (use the Generator — same outcome, no bundler needed)
-
-For most SPAs, this works perfectly. Bootstrap has been used in React apps via `<link>` tags for years. If the community wants framework-specific wrappers, the CSS is ready for them.
-
-### The honest answer
-
-EXSA is universal. It styles any project that renders HTML — backend, frontend, static, dynamic, SPA, or plain file. PHP, Python, Ruby, Node, React, Vue, Svelte, Hugo, WordPress — doesn't matter. CSS works everywhere. EXSA is CSS.
-
-What makes it different isn't *where* it works — it's *how* it works: no build step required, no specificity battles, no framework friction. That experience is what EXSA was designed for. But the CSS itself? Universal.
+EXSA is universal. Any project that renders HTML — backend, frontend, static, SPA, web app, mobile web — can use it. PHP, Python, Ruby, Node, React, Vue, Svelte, Hugo, WordPress: doesn't matter. Two `<link>` tags or one `npm install`, and every developer requirement for styling is covered. 50 components, 17 themes, 37 tokens, zero build step. Universal CSS. Zero friction.
 
 ---
 
