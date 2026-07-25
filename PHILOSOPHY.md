@@ -4,6 +4,20 @@
 
 ---
 
+## Inventor's Statement
+
+The **5-layer CSS architecture** (tokens → reset → layout → elements → components)
+and the **Guarded Classless™** pattern (`:where(.exsa element:not([class]))`)
+are original inventions of **Saif Almarri**, first published in 2026 as part
+of the EXSA CSS Framework.
+
+This document serves as a definitive public record of these inventions.
+The EXSA code is MIT-licensed — use it freely, build on it, ship it.
+But the architectural methodology is my original work. If you build on
+these ideas, I ask that you attribute them as such.
+
+---
+
 ## The Core Belief
 
 > **CSS custom properties are the design system. The cascade should enforce the architecture. The framework should defer to the developer.**
@@ -87,7 +101,7 @@ Each layer feeds the next. Themes and user CSS sit *outside* all layers — unla
 2. **Tokens are the truth.** Components don't have colors. They have `var(--color-link)`. Themes are just token overrides.
 3. **One file, one component.** No monolithic CSS. Link only what you need. For production, the **Generator** bundles only your selected components — same outcome as tree-shaking, no build step needed.
 4. **The platform is the framework.** `@layer`, `:where()`, custom properties, container queries, `prefers-reduced-motion`, `forced-colors` — EXSA doesn't reinvent. It orchestrates what browsers already do.
-5. **Zero build step, forever.** No bundler, no CLI, no config file required. `<link>` tags always work. `npm install` works too. The Generator handles optimization when you're ready. This is not a temporary state. It is a permanent design constraint.
+5. **Zero build step, forever.** No bundler. No CLI. No config file. No template engine required — Twig, Blade, SASS, PostCSS: none of it. Plain `.php` files and `<link>` tags always work. `npm install` works too. The Generator handles optimization when you're ready. This is not a temporary state. It is a permanent design constraint.
 
 ---
 
@@ -129,7 +143,11 @@ This is CSS, the way it was meant to work.
 
 ## Who EXSA Is For
 
-EXSA is universal. Any project that renders HTML — backend, frontend, static, SPA, web app, mobile web — can use it. PHP, Python, Ruby, Node, React, Vue, Svelte, Hugo, WordPress: doesn't matter. Two `<link>` tags or one `npm install`, and every developer requirement for styling is covered. 50 components, 17 themes, 37 tokens, zero build step. Universal CSS. Zero friction.
+EXSA is for developers who want their CSS to be as simple as their PHP.
+
+If your templates are plain `.php` files and your server is Apache or nginx, EXSA is built for you. No Twig. No Blade. No `npm install`. No `vite.config.js`. Drop the files in `public/`, add two `<link>` tags, and you have a complete design system with 50 components, 17 themes, and automatic semantic HTML styling.
+
+EXSA also works with any other stack — Python, Ruby, Node, React, Vue, Svelte, Hugo, WordPress — but it was designed first and foremost for the developer who chose PHP because it's simple, and expects their CSS framework to be just as simple. Two `<link>` tags or one `npm install`. Universal CSS. Zero friction.
 
 ---
 

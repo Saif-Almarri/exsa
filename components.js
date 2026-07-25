@@ -1,4 +1,4 @@
-/* ════════════════════════════════════════════════════════════
+/* Copyright © 2026 Saif Almarri. MIT License. See LICENSE.
    EXSA Behaviors — class-driven, portable, zero hardcoded IDs
    ════════════════════════════════════════════════════════════ */
 

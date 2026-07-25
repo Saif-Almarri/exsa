@@ -1,6 +1,8 @@
 # EXSA CSS Framework — Built on Tokens, Not Tools
 
-**EXSA is a lightweight CSS framework.** 19.5 KB core. 50 components. 17 themes. Zero build step. Works with any server — just link two CSS files and start building.
+> 🚀 **v1.0 Beta** — Just launched. Stable core, gathering real-world feedback. [See what's new →](CHANGELOG.md)
+
+**EXSA is a lightweight CSS framework.** 19.8 KB core. 50 components. 17 themes. Zero build step. Works with any server — just link two CSS files and start building.
 
 > *Link two files. Get a complete design system. Change one token — every component recolors.*
 >
@@ -18,7 +20,9 @@ EXSA chooses a third path.
 
 **Classes are optional.** Add `class="exsa"` to `<body>` and plain HTML — `<nav>`, `<section>`, `<table>`, `<form>`, `<button>`, `<blockquote>`, `<dialog>` — becomes a styled UI. Add any class to a structural element and EXSA steps aside. Zero specificity. No `!important`. You're always in control.
 
-**There is no build.** No CLI. No PostCSS. No config file. Just `<link>` two files and you have a complete design system. Works with PHP, Python, Node, nginx, Apache — any server that serves static files.
+**There is no build.** No CLI. No PostCSS. No config file. No `npm install`. Just `<link>` two files and you have a complete design system.
+
+**No template engine needed.** EXSA doesn't care if your view is a plain `.php` file, a static `.html` file, or served from Python, Node, Ruby, or Go. No Twig. No Blade. No SASS. No Webpack. If your server outputs HTML, EXSA styles it. Drop the files in your `public/` folder and you're done.
 
 **Components are files, not dependencies.** Every component is a single CSS file (~1 KB). Link what you need. The Generator bundles only your selected components into one file — zero dead styles.
 
@@ -38,12 +42,29 @@ The codebase is intentionally small (~600 lines of core CSS) so it can evolve wi
 
 ### Getting the files
 
+**CDN (fastest)** — two lines, zero install:
+
+```html
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Saif-Almarri/exsa@main/style.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Saif-Almarri/exsa@main/themes/breeze.css">
+```
+
+Need a specific component or theme? Just add the path:
+
+```html
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Saif-Almarri/exsa@main/components/buttons.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Saif-Almarri/exsa@main/themes/night.css">
+```
+
+> Pin a version by replacing `@main` with `@v1.0.0` (or any tag/release).
+
+**Or download locally:**
+
 ```bash
-# Clone the framework only (no website pages)
 git clone https://github.com/Saif-Almarri/exsa.git
 ```
 
-Or download the latest ZIP from [GitHub Releases](https://github.com/Saif-Almarri/exsa/releases) — you'll get the same files.
+Or grab the latest ZIP from [GitHub Releases](https://github.com/Saif-Almarri/exsa/releases).
 
 Your project folder needs these:
 ```
@@ -499,7 +520,7 @@ Then:
 
 | File | Size |
 |---|---|
-| `style.css` | ~19.5 KB (~230 lines) |
+| `style.css` | ~19.8 KB (~230 lines) |
 | Each theme | ~1 KB (~30 lines) |
 | Each component | ~1 KB |
 | Full framework (core + theme) | ~20.5 KB |
@@ -516,7 +537,7 @@ No minification needed — the files are already compact. The Generator can mini
 |---|---|---|---|
 | **Build step** | None | None (SCSS optional) | Yes (PostCSS/CLI) |
 | **npm install** | No | Yes | Yes |
-| **File size (base)** | ~19.5 KB | ~50 KB (minified grid+reboot) | ~4 KB (compiled, no utilities yet) |
+| **File size (base)** | ~19.8 KB | ~50 KB (minified grid+reboot) | ~4 KB (compiled, no utilities yet) |
 | **Guarded Classless™** | Yes — semantic HTML with opt-out | No | No |
 | **Runtime theming** | 17 themes, live-swappable | Light/dark in 5.3 | Dark mode with `dark:` |
 | **CSS Grid utilities** | Yes | Limited | Yes |
@@ -540,7 +561,9 @@ root
 ├── exsa.css-data.json     VS Code IntelliSense definitions
 ├── package.json           NPM metadata
 ├── README.md              This file
-├── LICENSE                License
+├── LICENSE                MIT License
+├── TRADEMARK.md           Trademark guidelines
+├── PHILOSOPHY.md          Design philosophy & inventor's statement
 ├── themes/
 │   ├── breeze.css         ← 17 theme files
 │   ├── night.css
@@ -594,7 +617,15 @@ root
 
 ## License
 
-Copyright © 2026 Saif Almarri. EXSA CSS Framework. All rights reserved. — see LICENSE file.
+EXSA is [MIT licensed](LICENSE) — use it freely in personal, commercial, and client projects.
+
+See [TRADEMARK.md](TRADEMARK.md) for guidelines on using the EXSA name and the Guarded Classless™ methodology.
+
+---
+
+## Inventor's Statement
+
+The **5-layer CSS architecture** (tokens → reset → layout → elements → components) and the **Guarded Classless™** pattern are original inventions of Saif Almarri, first published in 2026. See [PHILOSOPHY.md](PHILOSOPHY.md) for the full technical documentation and design rationale.
 
 ---
 
