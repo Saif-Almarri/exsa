@@ -1,6 +1,6 @@
 # EXSA CSS Framework — Built on Tokens, Not Tools
 
-> 🚀 **v1.0 Beta** — Just launched. Stable core, gathering real-world feedback. [See what's new →](CHANGELOG.md)
+> **v1.0 Beta** — Now available. Stable core, gathering real-world feedback. [See what's new →](CHANGELOG.md)
 
 **EXSA is a lightweight CSS framework.** 19.8 KB core. 50 components. 17 themes. Zero build step. Works with any server — just link two CSS files and start building.
 
@@ -26,7 +26,7 @@ EXSA chooses a third path.
 
 **Components are files, not dependencies.** Every component is a single CSS file (~1 KB). Link what you need. The Generator bundles only your selected components into one file — zero dead styles.
 
-In short: EXSA is what happens when you trust CSS custom properties, `@layer`, and `:where()` to do the work that frameworks usually delegate to tools. Its signature feature — **Guarded Classless™** — styles semantic HTML automatically, then steps aside the moment you add a single class. No fighting. No `!important`. Ever.
+In short: EXSA is what happens when you trust CSS custom properties, `@layer`, and `:where()` to do the work that frameworks usually delegate to tools. Its signature feature — **Guarded Classless™** — styles semantic HTML automatically, then steps aside the moment you add a single class. No overrides needed. No `!important`. Ever.
 
 ## Built for Where CSS Is Going
 
@@ -564,6 +564,8 @@ root
 ├── LICENSE                MIT License
 ├── TRADEMARK.md           Trademark guidelines
 ├── PHILOSOPHY.md          Design philosophy & inventor's statement
+├── CONTRIBUTING.md        Co-founder roles & how to join
+├── CHANGELOG.md           Release history
 ├── themes/
 │   ├── breeze.css         ← 17 theme files
 │   ├── night.css
