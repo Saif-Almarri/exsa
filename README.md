@@ -536,7 +536,7 @@ No minification needed — the files are already compact. The Generator can mini
 | | EXSA | Bootstrap | Tailwind |
 |---|---|---|---|
 | **Build step** | None | None (SCSS optional) | Yes (PostCSS/CLI) |
-| **npm install** | No | Yes | Yes |
+| **No template engine needed** | ✅ Yes — plain `.php` files, no Twig, no Blade | ✅ (HTML/CSS only) | ❌ Requires Node.js + PostCSS |
 | **File size (base)** | ~19.8 KB | ~50 KB (minified grid+reboot) | ~4 KB (compiled, no utilities yet) |
 | **Guarded Classless™** | Yes — semantic HTML with opt-out | No | No |
 | **Runtime theming** | 17 themes, live-swappable | Light/dark in 5.3 | Dark mode with `dark:` |
@@ -620,6 +620,36 @@ root
 EXSA is [MIT licensed](LICENSE) — use it freely in personal, commercial, and client projects.
 
 See [TRADEMARK.md](TRADEMARK.md) for guidelines on using the EXSA name and the Guarded Classless™ methodology.
+
+---
+
+## Feedback & Community
+
+EXSA is in beta. Your feedback shapes what it becomes.
+
+- 🐛 **Bug reports & feature requests:** [GitHub Issues](https://github.com/Saif-Almarri/exsa/issues)
+- 💬 **Questions & ideas:** [GitHub Discussions](https://github.com/Saif-Almarri/exsa/discussions)
+- 📧 **Direct contact:** [contact@exsa.dev](mailto:contact@exsa.dev)
+
+### How to Give Great Feedback
+
+- **Found a bug?** Include your browser and version, a minimal code snippet, and what you expected vs. what happened.
+- **Want a feature?** Describe the problem you're solving, not just the solution. The best features come from real-world pain points.
+- **Theme or component idea?** Share a mockup or a description. EXSA's token system makes new components surprisingly easy to create.
+- **Just want to say thanks?** Star the repo ⭐ and share EXSA with your team — it helps more than you'd think.
+
+---
+
+## Co-Founders Wanted
+
+EXSA is looking for two co-founders — not employees, not contractors:
+
+- 🧩 **Technical Co-Founder** — own the component library and engineering
+- 📣 **Growth Co-Founder** — own ads, video, community, and marketing (no coding)
+
+No revenue yet. No salary. **20% equity each** after 12 months of hitting planned milestones. **+10% bonus** when EXSA reaches the sales stage successfully — up to 30% each. Tracked publicly on GitHub.
+
+👉 **[See CONTRIBUTING.md](CONTRIBUTING.md)** for the full story and how to start.
 
 ---
 
