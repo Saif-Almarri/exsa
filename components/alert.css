@@ -11,7 +11,7 @@
 .alert__body{flex:1;min-width:0}
 .alert__title{font-weight:700;margin:0 0 2px;font-size:.88rem}
 .alert__msg{margin:0;opacity:.85}
-.alert__close{flex-shrink:0;background:none;border:none !important;font-size:1rem;cursor:pointer;opacity:.5;padding:0 2px !important;line-height:1.4;transition:opacity .15s;margin:0 !important}
+.alert__close{flex-shrink:0;background:none;border:none;font-size:1rem;cursor:pointer;opacity:.5;padding:0 2px;line-height:1.4;transition:opacity .15s;margin:0}
 .alert__close:hover{opacity:1}
 
 /* ── Soft variants (default) ── */

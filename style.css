@@ -9,7 +9,7 @@
 
 @layer exsa.tokens {
 
-/* 37 design tokens — full catalog: cheatsheet.php */
+/* 49 design tokens — full catalog: cheatsheet.php */
 
 :root {
   color-scheme:light dark;
@@ -187,7 +187,7 @@ figure figcaption{color:var(--color-text-secondary)}
 :where(.exsa mark) {
   padding: .1rem;
 }
-:where(.exsa sup) {
+:where(.exsa sup:not([class])) {
   background-color: var(--color-secondary);
   border-radius: var(--border-radius);
   color: var(--color-bg);

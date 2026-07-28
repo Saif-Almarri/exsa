@@ -18,7 +18,7 @@
   border-radius: 50%;
   border: 2px solid var(--color-bg-secondary);
   flex-shrink: 0;
-  background: var(--cp-color, #118bee);
+  background: var(--cp-color, var(--color-link));
   position: relative;
 }
 .color-picker__swatch:hover {

@@ -41,7 +41,7 @@ Initial beta launch of EXSA — a 5-layer CSS framework built on tokens, not too
 ### ✨ Added
 
 - **5-layer cascade architecture** (`@layer`):
-  1. `exsa.tokens` — 37 CSS custom properties
+  1. `exsa.tokens` — 49 CSS custom properties
   2. `exsa.reset` — Box model, focus rings, accessibility, RTL
   3. `exsa.layout` — 85+ flex/grid utilities
   4. `exsa.elements` — Guarded Classless™ semantic HTML styling

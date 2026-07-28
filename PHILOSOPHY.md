@@ -64,7 +64,7 @@ This is the reversal of the traditional framework power dynamic. Most frameworks
 
 ### 2. Token-Driven Everything
 
-All 50 components share 37 CSS custom properties. Every color, every shadow, every border-radius, every gap — it all flows from `:root` tokens.
+All 50 components share 49 CSS custom properties. Every color, every shadow, every border-radius, every gap — it all flows from `:root` tokens.
 
 Swap one theme file. Every component, every element style, every utility class recolors instantly. No rebuild. No recompile. No class-name hunt across 200 files.
 

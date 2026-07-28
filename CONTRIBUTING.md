@@ -1,6 +1,6 @@
 # Join EXSA as a Co-Founder
 
-EXSA is looking for two co-founders — not employees, not contractors. People who want to build something from zero, own their work, and share in what EXSA becomes.
+EXSA is looking for three co-founders — not employees, not contractors. People who want to build something from zero, own their work, and share in what EXSA becomes.
 
 There's no revenue yet. No salary. No guarantees. What there is: a genuinely novel CSS framework, a clear audience (PHP developers who hate build steps), and the chance to be there from day one.
 
@@ -14,17 +14,31 @@ There's no revenue yet. No salary. No guarantees. What there is: a genuinely nov
 | Your expertise and time | Your name on the project — permanently |
 | Commitment to the vision | A seat at the table when decisions are made |
 
-**Year 1 — 20% equity.** Vests only if planned milestones are met. Not time-served — earned by shipping.
+**Year 1 — 24% equity.** Vests only if planned milestones are met. Not time-served — earned by shipping.
 
-**Year 2 — +10% bonus.** If EXSA reaches the sales stage successfully (Pro tier launched, paying customers), each co-founder earns an additional 10%.
+Tracked publicly on GitHub. Goals set together. Equity earned by results.
 
-That's up to **30% each** for co-founders who build the product AND take it to market. Tracked publicly on GitHub. Goals set together. Equity earned by results.
-
-This is not a bounty. It's not a job. It's building a company together.
+This is equity, not compensation. Ownership, not employment. We're building a company — together.
 
 ---
 
-## The Two Co-Founder Roles
+## Why Join EXSA
+
+Most CSS frameworks are iterations of the same idea. EXSA isn't.
+
+**A genuine technical edge.** Guarded Classless™ — semantic HTML styled automatically via `:where()`, then the framework steps aside on `:not([class])`. Five `@layer` cascade levels. 49 tokens driving 50 components. 101 icons. 17 themes. Zero build step. No other framework combines all of this. The CSS features that make it possible — `@layer`, `:where()`, `:not([class])` — only became baseline in 2022. EXSA is the first framework designed for them, not retrofitted.
+
+**A clear, underserved audience.** PHP developers who write `.php` files directly — no Twig, no Blade, no `vite.config.js`. Millions of them. Every existing framework tells them to install Node, learn a templating language, or memorize utility classes. EXSA tells them: two `<link>` tags and you're building.
+
+**No competition on the same axis.** Tailwind is utilities. Bootstrap is components. Pico is classless. EXSA is the only one doing all three — with a guard that defers to the developer. It occupies a category of one.
+
+**Open source, open equity.** Everything is public. The code, the roadmap, the equity terms. Contributors know exactly what they're building toward. No hidden cap table, no surprise dilution.
+
+**Timing.** CSS is having a renaissance — `@layer`, container queries, `:has()`, View Transitions, scroll-driven animations. Developers are rethinking their tooling. EXSA is positioned for that conversation. Being early in a new category is rare. **EXSA isn't just riding the wave — it's shaping how CSS frameworks will be built for the next decade.**
+
+---
+
+## The Three Co-Founder Roles
 
 ### 🧩 Technical Co-Founder (Components & Engineering)
 
@@ -38,17 +52,29 @@ You'll own the product:
 
 **You should be:** A CSS developer who understands design systems at the spec level. You know why `:where()` matters. You've built components before. You care about file size and cascade order.
 
-### 📣 Growth Co-Founder (Marketing & Community)
+### 📣 Growth Co-Founder (Marketing)
 
-You'll own the audience. No coding required — your job is reach, not pull requests.
+You'll own the reach. No coding required — your job is visibility, not pull requests.
 
 - Run ads, sponsorships, and paid campaigns
 - Create video content: demos, tutorials, launch videos
-- Manage social media, communities, and public presence
-- Build partnerships with PHP communities, tools, and influencers
+- Manage social media and public presence
+- Build partnerships with platforms, tools, and distribution channels
 - Run the EXSA website and showcase (content, not code)
 
-**You should be:** A marketer who understands developers. You know how to get a framework in front of the right people — through ads, video, and community. You don't need to write CSS. You need to make sure the people who do, know about EXSA.
+**You should be:** A marketer who understands developers. You know how to get a framework in front of the right people — through ads, video, and distribution. You don't need to write CSS. You need to make sure the people who do, know about EXSA.
+
+### 📢 Brand & Community Co-Founder
+
+You'll own the relationships. Your job is trust, not code.
+
+- Represent EXSA at conferences, podcasts, and meetups
+- Write technical articles, case studies, and thought leadership
+- Represent EXSA publicly — your reputation becomes the framework's reputation
+- Nurture the community: contributors, early adopters, advocates
+- Shape the narrative: why EXSA exists, who it's for, why it matters
+
+**You should be:** A well-known figure in the CSS community. People already read your blog, watch your talks, or follow your work. You understand `@layer`, design tokens, and RTL at a deep level. You don't need to ship code — you need to make the industry pay attention.
 
 ---
 
@@ -90,4 +116,4 @@ You'll own the audience. No coding required — your job is reach, not pull requ
 
 ---
 
-*EXSA has no investors, no runway, and no revenue — yet. What it has is a genuinely new approach to CSS, a clear audience, and room for two people who want to build something that matters. If that's you, let's talk.*
+*EXSA has no investors, no runway, and no revenue — yet. What it has is a genuinely new approach to CSS, a clear audience, and room for three people who want to build something that matters. If that's you, let's talk.*

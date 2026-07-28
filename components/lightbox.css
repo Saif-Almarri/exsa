@@ -18,7 +18,7 @@
 .lightbox--open .lightbox__img{transform:scale(1)}
 .lightbox__close,
 .lightbox__prev,
-.lightbox__next{position:absolute;z-index:2;background:rgba(255,255,255,.12);color:#fff;border:none !important;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .15s;padding:0 !important;margin:0 !important}
+.lightbox__next{position:absolute;z-index:2;background:rgba(255,255,255,.12);color:#fff;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .15s;padding:0;margin:0}
 .lightbox__close:hover,
 .lightbox__prev:hover,
 .lightbox__next:hover{background:rgba(255,255,255,.25);filter:none !important}

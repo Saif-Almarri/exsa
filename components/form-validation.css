@@ -41,7 +41,7 @@ select.select--success {
 }
 
 .form-helper--error {
-  color: var(--color-error, #dc2626);
+  color: var(--color-danger);
 }
 .form-helper--error::before {
   -webkit-mask-image: url('icons/x-circle.svg');

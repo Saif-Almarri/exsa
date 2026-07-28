@@ -56,8 +56,8 @@
 
 /* ── Error state (uses form-validation.css tokens if loaded) ── */
 .select--error .select__field {
-  border-color: var(--color-error, #dc2626);
-  box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-error, #dc2626) 15%, transparent);
+  border-color: var(--color-danger);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-danger) 15%, transparent);
 }
 
 /* ── Disabled ── */

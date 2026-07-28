@@ -170,7 +170,7 @@
 /* ── Loading state ── */
 .btn--loading {
   position: relative;
-  color: transparent !important;
+  color: transparent;
   pointer-events: none;
 }
 .btn--loading::after {
