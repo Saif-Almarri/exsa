@@ -7,6 +7,31 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [1.0.0-beta.2] — 2026-07-28
+
+### ✨ Added
+
+- **Card horizontal variants** — `.card--horizontal` and `.card--horizontal-reverse` with CSS Grid layout (image beside content, footer under body). New sub-elements: `.card__head-row`, `.card__rating`, `.card__divider`.
+- **Typography tokens** — `--font-size-xs` through `--font-size-2xl` (7 tokens), `--font-weight-normal/bold/heavy` (3 tokens).
+- **Border token** — `--color-border` added; all element borders now reference it instead of `--color-bg-secondary`.
+- **Logical alignment classes** — `.text-start` and `.text-end` alongside `.text-left`/`.text-right`.
+
+### 🔧 Fixed
+
+- **Skip-link** — RTL border-radius, `inset-inline-start` for logical positioning, forced-colors support.
+- **Nav dropdown** — gap changed from `1.7rem` to `margin-top: var(--gap-xs)`.
+- **Sup badge** — `vertical-align: super` replaces `top: -2px`.
+- **List padding** — `padding-inline-start: 1.2em` replaces physical `padding-left`.
+- **Form width** — `input:not([type])` included in full-width selector.
+- **`img:not([alt])`** — red dashed outline dev warning for missing alt text.
+- **`[hidden]`** — `display: none !important` prevents accidental overrides.
+
+### 📦 Size
+
+- **24 KB** raw, **~5.6 KB** gzipped (was 19.8 KB / ~6.7 KB). Growth from new tokens, horizontal card, and a11y improvements. Comments trimmed — cheatsheet.php is the canonical docs source.
+
+---
+
 ## [1.0.0-beta] — 2026-07-24
 
 ### 🚀 First Public Release
@@ -23,6 +48,8 @@ Initial beta launch of EXSA — a 5-layer CSS framework built on tokens, not too
   5. `exsa.components` — 50 BEM components with zero specificity (`:where()`)
 
 - **50 Components:** accordion, alert, avatar, back-to-top, badge, breadcrumbs, buttons, card, checkbox, code-block, color-picker, context-menu, cookie-bar, dashboard, data-list, date-picker, donut, drawer, dropdown, footer, form-base, form-validation, input-group, lightbox, modal, music-player, pagination, password-input, popover, pricing-table, progress, radio, range-slider, rating, resizer, select, separator, sidebar, skeleton, slideshow, spinner, stepper, table, tabs, timeline, toast, toggle, tooltip, topbar, video-gallery
+
+- **101 SVG Icons** — stroke-based, currentColor, 24×24. Browsable gallery at `icons.php`. Use with `<span class="ic ic-name"></span>`. Covers navigation, actions, text editing, media, account, security, commerce, and developer tools.
 
 - **17 Themes:** abyss, breeze, clinic, console, coral, ember, forest, ink, ledger, mono, night, nova, prism, sepia, shadow, steel, volt
 

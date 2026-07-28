@@ -28,7 +28,7 @@
 
   "core": {
     "css": ["style.css?v=24"],
-    "description": "Complete core (19.5 KB): tokens, reset, layout utilities, classless element styles for nav, table, form, button, blockquote, dialog, and more. One file, one link."
+    "description": "Complete core (24 KB, ~5.6 KB gzipped): tokens, reset, layout utilities, classless element styles for nav, table, form, button, blockquote, dialog, and more. One file, one link."
   },
 
   "layout": {
@@ -164,7 +164,7 @@
     "footer":          [],
     "form-validation": ["check.svg", "x-circle.svg", "info.svg"],
     "select":          ["chevron-down.svg"],
-    "sidebar":         ["chevron-right.svg", "chevron-down.svg", "star.svg", "mail.svg", "search.svg", "user.svg"],
+    "sidebar":         ["chevron-right.svg", "chevron-down.svg", "dashboard.svg", "star.svg", "mail.svg", "search.svg", "user.svg"],
     "accordion":      ["plus.svg", "minus.svg"],
     "alert":          ["info.svg", "warning.svg", "check.svg", "x.svg"],
     "avatar":         ["user.svg"],
@@ -175,7 +175,7 @@
     "dropdown":       ["chevron-down.svg", "edit.svg", "copy.svg", "download.svg", "trash.svg"],
     "input-group":    ["search.svg", "mail.svg"],
     "modal":          ["x-circle.svg"],
-    "music":          ["play.svg", "pause.svg", "volume.svg"],
+    "music":          ["play.svg", "pause.svg"],
     "password-input": ["eye.svg", "eye-off.svg"],
     "pricing-table":  ["check.svg", "x.svg"],
     "rating":         ["star.svg", "star-filled.svg"],

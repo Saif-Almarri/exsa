@@ -2,7 +2,7 @@
 
 > **v1.0 Beta** — Now available. Stable core, gathering real-world feedback. [See what's new →](CHANGELOG.md)
 
-**EXSA is a lightweight CSS framework.** 19.8 KB core. 50 components. 17 themes. Zero build step. Works with any server — just link two CSS files and start building.
+**EXSA is a lightweight CSS framework.** 24 KB core (~5.6 KB gzipped). 50 components. 17 themes. Zero build step. Works with any server — just link two CSS files and start building.
 
 > *Link two files. Get a complete design system. Change one token — every component recolors.*
 >
@@ -34,7 +34,7 @@ EXSA isn't designed for CSS as it was in 2015. It's designed for CSS as it is no
 
 Every architectural choice — `@layer` for cascade control, custom properties for theming, `:where()` for zero specificity, container queries for responsive cards — is built on W3C standards that browsers are actively investing in. As those standards mature, EXSA's foundation strengthens. No framework churn. No migration guides. No "version 2 with breaking changes."
 
-The codebase is intentionally small (~600 lines of core CSS) so it can evolve with the language rather than fight it. When CSS adds a native `popover` — swap the popover component. When `scroll-driven animations` land — add a file. The architecture stays the same.
+The codebase is intentionally small (~650 lines of core CSS) so it can evolve with the language rather than fight it. When CSS adds a native `popover` — swap the popover component. When `scroll-driven animations` land — add a file. The architecture stays the same.
 
 ---
 
@@ -443,6 +443,31 @@ Sizes: `.btn--sm`, `.btn--lg` | Modifiers: `.btn--icon`, `.btn--block` | State: 
 
 ---
 
+## Icons
+
+EXSA ships with **101 SVG icons** — stroke-based at 24×24, using `stroke="currentColor"` so they inherit color from the parent element. All icons are accessed via CSS mask classes:
+
+```html
+<span class="ic ic-search"></span>
+<span class="ic ic-heart"></span>
+<span class="ic ic-settings"></span>
+```
+
+Browse the full library with click-to-copy class names at **[icons.php](icons.php)**.
+
+| Category | Examples |
+|---|---|
+| **Navigation** | menu, home, search, chevron-*, external-link, map-pin |
+| **Actions** | plus, edit, copy, paste, trash, download, upload, share, settings |
+| **Text Editing** | type, bold, italic, underline, align-*, list |
+| **Media** | image, play, pause, video, camera, mic |
+| **Account & Security** | user, lock, unlock, key, shield, log-in, log-out |
+| **Commerce** | cart, credit-card, dollar-sign, tag, gift, truck |
+| **Developer** | terminal, database, cloud, code, layers, layout |
+| **Status** | check, info, warning, x-circle, eye, help-circle |
+
+---
+
 ## Generator
 
 The **EXSA Generator** (`generator.php`) lets you cherry-pick components and themes, then download a single ZIP with only what you need.
@@ -520,11 +545,11 @@ Then:
 
 | File | Size |
 |---|---|
-| `style.css` | ~19.8 KB (~230 lines) |
+| `style.css` | 24 KB (~650 lines) |
 | Each theme | ~1 KB (~30 lines) |
 | Each component | ~1 KB |
-| Full framework (core + theme) | ~20.5 KB |
-| Typical deploy (core + theme + 10 components) | ~30 KB |
+| Full framework (core + theme) | ~25 KB |
+| Typical deploy (core + theme + 10 components) | ~35 KB |
 | `exsa.css-data.json` | ~4 KB |
 
 No minification needed — the files are already compact. The Generator can minify for production.
@@ -537,7 +562,7 @@ No minification needed — the files are already compact. The Generator can mini
 |---|---|---|---|
 | **Build step** | None | None (SCSS optional) | Yes (PostCSS/CLI) |
 | **No template engine needed** | ✅ Yes — plain `.php` files, no Twig, no Blade | ✅ (HTML/CSS only) | ❌ Requires Node.js + PostCSS |
-| **File size (base)** | ~19.8 KB | ~50 KB (minified grid+reboot) | ~4 KB (compiled, no utilities yet) |
+| **File size (base)** | 24 KB | ~50 KB (minified grid+reboot) | ~4 KB (compiled, no utilities yet) |
 | **Guarded Classless™** | Yes — semantic HTML with opt-out | No | No |
 | **Runtime theming** | 17 themes, live-swappable | Light/dark in 5.3 | Dark mode with `dark:` |
 | **CSS Grid utilities** | Yes | Limited | Yes |
