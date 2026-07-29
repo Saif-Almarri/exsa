@@ -1,6 +1,6 @@
 # EXSA CSS Framework — Built on Tokens, Not Tools
 
-> **v1.0 Beta** — Now available. Stable core, gathering real-world feedback. [See what's new →](CHANGELOG.md)
+> **v1.0.0-beta.2** — Now available. Stable core, gathering real-world feedback. [See what's new →](CHANGELOG.md)
 
 **EXSA is a lightweight CSS framework.** 24 KB core (~5.6 KB gzipped). 50 components. 17 themes. Zero build step. Works with any server — just link two CSS files and start building.
 
@@ -56,7 +56,7 @@ Need a specific component or theme? Just add the path:
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Saif-Almarri/exsa@main/themes/night.css">
 ```
 
-> Pin a version by replacing `@main` with `@v1.0.0` (or any tag/release).
+> Pin a version by replacing `@main` with `@v1.0.0-beta.2` (or any tag/release).
 
 **Or download locally:**
 

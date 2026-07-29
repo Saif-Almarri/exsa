@@ -1,6 +1,6 @@
 {
   "name": "EXSA",
-  "version": "1.0.0",
+  "version": "1.0.0-beta.2",
   "description": "5-layer CSS framework. Token cascade → reset → layout → elements → components. Zero build, zero CLI, pure plug & play.",
 
   "layers": {
