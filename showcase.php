@@ -303,7 +303,7 @@ header('Strict-Transport-Security: max-age=31536000; includeSubDomains');
     </div>
     <div class="doc-demo">
       <div class="doc-demo__stage doc-demo__stage--block" style="padding:0;">
-        <footer class="footer" style="margin-top:0;border-radius:var(--border-radius);">
+        <footer class="footer">
           <div class="footer__inner">
             <div class="footer__grid">
               <div class="footer__brand">
@@ -2258,9 +2258,7 @@ header('Strict-Transport-Security: max-age=31536000; includeSubDomains');
     </div>
   </section>
 
-  
-
-</main>
+ 
 
 <!-- Video Modal -->
 <div class="video-modal video-gallery__modal" id="video-modal">
@@ -2326,7 +2324,45 @@ header('Strict-Transport-Security: max-age=31536000; includeSubDomains');
 
 <!-- Back to Top -->
 <button class="back-top" id="back-top-btn" aria-label="Back to top"></button>
+ 
 
+<!-- ════════════════════════════════════════
+     PAGE FOOTER
+═══════════════════════════════════════════ -->
+<footer class="footer" role="contentinfo">
+  <div class="footer__inner">
+    <div class="footer__grid">
+      <div class="footer__brand">
+        <div class="footer__logo"><img src="logo.png" alt="" width="24" style="vertical-align:middle;margin-right:6px;"><span>EXSA</span> CSS Framework</div>
+        <p class="footer__tagline">A framework where tokens do the work, not tools. CSS, the way it was meant to work.</p>
+      </div>
+      <div class="footer__links">
+        <div class="footer__links-title">Pages</div>
+        <a href="docs.php">Documentation</a>
+        <a href="showcase.php">Components</a>
+        <a href="cheatsheet.php">Cheatsheet</a>
+      </div>
+      <div class="footer__links">
+        <div class="footer__links-title">Resources</div>
+        <a href="generator.php">Bundle Generator</a>
+        <a href="tokens.json">Design Tokens (JSON)</a>
+        <a href="https://github.com/Saif-Almarri/exsa/blob/master/PHILOSOPHY.md" target="_blank" rel="noopener">Philosophy</a>
+        <a href="https://github.com/Saif-Almarri/exsa" target="_blank" rel="noopener">GitHub ↗</a>
+        <a href="mailto:contact@exsa.dev">contact@exsa.dev</a>
+      </div>
+      <div class="footer__links">
+        <div class="footer__links-title">Community</div>
+        <a href="https://github.com/Saif-Almarri/exsa/issues" target="_blank" rel="noopener">Issues</a>
+        <a href="https://github.com/Saif-Almarri/exsa/discussions" target="_blank" rel="noopener">Discussions</a>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <span>© 2026 Saif Almarri. Open source under the <a href="LICENSE">MIT License</a>.</span>
+      <a href="https://github.com/Saif-Almarri/exsa" target="_blank" rel="noopener">github.com/Saif-Almarri/exsa</a>
+    </div>
+  </div>
+</footer>
+</main>
 <!-- ════════════════════════════════════════
      SCRIPTS
 ═══════════════════════════════════════════ -->
