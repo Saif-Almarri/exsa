@@ -1,9 +1,10 @@
 /* ============================================================
    Component: SEPARATOR
-   Horizontal or vertical divider. Uses --color-bg-secondary.
+   Horizontal or vertical divider. Uses --color-text at low
+   opacity so it remains visible on any background.
    ============================================================ */
 
-.sep{width:100%;height:1px;background:var(--color-bg-secondary);border:none;margin:1rem 0}
-.sep--vertical{width:1px;height:100%;margin:0 1rem;align-self:stretch}
+.sep{width:100%;height:1px;background:var(--color-text);opacity:.12;border:none;margin:1rem 0}
+.sep--vertical{display:inline-block;width:1px;height:100%;margin:0 1rem;align-self:stretch}
 .sep--sm{margin:.5rem 0}.sep--sm.sep--vertical{margin:0 .5rem}
 .sep--lg{margin:1.5rem 0}.sep--lg.sep--vertical{margin:0 1.5rem}
