@@ -1,4 +1,4 @@
-/* ============================================================
+﻿/* ============================================================
    LAYER 4 — THEME: CONSOLE
    Terminal phosphor-green on black. Monospace energy,
    sharp corners, high contrast. For the command-line soul.
@@ -16,7 +16,7 @@
   --color-secondary:        #66cc66;
   --color-secondary-accent: #66cc6618;
   --color-accent:           #33ff3312;
-  --color-shadow:           #00000088;
+  --color-overlay: rgba(0,0,0,.5); --color-shadow:           #00000088;
   --color-scrollbar:        #1a2a1a;
   --color-table:            #33ff33;
   --color-success:          #22c55e;
@@ -25,10 +25,14 @@
   --color-danger-hover:     #dc2626;
   --color-warning:          #f59e0b;
   --color-warning-hover:    #d97706;
+  --color-border:           #1a2a1a;
+  --color-button-text:      #0c0d0c;
+  --color-button-text-inverse: #eeeeee;
+  --font-family: 'SF Mono','Cascadia Code','Fira Code',Consolas,monospace;
   --border-radius:          0px;
 }
 
-/* ── Light mode (auto): off-white with dark green accents ── */
+/* ── Light mode (auto): clean white + green accents ── */
 @media (prefers-color-scheme: light) {
   :root {
     --color-bg:               #f8faf8;
@@ -39,16 +43,32 @@
     --color-secondary:        #2d6a2d;
     --color-secondary-accent: #2d6a2d0d;
     --color-accent:           #1a8a1a10;
-    --color-shadow:           #c0d0c0;
+    --color-overlay: rgba(0,0,0,.5); --color-shadow:           #c0d0c0;
     --color-scrollbar:        #90b090;
     --color-table:            #147a14;
-  --color-button-text:      #f8faf8;
+    --color-success:          #16a34a;
+    --color-success-hover:    #15803d;
+    --color-danger:           #dc2626;
+    --color-danger-hover:     #b91c1c;
+    --color-warning:          #d97706;
+    --color-warning-hover:    #b45309;
+    --color-border:           #c0d0c0;
+    --color-button-text:      #ffffff;
+    --color-button-text-inverse: #e4e1e1;
     --border-radius:          0px;
   }
 }
 
 /* ── Force mode overrides ── */
 :root[data-theme-mode="dark"] {
+  --color-success:          #22c55e;
+  --color-success-hover:    #16a34a;
+  --color-danger:           #ef4444;
+  --color-danger-hover:     #dc2626;
+  --color-warning:          #f59e0b;
+  --color-warning-hover:    #d97706;
+  --color-border:           #c0d0c0;
+
   --color-bg:               #0c0d0c;
   --color-bg-secondary:     #141714;
   --color-text:             #b8d8a8;
@@ -57,7 +77,7 @@
   --color-secondary:        #66cc66;
   --color-secondary-accent: #66cc6618;
   --color-accent:           #33ff3312;
-  --color-shadow:           #00000088;
+  --color-overlay: rgba(0,0,0,.5); --color-shadow:           #00000088;
   --color-scrollbar:        #1a2a1a;
   --color-table:            #33ff33;
   --color-success:          #22c55e;
@@ -66,9 +86,19 @@
   --color-danger-hover:     #dc2626;
   --color-warning:          #f59e0b;
   --color-warning-hover:    #d97706;
+  --color-button-text:      var(--color-bg);
+  --color-button-text-inverse: #f8f8f8;
   --border-radius:          0px;
 }
 :root[data-theme-mode="light"] {
+  --color-success:          #16a34a;
+  --color-success-hover:    #15803d;
+  --color-danger:           #dc2626;
+  --color-danger-hover:     #b91c1c;
+  --color-warning:          #d97706;
+  --color-warning-hover:    #b45309;
+  --color-border:           #1a2a1a;
+
   --color-bg:               #f8faf8;
   --color-bg-secondary:     #e8efe8;
   --color-text:             #1a2a1a;
@@ -77,9 +107,16 @@
   --color-secondary:        #2d6a2d;
   --color-secondary-accent: #2d6a2d0d;
   --color-accent:           #1a8a1a10;
-  --color-shadow:           #c0d0c0;
+  --color-overlay: rgba(0,0,0,.5); --color-shadow:           #c0d0c0;
   --color-scrollbar:        #90b090;
   --color-table:            #147a14;
-  --color-button-text:      #f8faf8;
+  --color-success:          #16a34a;
+  --color-success-hover:    #15803d;
+  --color-danger:           #dc2626;
+  --color-danger-hover:     #b91c1c;
+  --color-warning:          #d97706;
+  --color-warning-hover:    #b45309;
+  --color-button-text:      var(--color-bg);
+  --color-button-text-inverse: #161616;
   --border-radius:          0px;
 }

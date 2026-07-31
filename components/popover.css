@@ -1,4 +1,5 @@
-/* ============================================================
+﻿/* ============================================================
+   ARIA: role=dialog on .popover__content, aria-expanded on trigger, aria-haspopup on trigger
    Component: POPOVER
    Click-triggered floating card for rich content (forms, text).
    Sizes: sm, default, lg, xl

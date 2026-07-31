@@ -1,7 +1,7 @@
 {
   "name": "exsa",
   "version": "1.0.0-beta.2",
-  "description": "A 5-layer CSS framework built on tokens, not tools. 24 KB core (~5.6 KB gzipped). 50 components. 17 themes. Zero build step.",
+  "description": "A 5-layer CSS framework built on tokens, not tools. 24 KB core (~5.6 KB gzipped). 50 components. 20 themes. Zero build step.",
   "author": "EXSA",
   "license": "MIT",
   "homepage": "https://github.com/exsa/exsa#readme",
@@ -28,6 +28,14 @@
     "a11y"
   ],
   "main": "style.css",
+  "scripts": {
+    "lint:css": "stylelint \"**/*.css\" --ignore-path .gitignore",
+    "lint:css:fix": "stylelint \"**/*.css\" --fix --ignore-path .gitignore"
+  },
+  "devDependencies": {
+    "stylelint": "^16.0.0",
+    "stylelint-config-standard": "^36.0.0"
+  },
   "style": "style.css",
   "files": [
     "style.css",

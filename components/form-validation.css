@@ -9,14 +9,14 @@
 .input--error,
 .textarea--error,
 select.select--error {
-  border-color: var(--color-danger) !important;
-  box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-danger) 15%, transparent) !important;
+  border-color: var(--color-danger);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-danger) 15%, transparent);
 }
 .input--success,
 .textarea--success,
 select.select--success {
-  border-color: var(--color-success) !important;
-  box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-success) 15%, transparent) !important;
+  border-color: var(--color-success);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-success) 15%, transparent);
 }
 
 /* ── Form helper text ── */

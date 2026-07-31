@@ -1,4 +1,5 @@
-/* ============================================================
+﻿/* ============================================================
+   ARIA: aria-label on color input, aria-describedby linking swatch to value display
    Color Picker
    Styled native <input type="color"> with swatch preview.
    Input sits transparently over swatch — click anywhere to open.

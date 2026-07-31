@@ -1,4 +1,4 @@
-/* ============================================================
+﻿/* ============================================================
    LAYER 4 — THEME: NIGHT
    Dark by default, light variant for daytime.
    Auto-switches via prefers-color-scheme.
@@ -15,7 +15,7 @@
   --color-secondary:        #c084fc;
   --color-secondary-accent: #c084fc12;
   --color-accent:           #60a5fa12;
-  --color-shadow:           #00000055;
+  --color-overlay: rgba(0,0,0,.5); --color-shadow:           #00000055;
   --color-scrollbar:        #334155;
   --color-table:            #3b82f6;
   --color-success:          #22c55e;
@@ -24,6 +24,9 @@
   --color-danger-hover:     #dc2626;
   --color-warning:          #f59e0b;
   --color-warning-hover:    #d97706;
+  --color-border:           #334155;
+  --color-button-text:      #ffffff;
+  --color-button-text-inverse: #eeeeee;
   --border-radius:          6px;
 }
 
@@ -38,16 +41,32 @@
     --color-secondary:        #7c3aed;
     --color-secondary-accent: #7c3aed0d;
     --color-accent:           #2563eb10;
-    --color-shadow:           #cbd5e1;
+    --color-overlay: rgba(0,0,0,.5); --color-shadow:           #cbd5e1;
     --color-scrollbar:        #94a3b8;
     --color-table:            #2563eb;
-  --color-button-text:      #ffffff;
+    --color-success:          #16a34a;
+    --color-success-hover:    #15803d;
+    --color-danger:           #dc2626;
+    --color-danger-hover:     #b91c1c;
+    --color-warning:          #d97706;
+    --color-warning-hover:    #b45309;
+    --color-border:           #cbd5e1;
+    --color-button-text:      #ffffff;
+  --color-button-text-inverse: #e4e1e1;
     --border-radius:          6px;
   }
 }
 
 /* ── Force mode overrides ── */
 :root[data-theme-mode="dark"] {
+  --color-success:          #22c55e;
+  --color-success-hover:    #16a34a;
+  --color-danger:           #ef4444;
+  --color-danger-hover:     #dc2626;
+  --color-warning:          #f59e0b;
+  --color-warning-hover:    #d97706;
+  --color-border:           #334155;
+
   --color-bg:               #0f1117;
   --color-bg-secondary:     #1c1f2e;
   --color-text:             #e2e8f0;
@@ -56,7 +75,7 @@
   --color-secondary:        #c084fc;
   --color-secondary-accent: #c084fc12;
   --color-accent:           #60a5fa12;
-  --color-shadow:           #00000055;
+  --color-overlay: rgba(0,0,0,.5); --color-shadow:           #00000055;
   --color-scrollbar:        #334155;
   --color-table:            #3b82f6;
   --color-success:          #22c55e;
@@ -65,9 +84,19 @@
   --color-danger-hover:     #dc2626;
   --color-warning:          #f59e0b;
   --color-warning-hover:    #d97706;
+  --color-button-text:      var(--color-bg);
+  --color-button-text-inverse: #fcfcfc;
   --border-radius:          6px;
 }
 :root[data-theme-mode="light"] {
+  --color-success:          #16a34a;
+  --color-success-hover:    #15803d;
+  --color-danger:           #dc2626;
+  --color-danger-hover:     #b91c1c;
+  --color-warning:          #d97706;
+  --color-warning-hover:    #b45309;
+  --color-border:           #334155;
+
   --color-bg:               #f8fafc;
   --color-bg-secondary:     #e2e8f0;
   --color-text:             #0f172a;
@@ -76,9 +105,10 @@
   --color-secondary:        #7c3aed;
   --color-secondary-accent: #7c3aed0d;
   --color-accent:           #2563eb10;
-  --color-shadow:           #cbd5e1;
+  --color-overlay: rgba(0,0,0,.5); --color-shadow:           #cbd5e1;
   --color-scrollbar:        #94a3b8;
   --color-table:            #2563eb;
-  --color-button-text:      #ffffff;
+  --color-button-text:      var(--color-bg);
+  --color-button-text-inverse: #1a1a1a;
   --border-radius:          6px;
 }

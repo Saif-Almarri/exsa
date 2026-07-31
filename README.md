@@ -2,7 +2,7 @@
 
 > **v1.0.0-beta.2** — Now available. Stable core, gathering real-world feedback. [See what's new →](CHANGELOG.md)
 
-**EXSA is a lightweight CSS framework.** 24 KB core (~5.6 KB gzipped). 50 components. 17 themes. Zero build step. Works with any server — just link two CSS files and start building.
+**EXSA is a lightweight CSS framework.** 24 KB core (~5.6 KB gzipped). 50 components. 20 themes. Zero build step. Works with any server — just link two CSS files and start building.
 
 > *Link two files. Get a complete design system. Change one token — every component recolors.*
 >
@@ -16,7 +16,7 @@ CSS frameworks force a choice: utility-first means memorizing hundreds of classe
 
 EXSA chooses a third path.
 
-**Tokens are the design system.** 49 CSS custom properties drive 50 components, 17 themes, and every utility. Change `--color-link` in one place — every button, badge, link, and card recolors instantly. No recompile. No variable hunt across 2,000 files.
+**Tokens are the design system.** 51 CSS custom properties drive 50 components, 20 themes, and every utility. Change `--color-link` in one place — every button, badge, link, and card recolors instantly. No recompile. No variable hunt across 2,000 files.
 
 **Classes are optional.** Add `class="exsa"` to `<body>` and plain HTML — `<nav>`, `<section>`, `<table>`, `<form>`, `<button>`, `<blockquote>`, `<dialog>` — becomes a styled UI. Add any class to a structural element and EXSA steps aside. Zero specificity. No `!important`. You're always in control.
 
@@ -71,7 +71,7 @@ Your project folder needs these:
 your-project/
 ├── style.css          ← core
 ├── components/        ← 50 component CSS files
-├── themes/            ← 17 theme files
+├── themes/            ← 20 theme files
 ├── components.js       ← interactive behaviors (optional)
 └── your-page.html
 ```
@@ -82,7 +82,7 @@ your-project/
 <!-- 1. Core (tokens, reset, layout, element styles) -->
 <link rel="stylesheet" href="style.css">
 
-<!-- 2. A theme (17 to choose from) -->
+<!-- 2. A theme (20 to choose from) -->
 <link rel="stylesheet" href="themes/breeze.css">
 
 <!-- 3. Opt-in to classless element styling -->
@@ -131,7 +131,7 @@ EXSA uses CSS `@layer` to enforce a browser-native cascade. **Unlayered user CSS
 ```
 Priority  Layer                 Covers
 ────────  ────────────────────  ──────────────────────────────────
-  1       @layer exsa.tokens    49 CSS custom properties in :root
+  1       @layer exsa.tokens    51 CSS custom properties in :root
   2       @layer exsa.reset     Box model, focus rings, RTL, body
   3       @layer exsa.layout    Flex, grid, containers, breakpoints
   4       @layer exsa.elements  Guarded Classless — semantic HTML with instant opt-out
@@ -154,7 +154,7 @@ Priority  Layer                 Covers
 
 ## Design Tokens
 
-All 49 tokens live in `:root` inside `@layer exsa.tokens`. Themes override them by being unlayered. **Export:** [`tokens.json`](tokens.json) for Figma, JS, or Tailwind config.
+All 51 tokens live in `:root` inside `@layer exsa.tokens`. Themes override them by being unlayered. **Export:** [`tokens.json`](tokens.json) for Figma, JS, or Tailwind config.
 
 ### Base colors
 
@@ -168,6 +168,8 @@ All 49 tokens live in `:root` inside `@layer exsa.tokens`. Themes override them 
 | `--color-secondary` | `#920de9` | Secondary accent (purple) |
 | `--color-secondary-accent` | `#920de90b` | Subtle purple tint |
 | `--color-accent` | `#118bee15` | Subtle blue tint |
+| `--color-border` | `#e9e9e9` | Borders, dividers, input outlines |
+| `--color-overlay` | `rgba(0,0,0,.5)` | Modal/drawer backdrops |
 
 ### Semantic tokens
 
@@ -179,7 +181,8 @@ All 49 tokens live in `:root` inside `@layer exsa.tokens`. Themes override them 
 | `--color-danger-hover` | `#b91c1c` | Buttons |
 | `--color-warning` | `#d97706` | Buttons, badge, alert |
 | `--color-warning-hover` | `#b45309` | Buttons |
-| `--color-button-text` | *(theme-defined)* | Buttons, date-picker, topbar |
+| `--color-button-text` | `#fff` | Buttons, date-picker, topbar |
+| `--color-button-text-inverse` | `#000` | Button text on light backgrounds |
 
 ### Layout tokens
 
@@ -188,6 +191,7 @@ All 49 tokens live in `:root` inside `@layer exsa.tokens`. Themes override them 
 | `--border-radius` | `5px` |
 | `--box-shadow` | `2px 2px 10px` |
 | `--font-family` | System font stack |
+| `--font-family-mono` | SF Mono, Cascadia Code, Fira Code, Consolas |
 | `--line-height` | `1.5` |
 | `--width-card` | `285px` |
 | `--width-card-medium` | `460px` |
@@ -319,7 +323,7 @@ EXSA's signature feature. Opt-in by adding `class="exsa"` to `<body>`. Semantic 
 ```
 
 - Styled inputs, selects, textareas, checkboxes, radios
-- For validation feedback (<code>:user-invalid</code>, required asterisks), link <code>form-base.css</code>
+- For validation feedback (<code>:user-invalid</code>, required asterisks), link <code>form-required.css</code>
 
 ### Tables
 
@@ -365,7 +369,7 @@ Set `data-theme-mode` on `<html>`:
 <html>                          <!-- auto — follows OS preference -->
 ```
 
-### 17 Themes
+### 20 Themes
 
 | Theme | Vibe | Default mode |
 |---|---|---|
@@ -386,8 +390,11 @@ Set `data-theme-mode` on `<html>`:
 | **Ember** | Warm amber & brown | Light |
 | **Ink** | High-contrast black & white | Light |
 | **Shadow** | Muted grey & slate | Dark |
+| **Sojourn** | Warm sandstone & terracotta | Light |
+| **Travei** | Cool cyan & slate | Light |
+| **Tropic** | Vibrant teal & coral | Light |
 
-Every theme is ~30 lines of CSS custom properties. All 17 pass WCAG AA contrast.
+Every theme is ~30 lines of CSS custom properties. All 20 pass WCAG AA contrast.
 
 ### Runtime theme switching
 
@@ -437,7 +444,7 @@ Sizes: `.btn--sm`, `.btn--lg` | Modifiers: `.btn--icon`, `.btn--block` | State: 
 | **Navigation** | Topbar, Sidebar, Back to Top, Breadcrumbs, Pagination, Stepper, Timeline, Tooltip |
 | **Content** | Avatar, Badge, Card, Code Block, Table |
 | **Media** | Lightbox, Music Player, Video Gallery, Slideshow |
-| **Data** | Donut Chart, Bar Chart, Progress Bars, Range Slider |
+| **Data** | Donut Chart, Progress Bars, Range Slider |
 | **Actions** | Buttons, Checkbox, Color Picker, Date Picker, Dropdown, Form Validation, Icon Button, Input Group, Loading Button, Password Input, Radio, Rating, Select, Tabs, Toggle, Panel Resizer |
 | **Feedback** | Alert, Cookie Bar, Skeleton Loader, Spinner, Toast |
 
@@ -491,7 +498,7 @@ EXSA targets WCAG 2.1 AA compliance.
 | `prefers-reduced-motion` | Disables animations for users who prefer reduced motion |
 | Skip link | `.skip-link` — visually hidden until focused |
 | `.sr-only` | Screen-reader-only content utility |
-| Color contrast | All 17 themes pass WCAG AA (4.5:1+) |
+| Color contrast | All 20 themes pass WCAG AA (4.5:1+) |
 | Logical properties | `border-inline-start`, `inset-inline-end`, etc. — auto-flip in RTL |
 | `prefers-color-scheme` | Auto dark/light mode |
 | `@container` queries | Cards respond to container width, not just viewport |
@@ -506,7 +513,7 @@ EXSA targets WCAG 2.1 AA compliance.
 
 ## VS Code IntelliSense
 
-EXSA ships a CSS custom data file (`exsa.css-data.json`) that enables autocomplete and hover documentation for all 49 tokens and 5 `@layer` names — **zero extensions required**.
+EXSA ships a CSS custom data file (`exsa.css-data.json`) that enables autocomplete and hover documentation for all 51 tokens and 5 `@layer` names — **zero extensions required**.
 
 To activate: your workspace `.vscode/settings.json` should contain:
 
@@ -517,7 +524,7 @@ To activate: your workspace `.vscode/settings.json` should contain:
 ```
 
 Then:
-- Type `var(--color-` → see all 49 tokens with descriptions
+- Type `var(--color-` → see all 51 tokens with descriptions
 - Hover any token → see its default value and purpose
 - Type `@layer exsa.` → see the 5 layer names
 
@@ -564,7 +571,7 @@ No minification needed — the files are already compact. The Generator can mini
 | **No template engine needed** | ✅ Yes — plain `.php` files, no Twig, no Blade | ✅ (HTML/CSS only) | ❌ Requires Node.js + PostCSS |
 | **File size (base)** | 24 KB | ~50 KB (minified grid+reboot) | ~4 KB (compiled, no utilities yet) |
 | **Guarded Classless™** | Yes — semantic HTML with opt-out | No | No |
-| **Runtime theming** | 17 themes, live-swappable | Light/dark in 5.3 | Dark mode with `dark:` |
+| **Runtime theming** | 20 themes, live-swappable | Light/dark in 5.3 | Dark mode with `dark:` |
 | **CSS Grid utilities** | Yes | Limited | Yes |
 | **`@layer` cascade** | Yes — 5 layers | No | Yes (v3.2+) |
 | **`:has()` support** | Yes | No | No |
@@ -592,7 +599,7 @@ root
 ├── CONTRIBUTING.md        Co-founder roles & how to join
 ├── CHANGELOG.md           Release history
 ├── themes/
-│   ├── breeze.css         ← 17 theme files
+│   ├── breeze.css         ← 20 theme files
 │   ├── night.css
 │   └── ...
 ├── components/
@@ -669,10 +676,11 @@ EXSA is in beta. Your feedback shapes what it becomes.
 
 ## Co-Founders Wanted
 
-EXSA is looking for two co-founders — not employees, not contractors:
+EXSA is looking for three co-founders — not employees, not contractors:
 
 - 🧩 **Technical Co-Founder** — own the component library and engineering
 - 📣 **Growth Co-Founder** — own ads, video, community, and marketing (no coding)
+- 📢 **Brand & Community Co-Founder** — own conferences, technical writing, and community trust
 
 No revenue yet. No salary. **20% equity each** after 12 months of hitting planned milestones. **+10% bonus** when EXSA reaches the sales stage successfully — up to 30% each. Tracked publicly on GitHub.
 

@@ -1,0 +1,10 @@
+/* ============================================================
+   Form Required & Validation Helpers
+   Auto-detects :user-invalid forms + required-field asterisks.
+   Base form/input styles are in style.css (@layer exsa.elements).
+   Visual error/success states: form-validation.css
+   ============================================================ */
+
+/* ── Auto validation feedback ── */
+:where(.exsa form:has(:user-invalid)){border-color:var(--color-danger)}
+:where(.exsa label:has(+:required))::after{content:" *";color:var(--color-danger)}

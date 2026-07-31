@@ -10,9 +10,10 @@
 .card {
   display: flex;
   flex-direction: column;
+  width: 100%;
   container-type: inline-size;
   container-name: card;
-  background: rgb(255 255 255 / 3%);
+  background: color-mix(in srgb, var(--color-bg) 97%, var(--color-text));
   border: 1px solid var(--color-bg-secondary);
   border-radius: var(--border-radius);
   overflow: hidden;
@@ -85,7 +86,7 @@
 /* ── Card rating — star display ── */
 .card__rating {
   font-size: .82rem;
-  color: #f59e0b;
+  color: var(--color-warning);
   letter-spacing: 1px;
   white-space: nowrap;
   user-select: none;

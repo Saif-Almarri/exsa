@@ -11,11 +11,23 @@ header('Strict-Transport-Security: max-age=31536000; includeSubDomains');
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline'; img-src 'self' https: data:; font-src 'self'">
   <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
-  <title>EXSA — Documentation</title>
+  <title>EXSA Documentation — 5-Layer CSS Framework Guide</title>
+  <meta name="description" content="Complete documentation for EXSA, the 5-layer CSS framework. Learn tokens, reset, layout utilities, Guarded Classless™ elements, and 50 BEM components.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://exsa.dev/docs.php">
+  <meta property="og:title" content="EXSA Documentation — 5-Layer CSS Framework Guide">
+  <meta property="og:description" content="Complete documentation for EXSA, the 5-layer CSS framework. Learn tokens, reset, layout utilities, Guarded Classless™ elements, and 50 BEM components.">
+  <meta property="og:image" content="https://exsa.dev/logo.png">
+  <meta property="og:url" content="https://exsa.dev/docs.php">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="EXSA Documentation — 5-Layer CSS Framework Guide">
+  <meta name="twitter:description" content="Complete documentation for EXSA, the 5-layer CSS framework. Learn tokens, reset, layout utilities, Guarded Classless™ elements, and 50 BEM components.">
+  <meta name="twitter:image" content="https://exsa.dev/logo.png">
   <link rel="icon" type="image/png" href="logo.png">
   <link rel="stylesheet" href="style.css?v=24">
   <link id="theme-stylesheet" rel="stylesheet" href="themes/breeze.css?v=3">
-  <link rel="stylesheet" href="components/topbar.css?v=15">
+  <?php include 'includes/head.php'; ?>
   <link rel="stylesheet" href="components/buttons.css?v=2">
   <link rel="stylesheet" href="components/badge.css">
   <link rel="stylesheet" href="components/dropdown.css?v=2">
@@ -27,8 +39,8 @@ header('Strict-Transport-Security: max-age=31536000; includeSubDomains');
     .ic-chevdown{-webkit-mask-image:url('components/icons/chevron-down.svg');mask-image:url('components/icons/chevron-down.svg')}
     .ic-menu{-webkit-mask-image:url('components/icons/menu.svg');mask-image:url('components/icons/menu.svg')}
 
-    /* ── Docs Layout ── */
-    .docs{display:flex;max-width:1200px;margin:0 auto;padding-top:56px}
+    /* -- Docs Layout -- */
+    .docs{display:flex;max-width:1200px;margin:0 auto;padding-top:var(--topbar-height, 56px)}
     .docs__sidebar{width:240px;flex-shrink:0;position:sticky;top:72px;height:calc(100vh - 88px);overflow-y:auto;padding:24px 20px 40px 24px;border-right:1px solid var(--color-bg-secondary)}
     .docs__sidebar h4{font-size:.72rem;text-transform:uppercase;letter-spacing:.06em;color:var(--color-text-secondary);margin:20px 0 8px}
     .docs__sidebar h4:first-child{margin-top:0}
@@ -53,53 +65,16 @@ header('Strict-Transport-Security: max-age=31536000; includeSubDomains');
       .docs__sidebar{display:none}
       .docs__main{padding:16px 20px 60px}
     }
-
-    /* ── Theme Switcher Dots ── */
-    .theme-dots{display:flex;align-items:center;gap:6px}
-    .theme-dot{width:16px;height:16px;border-radius:50%;border:2px solid transparent;cursor:pointer;transition:border-color .15s,transform .15s;padding:0}
-    .theme-dot:hover{transform:scale(1.2)}
-    .theme-dot--active{border-color:var(--color-link);box-shadow:0 0 0 2px color-mix(in srgb,var(--color-link)30%,transparent)}
-    .theme-dot--breeze{background:linear-gradient(135deg,#e8f0fe,#118bee)}
-    .theme-dot--night{background:linear-gradient(135deg,#1c1f2e,#60a5fa)}
-    .theme-dot--sepia{background:linear-gradient(135deg,#ede4cc,#b68b24)}
-    .theme-dot--forest{background:linear-gradient(135deg,#cce8d8,#2d6a4f)}
-    .theme-dot--coral{background:linear-gradient(135deg,#ffe0d8,#e8610b)}
   </style>
 </head>
 <body class="has-topbar">
 
 <a href="#main-content" class="skip-link">Skip to main content</a>
 
-<!-- ═══════════════ TOPBAR ═══════════════ -->
-<header class="topbar">
-  <div class="topbar__left">
-    <a href="index.php" class="topbar__brand"><img src="logo.png" alt="EXSA" width="32" class="topbar__logo"> <span>EXSA</span></a>
-    <nav aria-label="Topbar navigation">
-      <ul class="topbar__nav">
-        <li><a href="index.php" class="topbar__link">Home</a></li>
-        <li><a href="docs.php" class="topbar__link">Docs</a></li>
-        <li><a href="showcase.php" class="topbar__link">Showcase</a></li>
-        <li><a href="cheatsheet.php" class="topbar__link">Cheatsheet</a></li>
-        <li><a href="generator.php" class="topbar__link">Generator</a></li>
-        <li><a href="icons.php" class="topbar__link">Icons</a></li>
-        <li><a href="source.php" class="topbar__link">Source</a></li>
-      </ul>
-    </nav>
-  </div>
-  <div class="topbar__right">
-    <div class="theme-dots" title="Switch theme">
-      <button class="theme-dot theme-dot--breeze theme-dot--active" data-theme="breeze" aria-label="Breeze theme"></button>
-      <button class="theme-dot theme-dot--night" data-theme="night" aria-label="Night theme"></button>
-      <button class="theme-dot theme-dot--sepia" data-theme="sepia" aria-label="Sepia theme"></button>
-      <button class="theme-dot theme-dot--forest" data-theme="forest" aria-label="Forest theme"></button>
-      <button class="theme-dot theme-dot--coral" data-theme="coral" aria-label="Coral theme"></button>
-    </div>
-    <a href="generator.php" class="topbar__btn topbar__btn--primary">Download</a>
-  </div>
-  <button class="topbar__toggle" aria-label="Toggle menu"><span class="ic ic-menu"></span></button>
-</header>
+<!-- --------------- TOPBAR --------------- -->
+<?php $activePage = 'docs.php'; $topbarClass = 'topbar--xl topbar--transparent'; include 'includes/topbar.php'; ?>
 
-<!-- ═══════════════ DOCS ═══════════════ -->
+<!-- --------------- DOCS --------------- -->
 <div class="docs" id="main-content">
 
   <!-- Sidebar -->
@@ -142,25 +117,29 @@ header('Strict-Transport-Security: max-age=31536000; includeSubDomains');
     <h1>Documentation</h1>
     <p>Everything you need to build with EXSA. Start with the 5-minute quick start, then dive into the concepts that make this framework different.</p>
 
-    <!-- ═══════════ GETTING STARTED ═══════════ -->
+    <!-- ----------- GETTING STARTED ----------- -->
     <h2 id="getting-started">Getting Started</h2>
     <p>EXSA has <strong>zero dependencies</strong>. No <code>npm</code>, no <code>webpack</code>, no build step. It works with any server that serves static files — Apache, nginx, PHP, Python, Node, Caddy, or just opening <code>.html</code> files directly.</p>
 
     <h3>1. Download or clone</h3>
     <pre><code><span class="hl-cmt"># Option A: Copy the exsa/ folder into your project</span>
 your-project/
-  ├── style.css          <span class="hl-cmt">← core: tokens, reset, layout, elements</span>
-  ├── components/        <span class="hl-cmt">← 50 component CSS files</span>
-  ├── components.js       <span class="hl-cmt">← interactive behaviors</span>
-  └── themes/            <span class="hl-cmt">← 17 theme files</span></code></pre>
+  +-- style.css          <span class="hl-cmt">? core: tokens, reset, layout, elements</span>
+  +-- components/        <span class="hl-cmt">? 50 component CSS files</span>
+  +-- components.js       <span class="hl-cmt">? interactive behaviors</span>
+  +-- themes/            <span class="hl-cmt">? 20 theme files</span>
+
+<span class="hl-cmt"># Option B: Git clone</span>
+git clone https://github.com/Saif-Almarri/exsa.git
+<span class="hl-cmt"># Then copy the exsa/ folder into your project</span></code></pre>
 
     <h3>2. Link the core</h3>
     <pre><code><span class="hl-tag">&lt;link</span> <span class="hl-attr">rel</span>=<span class="hl-val">"stylesheet"</span> <span class="hl-attr">href</span>=<span class="hl-val">"style.css"</span><span class="hl-tag">&gt;</span>
 <span class="hl-tag">&lt;link</span> <span class="hl-attr">rel</span>=<span class="hl-val">"stylesheet"</span> <span class="hl-attr">href</span>=<span class="hl-val">"themes/breeze.css"</span><span class="hl-tag">&gt;</span></code></pre>
 
-    <div class="callout"><strong>That's it.</strong> The core (<code>style.css</code>) is 19.5 KB and includes tokens, reset, layout utilities, and classless element styles. The theme file overrides ~18 color tokens. You're ready to build.</div>
+    <div class="callout"><strong>That's it.</strong> The core (<code>style.css</code>) is 24 KB (5.6 KB gzipped) and includes tokens, reset, layout utilities, and classless element styles. The theme file overrides ~18 color tokens. You're ready to build.</div>
 
-    <!-- ═══════════ FIRST PAGE ═══════════ -->
+    <!-- ----------- FIRST PAGE ----------- -->
     <h2 id="first-page">Your First Page</h2>
     <p>Create an <code>index.html</code> with <code>body class="exsa"</code> to enable classless element styling — HTML elements automatically get typography, spacing, and link styling without writing a single CSS rule.</p>
 
@@ -200,10 +179,15 @@ your-project/
 
     <p>The <code>&lt;header&gt;</code> is centered and padded. The <code>&lt;nav&gt;</code> is a flex row with dropdowns. <code>&lt;aside&gt;</code> elements inside <code>&lt;section&gt;</code> become cards. A plain <code>&lt;table&gt;</code> gets borders and header styling. A plain <code>&lt;button&gt;</code> gets padding, border, and hover feedback. All of this happens <strong>without a single class</strong> — it's the classless engine working.</p>
 
-    <!-- ═══════════ ADDING COMPONENTS ═══════════ -->
+    <!-- ----------- ADDING COMPONENTS ----------- -->
     <h2 id="adding-components">Adding Components</h2>
-    <p>Each component is a single CSS file in the <code>components/</code> folder. Link only what you need.</p>
+    <p>Two ways to add components:</p>
+    <ol>
+      <li><strong>Download individual files</strong> — each component is a single CSS file in <code>components/</code>. Link only what you need.</li>
+      <li><strong>Use the <a href="generator.php">Bundle Generator</a></strong> — select the components you want, pick a theme, and download one minified CSS file with EXSA + your components + your theme baked in.</li>
+    </ol>
 
+    <h3>Method 1: Individual files</h3>
     <pre><code><span class="hl-cmt">&lt;!-- Add these after style.css --&gt;</span>
 <span class="hl-tag">&lt;link</span> <span class="hl-attr">rel</span>=<span class="hl-val">"stylesheet"</span> <span class="hl-attr">href</span>=<span class="hl-val">"components/buttons.css"</span><span class="hl-tag">&gt;</span>
 <span class="hl-tag">&lt;link</span> <span class="hl-attr">rel</span>=<span class="hl-val">"stylesheet"</span> <span class="hl-attr">href</span>=<span class="hl-val">"components/card.css"</span><span class="hl-tag">&gt;</span>
@@ -211,7 +195,12 @@ your-project/
 <span class="hl-tag">&lt;link</span> <span class="hl-attr">rel</span>=<span class="hl-val">"stylesheet"</span> <span class="hl-attr">href</span>=<span class="hl-val">"components/tabs.css"</span><span class="hl-tag">&gt;</span>
 
 <span class="hl-cmt">&lt;!-- For interactive components, also include the JS --&gt;</span>
-<span class="hl-tag">&lt;script</span> <span class="hl-attr">src</span>=<span class="hl-val">"components.js"</span><span class="hl-tag">&gt;&lt;/script&gt;</span></code></pre>
+<span class="hl-tag">&lt;script</span> <span class="hl-attr">src</span>=<span class="hl-val">"components.js?v=14"</span><span class="hl-tag">&gt;&lt;/script&gt;</span></code></pre>
+
+    <h3>Method 2: Bundle Generator</h3>
+    <p>Go to <a href="generator.php">generator.php</a>, check the components you want, pick a theme (or "none" to bring your own), and download a single <code>.css</code> file. One <code>&lt;link&gt;</code> tag. No per-component requests.</p>
+    <pre><code><span class="hl-cmt">&lt;!-- One file: EXSA core + selected components + theme --&gt;</span>
+<span class="hl-tag">&lt;link</span> <span class="hl-attr">rel</span>=<span class="hl-val">"stylesheet"</span> <span class="hl-attr">href</span>=<span class="hl-val">"exsa-bundle.css"</span><span class="hl-tag">&gt;</span></code></pre>
 
     <p>Then use them in your HTML:</p>
     <pre><code><span class="hl-tag">&lt;button</span> <span class="hl-attr">class</span>=<span class="hl-val">"btn btn--primary"</span><span class="hl-tag">&gt;</span>Click Me<span class="hl-tag">&lt;/button&gt;</span>
@@ -226,7 +215,7 @@ your-project/
 
     <div class="callout"><strong>Pro tip:</strong> Use the <a href="generator.php">Generator</a> to select components visually, then download a single <code>exsa.bundle.css</code> with everything you picked — no unused styles.</div>
 
-    <!-- ═══════════ ARCHITECTURE ═══════════ -->
+    <!-- ----------- ARCHITECTURE ----------- -->
     <h2 id="architecture">The 5-Layer Cascade</h2>
     <p>EXSA uses CSS <code>@layer</code> to enforce an explicit cascade order. Each layer has one job. Layers lower in the list override layers higher — and themes sit outside all layers, so they always win.</p>
 
@@ -235,14 +224,14 @@ your-project/
     <div class="callout"><strong>Why layers matter:</strong> Without <code>@layer</code>, specificity determines which rule wins — a class from a component could accidentally override a token. With layers, the cascade order is explicit and predictable regardless of specificity.</div>
 
     <h3>Layer 1: Tokens</h3>
-    <p>49 CSS custom properties defined on <code>:root</code>. Colors (<code>--color-link</code>, <code>--color-bg</code>), spacing (<code>--gap</code>, <code>--gap-sm</code>), typography (<code>--font-family</code>, <code>--line-height</code>), shadows, border radius, hover brightness. Everything else references these.</p>
+    <p>51 CSS custom properties defined on <code>:root</code>. Colors (<code>--color-link</code>, <code>--color-bg</code>), spacing (<code>--gap</code>, <code>--gap-sm</code>), typography (<code>--font-family</code>, <code>--line-height</code>), shadows, border radius, hover brightness. Everything else references these.</p>
     <p>Override any token in your own stylesheet or swap the theme file — all components update automatically.</p>
 
     <h3>Layer 2: Reset</h3>
     <p>Box-sizing, focus rings, scrollbar styling, RTL support, reduced motion, forced-colors mode, skip links, body defaults. Applies globally — no opt-in needed.</p>
 
     <h3>Layer 3: Layout</h3>
-    <p>65+ utility classes for flex, grid, gap, containers, positioning, text alignment, overflow, and responsive breakpoints. Always on. No prefix.</p>
+    <p>85+ utility classes for flex, grid, gap, containers, positioning, text alignment, overflow, and responsive breakpoints. Always on. No prefix.</p>
 
     <h3>Layer 4: Elements</h3>
     <p>Classless HTML styling — activated by <code>body class="exsa"</code>. Styles <code>&lt;p&gt;</code>, <code>&lt;a&gt;</code>, <code>&lt;code&gt;</code>, <code>&lt;pre&gt;</code>, <code>&lt;nav&gt;</code>, <code>&lt;section&gt;</code>, <code>&lt;aside&gt;</code>, <code>&lt;table&gt;</code>, <code>&lt;form&gt;</code>, <code>&lt;button&gt;</code>, <code>&lt;blockquote&gt;</code>, <code>&lt;dialog&gt;</code>, and more. Uses <code>:where()</code> for zero specificity.</p>
@@ -250,9 +239,9 @@ your-project/
     <h3>Layer 5: Components</h3>
     <p>50 self-contained components — each is one CSS file. Link only what you need. All use <code>:where()</code> for zero specificity.</p>
 
-    <!-- ═══════════ TOKENS ═══════════ -->
+    <!-- ----------- TOKENS ----------- -->
     <h2 id="tokens">Tokens — The Source of Truth</h2>
-    <p>Every visual decision in EXSA flows from 49 CSS custom properties. Change a token — every component, every element, every utility that references it updates instantly.</p>
+    <p>Every visual decision in EXSA flows from 51 CSS custom properties. Change a token — every component, every element, every utility that references it updates instantly.</p>
 
     <pre><code><span class="hl-cmt">/* Key tokens you'll override most often */</span>
 <span class="hl-tag">--color-bg</span>: #fff;              <span class="hl-cmt">/* page background */</span>
@@ -275,12 +264,15 @@ your-project/
 <span class="hl-tag">--color-warning</span>: #d97706;       <span class="hl-cmt">/* amber */</span></code></pre>
 
     <p>Full token reference: <a href="cheatsheet.php#tokens">Cheatsheet → Tokens</a></p>
-    <div class="callout"><strong>Design tool export:</strong> <a href="tokens.json"><code>tokens.json</code></a> exports all 49 tokens in a structured JSON format — import into Figma (via Tokens Studio), JavaScript, or Tailwind config. Light and dark values included for every color token.</div>
+    <div class="callout"><strong>Design tool export:</strong> <a href="tokens.json"><code>tokens.json</code></a> exports all 51 tokens in a structured JSON format — import into Figma (via Tokens Studio), JavaScript, or Tailwind config. Light and dark values included for every color token.</div>
 
-    <!-- ═══════════ CLASSLESS ═══════════ -->
+    <!-- ----------- CLASSLESS ----------- -->
     <h2 id="classless">Classless Elements</h2>
     <p>Add <code>class="exsa"</code> to <code>&lt;body&gt;</code> and semantic HTML elements get automatic styling:</p>
     <ul>
+      <li><code>&lt;mark&gt;</code> — highlighted text with padding</li>
+      <li><code>&lt;sup&gt;</code> — pill badge with secondary background</li>
+      <li><code>&lt;details&gt;</code> — expandable disclosure widget with bold summary</li>
       <li><code>&lt;p&gt;</code> — 0.75rem vertical margin</li>
       <li><code>&lt;a&gt;</code> — bold, underlined, link-colored, brightness on hover/active</li>
       <li><code>&lt;code&gt;</code> — inline code with accent background, border-radius, padding</li>
@@ -297,7 +289,7 @@ your-project/
     </ul>
     <p>All classless styles use <code>:where()</code> — specificity of <strong>zero</strong>. A single class from your own CSS always wins.</p>
 
-    <!-- ═══════════ GUARDED ═══════════ -->
+    <!-- ----------- GUARDED ----------- -->
     <h2 id="guarded">Guarded Styles</h2>
     <p>EXSA uses <code>:not([class])</code> on all classless element rules — <code>&lt;section&gt;</code>, <code>&lt;header&gt;</code>, <code>&lt;main&gt;</code>, <code>&lt;footer&gt;</code>, <code>&lt;nav&gt;</code>, <code>&lt;table&gt;</code>, <code>&lt;form&gt;</code>, <code>&lt;button&gt;</code>, <code>&lt;blockquote&gt;</code>, <code>&lt;dialog&gt;</code>. If you add any class to these elements, EXSA's styling steps aside completely.</p>
 
@@ -317,7 +309,7 @@ your-project/
 
     <div class="callout"><strong>The rule is simple:</strong> add any class to an element and EXSA steps aside. <code>&lt;table class="data-grid"&gt;</code> — no borders, no header bg. <code>&lt;button class="special"&gt;</code> — no padding, no border, no hover. You get a clean slate. Then add the component file (<code>table.css</code>, <code>buttons.css</code>) and use BEM classes for the upgraded experience.</div>
 
-    <!-- ═══════════ THEMING ═══════════ -->
+    <!-- ----------- THEMING ----------- -->
     <h2 id="how-themes-work">How Themes Work</h2>
     <p>A theme is a CSS file that overrides ~18 color tokens on <code>:root</code>. Because themes are loaded outside the <code>@layer</code> cascade (unlayered styles always win), theme values always override the default tokens.</p>
 
@@ -345,7 +337,7 @@ your-project/
 
     <p>Swap themes by changing one <code>&lt;link&gt;</code> href. All 50 components, all element styles, all utilities — everything recolors instantly. No rebuild.</p>
 
-    <!-- ═══════════ CUSTOM THEME ═══════════ -->
+    <!-- ----------- CUSTOM THEME ----------- -->
     <h2 id="custom-theme">Creating a Custom Theme</h2>
     <p>Copy any existing theme file (start with <code>breeze.css</code> for light, <code>night.css</code> for dark) and override these tokens:</p>
     <ol>
@@ -358,7 +350,7 @@ your-project/
     </ol>
     <div class="callout"><strong>8-digit hex for accents:</strong> <code>#118bee15</code> means <code>#118bee</code> at ~8% opacity. The last two digits are hex alpha — <code>00</code> (transparent) to <code>FF</code> (opaque). Use this for subtle tint backgrounds.</div>
 
-    <!-- ═══════════ DARK MODE ═══════════ -->
+    <!-- ----------- DARK MODE ----------- -->
     <h2 id="dark-mode">Dark Mode & System Preference</h2>
     <p>EXSA supports three approaches to dark mode:</p>
 
@@ -372,9 +364,9 @@ your-project/
     <pre><code><span class="hl-cmt">// Switch theme programmatically</span>
 <span class="hl-tag">document</span>.<span class="hl-attr">getElementById</span>(<span class="hl-val">'theme-stylesheet'</span>).<span class="hl-attr">href</span> = <span class="hl-val">'themes/night.css'</span>;</code></pre>
 
-    <!-- ═══════════ LAYOUT UTILITIES ═══════════ -->
+    <!-- ----------- LAYOUT UTILITIES ----------- -->
     <h2 id="layout-utilities">Layout Utilities</h2>
-    <p>65+ utility classes in the layout layer. Always on, no prefix, no breakpoint memorization. Full reference: <a href="cheatsheet.php#layout">Cheatsheet → Layout</a>.</p>
+    <p>85+ utility classes in the layout layer. Always on, no prefix, no breakpoint memorization. Full reference: <a href="cheatsheet.php#layout">Cheatsheet → Layout</a>.</p>
 
     <h3>Containers</h3>
     <pre><code><span class="hl-tag">.container</span>       <span class="hl-cmt">/* max-width: 1080px, centered, padded */</span>
@@ -394,19 +386,21 @@ your-project/
 <span class="hl-tag">.w-full</span> <span class="hl-tag">.h-full</span> <span class="hl-tag">.overflow-hidden</span> <span class="hl-tag">.overflow-auto</span>
 <span class="hl-tag">.text-center</span> <span class="hl-tag">.text-left</span> <span class="hl-tag">.text-right</span></code></pre>
 
-    <!-- ═══════════ RESPONSIVE ═══════════ -->
+    <!-- ----------- RESPONSIVE ----------- -->
     <h2 id="responsive">Responsive Helpers</h2>
-    <p>Three breakpoints. Classes activate at or below the specified width:</p>
+    <p>Five breakpoints. Classes activate at or above the specified width (except <code>sm:</code> which applies below):</p>
     <table style="width:100%;border-collapse:collapse;font-size:.85rem;margin-bottom:16px">
-      <thead><tr><th style="text-align:left;padding:6px 10px;border-bottom:2px solid var(--color-bg-secondary)">Breakpoint</th><th style="text-align:left;padding:6px 10px;border-bottom:2px solid var(--color-bg-secondary)">Width</th><th style="text-align:left;padding:6px 10px;border-bottom:2px solid var(--color-bg-secondary)">Examples</th></tr></thead>
+      <thead><tr><th style="text-align:left;padding:6px 10px;border-bottom:2px solid var(--color-bg-secondary)">Breakpoint</th><th style="text-align:left;padding:6px 10px;border-bottom:2px solid var(--color-bg-secondary)">Width</th><th style="text-align:left;padding:6px 10px;border-bottom:2px solid var(--color-bg-secondary)">Target</th><th style="text-align:left;padding:6px 10px;border-bottom:2px solid var(--color-bg-secondary)">Examples</th></tr></thead>
       <tbody>
-        <tr><td style="padding:4px 10px"><code>sm:</code></td><td style="padding:4px 10px">≤ 575px</td><td style="padding:4px 10px"><code>.sm\:flex-col</code> <code>.sm\:grid-cols-1</code></td></tr>
-        <tr><td style="padding:4px 10px"><code>md:</code></td><td style="padding:4px 10px">≥ 768px</td><td style="padding:4px 10px"><code>.md\:col-3</code> <code>.md\:grid-cols-3</code></td></tr>
-        <tr><td style="padding:4px 10px"><code>lg:</code></td><td style="padding:4px 10px">≥ 1024px</td><td style="padding:4px 10px"><code>.lg\:col-4</code> <code>.lg\:grid-cols-4</code></td></tr>
+        <tr><td style="padding:4px 10px"><code>sm:</code></td><td style="padding:4px 10px">= 575px</td><td style="padding:4px 10px">Phones</td><td style="padding:4px 10px"><code>.sm\:flex-col</code> <code>.sm\:grid-cols-1</code></td></tr>
+        <tr><td style="padding:4px 10px"><code>md:</code></td><td style="padding:4px 10px">= 768px</td><td style="padding:4px 10px">Tablets</td><td style="padding:4px 10px"><code>.md\:col-3</code> <code>.md\:grid-cols-3</code></td></tr>
+        <tr><td style="padding:4px 10px"><code>lg:</code></td><td style="padding:4px 10px">= 1024px</td><td style="padding:4px 10px">Laptops</td><td style="padding:4px 10px"><code>.lg\:col-4</code> <code>.lg\:grid-cols-4</code></td></tr>
+        <tr><td style="padding:4px 10px"><code>xl:</code></td><td style="padding:4px 10px">= 1280px</td><td style="padding:4px 10px">Desktops</td><td style="padding:4px 10px"><code>.xl\:col-5</code> <code>.xl\:grid-cols-5</code></td></tr>
+        <tr><td style="padding:4px 10px"><code>xxl:</code></td><td style="padding:4px 10px">= 1440px</td><td style="padding:4px 10px">Large Desktops</td><td style="padding:4px 10px"><code>.xxl\:col-5</code> <code>.xxl\:grid-cols-5</code></td></tr>
       </tbody>
     </table>
 
-    <!-- ═══════════ COMPONENT MODEL ═══════════ -->
+    <!-- ----------- COMPONENT MODEL ----------- -->
     <h2 id="component-model">Component Model</h2>
     <p>Every EXSA component follows the same pattern:</p>
     <ul>
@@ -427,7 +421,7 @@ your-project/
   <span class="hl-attr">box-shadow</span>: <span class="hl-val">var(--box-shadow) var(--color-shadow)</span>;
 }</code></pre>
 
-    <!-- ═══════════ BEM NAMING ═══════════ -->
+    <!-- ----------- BEM NAMING ----------- -->
     <h2 id="bem-naming">BEM Naming Convention</h2>
     <p>EXSA uses BEM (Block, Element, Modifier) for all component classes. It's the simplest way to guarantee zero naming collisions across 50 components — no build tool required.</p>
 
@@ -467,7 +461,7 @@ your-project/
 
     <div class="callout"><strong>Creating your own component?</strong> Follow the same conventions: one CSS file, <code>:where()</code> for zero specificity, <code>var(--token)</code> for all values, BEM naming. Your component will feel native to EXSA and theme-switch automatically.</div>
 
-    <!-- ═══════════ JS BEHAVIORS ═══════════ -->
+    <!-- ----------- JS BEHAVIORS ----------- -->
     <h2 id="js-behaviors">JavaScript Behaviors</h2>
     <p><code>components.js</code> provides interactive behavior for 28 components. It's class-driven — no hardcoded IDs, no configuration objects. It scans the DOM for component classes and initializes them automatically.</p>
 
@@ -491,7 +485,7 @@ your-project/
 
     <div class="callout"><strong>Pure CSS components need no JS:</strong> Accordion, Toggle, Checkbox, Radio, Tooltip, Spinner, Skeleton, Progress Bars, Bar Chart, Donut Chart, Stepper, Drawer, Form Validation, Separator, Breadcrumbs — all work with zero JavaScript.</div>
 
-    <!-- ═══════════ TREE SHAKING ═══════════ -->
+    <!-- ----------- TREE SHAKING ----------- -->
     <h2 id="tree-shaking">Tree-Shaking & Generator</h2>
     <p>During development, link individual component CSS files. For production, use the <a href="generator.php">Generator</a> to create a single bundle:</p>
     <ol>
@@ -509,7 +503,7 @@ your-project/
 <span class="hl-cmt">&lt;!-- Production: one file --&gt;</span>
 <span class="hl-tag">&lt;link</span> <span class="hl-attr">href</span>=<span class="hl-val">"exsa.bundle.css"</span><span class="hl-tag">&gt;</span></code></pre>
 
-    <!-- ═══════════ ICONS ═══════════ -->
+    <!-- ----------- ICONS ----------- -->
     <h2 id="icons">Icons Library</h2>
     <p>EXSA includes <strong>101 stroke-based SVG icons</strong> — all at 24×24, using <code>stroke="currentColor"</code> so they automatically inherit the text color of their parent. Icons are rendered via CSS masks, keeping your HTML clean and theme-agnostic.</p>
 
@@ -542,7 +536,7 @@ your-project/
 
     <div class="callout"><strong>Browse all 101 icons:</strong> Visit the <a href="icons.php">Icons Library</a> page for a searchable gallery with click-to-copy class names, organized by category.</div>
 
-    <!-- ═══════════ MIGRATION ═══════════ -->
+    <!-- ----------- MIGRATION ----------- -->
     <h2 id="from-bootstrap">Migrating from Bootstrap</h2>
     <table style="width:100%;border-collapse:collapse;font-size:.85rem;margin-bottom:16px">
       <thead><tr><th style="text-align:left;padding:6px 10px;border-bottom:2px solid var(--color-bg-secondary)">Bootstrap</th><th style="text-align:left;padding:6px 10px;border-bottom:2px solid var(--color-bg-secondary)">EXSA</th><th style="text-align:left;padding:6px 10px;border-bottom:2px solid var(--color-bg-secondary)">Notes</th></tr></thead>
@@ -555,11 +549,11 @@ your-project/
         <tr><td style="padding:4px 10px"><code>.navbar</code></td><td style="padding:4px 10px"><code>.topbar</code></td><td style="padding:4px 10px">Fixed top, scroll shadow, mobile hamburger</td></tr>
         <tr><td style="padding:4px 10px"><code>.modal</code></td><td style="padding:4px 10px"><code>.modal</code></td><td style="padding:4px 10px">Nested dialog with header/body/footer</td></tr>
         <tr><td style="padding:4px 10px"><code>.spinner-border</code></td><td style="padding:4px 10px"><code>.spinner</code></td><td style="padding:4px 10px">3 sizes, pure CSS</td></tr>
-        <tr><td style="padding:4px 10px">~230 KB</td><td style="padding:4px 10px">19.5 KB core (add components à la carte)</td><td style="padding:4px 10px">~12x smaller core</td></tr>
+        <tr><td style="padding:4px 10px">~230 KB</td><td style="padding:4px 10px">24 KB core (add components — la carte)</td><td style="padding:4px 10px">~10× smaller core</td></tr>
       </tbody>
     </table>
 
-    <!-- ═══════════ FROM TAILWIND ═══════════ -->
+    <!-- ----------- FROM TAILWIND ----------- -->
     <h2 id="from-tailwind">Migrating from Tailwind</h2>
     <p>EXSA takes the opposite approach: <strong>semantic components</strong> instead of atomic utilities. Here's how the mental model translates:</p>
 
@@ -582,7 +576,7 @@ your-project/
   <div class="footer__inner">
     <div class="footer__grid">
       <div class="footer__brand">
-        <div class="footer__logo"><img src="logo.png" alt="" width="24" style="vertical-align:middle;margin-right:6px;"><span>EXSA</span> CSS Framework</div>
+        <div class="footer__logo"><img src="logo.png" alt="EXSA" width="24" style="vertical-align:middle;margin-right:6px;"><span>EXSA</span> CSS Framework</div>
         <p class="footer__tagline">A framework where tokens do the work, not tools. CSS, the way it was meant to work.</p>
       </div>
       <div class="footer__links">
@@ -612,15 +606,7 @@ your-project/
   </div>
 </footer>
 
-<script src="components.js?v=13"></script>
-<script>
-(function(){
-  var l=document.getElementById('theme-stylesheet');
-  var d=document.querySelectorAll('.theme-dot');
-  function a(n){l.href='themes/'+n+'.css';localStorage.setItem('exsa-theme',n);d.forEach(function(x){x.classList.toggle('theme-dot--active',x.getAttribute('data-theme')===n)})}
-  d.forEach(function(x){x.addEventListener('click',function(){a(this.getAttribute('data-theme'))})});
-  var s=localStorage.getItem('exsa-theme');if(s)a(s);
-})();
-</script>
+<script src="components.js?v=14"></script>
+
 </body>
 </html>

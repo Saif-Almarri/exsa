@@ -1,4 +1,5 @@
-/* ============================================================
+﻿/* ============================================================
+   ARIA: role=menu on .dropdown__menu, role=menuitem on items, aria-haspopup/aria-expanded on trigger
    Component: DROPDOWN MENU
    Click-triggered popup with items, separators, shortcuts.
    Variants: solid (default), soft

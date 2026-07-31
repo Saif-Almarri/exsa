@@ -12,11 +12,22 @@ header('Strict-Transport-Security: max-age=31536000; includeSubDomains');
   <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline'; img-src 'self' https: data:; font-src 'self'">
   <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
   <title>EXSA — Universal CSS. Zero Friction.</title>
-  <meta name="description" content="EXSA is a 5-layer CSS framework with Guarded Classless™ — semantic HTML works out of the box, then the framework steps aside when you add a class. 50 components. 17 themes. 49 tokens. Zero build step. No Twig. No Blade. Just PHP files. Universal.">
+  <meta name="description" content="EXSA is a 5-layer CSS framework with Guarded Classless™. 50 components, 20 themes, 51 tokens. Zero build step. Universal. Just PHP and CSS.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://exsa.dev/">
+  <meta property="og:title" content="EXSA — Universal CSS. Zero Friction.">
+  <meta property="og:description" content="EXSA is a 5-layer CSS framework with Guarded Classless™. 50 components, 20 themes, 51 tokens. Zero build step. Universal. Just PHP and CSS.">
+  <meta property="og:image" content="https://exsa.dev/logo.png">
+  <meta property="og:url" content="https://exsa.dev/">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="EXSA — Universal CSS. Zero Friction.">
+  <meta name="twitter:description" content="EXSA is a 5-layer CSS framework with Guarded Classless™. 50 components, 20 themes, 51 tokens. Zero build step. Universal. Just PHP and CSS.">
+  <meta name="twitter:image" content="https://exsa.dev/logo.png">
   <link rel="icon" type="image/png" href="logo.png">
   <link rel="stylesheet" href="style.css?v=24">
   <link id="theme-stylesheet" rel="stylesheet" href="themes/breeze.css?v=3">
-  <link rel="stylesheet" href="components/topbar.css?v=15">
+  <?php include 'includes/head.php'; ?>
   <link rel="stylesheet" href="components/buttons.css?v=2">
   <link rel="stylesheet" href="components/badge.css">
   <link rel="stylesheet" href="components/separator.css">
@@ -35,10 +46,10 @@ header('Strict-Transport-Security: max-age=31536000; includeSubDomains');
     .ic-archive{-webkit-mask-image:url('components/icons/archive.svg');mask-image:url('components/icons/archive.svg')}
     .ic-send{-webkit-mask-image:url('components/icons/send.svg');mask-image:url('components/icons/send.svg')}
 
-    /* ── Page Layout ── */
+    /* -- Page Layout -- */
     .pg{max-width:1080px;margin:0 auto;padding:100px 20px 80px}
 
-    /* ── Hero ── */
+    /* -- Hero -- */
     .hero{text-align:center;padding:0px 0 60px}
     .hero__logo{display:block;margin:0 auto 24px}
     .hero__eyebrow{font-size:.75rem;font-weight:600;padding:5px 16px;border-radius:99px;background:color-mix(in srgb,var(--color-link)10%,transparent);color:var(--color-link);display:inline-flex;align-items:center;gap:8px;margin-bottom:20px;letter-spacing:.01em;border:1px solid color-mix(in srgb,var(--color-link)20%,transparent)}
@@ -50,21 +61,21 @@ header('Strict-Transport-Security: max-age=31536000; includeSubDomains');
     .hero__sub{font-size:1.08rem;color:var(--color-text-secondary);max-width:820px;margin:0 auto 32px;line-height:1.65}
     .hero__actions{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
 
-    /* ── Stats Bar ── */
-    .stats-bar{display:flex;justify-content:center;gap:48px;flex-wrap:wrap;padding:36px 0;border-top:1px solid var(--color-bg-secondary);border-bottom:1px solid var(--color-bg-secondary);margin:20px 0 60px}
+    /* -- Stats Bar -- */
+    .stats-bar{display:flex;justify-content:center;gap:64px;flex-wrap:wrap;padding:36px 0;border-top:1px solid var(--color-bg-secondary);border-bottom:1px solid var(--color-bg-secondary);margin:20px 0 60px}
     .stat{text-align:center}
-    .stat__num{font-size:2.2rem;font-weight:800;line-height:1;background:linear-gradient(135deg,var(--color-link),var(--color-secondary));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+    .stat__num{font-size:3rem;font-weight:800;line-height:1;background:linear-gradient(135deg,var(--color-link),var(--color-secondary));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
     .stat__label{font-size:.78rem;color:var(--color-text-secondary);margin-top:4px}
     .stats-note{text-align:center;font-size:.74rem;color:var(--color-text-secondary);margin-top:-40px;margin-bottom:40px}
 
-    /* ── Sections ── */
+    /* -- Sections -- */
     .sec{padding:48px 0}
     .sec--alt{background:var(--color-bg-secondary);margin:0 -20px;padding:48px 20px}
     .sec__label{font-size:.7rem;text-transform:uppercase;letter-spacing:.08em;color:var(--color-link);font-weight:700;margin-bottom:8px}
     .sec h2{font-size:1.8rem;font-weight:700;margin:0 0 8px}
-    .sec__sub{color:var(--color-text-secondary);font-size:.95rem;max-width:600px;line-height:1.6;margin:0 0 32px}
+    .sec__sub{color:var(--color-text-secondary);font-size:.95rem;max-width:auto;line-height:1.6;margin:0 0 32px}
 
-    /* ── Architecture Diagram ── */
+    /* -- Architecture Diagram -- */
     .arch{max-width:700px;margin:0 auto;position:relative}
     .arch::before{content:'';position:absolute;inset-inline-start:35px;top:44px;bottom:44px;width:2px;background:var(--color-bg-secondary);z-index:0}
     .arch__layer{display:flex;align-items:center;gap:16px;padding:18px 20px;border-radius:var(--border-radius);position:relative;margin-bottom:6px;background:var(--color-bg);border:1px solid var(--color-bg-secondary);transition:transform .15s,box-shadow .15s}
@@ -92,13 +103,13 @@ header('Strict-Transport-Security: max-age=31536000; includeSubDomains');
     .arch__info p{margin:0;font-size:.78rem;color:var(--color-text-secondary);line-height:1.5}
     .arch__info code{font-size:.7rem;background:var(--color-bg-secondary);padding:1px 6px;border-radius:3px;display:inline-block;margin-top:4px}
 
-    /* ── Comparison Grid ── */
+    /* -- Comparison Grid -- */
     .cmp{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px}
     .cmp__card{background:var(--color-bg);border:1px solid var(--color-bg-secondary);border-radius:var(--border-radius);padding:24px}
     .cmp__card h4{font-size:1rem;margin:0 0 6px}
     .cmp__card p{font-size:.82rem;color:var(--color-text-secondary);line-height:1.5;margin:0}
 
-    /* ── Code Block ── */
+    /* -- Code Block -- */
     .code-blk{background:var(--color-bg);border:1px solid var(--color-bg-secondary);border-radius:var(--border-radius);overflow:hidden;margin:20px 0}
     .code-blk__bar{display:flex;align-items:center;gap:8px;padding:10px 16px;background:var(--color-bg-secondary);border-bottom:1px solid var(--color-bg-secondary)}
     .code-blk__dot{width:8px;height:8px;border-radius:50%;background:var(--color-bg-secondary)}
@@ -109,7 +120,7 @@ header('Strict-Transport-Security: max-age=31536000; includeSubDomains');
     .code-blk pre{margin:0;padding:16px 20px;font-size:.78rem;line-height:1.7;color:var(--color-text-secondary);overflow-x:auto}
     .code-blk .tag{color:var(--color-link)}.code-blk .attr{color:var(--color-secondary)}.code-blk .val{color:#16a34a}.code-blk .cmt{color:var(--color-text-secondary);opacity:.5;font-style:italic}
 
-    /* ── Why Grid ── */
+    /* -- Why Grid -- */
     .why-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px}
     .why-item{text-align:center;padding:28px 20px;background:var(--color-bg);border:1px solid var(--color-bg-secondary);border-radius:var(--border-radius)}
     .why-item__icon{width:48px;height:48px;border-radius:var(--border-radius);display:flex;align-items:center;justify-content:center;flex-shrink:0;background:color-mix(in srgb,var(--color-link)10%,transparent);margin:0 auto 14px}
@@ -117,12 +128,12 @@ header('Strict-Transport-Security: max-age=31536000; includeSubDomains');
     .why-item h4{font-size:.92rem;margin:0 0 6px}
     .why-item p{font-size:.8rem;color:var(--color-text-secondary);line-height:1.5;margin:0}
 
-    /* ── CTA ── */
+    /* -- CTA -- */
     .cta{text-align:center;background:linear-gradient(135deg,color-mix(in srgb,var(--color-link)8%,var(--color-bg)),color-mix(in srgb,var(--color-secondary)5%,var(--color-bg)));border:1px solid var(--color-bg-secondary);border-radius:calc(var(--border-radius)*1.5);padding:48px 32px}
     .cta h2{font-size:2rem;margin:0 0 12px}
     .cta p{color:var(--color-text-secondary);max-width:500px;margin:0 auto 24px;line-height:1.6;font-size:.95rem}
 
-    /* ── Benchmark Card ── */
+    /* -- Benchmark Card -- */
     .bench{display:flex;align-items:center;gap:40px;flex-wrap:wrap;background:var(--color-bg);border:1px solid var(--color-bg-secondary);border-radius:var(--border-radius);padding:40px;margin-bottom:40px}
     .bench__big{flex-shrink:0;text-align:center}
     .bench__pct{font-size:5rem;font-weight:900;line-height:1;background:linear-gradient(135deg,var(--color-link),var(--color-secondary));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
@@ -135,19 +146,8 @@ header('Strict-Transport-Security: max-age=31536000; includeSubDomains');
     .bench__metrics dd{font-weight:700;margin:0 0 6px}
     @media(max-width:600px){.bench{flex-direction:column;text-align:center;padding:28px 20px}.bench__metrics{grid-template-columns:1fr}}
 
-    /* ── Footer ── */
+    /* -- Footer -- */
     .pg-footer{display:flex;justify-content:space-between;padding-top:20px;margin-top:40px;border-top:1px solid var(--color-bg-secondary);font-size:.75rem;color:var(--color-text-secondary);flex-wrap:wrap;gap:12px}
-
-    /* ── Theme Switcher ── */
-    .theme-dots{display:flex;align-items:center;gap:6px;margin-left:12px}
-    .theme-dot{width:16px;height:16px;border-radius:50%;border:2px solid transparent;cursor:pointer;transition:border-color .15s,transform .15s;padding:0}
-    .theme-dot:hover{transform:scale(1.2)}
-    .theme-dot--active{border-color:var(--color-link);box-shadow:0 0 0 2px color-mix(in srgb,var(--color-link)30%,transparent)}
-    .theme-dot--breeze{background:linear-gradient(135deg,#e8f0fe,#118bee)}
-    .theme-dot--night{background:linear-gradient(135deg,#1c1f2e,#60a5fa)}
-    .theme-dot--sepia{background:linear-gradient(135deg,#ede4cc,#b68b24)}
-    .theme-dot--forest{background:linear-gradient(135deg,#cce8d8,#2d6a4f)}
-    .theme-dot--coral{background:linear-gradient(135deg,#ffe0d8,#e8610b)}
 
     @media(max-width:768px){
       .stats-bar{gap:24px}
@@ -158,45 +158,21 @@ header('Strict-Transport-Security: max-age=31536000; includeSubDomains');
 </head>
 <body class="has-topbar">
 
+<?php include 'intro-splash.php'; ?>
+
 <a href="#main-content" class="skip-link">Skip to main content</a>
 
-<!-- ═══════════════ TOPBAR ═══════════════ -->
-<header class="topbar" id="demo-topbar">
-  <div class="topbar__left">
-    <a href="index.php" class="topbar__brand"><img src="logo.png" alt="EXSA" width="32" class="topbar__logo"> <span>EXSA</span></a>
-    <nav aria-label="Topbar navigation">
-      <ul class="topbar__nav">
-        <li><a href="index.php" class="topbar__link">Home</a></li>
-        <li><a href="docs.php" class="topbar__link">Docs</a></li>
-        <li><a href="showcase.php" class="topbar__link">Showcase</a></li>
-        <li><a href="cheatsheet.php" class="topbar__link">Cheatsheet</a></li>
-        <li><a href="generator.php" class="topbar__link">Generator</a></li>
-        <li><a href="icons.php" class="topbar__link">Icons</a></li>
-        <li><a href="source.php" class="topbar__link">Source</a></li>
-      </ul>
-    </nav>
-  </div>
-  <div class="topbar__right">
-    <div class="theme-dots" title="Switch theme">
-      <button class="theme-dot theme-dot--breeze theme-dot--active" data-theme="breeze" aria-label="Breeze theme"></button>
-      <button class="theme-dot theme-dot--night" data-theme="night" aria-label="Night theme"></button>
-      <button class="theme-dot theme-dot--sepia" data-theme="sepia" aria-label="Sepia theme"></button>
-      <button class="theme-dot theme-dot--forest" data-theme="forest" aria-label="Forest theme"></button>
-      <button class="theme-dot theme-dot--coral" data-theme="coral" aria-label="Coral theme"></button>
-    </div>
-    <a href="generator.php" class="topbar__btn topbar__btn--primary">Download</a>
-  </div>
-  <button class="topbar__toggle" aria-label="Toggle menu"><span class="ic ic-menu"></span></button>
-</header>
+<!-- --------------- TOPBAR --------------- -->
+<?php $activePage = 'index.php'; $topbarClass = 'topbar--xl topbar--transparent'; include 'includes/topbar.php'; ?>
 
-<!-- ═══════════════ MAIN ═══════════════ -->
+<!-- --------------- MAIN --------------- -->
 <main class="pg" id="main-content">
 
-  <!-- ── Hero ── -->
+  <!-- -- Hero -- -->
   <section class="hero">
     <img src="logo.png" alt="EXSA" width="120" class="hero__logo" style="border-radius:16px;">
     <div class="hero__eyebrow">v1.0.0-beta.2 — Now Available</div>
-    <h1>A framework where <span>tokens</span> do the work,not tools</h1>
+    <h1>A framework where <span>tokens</span> do the work, <span>not tools</span></h1>
     <p class="hero__sub">EXSA is built on one idea: CSS custom properties should drive everything — colors, spacing, components, themes. Its signature feature, <strong>Guarded Classless&trade;</strong>, styles semantic HTML automatically, then steps aside the moment you add a single class. PHP, React, Vue, Svelte, Hugo, WordPress — compatible with any ecosystem. Two <code>&lt;link&gt;</code> tags or one <code>npm install</code>. Universal CSS. Zero friction.</p>
     <div class="hero__actions">
       <a href="#quickstart" class="btn btn--outline btn--lg">Quick Start</a>
@@ -205,16 +181,16 @@ header('Strict-Transport-Security: max-age=31536000; includeSubDomains');
     </div>
   </section>
 
-  <!-- ── Stats ── -->
+  <!-- -- Stats -- -->
   <div class="stats-bar">
     <div class="stat"><div class="stat__num">24<span style="font-size:1rem;">KB</span></div><div class="stat__label">Core Size</div></div>
     <div class="stat"><div class="stat__num">50</div><div class="stat__label">Components</div></div>
-    <div class="stat"><div class="stat__num">17</div><div class="stat__label">Themes</div></div>
-    <div class="stat"><div class="stat__num">5</div><div class="stat__label">@layers</div></div>
+    <div class="stat"><div class="stat__num">20</div><div class="stat__label">Themes</div></div>
+    <div class="stat"><div class="stat__num">101</div><div class="stat__label">Icons</div></div>
     <div class="stat"><div class="stat__num">0</div><div class="stat__label">Build Steps</div></div>
   </div>
 
-  <!-- ─── What Makes It Different ─── -->
+  <!-- --- What Makes It Different --- -->
   <section class="sec sec--alt" id="why">
     <div class="sec__label">The Difference</div>
     <h2>Six things no other framework combines</h2>
@@ -239,7 +215,7 @@ header('Strict-Transport-Security: max-age=31536000; includeSubDomains');
         <div class="why-item__icon" style="background:color-mix(in srgb,var(--color-success)10%,transparent);"><span class="ic ic-settings"></span></div>
         <div>
           <h4>Runtime Theming via Tokens</h4>
-          <p>All 50 components share the same 49 CSS custom properties. Swap one theme file — every component, every color, every shadow updates instantly. No recompile. No rebuild.</p>
+          <p>All 50 components share the same 51 CSS custom properties. Swap one theme file — every component, every color, every shadow updates instantly. No recompile. No rebuild.</p>
         </div>
       </div>
       <div class="why-item">
@@ -266,7 +242,7 @@ header('Strict-Transport-Security: max-age=31536000; includeSubDomains');
     </div>
   </section>
 
-  <!-- ── Code Comparison ── -->
+  <!-- -- Code Comparison -- -->
   <section class="sec">
     <div class="sec__label">Side by Side</div>
     <h2>The same card. Two very different philosophies.</h2>
@@ -285,7 +261,7 @@ header('Strict-Transport-Security: max-age=31536000; includeSubDomains');
   <span class="tag">&lt;/div&gt;</span>
 <span class="tag">&lt;/div&gt;</span>
 
-<span class="cmt">Swap theme → one file. Done.</span></pre>
+<span class="cmt">Swap theme ? one file. Done.</span></pre>
       </div>
       <div class="code-blk">
         <div class="code-blk__bar">
@@ -301,12 +277,12 @@ header('Strict-Transport-Security: max-age=31536000; includeSubDomains');
  text-gray-600"</span><span class="tag">&gt;</span>Content.<span class="tag">&lt;/p&gt;</span>
 <span class="tag">&lt;/div&gt;</span>
 
-<span class="cmt">Swap theme → edit every class.</span></pre>
+<span class="cmt">Swap theme ? edit every class.</span></pre>
       </div>
     </div>
   </section>
 
-  <!-- ── Benchmark: Why Guarded Classless ── -->
+  <!-- -- Benchmark: Why Guarded Classless -- -->
   <section class="sec">
     <div class="sec__label">Less Code, More Meaning</div>
     <h2>20–40% less HTML. Classes only when you need them.</h2>
@@ -321,7 +297,7 @@ header('Strict-Transport-Security: max-age=31536000; includeSubDomains');
     </div>
   </section>
 
-  <!-- ── Why 2026 ── -->
+  <!-- -- Why 2026 -- -->
   <section class="sec">
     <div class="sec__label">Why Now</div>
     <h2>Three W3C standards. One architectural pattern.</h2>
@@ -343,7 +319,7 @@ header('Strict-Transport-Security: max-age=31536000; includeSubDomains');
     </div>
   </section>
 
-  <!-- ── Architecture ── -->
+  <!-- -- Architecture -- -->
   <section class="sec" id="architecture">
     <div class="sec__label">Architecture</div>
     <h2>5 layers. Each with one job.</h2>
@@ -351,11 +327,11 @@ header('Strict-Transport-Security: max-age=31536000; includeSubDomains');
 
     <div class="arch">
       <div class="arch__layer arch__layer--unlayered">
-        <div class="arch__num">★</div>
+        <div class="arch__num">?</div>
         <div class="arch__info">
           <h4>Your CSS & Themes</h4>
           <p><strong>Unlayered</strong> — always wins. Themes override tokens. Your styles override everything. No <code>!important</code> needed.</p>
-          <code>themes/breeze.css · your-styles.css · style attribute</code>
+          <code>themes/breeze.css — your-styles.css — style attribute</code>
         </div>
       </div>
       <div class="arch__layer arch__layer--l5">
@@ -363,7 +339,7 @@ header('Strict-Transport-Security: max-age=31536000; includeSubDomains');
         <div class="arch__info">
           <h4>Components</h4>
           <p>50 plug-and-play components. Each is one CSS file. Link only what you need. All use <code>:where()</code> for zero specificity.</p>
-          <code>accordion · modal · toast · tabs · card · table · dropdown</code>
+          <code>accordion — modal — toast — tabs — card — table — dropdown</code>
         </div>
       </div>
       <div class="arch__layer arch__layer--l4">
@@ -371,7 +347,7 @@ header('Strict-Transport-Security: max-age=31536000; includeSubDomains');
         <div class="arch__info">
           <h4>Elements</h4>
           <p><strong>Guarded Classless</strong> — semantic HTML works out of the box. Add any class to any element and EXSA instantly steps aside.</p>
-          <code>&lt;section&gt; gets cards · &lt;section class="my-app"&gt; doesn't</code>
+          <code>&lt;section&gt; gets cards — &lt;section class="my-app"&gt; doesn't</code>
         </div>
       </div>
       <div class="arch__layer arch__layer--l3">
@@ -379,7 +355,7 @@ header('Strict-Transport-Security: max-age=31536000; includeSubDomains');
         <div class="arch__info">
           <h4>Layout</h4>
           <p>85+ flex and grid utilities. No prefix. No breakpoint memorization. Just compose.</p>
-          <code>.flex · .grid · .container · .gap-md · .grid-auto-fit</code>
+          <code>.flex — .grid — .container — .gap-md — .grid-auto-fit</code>
         </div>
       </div>
       <div class="arch__layer arch__layer--l2">
@@ -387,21 +363,21 @@ header('Strict-Transport-Security: max-age=31536000; includeSubDomains');
         <div class="arch__info">
           <h4>Reset</h4>
           <p>Box model, focus rings, scrollbars, RTL, reduced motion, forced-colors, skip links.</p>
-          <code>box-sizing · :focus-visible · [dir=rtl] · prefers-reduced-motion</code>
+          <code>box-sizing — :focus-visible — [dir=rtl] — prefers-reduced-motion</code>
         </div>
       </div>
       <div class="arch__layer arch__layer--l1">
         <div class="arch__num">1</div>
         <div class="arch__info">
           <h4>Tokens</h4>
-          <p>49 CSS custom properties. Colors, spacing, typography, shadows. The foundation everything else references.</p>
-          <code>--color-link · --gap · --border-radius · --box-shadow</code>
+          <p>51 CSS custom properties. Colors, spacing, typography, shadows. The foundation everything else references.</p>
+          <code>--color-link — --gap — --border-radius — --box-shadow</code>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ── A11y ── -->
+  <!-- -- A11y -- -->
   <section class="sec sec--alt">
     <div class="sec__label">Accessibility</div>
     <h2>Accessibility isn't a plugin. It's layer 2.</h2>
@@ -427,7 +403,7 @@ header('Strict-Transport-Security: max-age=31536000; includeSubDomains');
     </div>
   </section>
 
-  <!-- ── Quick Start ── -->
+  <!-- -- Quick Start -- -->
   <section class="sec" id="quickstart">
     <div class="sec__label">Get Started</div>
     <h2>Two lines. That's it.</h2>
@@ -502,7 +478,7 @@ header('Strict-Transport-Security: max-age=31536000; includeSubDomains');
     </div>
   </section>
 
-  <!-- ── CTA ── -->
+  <!-- -- CTA -- -->
   <section class="sec">
     <div class="cta">
       <h2>Ready to let tokens do the work?</h2>
@@ -521,7 +497,7 @@ header('Strict-Transport-Security: max-age=31536000; includeSubDomains');
       <div class="footer__grid">
         <!-- Brand -->
         <div class="footer__brand">
-          <div class="footer__logo"><img src="logo.png" alt="" width="24" style="vertical-align:middle;margin-right:6px;"><span>EXSA</span> CSS Framework</div>
+          <div class="footer__logo"><img src="logo.png" alt="EXSA" width="24" style="vertical-align:middle;margin-right:6px;"><span>EXSA</span> CSS Framework</div>
           <p class="footer__tagline">A framework where tokens do the work, not tools. CSS, the way it was meant to work.</p>
         </div>
         <!-- Pages -->
@@ -554,31 +530,7 @@ header('Strict-Transport-Security: max-age=31536000; includeSubDomains');
       </div>
     </div>
   </footer>
-<script src="components.js?v=13"></script>
-<script>
-/* ── Theme Switcher ── */
-(function(){
-  var link = document.getElementById('theme-stylesheet');
-  var dots = document.querySelectorAll('.theme-dot');
+<script src="components.js?v=14"></script>
 
-  function apply(name) {
-    link.href = 'themes/' + name + '.css';
-    localStorage.setItem('exsa-theme', name);
-    dots.forEach(function(d) {
-      d.classList.toggle('theme-dot--active', d.getAttribute('data-theme') === name);
-    });
-  }
-
-  dots.forEach(function(dot) {
-    dot.addEventListener('click', function() {
-      apply(this.getAttribute('data-theme'));
-    });
-  });
-
-  var saved = localStorage.getItem('exsa-theme');
-  if (saved) apply(saved);
-  else dots[0].classList.add('theme-dot--active');
-})();
-</script>
 </body>
 </html>

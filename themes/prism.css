@@ -1,4 +1,4 @@
-/* ============================================================
+﻿/* ============================================================
    LAYER 4 — THEME: PRISM
    Frosted glass in light mode, deep neon void in dark mode.
    Auto-switches via prefers-color-scheme. Add
@@ -16,10 +16,18 @@
   --color-secondary:        #7c3aed;
   --color-secondary-accent: #7c3aed0f;
   --color-accent:           #0d948810;
-  --color-shadow:           #bcc5de;
+  --color-overlay: rgba(0,0,0,.5); --color-shadow:           #bcc5de;
   --color-scrollbar:        #c4cde4;
   --color-table:            #0d9488;
+  --color-success:          #16a34a;
+  --color-success-hover:    #15803d;
+  --color-danger:           #dc2626;
+  --color-danger-hover:     #b91c1c;
+  --color-warning:          #d97706;
+  --color-warning-hover:    #b45309;
+  --color-border:           #bcc5de;
   --color-button-text:      var(--color-bg);
+  --color-button-text-inverse: #eeeeee;
   --border-radius:          16px;
 }
 
@@ -34,16 +42,32 @@
     --color-secondary:        #a855f7;
     --color-secondary-accent: #a855f718;
     --color-accent:           #22d3ee14;
-    --color-shadow:           #00000055;
+    --color-overlay: rgba(0,0,0,.5); --color-shadow:           #00000055;
     --color-scrollbar:        #1e293b;
     --color-table:            #22d3ee;
-  --color-button-text:      var(--color-bg);
+  --color-success:          #22c55e;
+  --color-success-hover:    #16a34a;
+  --color-danger:           #ef4444;
+  --color-danger-hover:     #dc2626;
+  --color-warning:          #f59e0b;
+  --color-warning-hover:    #d97706;
+  --color-border:           #1e293b;
+  --color-button-text:      #ffffff;
+  --color-button-text-inverse: #e4e1e1;
     --border-radius:          16px;
   }
 }
 
 /* ── Force mode override (add data-theme-mode to <html>) ── */
 :root[data-theme-mode="light"] {
+  --color-success:          #16a34a;
+  --color-success-hover:    #15803d;
+  --color-danger:           #dc2626;
+  --color-danger-hover:     #b91c1c;
+  --color-warning:          #d97706;
+  --color-warning-hover:    #b45309;
+  --color-border:           #bcc5de;
+
   --color-bg:               #f4f6fc;
   --color-bg-secondary:     #e4eaf5;
   --color-text:             #181b2e;
@@ -52,14 +76,23 @@
   --color-secondary:        #7c3aed;
   --color-secondary-accent: #7c3aed0f;
   --color-accent:           #0d948810;
-  --color-shadow:           #bcc5de;
+  --color-overlay: rgba(0,0,0,.5); --color-shadow:           #bcc5de;
   --color-scrollbar:        #c4cde4;
   --color-table:            #0d9488;
   --color-button-text:      var(--color-bg);
+  --color-button-text-inverse: #000000;
   --border-radius:          16px;
 }
 
 :root[data-theme-mode="dark"] {
+  --color-success:          #22c55e;
+  --color-success-hover:    #16a34a;
+  --color-danger:           #ef4444;
+  --color-danger-hover:     #dc2626;
+  --color-warning:          #f59e0b;
+  --color-warning-hover:    #d97706;
+  --color-border:           #1e293b;
+
   --color-bg:               #090b16;
   --color-bg-secondary:     #0d101d;
   --color-text:             #e2e8f0;
@@ -68,9 +101,10 @@
   --color-secondary:        #a855f7;
   --color-secondary-accent: #a855f718;
   --color-accent:           #22d3ee14;
-  --color-shadow:           #00000055;
+  --color-overlay: rgba(0,0,0,.5); --color-shadow:           #00000055;
   --color-scrollbar:        #1e293b;
   --color-table:            #22d3ee;
   --color-button-text:      var(--color-bg);
+  --color-button-text-inverse: #ffffff;
   --border-radius:          16px;
 }

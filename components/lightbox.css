@@ -1,6 +1,6 @@
-/* ============================================================
-   Component Library
-   :root tokens. Theme-ready.
+﻿/* ============================================================
+   ARIA: role=dialog + aria-modal + aria-label on .lightbox-gallery__overlay
+   Component: Lightbox
    ============================================================ */
 
 /* --- C15: LIGHTBOX GALLERY --- */
@@ -26,4 +26,4 @@
 .lightbox__prev,.lightbox__next{top:50%;transform:translateY(-50%);width:44px;height:44px;border-radius:50%;font-size:1rem}
 .lightbox__prev{inset-inline-start:16px}
 .lightbox__next{inset-inline-end:16px}
-.lightbox__counter{position:absolute;bottom:20px;left:50%;transform:translateX(-50%);color:rgba(255,255,255,.65);font-size:.78rem;font-family:'Consolas',monospace;pointer-events:none}
+.lightbox__counter{position:absolute;bottom:20px;left:50%;transform:translateX(-50%);color:rgba(255,255,255,.65);font-size:.78rem;font-family:var(--font-family-mono);pointer-events:none}

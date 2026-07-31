@@ -11,11 +11,23 @@ header('Strict-Transport-Security: max-age=31536000; includeSubDomains');
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline'; img-src 'self' https: data:; font-src 'self'">
   <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
-  <title>EXSA — Cheatsheet</title>
+  <title>EXSA Cheatsheet — All CSS Classes, Tokens &amp; Utilities</title>
+  <meta name="description" content="Quick reference for every EXSA CSS class, token, and utility. 51 tokens, 85+ layout utilities, 50 components at a glance.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://exsa.dev/cheatsheet.php">
+  <meta property="og:title" content="EXSA Cheatsheet — All CSS Classes, Tokens &amp; Utilities">
+  <meta property="og:description" content="Quick reference for every EXSA CSS class, token, and utility. 51 tokens, 85+ layout utilities, 50 components at a glance.">
+  <meta property="og:image" content="https://exsa.dev/logo.png">
+  <meta property="og:url" content="https://exsa.dev/cheatsheet.php">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="EXSA Cheatsheet — All CSS Classes, Tokens &amp; Utilities">
+  <meta name="twitter:description" content="Quick reference for every EXSA CSS class, token, and utility. 51 tokens, 85+ layout utilities, 50 components at a glance.">
+  <meta name="twitter:image" content="https://exsa.dev/logo.png">
   <link rel="icon" type="image/png" href="logo.png">
   <link rel="stylesheet" href="style.css?v=24">
   <link id="theme-stylesheet" rel="stylesheet" href="themes/breeze.css?v=3">
-  <link rel="stylesheet" href="components/topbar.css?v=15">
+  <?php include 'includes/head.php'; ?>
   <link rel="stylesheet" href="components/badge.css">
   <link rel="stylesheet" href="components/separator.css">
   <link rel="stylesheet" href="components/buttons.css?v=2">
@@ -34,13 +46,13 @@ header('Strict-Transport-Security: max-age=31536000; includeSubDomains');
     .ic-menu      { -webkit-mask-image: url('components/icons/menu.svg');        mask-image: url('components/icons/menu.svg'); }
   </style>
   <style>
-    /* ── Cheatsheet Layout ── */
+    /* -- Cheatsheet Layout -- */
     .cs-page { max-width: 1100px; margin: 0 auto; padding: 100px 20px 60px; }
     .cs-header { text-align: center; margin-bottom: 40px; }
     .cs-header h1 { font-size: 2rem; margin: 0 0 8px; }
     .cs-header p { color: var(--color-text-secondary); font-size: 0.95rem; max-width: 600px; margin: 0 auto; }
 
-    /* ── Layer Sections ── */
+    /* -- Layer Sections -- */
     .cs-layer { margin-bottom: 40px; }
     .cs-layer__head { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; padding-bottom: 8px; border-bottom: 2px solid var(--color-bg-secondary); }
     .cs-layer__num { width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.82rem; flex-shrink: 0; }
@@ -52,7 +64,7 @@ header('Strict-Transport-Security: max-age=31536000; includeSubDomains');
     .cs-layer__title { font-size: 1.2rem; font-weight: 700; margin: 0; }
     .cs-layer__badge { font-size: 0.7rem; padding: 2px 8px; border-radius: 99px; background: var(--color-bg-secondary); color: var(--color-text-secondary); }
 
-    /* ── Category Sub-Headings ── */
+    /* -- Category Sub-Headings -- */
     .cs-cat { font-size: 0.95rem; margin: 20px 0 10px; display: flex; align-items: center; gap: 8px; }
     .cs-cat::before { content: ""; width: 10px; height: 10px; border-radius: 2px; flex-shrink: 0; }
     .cs-cat--layout::before     { background: var(--color-link); }
@@ -63,7 +75,7 @@ header('Strict-Transport-Security: max-age=31536000; includeSubDomains');
     .cs-cat--actions::before    { background: var(--color-link); }
     .cs-cat--feedback::before   { background: var(--color-secondary); }
 
-    /* ── Token Grid ── */
+    /* -- Token Grid -- */
     .cs-token-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 6px; }
     .cs-token { font-size: 0.8rem; padding: 6px 10px; background: var(--color-bg); border: 1px solid var(--color-bg-secondary); border-radius: 4px; font-family: monospace; display: flex; align-items: center; gap: 8px; }
     .cs-token__name { color: var(--color-link); white-space: nowrap; }
@@ -72,7 +84,7 @@ header('Strict-Transport-Security: max-age=31536000; includeSubDomains');
     .cs-token--space .cs-token__swatch { display: none; }
     .cs-token--space .cs-token__name { color: var(--color-secondary); }
 
-    /* ── Class Table ── */
+    /* -- Class Table -- */
     .cs-table { width: 100%; border-collapse: collapse; font-size: 0.82rem; }
     .cs-table th { text-align: left; font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--color-text-secondary); padding: 8px 10px; border-bottom: 2px solid var(--color-bg-secondary); background: var(--color-bg); position: sticky; top: 56px; z-index: 1; }
     .cs-table td { padding: 6px 10px; border-bottom: 1px solid var(--color-bg-secondary); vertical-align: top; }
@@ -81,59 +93,22 @@ header('Strict-Transport-Security: max-age=31536000; includeSubDomains');
     .cs-table .hl-tag { color: var(--color-link); }
     .cs-table .hl-desc { color: var(--color-text-secondary); font-size: 0.75rem; }
 
-    /* ── Responsive ── */
+    /* -- Responsive -- */
     @media (max-width: 768px) {
       .cs-page { padding: 90px 12px 40px; }
       .cs-token-grid { grid-template-columns: 1fr; }
       .cs-table { font-size: 0.75rem; }
     }
-
-    /* ── Theme Switcher Dots ── */
-    .theme-dots{display:flex;align-items:center;gap:6px}
-    .theme-dot{width:16px;height:16px;border-radius:50%;border:2px solid transparent;cursor:pointer;transition:border-color .15s,transform .15s;padding:0}
-    .theme-dot:hover{transform:scale(1.2)}
-    .theme-dot--active{border-color:var(--color-link);box-shadow:0 0 0 2px color-mix(in srgb,var(--color-link)30%,transparent)}
-    .theme-dot--breeze{background:linear-gradient(135deg,#e8f0fe,#118bee)}
-    .theme-dot--night{background:linear-gradient(135deg,#1c1f2e,#60a5fa)}
-    .theme-dot--sepia{background:linear-gradient(135deg,#ede4cc,#b68b24)}
-    .theme-dot--forest{background:linear-gradient(135deg,#cce8d8,#2d6a4f)}
-    .theme-dot--coral{background:linear-gradient(135deg,#ffe0d8,#e8610b)}
   </style>
 </head>
 <body class="has-topbar">
 
 <a href="#main-content" class="skip-link">Skip to main content</a>
 
-<!-- ═══════════════════ TOPBAR ═══════════════════ -->
-<header class="topbar" id="demo-topbar">
-  <div class="topbar__left">
-    <a href="index.php" class="topbar__brand"><img src="logo.png" alt="EXSA" width="32" class="topbar__logo"> <span>EXSA</span></a>
-    <nav aria-label="Topbar navigation">
-      <ul class="topbar__nav">
-        <li><a href="index.php" class="topbar__link">Home</a></li>
-        <li><a href="docs.php" class="topbar__link">Docs</a></li>
-        <li><a href="showcase.php" class="topbar__link">Showcase</a></li>
-        <li><a href="cheatsheet.php" class="topbar__link">Cheatsheet</a></li>
-        <li><a href="generator.php" class="topbar__link">Generator</a></li>
-        <li><a href="icons.php" class="topbar__link">Icons</a></li>
-        <li><a href="source.php" class="topbar__link">Source</a></li>
-      </ul>
-    </nav>
-  </div>
-  <div class="topbar__right">
-    <div class="theme-dots" title="Switch theme">
-      <button class="theme-dot theme-dot--breeze theme-dot--active" data-theme="breeze" aria-label="Breeze theme"></button>
-      <button class="theme-dot theme-dot--night" data-theme="night" aria-label="Night theme"></button>
-      <button class="theme-dot theme-dot--sepia" data-theme="sepia" aria-label="Sepia theme"></button>
-      <button class="theme-dot theme-dot--forest" data-theme="forest" aria-label="Forest theme"></button>
-      <button class="theme-dot theme-dot--coral" data-theme="coral" aria-label="Coral theme"></button>
-    </div>
-    <a href="generator.php" class="topbar__btn topbar__btn--primary">Download</a>
-  </div>
-  <button class="topbar__toggle" aria-label="Toggle menu"><span class="ic ic-menu"></span></button>
-</header>
+<!-- ------------------- TOPBAR ------------------- -->
+<?php $activePage = 'cheatsheet.php'; $topbarClass = 'topbar--xl topbar--transparent'; include 'includes/topbar.php'; ?>
 
-<!-- ═══════════════════ MAIN ═══════════════════ -->
+<!-- ------------------- MAIN ------------------- -->
 <main class="cs-page" id="main-content">
 
   <div class="cs-header">
@@ -141,12 +116,12 @@ header('Strict-Transport-Security: max-age=31536000; includeSubDomains');
     <p>Complete reference for all tokens, utilities, element styles, and component classes in the 5-layer cascade.</p>
   </div>
 
-  <!-- ═══════════════ LAYER 1: TOKENS ═══════════════ -->
+  <!-- --------------- LAYER 1: TOKENS --------------- -->
   <section class="cs-layer" id="tokens">
     <div class="cs-layer__head">
       <div class="cs-layer__num">1</div>
       <h2 class="cs-layer__title">Tokens</h2>
-      <span class="cs-layer__badge">37 custom properties</span>
+      <span class="cs-layer__badge">51 custom properties</span>
     </div>
     <p style="font-size:0.85rem;color:var(--color-text-secondary);margin:0 0 12px;">Defined in <code>@layer exsa.tokens</code>. All components and element styles reference these. Override in your own stylesheet or swap the theme file. <a href="tokens.json" style="font-weight:600;">Export as JSON</a> for Figma, JavaScript, or design tools.</p>
 
@@ -200,7 +175,7 @@ header('Strict-Transport-Security: max-age=31536000; includeSubDomains');
     </div>
   </section>
 
-  <!-- ═══════════════ LAYER 2: RESET ═══════════════ -->
+  <!-- --------------- LAYER 2: RESET --------------- -->
   <section class="cs-layer" id="reset">
     <div class="cs-layer__head">
       <div class="cs-layer__num">2</div>
@@ -228,7 +203,7 @@ header('Strict-Transport-Security: max-age=31536000; includeSubDomains');
     </table>
   </section>
 
-  <!-- ═══════════════ LAYER 3: LAYOUT ═══════════════ -->
+  <!-- --------------- LAYER 3: LAYOUT --------------- -->
   <section class="cs-layer" id="layout">
     <div class="cs-layer__head">
       <div class="cs-layer__num">3</div>
@@ -281,9 +256,8 @@ header('Strict-Transport-Security: max-age=31536000; includeSubDomains');
       <thead><tr><th style="width:35%;">Class</th><th style="width:65%;">Effect</th></tr></thead>
       <tbody>
         <tr><td><code>.grid</code></td><td class="hl-desc">display: grid</td></tr>
-        <tr><td><code>.grid-cols-1</code> … <code>.grid-cols-6</code></td><td class="hl-desc">1 to 6 equal columns</td></tr>
+        <tr><td><code>.grid-cols-1</code> — <code>.grid-cols-6</code></td><td class="hl-desc">1 to 6 equal columns</td></tr>
         <tr><td><code>.grid-auto-fit</code></td><td class="hl-desc">auto-fit, minmax(200px, 1fr)</td></tr>
-        <tr><td><code>.grid-auto-fill</code></td><td class="hl-desc">auto-fill, minmax(200px, 1fr)</td></tr>
       </tbody>
     </table>
 
@@ -296,6 +270,7 @@ header('Strict-Transport-Security: max-age=31536000; includeSubDomains');
         <tr><td><code>.col-3</code></td><td class="hl-desc">calc(33.333% - var(--gap))</td></tr>
         <tr><td><code>.col-4</code></td><td class="hl-desc">calc(25% - var(--gap))</td></tr>
         <tr><td><code>.col-5</code></td><td class="hl-desc">calc(20% - var(--gap-sm))</td></tr>
+        <tr><td><code>.col-6</code></td><td class="hl-desc">calc(16.667% - var(--gap-sm))</td></tr>
       </tbody>
     </table>
 
@@ -304,13 +279,14 @@ header('Strict-Transport-Security: max-age=31536000; includeSubDomains');
       <thead><tr><th style="width:35%;">Breakpoint</th><th style="width:65%;">Available Classes</th></tr></thead>
       <tbody>
         <tr><td><code>sm:</code> (max 575px)</td><td class="hl-desc">.sm\:flex-col, .sm\:flex-wrap, .sm\:grid-cols-1; cols stack to 100%</td></tr>
-        <tr><td><code>md:</code> (min 768px)</td><td class="hl-desc">.md\:col-2/3/4, .md\:grid-cols-2/3/4</td></tr>
-        <tr><td><code>lg:</code> (min 1024px)</td><td class="hl-desc">.lg\:col-2/3/4/5, .lg\:grid-cols-3/4/5/6</td></tr>
+        <tr><td><code>md:</code> (min 768px)</td><td class="hl-desc">.md\:col-2/3/4/5/6, .md\:grid-cols-2/3/4/5/6</td></tr>
+        <tr><td><code>lg:</code> (min 1024px)</td><td class="hl-desc">.lg\:col-2/3/4/5/6, .lg\:grid-cols-3/4/5/6</td></tr>
+        <tr><td><code>xl:</code> (min 1280px)</td><td class="hl-desc">.xl\:col-2/3/4/5/6, .xl\:grid-cols-3/4/5/6</td></tr>
       </tbody>
     </table>
   </section>
 
-  <!-- ═══════════════ LAYER 4: ELEMENTS ═══════════════ -->
+  <!-- --------------- LAYER 4: ELEMENTS --------------- -->
   <section class="cs-layer" id="elements">
     <div class="cs-layer__head">
       <div class="cs-layer__num">4</div>
@@ -349,12 +325,12 @@ header('Strict-Transport-Security: max-age=31536000; includeSubDomains');
     </table>
   </section>
 
-  <!-- ═══════════════ LAYER 5: COMPONENTS ═══════════════ -->
+  <!-- --------------- LAYER 5: COMPONENTS --------------- -->
   <section class="cs-layer" id="components">
     <div class="cs-layer__head">
       <div class="cs-layer__num">5</div>
       <h2 class="cs-layer__title">Components</h2>
-      <span class="cs-layer__badge">50 components · 7 categories</span>
+      <span class="cs-layer__badge">50 components — 7 categories</span>
     </div>
     <p style="font-size:0.85rem;color:var(--color-text-secondary);margin:0 0 12px;">Each component is a single CSS file. Link only what you need. All use <code>:where()</code> for zero specificity.</p>
 
@@ -420,8 +396,8 @@ header('Strict-Transport-Security: max-age=31536000; includeSubDomains');
     <table class="cs-table">
       <thead><tr><th style="width:18%;">Component</th><th style="width:25%;">Core Class</th><th style="width:32%;">Key Modifiers</th><th style="width:25%;">Tokens</th></tr></thead>
       <tbody>
-        <tr><td>Donut Chart</td><td><code>.donut</code></td><td class="hl-desc">.donut__slice--1/2/3/4, --slice1–4 vars, .donut-legend</td><td class="hl-desc">--color-link, --color-secondary</td></tr>
-        <tr><td>Bar Chart</td><td><code>.bar-row</code></td><td class="hl-desc">.bar-row__fill, --bar-w (0–100%), background inline</td><td class="hl-desc">--color-link, --color-bg-secondary</td></tr>
+        <tr><td>Donut Chart</td><td><code>.donut</code></td><td class="hl-desc">.donut__slice--1/2/3/4, --slice1—4 vars, .donut-legend</td><td class="hl-desc">--color-link, --color-secondary</td></tr>
+        <tr><td>Bar Chart</td><td><code>.bar-row</code></td><td class="hl-desc">.bar-row__fill, --bar-w (0—100%), background inline</td><td class="hl-desc">--color-link, --color-bg-secondary</td></tr>
         <tr><td>Progress Bars</td><td><code>.progress-item</code></td><td class="hl-desc">.progress-item__fill, --fill-pct, --fill-clr</td><td class="hl-desc">--color-link, --color-secondary</td></tr>
         <tr><td>Range Slider</td><td><code>.range</code></td><td class="hl-desc">.range--sm, live value display</td><td class="hl-desc">--color-link, --color-bg-secondary</td></tr>
       </tbody>
@@ -490,7 +466,7 @@ header('Strict-Transport-Security: max-age=31536000; includeSubDomains');
   <div class="footer__inner">
     <div class="footer__grid">
       <div class="footer__brand">
-        <div class="footer__logo"><img src="logo.png" alt="" width="24" style="vertical-align:middle;margin-right:6px;"><span>EXSA</span> CSS Framework</div>
+        <div class="footer__logo"><img src="logo.png" alt="EXSA" width="24" style="vertical-align:middle;margin-right:6px;"><span>EXSA</span> CSS Framework</div>
         <p class="footer__tagline">A framework where tokens do the work, not tools. CSS, the way it was meant to work.</p>
       </div>
       <div class="footer__links">
@@ -525,15 +501,7 @@ header('Strict-Transport-Security: max-age=31536000; includeSubDomains');
 
 <!-- No JS needed — this is a read-only reference page -->
 
-<script src="components.js?v=13"></script>
-<script>
-(function(){
-  var l=document.getElementById('theme-stylesheet');
-  var d=document.querySelectorAll('.theme-dot');
-  function a(n){l.href='themes/'+n+'.css';localStorage.setItem('exsa-theme',n);d.forEach(function(x){x.classList.toggle('theme-dot--active',x.getAttribute('data-theme')===n)})}
-  d.forEach(function(x){x.addEventListener('click',function(){a(this.getAttribute('data-theme'))})});
-  var s=localStorage.getItem('exsa-theme');if(s)a(s);
-})();
-</script>
+<script src="components.js?v=14"></script>
+
 </body>
 </html>

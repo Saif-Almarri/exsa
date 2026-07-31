@@ -11,10 +11,23 @@ header('Strict-Transport-Security: max-age=31536000; includeSubDomains');
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline'; img-src 'self' https: data:; font-src 'self'">
   <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
-  <title>EXSA — Component Library</title>
+  <title>EXSA Component Library — 50 UI Components, 20 Themes</title>
+  <meta name="description" content="Browse 50 EXSA components with live demos — buttons, cards, modals, tabs, toasts, and more. See Guarded Classless™ CSS in action.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://exsa.dev/showcase.php">
+  <meta property="og:title" content="EXSA Component Library — 50 UI Components, 20 Themes">
+  <meta property="og:description" content="Browse 50 EXSA components with live demos — buttons, cards, modals, tabs, toasts, and more. See Guarded Classless™ CSS in action.">
+  <meta property="og:image" content="https://exsa.dev/logo.png">
+  <meta property="og:url" content="https://exsa.dev/showcase.php">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="EXSA Component Library — 50 UI Components, 20 Themes">
+  <meta name="twitter:description" content="Browse 50 EXSA components with live demos — buttons, cards, modals, tabs, toasts, and more. See Guarded Classless™ CSS in action.">
+  <meta name="twitter:image" content="https://exsa.dev/logo.png">
   <link rel="icon" type="image/png" href="logo.png">
   <link rel="stylesheet" href="style.css?v=24">
   <link id="theme-stylesheet" rel="stylesheet" href="themes/breeze.css?v=3">
+  <?php include 'includes/head.php'; ?>
   <link rel="stylesheet" href="components/dashboard.css">
   <link rel="stylesheet" href="components/slideshow.css">
   <link rel="stylesheet" href="components/progress.css">
@@ -55,7 +68,6 @@ header('Strict-Transport-Security: max-age=31536000; includeSubDomains');
   <link rel="stylesheet" href="components/stepper.css">
   <link rel="stylesheet" href="components/buttons.css?v=2">
   <link rel="stylesheet" href="components/resizer.css">
-  <link rel="stylesheet" href="components/topbar.css?v=15">
   <link rel="stylesheet" href="components/footer.css">
   <link rel="stylesheet" href="components/form-validation.css?v=3">
   <link rel="stylesheet" href="components/select.css">
@@ -65,19 +77,7 @@ header('Strict-Transport-Security: max-age=31536000; includeSubDomains');
   <link rel="stylesheet" href="components/context-menu.css">
   <link rel="stylesheet" href="components/code-block.css">
 
-  <link rel="stylesheet" href="demo.css?v=5">
-  <style>
-    /* ── Theme Switcher Dots ── */
-    .theme-dots{display:flex;align-items:center;gap:6px}
-    .theme-dot{width:16px;height:16px;border-radius:50%;border:2px solid transparent;cursor:pointer;transition:border-color .15s,transform .15s;padding:0}
-    .theme-dot:hover{transform:scale(1.2)}
-    .theme-dot--active{border-color:var(--color-link);box-shadow:0 0 0 2px color-mix(in srgb,var(--color-link)30%,transparent)}
-    .theme-dot--breeze{background:linear-gradient(135deg,#e8f0fe,#118bee)}
-    .theme-dot--night{background:linear-gradient(135deg,#1c1f2e,#60a5fa)}
-    .theme-dot--sepia{background:linear-gradient(135deg,#ede4cc,#b68b24)}
-    .theme-dot--forest{background:linear-gradient(135deg,#cce8d8,#2d6a4f)}
-    .theme-dot--coral{background:linear-gradient(135deg,#ffe0d8,#e8610b)}
-  </style>
+  <link rel="stylesheet" href="demo.css?v=6">
 </head>
 <body class="exsa has-topbar">
 
@@ -86,60 +86,38 @@ header('Strict-Transport-Security: max-age=31536000; includeSubDomains');
 <!-- ════════════════════════════════════════
      TOPBAR
 ═══════════════════════════════════════════ -->
-<header class="topbar" id="demo-topbar">
-  <div class="topbar__left">
-    <a href="index.php" class="topbar__brand"><img src="logo.png" alt="EXSA" width="32" class="topbar__logo"> <span>EXSA</span></a>
-    <nav aria-label="Topbar navigation">
-      <ul class="topbar__nav">
-        <li><a href="index.php" class="topbar__link">Home</a></li>
-        <li><a href="docs.php" class="topbar__link">Docs</a></li>
-        <li><a href="showcase.php" class="topbar__link">Showcase</a></li>
-        <li><a href="cheatsheet.php" class="topbar__link">Cheatsheet</a></li>
-        <li><a href="generator.php" class="topbar__link">Generator</a></li>
-        <li><a href="icons.php" class="topbar__link">Icons</a></li>
-        <li><a href="source.php" class="topbar__link">Source</a></li>
-      </ul>
-    </nav>
-  </div>
-  <div class="topbar__right">
-    <div class="theme-dots" title="Switch theme">
-      <button class="theme-dot theme-dot--breeze theme-dot--active" data-theme="breeze" aria-label="Breeze theme"></button>
-      <button class="theme-dot theme-dot--night" data-theme="night" aria-label="Night theme"></button>
-      <button class="theme-dot theme-dot--sepia" data-theme="sepia" aria-label="Sepia theme"></button>
-      <button class="theme-dot theme-dot--forest" data-theme="forest" aria-label="Forest theme"></button>
-      <button class="theme-dot theme-dot--coral" data-theme="coral" aria-label="Coral theme"></button>
-    </div>
-    <a href="generator.php" class="topbar__btn topbar__btn--primary">Download</a>
-  </div>
-  <button class="topbar__toggle" aria-label="Toggle menu"><span class="ic ic-menu"></span></button>
-</header>
+<?php $activePage = 'showcase.php'; $topbarClass = 'topbar--xl topbar--transparent'; include 'includes/topbar.php'; ?>
 
 <!-- ════════════════════════════════════════
      SIDEBAR
 ═══════════════════════════════════════════ -->
 <aside class="doc-sidebar">
-  <div class="doc-sidebar__head">
+  <div class="doc-sidebar__head" style="padding-top:60px">
+    <div class="doc-sidebar__logo">🧪 Theme Tester</div>
     <div class="doc-sidebar__theme">
-      <select id="theme-select" aria-label="Select theme">
-        <option value="breeze">Breeze</option>
-        <option value="night">Night</option>
-        <option value="sepia">Sepia</option>
-        <option value="forest">Forest</option>
-        <option value="coral">Coral</option>
-        <option value="steel">Steel</option>
-        <option value="ledger">Ledger</option>
-        <option value="clinic">Clinic</option>
-        <option value="prism">Prism</option>
-        <option value="mono">Mono</option>
-        <option value="console">Console</option>
-        <option value="nova">Nova</option>
-        <option value="volt">Volt</option>
-        <option value="ember">Ember</option>
-        <option value="abyss">Abyss</option>
-        <option value="shadow">Shadow</option>
-        <option value="ink">Ink</option>
+      <select id="theme-select" style="margin-bottom:4px;" aria-label="Select theme">
+        <option value="breeze" selected>🌬️ Breeze</option>
+        <option value="abyss">🌊 Abyss</option>
+        <option value="clinic">🏥 Clinic</option>
+        <option value="console">🖥️ Console</option>
+        <option value="coral">🪸 Coral</option>
+        <option value="ember">🔥 Ember</option>
+        <option value="forest">🌲 Forest</option>
+        <option value="ink">🖋️ Ink</option>
+        <option value="ledger">📒 Ledger</option>
+        <option value="mono">⬛ Mono</option>
+        <option value="night">🌙 Night</option>
+        <option value="nova">💫 Nova</option>
+        <option value="prism">🌈 Prism</option>
+        <option value="sepia">📜 Sepia</option>
+        <option value="shadow">👤 Shadow</option>
+        <option value="sojourn">🧭 Sojourn</option>
+        <option value="steel">⚙️ Steel</option>
+        <option value="travei">✈️ Travei</option>
+        <option value="tropic">🌴 Tropic</option>
+        <option value="volt">⚡ Volt</option>
       </select>
-      <select id="mode-select" style="margin-top:6px;" aria-label="Select color mode">
+      <select id="mode-select" style="margin-top:4px;" aria-label="Select color mode">
         <option value="">Auto mode</option>
         <option value="light">Light mode</option>
         <option value="dark">Dark mode</option>
@@ -229,7 +207,7 @@ header('Strict-Transport-Security: max-age=31536000; includeSubDomains');
 ═══════════════════════════════════════════ -->
 <main class="doc-main" id="main-content">
 
-<h1 class="sr-only">EXSA Component Library — 50 Components, 17 Themes</h1>
+<h1 class="sr-only">EXSA Component Library — 50 Components, 20 Themes</h1>
 
 <!-- ── ACCORDION ── -->
   <section class="doc-section" id="accordion">
@@ -243,7 +221,7 @@ header('Strict-Transport-Security: max-age=31536000; includeSubDomains');
           <div class="accordion__item">
             <input type="checkbox" class="accordion__trigger" id="acc1" checked>
             <label class="accordion__label" for="acc1" aria-expanded="true">What design tokens does this use?</label>
-            <div class="accordion__panel" id="acc1-panel" role="region" aria-labelledby="acc1-label"><div class="accordion__panel-inner">12 CSS custom properties from the active theme file drive all colors. <code>--color-link</code> for the active label, <code>--color-bg-secondary</code> for hover states and borders, <code>--border-radius</code> for the container corners.</div></div>
+            <div class="accordion__panel" id="acc1-panel" role="region" aria-labelledby="acc1-label"><div class="accordion__panel-inner">51 CSS custom properties from the active theme file drive all colors. <code>--color-link</code> for the active label, <code>--color-bg-secondary</code> for hover states and borders, <code>--border-radius</code> for the container corners.</div></div>
           </div>
           <div class="accordion__item">
             <input type="checkbox" class="accordion__trigger" id="acc2">
@@ -308,7 +286,7 @@ header('Strict-Transport-Security: max-age=31536000; includeSubDomains');
             <div class="footer__grid">
               <div class="footer__brand">
                 <div class="footer__logo"><img src="logo.png" alt="EXSA" width="22" class="topbar__logo"> <span>CSS</span> Engine</div>
-                <p class="footer__tagline">A 5-layer CSS framework with token cascade, 17 themes, and a zero-build generator.</p>
+                <p class="footer__tagline">A 5-layer CSS framework with token cascade, 20 themes, and a zero-build generator.</p>
               </div>
               <div class="footer__links">
                 <div class="footer__links-title">Product</div>
@@ -691,7 +669,7 @@ header('Strict-Transport-Security: max-age=31536000; includeSubDomains');
             <div class="timeline__content">
               <div class="timeline__time">Jan 2026</div>
               <h3 class="timeline__title">Project Kickoff</h3>
-              <p class="timeline__desc">Initial architecture defined. Token system designed with 49 CSS custom properties powering all 5 layers.</p>
+              <p class="timeline__desc">Initial architecture defined. Token system designed with 51 CSS custom properties powering all 5 layers.</p>
             </div>
           </div>
           <div class="timeline__item">
@@ -865,7 +843,7 @@ header('Strict-Transport-Security: max-age=31536000; includeSubDomains');
             <img class="card__image" src="https://picsum.photos/seed/card1/600/338" alt="Design tokens" loading="lazy">
             <div class="card__body">
               <h4 class="card__title">Design Tokens</h4>
-              <p class="card__text">12 CSS custom properties drive every component. Change one theme file to restyle the entire library.</p>
+              <p class="card__text">51 CSS custom properties drive every component. Change one theme file to restyle the entire library.</p>
             </div>
             <div class="card__footer">
               <span class="badge badge--primary">v2.4</span>
@@ -1110,7 +1088,7 @@ header('Strict-Transport-Security: max-age=31536000; includeSubDomains');
   <span class="hl-tag">&lt;img</span> <span class="hl-attr">class</span>=<span class="hl-val">"card__image"</span> <span class="hl-attr">src</span>=<span class="hl-val">"cover.jpg"</span> <span class="hl-attr">alt</span>=<span class="hl-val">""</span><span class="hl-tag">&gt;</span>
   <span class="hl-tag">&lt;div</span> <span class="hl-attr">class</span>=<span class="hl-val">"card__body"</span><span class="hl-tag">&gt;</span>
     <span class="hl-tag">&lt;h4</span> <span class="hl-attr">class</span>=<span class="hl-val">"card__title"</span><span class="hl-tag">&gt;</span>Design Tokens<span class="hl-tag">&lt;/h4&gt;</span>
-    <span class="hl-tag">&lt;p</span> <span class="hl-attr">class</span>=<span class="hl-val">"card__text"</span><span class="hl-tag">&gt;</span>12 CSS custom properties drive every component.<span class="hl-tag">&lt;/p&gt;</span>
+    <span class="hl-tag">&lt;p</span> <span class="hl-attr">class</span>=<span class="hl-val">"card__text"</span><span class="hl-tag">&gt;</span>51 CSS custom properties drive every component.<span class="hl-tag">&lt;/p&gt;</span>
   <span class="hl-tag">&lt;/div&gt;</span>
   <span class="hl-tag">&lt;div</span> <span class="hl-attr">class</span>=<span class="hl-val">"card__footer"</span><span class="hl-tag">&gt;</span>
     <span class="hl-tag">&lt;span</span> <span class="hl-attr">class</span>=<span class="hl-val">"badge badge--primary"</span><span class="hl-tag">&gt;</span>v2.4<span class="hl-tag">&lt;/span&gt;</span>
@@ -1967,10 +1945,10 @@ header('Strict-Transport-Security: max-age=31536000; includeSubDomains');
             <p style="font-size:0.88rem;">Tab components use <code>--color-link</code> for the active indicator line. The border and text colors follow the active theme from the CSS custom properties token file.</p>
           </div>
           <div class="tabs__panel" id="panel-dt2">
-            <p style="font-size:0.88rem;">12 CSS custom properties drive every visual aspect. Change one theme file and all components — tabs, toggles, spinners, everything — update simultaneously.</p>
+            <p style="font-size:0.88rem;">51 CSS custom properties drive every visual aspect. Change one theme file and all components — tabs, toggles, spinners, everything — update simultaneously.</p>
           </div>
           <div class="tabs__panel" id="panel-dt3">
-            <p style="font-size:0.88rem;">Add <code>components.css</code> alongside <code>style.css</code>. Pick a theme. Zero configuration. All 12 components ready to use.</p>
+            <p style="font-size:0.88rem;">Add <code>components.css</code> alongside <code>style.css</code>. Pick a theme. Zero configuration. All 50 components ready to use.</p>
           </div>
         </div>
       </div>
@@ -2333,7 +2311,7 @@ header('Strict-Transport-Security: max-age=31536000; includeSubDomains');
   <div class="footer__inner">
     <div class="footer__grid">
       <div class="footer__brand">
-        <div class="footer__logo"><img src="logo.png" alt="" width="24" style="vertical-align:middle;margin-right:6px;"><span>EXSA</span> CSS Framework</div>
+        <div class="footer__logo"><img src="logo.png" alt="EXSA" width="24" style="vertical-align:middle;margin-right:6px;"><span>EXSA</span> CSS Framework</div>
         <p class="footer__tagline">A framework where tokens do the work, not tools. CSS, the way it was meant to work.</p>
       </div>
       <div class="footer__links">
@@ -2366,21 +2344,26 @@ header('Strict-Transport-Security: max-age=31536000; includeSubDomains');
 <!-- ════════════════════════════════════════
      SCRIPTS
 ═══════════════════════════════════════════ -->
-<script src="components.js?v=13"></script>
+<script src="components.js?v=14"></script>
 <script>
-/* ── Dark/Light mode toggle for showcase ── */
+/* ── Theme switcher for showcase (demo only — no persistence) ── */
+(function(){
+  const sel=document.getElementById('theme-select');
+  const link=document.getElementById('theme-stylesheet');
+  sel.addEventListener('change',function(){
+    link.href='themes/'+this.value+'.css?v=3';
+  });
+})();
+
+/* ── Dark/Light mode toggle for showcase (demo only — no persistence) ── */
 (function(){
   const sel=document.getElementById('mode-select');
   const html=document.documentElement;
 
-  // Restore saved mode
-  const saved=localStorage.getItem('css-mode');
-  if(saved){ sel.value=saved; html.setAttribute('data-theme-mode',saved); }
-
   sel.addEventListener('change',function(){
     const v=this.value;
-    if(v){ html.setAttribute('data-theme-mode',v); localStorage.setItem('css-mode',v); }
-    else { html.removeAttribute('data-theme-mode'); localStorage.removeItem('css-mode'); }
+    if(v){ html.setAttribute('data-theme-mode',v); }
+    else { html.removeAttribute('data-theme-mode'); }
   });
 })();
 
@@ -2435,15 +2418,6 @@ header('Strict-Transport-Security: max-age=31536000; includeSubDomains');
   });
 })();
 </script>
-<script>
-/* ── Theme Switcher ── */
-(function(){
-  var l=document.getElementById('theme-stylesheet');
-  var d=document.querySelectorAll('.theme-dot');
-  function a(n){l.href='themes/'+n+'.css';localStorage.setItem('exsa-theme',n);d.forEach(function(x){x.classList.toggle('theme-dot--active',x.getAttribute('data-theme')===n)})}
-  d.forEach(function(x){x.addEventListener('click',function(){a(this.getAttribute('data-theme'))})});
-  var s=localStorage.getItem('exsa-theme');if(s)a(s);
-})();
-</script>
+
 </body>
 </html>

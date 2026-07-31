@@ -1,6 +1,6 @@
-/* ============================================================
-   Component Library
-   :root tokens. Theme-ready.
+﻿/* ============================================================
+   ARIA: role=dialog + aria-modal on .video-modal, aria-label on close
+   Component: Video Gallery
    ============================================================ */
 
 /* --- C18: VIDEO GALLERY --- */
@@ -13,7 +13,7 @@
 .video-gallery__play{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:54px;height:54px;border-radius:50%;background:rgba(0,0,0,.6);border:2px solid rgba(255,255,255,.85);display:flex;align-items:center;justify-content:center;transition:background .2s,transform .2s;pointer-events:none}
 .video-gallery__play::after{content:'';display:block;width:0;height:0;border-style:solid;border-width:9px 0 9px 16px;border-color:transparent transparent transparent #fff;margin-left:3px}
 .video-gallery__card:hover .video-gallery__play{background:var(--color-link);border-color:var(--color-link);transform:translate(-50%,-50%) scale(1.12)}
-.video-gallery__duration{position:absolute;bottom:10px;inset-inline-end:10px;background:rgba(0,0,0,.72);color:#fff;font-size:.68rem;font-weight:600;padding:3px 8px;border-radius:4px;font-family:'Consolas',monospace;letter-spacing:.02em;pointer-events:none}
+.video-gallery__duration{position:absolute;bottom:10px;inset-inline-end:10px;background:rgba(0,0,0,.72);color:#fff;font-size:.68rem;font-weight:600;padding:3px 8px;border-radius:4px;font-family:var(--font-family-mono);letter-spacing:.02em;pointer-events:none}
 .video-gallery__info{padding:14px 16px}
 .video-gallery__title{font-size:.88rem;font-weight:600;color:var(--color-text);margin:0;line-height:1.35}
 .video-gallery__meta{font-size:.72rem;color:var(--color-text-secondary);margin-top:4px}

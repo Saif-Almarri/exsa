@@ -1,4 +1,5 @@
-/* ============================================================
+﻿/* ============================================================
+   ARIA: aria-expanded on submenu toggles, role=navigation on .sidebar
    Sidebar Navigation
    Vertical nav with icons, sub-menus, active states.
    Token-driven — uses EXSA tokens, not hardcoded colors.
@@ -114,7 +115,7 @@
 .sidebar__badge {
   margin-inline-start: auto;
   background: var(--color-link);
-  color: #fff;
+  color: var(--color-button-text, #fff);
   font-size: 0.7rem;
   font-weight: 700;
   padding: 2px 7px;

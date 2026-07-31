@@ -1,10 +1,10 @@
-/* ============================================================
-   Component Library
-   :root tokens. Theme-ready.
+﻿/* ============================================================
+   ARIA: role=dialog + aria-modal + aria-labelledby on .modal
+   Component: Modal
    ============================================================ */
 
 /* --- C3: MODAL WINDOW --- */
-.modal{position:fixed;inset:0;z-index:1000;background:rgba(0,0,0,.55);display:flex;align-items:center;justify-content:center;opacity:0;visibility:hidden;transition:opacity .22s,visibility .22s}
+.modal{position:fixed;inset:0;z-index:1000;background:var(--color-overlay);display:flex;align-items:center;justify-content:center;opacity:0;visibility:hidden;transition:opacity .22s,visibility .22s}
 .modal--open{opacity:1;visibility:visible}
 .modal__dialog{position:relative;width:90%;max-width:520px;max-height:85vh;background:var(--color-bg);border-radius:var(--border-radius);box-shadow:var(--box-shadow);transform:translateY(16px);transition:transform .28s cubic-bezier(.4,0,.2,1);overflow:hidden;display:flex;flex-direction:column}
 .modal--open .modal__dialog{transform:translateY(0)}
@@ -16,7 +16,7 @@
 .modal__footer{display:flex;justify-content:flex-end;gap:10px;padding:14px 20px;border-top:1px solid var(--color-bg-secondary);flex-shrink:0}
 .modal__btn{padding:8px 18px;border-radius:var(--border-radius);font-size:.82rem;font-weight:600;cursor:pointer;border:1px solid var(--color-bg-secondary);background:var(--color-bg);color:var(--color-text);transition:background .15s,color .15s,border-color .15s;font-family:inherit;margin:0}
 .modal__btn:hover{background:var(--color-bg-secondary)}
-.modal__btn--primary{background:var(--color-link);color:#fff;border-color:var(--color-link)}
+.modal__btn--primary{background:var(--color-link);color:var(--color-button-text);border-color:var(--color-link)}
 .modal__btn--primary:hover{opacity:.88;filter:none}
-.modal__btn--danger{color:#d32f2f;border-color:#d32f2f}
-.modal__btn--danger:hover{background:#d32f2f;color:#fff;filter:none}
+.modal__btn--danger{color:var(--color-danger);border-color:var(--color-danger)}
+.modal__btn--danger:hover{background:var(--color-danger);color:var(--color-button-text);filter:none}

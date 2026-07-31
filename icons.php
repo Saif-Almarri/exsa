@@ -11,11 +11,23 @@ header('Strict-Transport-Security: max-age=31536000; includeSubDomains');
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline'; img-src 'self' https: data:; font-src 'self'">
   <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
-  <title>EXSA — Icons Library</title>
+  <title>EXSA Icons Library — 101 SVG Mask Icons</title>
+  <meta name="description" content="Browse 101 stroke-based SVG icons for EXSA. Searchable gallery with click-to-copy class names. All icons use currentColor — theme-agnostic.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://exsa.dev/icons.php">
+  <meta property="og:title" content="EXSA Icons Library — 101 SVG Mask Icons">
+  <meta property="og:description" content="Browse 101 stroke-based SVG icons for EXSA. Searchable gallery with click-to-copy class names. All icons use currentColor — theme-agnostic.">
+  <meta property="og:image" content="https://exsa.dev/logo.png">
+  <meta property="og:url" content="https://exsa.dev/icons.php">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="EXSA Icons Library — 101 SVG Mask Icons">
+  <meta name="twitter:description" content="Browse 101 stroke-based SVG icons for EXSA. Searchable gallery with click-to-copy class names. All icons use currentColor — theme-agnostic.">
+  <meta name="twitter:image" content="https://exsa.dev/logo.png">
   <link rel="icon" type="image/png" href="logo.png">
   <link rel="stylesheet" href="style.css?v=24">
   <link id="theme-stylesheet" rel="stylesheet" href="themes/breeze.css?v=3">
-  <link rel="stylesheet" href="components/topbar.css?v=15">
+  <?php include 'includes/head.php'; ?>
   <link rel="stylesheet" href="components/buttons.css?v=2">
   <link rel="stylesheet" href="components/footer.css">
   <style>
@@ -24,20 +36,20 @@ header('Strict-Transport-Security: max-age=31536000; includeSubDomains');
     .ic-chevdown{-webkit-mask-image:url('components/icons/chevron-down.svg');mask-image:url('components/icons/chevron-down.svg')}
     .ic-menu{-webkit-mask-image:url('components/icons/menu.svg');mask-image:url('components/icons/menu.svg')}
 
-    /* ── Page Layout ── */
+    /* -- Page Layout -- */
     .il-page{max-width:1100px;margin:0 auto;padding:100px 20px 60px}
 
-    /* ── Header ── */
+    /* -- Header -- */
     .il-header{text-align:center;margin-bottom:36px}
     .il-header h1{font-size:2rem;margin:0 0 8px}
     .il-header p{color:var(--color-text-secondary);font-size:.95rem;max-width:600px;margin:0 auto}
     .il-header code{font-size:.82rem;background:var(--color-accent);padding:1px 6px;border-radius:3px}
 
-    /* ── Category ── */
+    /* -- Category -- */
     .il-cat{margin-bottom:32px}
     .il-cat__title{font-size:.82rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--color-text-secondary);margin:0 0 12px;padding-bottom:6px;border-bottom:1px solid var(--color-bg-secondary)}
 
-    /* ── Icon Grid ── */
+    /* -- Icon Grid -- */
     .il-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:4px}
     .il-card{display:flex;align-items:center;gap:10px;padding:10px 14px;border-radius:var(--border-radius);border:1px solid transparent;cursor:pointer;transition:border-color .15s,background .15s;font-size:.8rem;font-family:monospace;color:var(--color-text)}
     .il-card:hover{border-color:var(--color-bg-secondary);background:var(--color-bg)}
@@ -46,60 +58,23 @@ header('Strict-Transport-Security: max-age=31536000; includeSubDomains');
     .il-card__name{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
     .il-card__name small{display:block;font-size:.68rem;color:var(--color-text-secondary);font-family:inherit}
 
-    /* ── Copied feedback ── */
+    /* -- Copied feedback -- */
     .il-card--copied{border-color:var(--color-link)!important;background:color-mix(in srgb,var(--color-link)8%,transparent)}
 
     @media(max-width:600px){
       .il-page{padding:90px 12px 40px}
       .il-grid{grid-template-columns:1fr 1fr}
     }
-
-    /* ── Theme Switcher Dots ── */
-    .theme-dots{display:flex;align-items:center;gap:6px}
-    .theme-dot{width:16px;height:16px;border-radius:50%;border:2px solid transparent;cursor:pointer;transition:border-color .15s,transform .15s;padding:0}
-    .theme-dot:hover{transform:scale(1.2)}
-    .theme-dot--active{border-color:var(--color-link);box-shadow:0 0 0 2px color-mix(in srgb,var(--color-link)30%,transparent)}
-    .theme-dot--breeze{background:linear-gradient(135deg,#e8f0fe,#118bee)}
-    .theme-dot--night{background:linear-gradient(135deg,#1c1f2e,#60a5fa)}
-    .theme-dot--sepia{background:linear-gradient(135deg,#ede4cc,#b68b24)}
-    .theme-dot--forest{background:linear-gradient(135deg,#cce8d8,#2d6a4f)}
-    .theme-dot--coral{background:linear-gradient(135deg,#ffe0d8,#e8610b)}
   </style>
 </head>
 <body class="has-topbar">
 
 <a href="#main-content" class="skip-link">Skip to main content</a>
 
-<!-- ═══════════════ TOPBAR ═══════════════ -->
-<header class="topbar">
-  <div class="topbar__left">
-    <a href="index.php" class="topbar__brand"><img src="logo.png" alt="EXSA" width="32" class="topbar__logo"> <span>EXSA</span></a>
-    <nav aria-label="Topbar navigation">
-      <ul class="topbar__nav">
-        <li><a href="index.php" class="topbar__link">Home</a></li>
-        <li><a href="docs.php" class="topbar__link">Docs</a></li>
-        <li><a href="showcase.php" class="topbar__link">Showcase</a></li>
-        <li><a href="cheatsheet.php" class="topbar__link">Cheatsheet</a></li>
-        <li><a href="generator.php" class="topbar__link">Generator</a></li>
-        <li><a href="icons.php" class="topbar__link">Icons</a></li>
-        <li><a href="source.php" class="topbar__link">Source</a></li>
-      </ul>
-    </nav>
-  </div>
-  <div class="topbar__right">
-    <div class="theme-dots" title="Switch theme">
-      <button class="theme-dot theme-dot--breeze theme-dot--active" data-theme="breeze" aria-label="Breeze theme"></button>
-      <button class="theme-dot theme-dot--night" data-theme="night" aria-label="Night theme"></button>
-      <button class="theme-dot theme-dot--sepia" data-theme="sepia" aria-label="Sepia theme"></button>
-      <button class="theme-dot theme-dot--forest" data-theme="forest" aria-label="Forest theme"></button>
-      <button class="theme-dot theme-dot--coral" data-theme="coral" aria-label="Coral theme"></button>
-    </div>
-    <a href="generator.php" class="topbar__btn topbar__btn--primary">Download</a>
-  </div>
-  <button class="topbar__toggle" aria-label="Toggle menu"><span class="ic ic-menu"></span></button>
-</header>
+<!-- --------------- TOPBAR --------------- -->
+<?php $activePage = 'icons.php'; $topbarClass = 'topbar--xl topbar--transparent'; include 'includes/topbar.php'; ?>
 
-<!-- ═══════════════ MAIN ═══════════════ -->
+<!-- --------------- MAIN --------------- -->
 <main class="il-page" id="main-content">
 
   <div class="il-header">
@@ -173,7 +148,7 @@ header('Strict-Transport-Security: max-age=31536000; includeSubDomains');
   <div class="footer__inner">
     <div class="footer__grid">
       <div class="footer__brand">
-        <div class="footer__logo"><img src="logo.png" alt="" width="24" style="vertical-align:middle;margin-right:6px;"><span>EXSA</span> CSS Framework</div>
+        <div class="footer__logo"><img src="logo.png" alt="EXSA" width="24" style="vertical-align:middle;margin-right:6px;"><span>EXSA</span> CSS Framework</div>
         <p class="footer__tagline">A framework where tokens do the work, not tools. CSS, the way it was meant to work.</p>
       </div>
       <div class="footer__links">
@@ -203,9 +178,9 @@ header('Strict-Transport-Security: max-age=31536000; includeSubDomains');
   </div>
 </footer>
 
-<script src="components.js?v=13"></script>
+<script src="components.js?v=14"></script>
 <script>
-/* ── Icon Library ── */
+/* -- Icon Library -- */
 const icons = {
   nav: [
     { name:'menu', file:'menu.svg' },
@@ -386,20 +361,6 @@ buildGrid('grid-commerce', icons.commerce);
 buildGrid('grid-status', icons.status);
 buildGrid('grid-dev', icons.dev);
 buildGrid('grid-general', icons.general);
-
-/* ── Theme Switcher ── */
-(function(){
-  var link = document.getElementById('theme-stylesheet');
-  var dots = document.querySelectorAll('.theme-dot');
-  function apply(n) {
-    link.href = 'themes/' + n + '.css';
-    localStorage.setItem('exsa-theme', n);
-    dots.forEach(function(d) { d.classList.toggle('theme-dot--active', d.getAttribute('data-theme') === n); });
-  }
-  dots.forEach(function(d) { d.addEventListener('click', function() { apply(this.getAttribute('data-theme')); }); });
-  var s = localStorage.getItem('exsa-theme');
-  if (s) apply(s);
-})();
 </script>
 </body>
 </html>

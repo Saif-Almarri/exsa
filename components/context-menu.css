@@ -1,4 +1,5 @@
-/* ============================================================
+﻿/* ============================================================
+   ARIA: role=menu on .ctx-menu, role=menuitem on items, aria-haspopup on trigger
    Component: CONTEXT MENU
    Right-click popup. data-ctx-menu on wrapper, data-ctx-trigger
    on the element that opens it (defaults to wrapper).

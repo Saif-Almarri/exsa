@@ -1,6 +1,5 @@
-/* ============================================================
-   Component Library
-   :root tokens. Theme-ready.
+﻿/* ============================================================
+   Component: Avatar
    ============================================================ */
 
 /* --- C11: AVATAR --- */
@@ -21,10 +20,10 @@
 .avatar--rounded{border-radius:var(--border-radius)}
 
 /* Color variants */
-.avatar--primary{background:var(--color-link);color:#fff}
-.avatar--success{background:#4caf50;color:#fff}
-.avatar--danger{background:#d32f2f;color:#fff}
-.avatar--warning{background:#ff9800;color:#fff}
+.avatar--primary{background:var(--color-link);color:var(--color-button-text)}
+.avatar--success{background:var(--color-success);color:var(--color-button-text)}
+.avatar--danger{background:var(--color-danger);color:var(--color-button-text)}
+.avatar--warning{background:var(--color-warning);color:var(--color-button-text)}
 
 /* Inner icon styling */
 .avatar .ic{display:block;width:55%;height:55%;position:relative;z-index:1}
@@ -32,9 +31,9 @@
 
 /* Status dot */
 .avatar__status{position:absolute;bottom:2px;inset-inline-end:2px;width:12px;height:12px;border-radius:50%;border:2px solid var(--color-bg);box-sizing:border-box;z-index:2}
-.avatar__status--online{background:#4caf50}
-.avatar__status--away{background:#ff9800}
-.avatar__status--busy{background:#d32f2f}
+.avatar__status--online{background:var(--color-success)}
+.avatar__status--away{background:var(--color-warning)}
+.avatar__status--busy{background:var(--color-danger)}
 .avatar--xs .avatar__status{width:8px;height:8px;bottom:0;inset-inline-end:0}
 .avatar--sm .avatar__status{width:10px;height:10px}
 

@@ -1,6 +1,6 @@
-/* ============================================================
-   Component Library
-   :root tokens. Theme-ready.
+﻿/* ============================================================
+   ARIA: aria-expanded on .accordion__label, toggled via checkbox state
+   Component: Accordion
    ============================================================ */
 
 /* --- C1: ACCORDION --- */
@@ -18,7 +18,7 @@
 .accordion__panel{max-height:0;overflow:hidden;transition:max-height .35s ease,padding .35s ease}
 .accordion__panel-inner{padding:0 18px 16px;font-size:.84rem;color:var(--color-text-secondary);line-height:1.7}
 .accordion__trigger:checked ~ .accordion__panel,
-.accordion__label[aria-expanded="true"] ~ .accordion__panel{max-height:400px}
+.accordion__label[aria-expanded="true"] ~ .accordion__panel{max-height:2000px}
 
 /* Compact variant */
 .accordion--sm .accordion__label{padding:10px 14px;font-size:.82rem}

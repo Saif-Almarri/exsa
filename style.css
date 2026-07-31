@@ -1,4 +1,4 @@
-/* Copyright © 2026 Saif Almarri. MIT License. See LICENSE.
+﻿/* Copyright © 2026 Saif Almarri. MIT License. See LICENSE.
    5 @layers: tokens → reset → layout → elements → components.
    Themes & user CSS are unlayered — always win.
    Full docs: cheatsheet.php
@@ -9,17 +9,18 @@
 
 @layer exsa.tokens {
 
-/* 49 design tokens — full catalog: cheatsheet.php */
+/* 51 design tokens — full catalog: cheatsheet.php */
 
 :root {
   color-scheme:light dark;
   --color-bg:#fff;--color-bg-secondary:#e9e9e9;--color-text:#000;--color-text-secondary:#757575;
   --color-link:#118bee;--color-secondary:#920de9;--color-secondary-accent:#920de90b;
-  --color-accent:#118bee15;--color-shadow:#f4f4f4;--color-scrollbar:#cacae8;--color-table:#118bee;
+  --color-accent:#118bee15;--color-shadow:#f4f4f4;--color-overlay:rgba(0,0,0,.5);--color-scrollbar:#cacae8;--color-table:#118bee;
   --color-success:#16a34a;--color-success-hover:#15803d;--color-danger:#dc2626;
   --color-danger-hover:#b91c1c;--color-warning:#d97706;--color-warning-hover:#b45309;
-  --color-button-text:#fff;--color-border:#e9e9e9;
+  --color-button-text:#fff;--color-button-text-inverse:#000;--color-border:#e9e9e9;
   --font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen-Sans,Ubuntu,Cantarell,"Helvetica Neue",sans-serif;
+  --font-family-mono:'SF Mono','Cascadia Code','Fira Code',Consolas,monospace;
   --font-weight-normal:400;--font-weight-bold:700;--font-weight-heavy:800;
   --font-size-xs:.7rem;--font-size-sm:.78rem;--font-size-base:.88rem;--font-size-md:.95rem;--font-size-lg:1.08rem;--font-size-xl:1.3rem;--font-size-2xl:1.8rem;
   --line-height:1.5;--border-radius:5px;--box-shadow:2px 2px 10px;
@@ -29,37 +30,37 @@
   --gap-xs:0.25rem;--gap-sm:0.5rem;--gap-md:0.75rem;--gap:1rem;--gap-lg:1.5rem;--gap-xl:2rem;--gap-2xl:3rem;
 }
 
-/* Dark/light — keep the three blocks below in sync */
+/* Dark/light — keep the four blocks below in sync */
 
 /* Auto dark mode — follows OS */
 @media (prefers-color-scheme:dark){
 :root {
   --color-bg:#333;--color-bg-secondary:#555;--color-text:#f7f7f7;--color-text-secondary:#aaa;
   --color-link:#0097fc;--color-secondary:#e20de9;--color-secondary-accent:#e20de94f;
-  --color-accent:#0097fc4f;--color-scrollbar:#555;--color-shadow:#bbbbbb20;--color-table:#0097fc;
+  --color-accent:#0097fc4f;--color-scrollbar:#555;--color-shadow:#bbbbbb20;--color-overlay:rgba(0,0,0,.65);--color-table:#0097fc;
   --color-success:#22c55e;--color-success-hover:#16a34a;--color-danger:#ef4444;
   --color-danger-hover:#dc2626;--color-warning:#f59e0b;--color-warning-hover:#d97706;
-  --color-button-text:#fff;--color-border:#555;
+  --color-button-text:#fff;--color-button-text-inverse:#eee;--color-border:#555;
 }}
 
 /* Forced dark — <html data-theme-mode="dark">, ignores OS preference */
 :root[data-theme-mode="dark"] {
   --color-bg:#333;--color-bg-secondary:#555;--color-text:#f7f7f7;--color-text-secondary:#aaa;
   --color-link:#0097fc;--color-secondary:#e20de9;--color-secondary-accent:#e20de94f;
-  --color-accent:#0097fc4f;--color-scrollbar:#555;--color-shadow:#bbbbbb20;--color-table:#0097fc;
+  --color-accent:#0097fc4f;--color-scrollbar:#555;--color-shadow:#bbbbbb20;--color-overlay:rgba(0,0,0,.65);--color-table:#0097fc;
   --color-success:#22c55e;--color-success-hover:#16a34a;--color-danger:#ef4444;
   --color-danger-hover:#dc2626;--color-warning:#f59e0b;--color-warning-hover:#d97706;
-  --color-button-text:#fff;--color-border:#555;
+  --color-button-text:#fff;--color-button-text-inverse:#eee;--color-border:#555;
 }
 
 /* Forced light — <html data-theme-mode="light">, ignores OS preference */
 :root[data-theme-mode="light"] {
   --color-bg:#fff;--color-bg-secondary:#e9e9e9;--color-text:#000;--color-text-secondary:#757575;
   --color-link:#118bee;--color-secondary:#920de9;--color-secondary-accent:#920de90b;
-  --color-accent:#118bee15;--color-shadow:#f4f4f4;--color-scrollbar:#cacae8;--color-table:#118bee;
+  --color-accent:#118bee15;--color-shadow:#f4f4f4;--color-overlay:rgba(0,0,0,.5);--color-scrollbar:#cacae8;--color-table:#118bee;
   --color-success:#16a34a;--color-success-hover:#15803d;--color-danger:#dc2626;
   --color-danger-hover:#b91c1c;--color-warning:#d97706;--color-warning-hover:#b45309;
-  --color-button-text:#fff;--color-border:#e9e9e9;
+  --color-button-text:#fff;--color-button-text-inverse:#000;--color-border:#e9e9e9;
 }
 
 } /* tokens */
@@ -95,8 +96,8 @@
 *::-webkit-scrollbar-thumb{background-color:var(--color-scrollbar);border-radius:10px}
 html{scroll-behavior:smooth}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}:target{animation:none}*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
+@media(prefers-reduced-data:reduce){img,video{min-height:0;height:auto}}
 [dir=rtl]{direction:rtl;unicode-bidi:isolate}
-[dir=rtl] .slideshow__track{direction:ltr} /* owned here: cross-component RTL quirks are centralized in core by design */
 body{background:var(--color-bg);color:var(--color-text);font-family:var(--font-family);line-height:var(--line-height);margin:0;overflow-x:hidden;padding:0}
 h1,h2,h3,h4,h5,h6{line-height:var(--line-height);text-wrap:balance;margin:0 0 var(--gap-md)}
 img,svg,video{max-width:100%}
@@ -134,13 +135,12 @@ figure figcaption{color:var(--color-text-secondary)}
 .gap-0{gap:0}.gap-xs{gap:var(--gap-xs)}.gap-sm{gap:var(--gap-sm)}.gap-md{gap:var(--gap-md)}.gap{gap:var(--gap)}
 .gap-lg{gap:var(--gap-lg)}.gap-xl{gap:var(--gap-xl)}.gap-2xl{gap:var(--gap-2xl)}
 .col-1{flex:0 0 100%}.col-2{flex:0 0 calc(50% - var(--gap-sm))}.col-3{flex:0 0 calc(33.333% - var(--gap))}
-.col-4{flex:0 0 calc(25% - var(--gap))}.col-5{flex:0 0 calc(20% - var(--gap-sm))}
+.col-4{flex:0 0 calc(25% - var(--gap))}.col-5{flex:0 0 calc(20% - var(--gap-sm))}.col-6{flex:0 0 calc(16.667% - var(--gap-sm))}
 .grid{display:grid}
 .grid-cols-1{grid-template-columns:repeat(1,1fr)}.grid-cols-2{grid-template-columns:repeat(2,1fr)}
 .grid-cols-3{grid-template-columns:repeat(3,1fr)}.grid-cols-4{grid-template-columns:repeat(4,1fr)}
 .grid-cols-5{grid-template-columns:repeat(5,1fr)}.grid-cols-6{grid-template-columns:repeat(6,1fr)}
 .grid-auto-fit{grid-template-columns:repeat(auto-fit,minmax(200px,1fr))}
-.grid-auto-fill{grid-template-columns:repeat(auto-fill,minmax(200px,1fr))}
 /* Position */
 .relative{position:relative}.absolute{position:absolute}.fixed{position:fixed}.sticky{position:sticky}
 .inset-0{inset:0}
@@ -153,9 +153,11 @@ figure figcaption{color:var(--color-text-secondary)}
 .overflow-hidden{overflow:hidden}.overflow-auto{overflow:auto}
 /* Order (flex/grid children) */
 .order-first{order:-1}.order-last{order:999}
-@media(max-width:575px){.col-2,.col-3,.col-4,.col-5{flex:0 0 100%}.sm\:flex-col{flex-direction:column}.sm\:flex-wrap{flex-wrap:wrap}.sm\:grid-cols-1{grid-template-columns:repeat(1,1fr)}.sm\:text-center{text-align:center}}
-@media(min-width:768px){.md\:col-2{flex:0 0 calc(50% - var(--gap-sm))}.md\:col-3{flex:0 0 calc(33.333% - var(--gap))}.md\:col-4{flex:0 0 calc(25% - var(--gap))}.md\:grid-cols-2{grid-template-columns:repeat(2,1fr)}.md\:grid-cols-3{grid-template-columns:repeat(3,1fr)}.md\:grid-cols-4{grid-template-columns:repeat(4,1fr)}}
-@media(min-width:1024px){.lg\:col-2{flex:0 0 calc(50% - var(--gap-sm))}.lg\:col-3{flex:0 0 calc(33.333% - var(--gap))}.lg\:col-4{flex:0 0 calc(25% - var(--gap))}.lg\:col-5{flex:0 0 calc(20% - var(--gap-sm))}.lg\:grid-cols-3{grid-template-columns:repeat(3,1fr)}.lg\:grid-cols-4{grid-template-columns:repeat(4,1fr)}.lg\:grid-cols-5{grid-template-columns:repeat(5,1fr)}.lg\:grid-cols-6{grid-template-columns:repeat(6,1fr)}}
+@media(max-width:575px){.col-2,.col-3,.col-4,.col-5,.col-6{flex:0 0 100%}.sm\:flex-col{flex-direction:column}.sm\:flex-wrap{flex-wrap:wrap}.sm\:grid-cols-1{grid-template-columns:repeat(1,1fr)}.sm\:text-center{text-align:center}}
+@media(min-width:768px){.md\:col-2{flex:0 0 calc(50% - var(--gap-sm))}.md\:col-3{flex:0 0 calc(33.333% - var(--gap))}.md\:col-4{flex:0 0 calc(25% - var(--gap))}.md\:col-5{flex:0 0 calc(20% - var(--gap-sm))}.md\:col-6{flex:0 0 calc(16.667% - var(--gap-sm))}.md\:grid-cols-2{grid-template-columns:repeat(2,1fr)}.md\:grid-cols-3{grid-template-columns:repeat(3,1fr)}.md\:grid-cols-4{grid-template-columns:repeat(4,1fr)}.md\:grid-cols-5{grid-template-columns:repeat(5,1fr)}.md\:grid-cols-6{grid-template-columns:repeat(6,1fr)}}
+@media(min-width:1024px){.lg\:col-2{flex:0 0 calc(50% - var(--gap-sm))}.lg\:col-3{flex:0 0 calc(33.333% - var(--gap))}.lg\:col-4{flex:0 0 calc(25% - var(--gap))}.lg\:col-5{flex:0 0 calc(20% - var(--gap-sm))}.lg\:col-6{flex:0 0 calc(16.667% - var(--gap-sm))}.lg\:grid-cols-3{grid-template-columns:repeat(3,1fr)}.lg\:grid-cols-4{grid-template-columns:repeat(4,1fr)}.lg\:grid-cols-5{grid-template-columns:repeat(5,1fr)}.lg\:grid-cols-6{grid-template-columns:repeat(6,1fr)}}
+@media(min-width:1280px){.xl\:col-2{flex:0 0 calc(50% - var(--gap-sm))}.xl\:col-3{flex:0 0 calc(33.333% - var(--gap))}.xl\:col-4{flex:0 0 calc(25% - var(--gap))}.xl\:col-5{flex:0 0 calc(20% - var(--gap-sm))}.xl\:col-6{flex:0 0 calc(16.667% - var(--gap-sm))}.xl\:grid-cols-3{grid-template-columns:repeat(3,1fr)}.xl\:grid-cols-4{grid-template-columns:repeat(4,1fr)}.xl\:grid-cols-5{grid-template-columns:repeat(5,1fr)}.xl\:grid-cols-6{grid-template-columns:repeat(6,1fr)}}
+@media(min-width:1440px){.xxl\:col-2{flex:0 0 calc(50% - var(--gap-sm))}.xxl\:col-3{flex:0 0 calc(33.333% - var(--gap))}.xxl\:col-4{flex:0 0 calc(25% - var(--gap))}.xxl\:col-5{flex:0 0 calc(20% - var(--gap-sm))}.xxl\:col-6{flex:0 0 calc(16.667% - var(--gap-sm))}.xxl\:grid-cols-3{grid-template-columns:repeat(3,1fr)}.xxl\:grid-cols-4{grid-template-columns:repeat(4,1fr)}.xxl\:grid-cols-5{grid-template-columns:repeat(5,1fr)}.xxl\:grid-cols-6{grid-template-columns:repeat(6,1fr)}}
 
 } /* layout */
 
@@ -171,8 +173,7 @@ figure figcaption{color:var(--color-text-secondary)}
   font-weight: bold;
   text-decoration: underline;
 }
-:where(.exsa a:visited),
-:where(.exsa area:visited) {
+:where(.exsa a:visited) {
   color: var(--color-secondary);
 }
 :where(.exsa a:hover) {
@@ -200,23 +201,23 @@ figure figcaption{color:var(--color-text-secondary)}
 }
 
 /* ── Code ── */
-:where(.exsa code),
-:where(.exsa samp) {
+:where(.exsa code) {
   background-color: var(--color-accent);
   border-radius: var(--border-radius);
   color: var(--color-text);
   display: inline-block;
+  font-family: var(--font-family-mono);
   margin: 0 .1rem;
   padding: 0 var(--gap-sm);
 }
 :where(.exsa pre) {
+  font-family: var(--font-family-mono);
   margin: var(--gap) 0;
   max-width: var(--width-card-wide);
   padding: var(--gap);
   overflow: auto;
 }
-:where(.exsa pre code),
-:where(.exsa pre samp) {
+:where(.exsa pre code) {
   display: block;
   max-width: var(--width-card-wide);
   padding: var(--gap-sm) var(--gap-xl);
@@ -265,8 +266,8 @@ figure figcaption{color:var(--color-text-secondary)}
   margin: var(--gap) 0;
 }
 
-/* ── Section (container queries on ANY section, classed or not) ── */
-:where(.exsa section) {
+/* ── Section (container queries on classless sections only) ── */
+:where(.exsa section:not([class])) {
   container-type: inline-size;
 }
 :where(.exsa section:not([class])) {
@@ -427,6 +428,8 @@ figure figcaption{color:var(--color-text-secondary)}
   z-index: 1;
 }
 :where(.exsa nav:not([class]) ul li ul::before) {
+  /* Bridge hack — invisible block between parent <li> and dropdown
+     so the cursor doesn't lose :hover when crossing the gap */
   content: "";
   position: absolute;
   inset-inline: 0;
@@ -542,7 +545,7 @@ figure figcaption{color:var(--color-text-secondary)}
 :where(.exsa form:not([class]) input[type=password]),
 :where(.exsa form:not([class]) input[type=email]),
 :where(.exsa form:not([class]) textarea) {
-  width: calc(100% - 1.6rem);
+  width: 100%;
 }
 :where(.exsa form:not([class]) input[readonly]),
 :where(.exsa form:not([class]) textarea[readonly]) {
@@ -578,25 +581,7 @@ figure figcaption{color:var(--color-text-secondary)}
   border-radius: .5rem;
   overscroll-behavior: contain;
   scroll-behavior: smooth;
-  scrollbar-width: none;
-  -ms-overflow-style: none;
-  scrollbar-color: transparent transparent;
   animation: dialog-enter .25s ease-in-out forwards;
-}
-:where(.exsa dialog:not([class]))::-webkit-scrollbar {
-  width: 0;
-  display: none;
-}
-:where(.exsa dialog:not([class]))::-webkit-scrollbar-track {
-  background: transparent;
-}
-:where(.exsa dialog:not([class]))::-webkit-scrollbar-thumb {
-  background-color: transparent;
-}
-@media (min-width: 650px) {
-  :where(.exsa dialog:not([class])) {
-    max-width: 39rem;
-  }
 }
 :where(.exsa dialog:not([class]))::backdrop {
   background-color: rgba(0, 0, 0, .5);
@@ -629,7 +614,7 @@ figure figcaption{color:var(--color-text-secondary)}
   border-radius: var(--border-radius);
   border: 2px solid var(--color-border);
   background: var(--color-bg);
-  color: var(--color-text);
+  color: var(--color-button-text-inverse);
   cursor: pointer;
   transition: background .15s, border-color .15s, transform .1s;
   text-decoration: none;

@@ -6,7 +6,7 @@ $lines = explode("\n", $css);
 // layer 5 — exsa.components — is declared but populated by separate component files)
 $layerOrder = ['exsa.tokens','exsa.reset','exsa.layout','exsa.elements'];
 $layerMeta = [
-    'exsa.tokens'   => ['title' => 'Layer 1 — Tokens',     'desc' => '49 CSS custom properties. Colors, spacing, typography, shadows.'],
+    'exsa.tokens'   => ['title' => 'Layer 1 — Tokens',     'desc' => '51 CSS custom properties. Colors, spacing, typography, shadows.'],
     'exsa.reset'    => ['title' => 'Layer 2 — Reset',       'desc' => 'Box model, focus rings, a11y, RTL, scrollbars, skip links.'],
     'exsa.layout'   => ['title' => 'Layer 3 — Layout',      'desc' => '85+ flex & grid utilities. Containers, gaps, responsive columns.'],
     'exsa.elements' => ['title' => 'Layer 4 — Elements',    'desc' => 'Guarded Classless™ — semantic HTML styled automatically via :where().'],
@@ -69,11 +69,25 @@ $totalLines = count($lines);
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Source — style.css · EXSA</title>
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline'; img-src 'self' https: data:; font-src 'self'">
+  <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+  <title>EXSA Source Code — style.css Annotated Framework Source</title>
+  <meta name="description" content="View the complete EXSA style.css source code, annotated by @layer. See tokens, reset, layout, elements, and components in one file.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://exsa.dev/source.php">
+  <meta property="og:title" content="EXSA Source Code — style.css Annotated Framework Source">
+  <meta property="og:description" content="View the complete EXSA style.css source code, annotated by @layer. See tokens, reset, layout, elements, and components in one file.">
+  <meta property="og:image" content="https://exsa.dev/logo.png">
+  <meta property="og:url" content="https://exsa.dev/source.php">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="EXSA Source Code — style.css Annotated Framework Source">
+  <meta name="twitter:description" content="View the complete EXSA style.css source code, annotated by @layer. See tokens, reset, layout, elements, and components in one file.">
+  <meta name="twitter:image" content="https://exsa.dev/logo.png">
   <link rel="icon" type="image/png" href="logo.png">
-  <link id="theme-stylesheet" rel="stylesheet" href="themes/breeze.css">
   <link rel="stylesheet" href="style.css?v=24">
-  <link rel="stylesheet" href="components/topbar.css?v=15">
+  <link id="theme-stylesheet" rel="stylesheet" href="themes/breeze.css?v=3">
+  <?php include 'includes/head.php'; ?>
   <link rel="stylesheet" href="components/buttons.css?v=2">
   <link rel="stylesheet" href="components/badge.css">
   <link rel="stylesheet" href="components/footer.css">
@@ -85,7 +99,7 @@ $totalLines = count($lines);
     body{font-family:var(--font-family);line-height:var(--line-height);color:var(--color-text);background:var(--color-bg);-webkit-font-smoothing:antialiased}
     main{max-width:1100px;margin:0 auto;padding:24px 20px 60px}
 
-    .src-header{margin-bottom:32px}
+    .src-header{margin-bottom:32px;padding-top:50px}
     .src-header h1{font-size:1.5rem;margin:0 0 4px}
     .src-header p{font-size:.82rem;color:var(--color-text-secondary);margin:0}
     .src-stats{display:flex;gap:24px;margin-top:10px;font-size:.78rem;color:var(--color-text-secondary)}
@@ -122,47 +136,13 @@ $totalLines = count($lines);
       .src-table .ln{width:36px;padding-inline-end:8px}
     }
 
-    /* Theme dots */
-    .theme-dots{display:flex;align-items:center;gap:6px}
-    .theme-dot{width:16px;height:16px;border-radius:50%;border:2px solid transparent;cursor:pointer;transition:border-color .15s,transform .15s;padding:0}
-    .theme-dot:hover{transform:scale(1.2)}
-    .theme-dot--active{border-color:var(--color-link);box-shadow:0 0 0 2px color-mix(in srgb,var(--color-link)30%,transparent)}
-    .theme-dot--breeze{background:linear-gradient(135deg,#e8f0fe,#118bee)}
-    .theme-dot--night{background:linear-gradient(135deg,#1c1f2e,#60a5fa)}
-    .theme-dot--sepia{background:linear-gradient(135deg,#ede4cc,#b68b24)}
-    .theme-dot--forest{background:linear-gradient(135deg,#cce8d8,#2d6a4f)}
-    .theme-dot--coral{background:linear-gradient(135deg,#ffe0d8,#e8610b)}
-  </style>
+    </style>
 </head>
 <body>
 
-<header class="topbar">
-  <div class="topbar__left">
-    <a href="index.php" class="topbar__brand"><img src="logo.png" alt="EXSA" width="32" class="topbar__logo"> <span>EXSA</span></a>
-    <nav aria-label="Topbar navigation">
-      <ul class="topbar__nav">
-        <li><a href="index.php" class="topbar__link">Home</a></li>
-        <li><a href="docs.php" class="topbar__link">Docs</a></li>
-        <li><a href="showcase.php" class="topbar__link">Showcase</a></li>
-        <li><a href="cheatsheet.php" class="topbar__link">Cheatsheet</a></li>
-        <li><a href="generator.php" class="topbar__link">Generator</a></li>
-        <li><a href="icons.php" class="topbar__link">Icons</a></li>
-        <li><a href="source.php" class="topbar__link">Source</a></li>
-      </ul>
-    </nav>
-  </div>
-  <div class="topbar__right">
-    <div class="theme-dots" title="Switch theme">
-      <button class="theme-dot theme-dot--breeze theme-dot--active" data-theme="breeze" aria-label="Breeze theme"></button>
-      <button class="theme-dot theme-dot--night" data-theme="night" aria-label="Night theme"></button>
-      <button class="theme-dot theme-dot--sepia" data-theme="sepia" aria-label="Sepia theme"></button>
-      <button class="theme-dot theme-dot--forest" data-theme="forest" aria-label="Forest theme"></button>
-      <button class="theme-dot theme-dot--coral" data-theme="coral" aria-label="Coral theme"></button>
-    </div>
-    <a href="generator.php" class="topbar__btn topbar__btn--primary">Download</a>
-  </div>
-  <button class="topbar__toggle" aria-label="Toggle menu"><span class="ic ic-menu"></span></button>
-</header>
+<a href="#main-content" class="skip-link">Skip to main content</a>
+
+<?php $activePage = 'source.php'; $topbarClass = 'topbar--xl topbar--transparent'; include 'includes/topbar.php'; ?>
 
 <main>
 
@@ -172,8 +152,8 @@ $totalLines = count($lines);
   <div class="src-stats">
     <span><strong><?= $totalLines ?></strong> lines</span>
     <span><strong>5</strong> layers</span>
-    <span><strong>49</strong> tokens</span>
-    <span><strong>24 KB</strong> raw · <strong>~5.6 KB</strong> gzip</span>
+    <span><strong>51</strong> tokens</span>
+    <span><strong>24 KB</strong> raw — <strong>~5.6 KB</strong> gzip</span>
   </div>
 </div>
 
@@ -199,10 +179,10 @@ $totalLines = count($lines);
 
 <!-- Preamble: copyright header (not a layer) -->
 <div class="src-section">
-  <div class="src-section__head" style="cursor:default;filter:none" onclick="this.nextElementSibling.style.display=this.nextElementSibling.style.display==='block'?'none':'block';this.querySelector('.src-section__toggle').textContent=this.nextElementSibling.style.display==='block'?'▲':'▼'">
+  <div class="src-section__head" style="cursor:default;filter:none" onclick="this.nextElementSibling.style.display=this.nextElementSibling.style.display==='block'?'none':'block';this.querySelector('.src-section__toggle').textContent=this.nextElementSibling.style.display==='block'?'?':'?'">
     <span class="src-section__title">Preamble</span>
-    <span class="src-section__desc">Copyright, @layer declaration, docs pointer · <?= count($preamble) ?> lines</span>
-    <span class="src-section__toggle">▼</span>
+    <span class="src-section__desc">Copyright, @layer declaration, docs pointer — <?= count($preamble) ?> lines</span>
+    <span class="src-section__toggle">?</span>
   </div>
   <div class="src-section__body">
     <table class="src-table">
@@ -219,10 +199,10 @@ $totalLines = count($lines);
 <!-- 5 layers -->
 <?php foreach ($sections as $idx => $sec): ?>
 <div class="src-section" id="sec-<?= $idx ?>">
-  <div class="src-section__head" onclick="this.nextElementSibling.style.display=this.nextElementSibling.style.display==='block'?'none':'block';this.querySelector('.src-section__toggle').textContent=this.nextElementSibling.style.display==='block'?'▲':'▼'">
+  <div class="src-section__head" onclick="this.nextElementSibling.style.display=this.nextElementSibling.style.display==='block'?'none':'block';this.querySelector('.src-section__toggle').textContent=this.nextElementSibling.style.display==='block'?'?':'?'">
     <span class="src-section__title"><?= esc($sec['name']) ?></span>
-    <span class="src-section__desc"><?= esc($sec['desc']) ?> · <?= count($sec['lines']) ?> lines</span>
-    <span class="src-section__toggle">▼</span>
+    <span class="src-section__desc"><?= esc($sec['desc']) ?> — <?= count($sec['lines']) ?> lines</span>
+    <span class="src-section__toggle">?</span>
   </div>
   <div class="src-section__body">
     <table class="src-table">
@@ -243,7 +223,7 @@ $totalLines = count($lines);
   <div class="footer__inner">
     <div class="footer__grid">
       <div class="footer__brand">
-        <div class="footer__logo"><img src="logo.png" alt="" width="24" style="vertical-align:middle;margin-right:6px;"><span>EXSA</span> CSS Framework</div>
+        <div class="footer__logo"><img src="logo.png" alt="EXSA" width="24" style="vertical-align:middle;margin-right:6px;"><span>EXSA</span> CSS Framework</div>
         <p class="footer__tagline">A framework where tokens do the work, not tools. CSS, the way it was meant to work.</p>
       </div>
       <div class="footer__links">
@@ -273,21 +253,6 @@ $totalLines = count($lines);
   </div>
 </footer>
 
-<script src="components.js?v=13"></script>
-<script>
-/* ── Theme Switcher ── */
-(function(){
-  var link = document.getElementById('theme-stylesheet');
-  var dots = document.querySelectorAll('.theme-dot');
-  function apply(n) {
-    link.href = 'themes/' + n + '.css';
-    localStorage.setItem('exsa-theme', n);
-    dots.forEach(function(d) { d.classList.toggle('theme-dot--active', d.getAttribute('data-theme') === n); });
-  }
-  dots.forEach(function(d) { d.addEventListener('click', function() { apply(this.getAttribute('data-theme')); }); });
-  var s = localStorage.getItem('exsa-theme');
-  if (s) apply(s);
-})();
-</script>
+<script src="components.js?v=14"></script>
 </body>
 </html>

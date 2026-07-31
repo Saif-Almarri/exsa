@@ -1,4 +1,4 @@
-/* ============================================================
+﻿/* ============================================================
    Component: CODE BLOCK
    Sizes: default, sm
    Features: header bar with language label, copy-to-clipboard
@@ -41,7 +41,7 @@
   margin: 0;
   padding: 14px 16px;
   overflow-x: auto;
-  font-family: "SF Mono", "Fira Code", "Fira Mono", "Roboto Mono", Menlo, Monaco, Consolas, monospace;
+  font-family: var(--font-family-mono);
   font-size: .82rem;
   line-height: 1.6;
   color: var(--color-text);
@@ -61,7 +61,7 @@
 /* ── Syntax highlighting (reuses .hl-* classes from demo.css) ── */
 .code-block__body .hl-tag   { color: var(--color-link); }
 .code-block__body .hl-attr  { color: var(--color-secondary); }
-.code-block__body .hl-val   { color: #e67e22; }
+.code-block__body .hl-val   { color: var(--color-warning); }
 .code-block__body .hl-cmt   { color: var(--color-text-secondary); opacity: 0.6; font-style: italic; }
 
 /* ── Copy button ── */

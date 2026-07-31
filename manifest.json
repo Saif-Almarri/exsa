@@ -6,7 +6,7 @@
   "layers": {
     "1_tokens": {
       "label": "Layer 1 — Tokens (CSS custom properties)",
-      "desc": "49 design tokens. Colors, spacing, shadows, type."
+      "desc": "48 design tokens. Colors, spacing, shadows, type."
     },
     "2_reset": {
       "label": "Layer 2 — Reset",
@@ -49,11 +49,14 @@
     { "id": "mono",   "name": "Mono",   "icon": "", "file": "themes/mono.css",   "color": "#000000" },
     { "id": "console","name": "Console","icon": "", "file": "themes/console.css","color": "#33ff33" },
     { "id": "nova",   "name": "Nova",   "icon": "", "file": "themes/nova.css",   "color": "#3291ff" },
-    { "id": "volt",   "name": "Volt",   "icon": "", "file": "themes/volt.css",   "color": "#7a0ac4" },
+    { "id": "volt",   "name": "Volt",   "icon": "", "file": "themes/volt.css",   "color": "#ceff00" },
     { "id": "ember",  "name": "Ember",  "icon": "", "file": "themes/ember.css",  "color": "#181410" },
     { "id": "abyss",  "name": "Abyss",  "icon": "", "file": "themes/abyss.css",  "color": "#0a0e14" },
     { "id": "shadow", "name": "Shadow", "icon": "", "file": "themes/shadow.css", "color": "#121212" },
-    { "id": "ink",    "name": "Ink",    "icon": "", "file": "themes/ink.css",    "color": "#0f0f0c" }
+    { "id": "ink",    "name": "Ink",    "icon": "", "file": "themes/ink.css",    "color": "#0f0f0c" },
+    { "id": "sojourn","name": "Sojourn","icon": "", "file": "themes/sojourn.css","color": "#0a0300" },
+    { "id": "tropic", "name": "Tropic", "icon": "", "file": "themes/tropic.css", "color": "#e5fbc7" },
+    { "id": "travei", "name": "Travei", "icon": "", "file": "themes/travei.css", "color": "#003b95" }
   ],
 
   "categories": [
@@ -63,7 +66,7 @@
     { "id": "media",      "name": "Media",      "components": ["lightbox", "music", "slideshow", "video-gallery"] },
     { "id": "data",       "name": "Data",       "components": ["dashboard", "donut", "progress", "range-slider"] },
     { "id": "actions",    "name": "Actions",    "components": ["checkbox", "color-picker", "date-picker", "dropdown", "form-validation", "input-group", "password-input", "popover", "radio", "rating", "select", "tabs", "toggle", "buttons", "resizer"] },
-    { "id": "feedback",   "name": "Feedback",   "components": ["alert", "cookie-bar", "skeleton", "spinner", "toast", "form-base"] }
+    { "id": "feedback",   "name": "Feedback",   "components": ["alert", "cookie-bar", "skeleton", "spinner", "toast", "form-required"] }
   ],
 
   "components": [
@@ -125,7 +128,7 @@
     { "id": "skeleton",       "name": "Skeleton Loader",    "category": "feedback",   "css": "components/skeleton.css",       "js": null,             "pureCss": true,  "desc": "Content placeholder shimmer animation for loading states. Pure CSS." },
     { "id": "spinner",        "name": "Spinner",            "category": "feedback",   "css": "components/spinner.css",        "js": null,             "pureCss": true,  "desc": "CSS-only loading spinner with size and color variants." },
     { "id": "toast",          "name": "Toast Notifications", "category": "feedback",  "css": "components/toast.css",          "js": "toast",          "pureCss": false, "icons": ["check.svg","x.svg","info.svg"], "desc": "Corner notification popups (success/error/info). Auto-dismiss with animation." },
-    { "id": "form-base",      "name": "Form Validation Helpers", "category": "feedback", "css": "components/form-base.css", "js": null, "pureCss": true, "desc": "Auto-detects :user-invalid forms and adds required-field asterisks. Classless form/table/blockquote/dialog baselines are now in style.css." },
+    { "id": "form-required",  "name": "Form Required Helpers",     "category": "feedback", "css": "components/form-required.css", "js": null, "pureCss": true, "desc": "Auto-detects :user-invalid forms and adds required-field asterisks. Classless form/table/blockquote/dialog baselines are now in style.css." },
 
     { "id": "buttons",        "name": "Buttons",            "category": "actions",    "css": "components/buttons.css",        "js": null,             "pureCss": true,  "desc": "Button system with 9 variants (primary, success, danger, warning, neutral, outline, ghost, soft, surface), 4 sizes (xs, sm, default, lg), built-in loading spinner, high-contrast mode, pill/square radius, icon-only, and block." },
     { "id": "resizer",        "name": "Panel Resizer",      "category": "actions",    "css": "components/resizer.css",        "js": "resizer",        "pureCss": false, "icons": ["grip.svg"], "desc": "Drag handle for resizable panels. Horizontal and vertical variants. Requires JS." }

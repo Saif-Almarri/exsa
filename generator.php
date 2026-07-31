@@ -11,17 +11,29 @@ header('Strict-Transport-Security: max-age=31536000; includeSubDomains');
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline'; img-src 'self' https: data:; font-src 'self'">
   <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
-  <title>CSS Bundle Builder — EXSA</title>
+  <title>EXSA CSS Bundle Builder — Build &amp; Download Custom CSS</title>
+  <meta name="description" content="Select EXSA components, pick a theme, and download a single minified CSS bundle. No build step. Just check boxes and download.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://exsa.dev/generator.php">
+  <meta property="og:title" content="EXSA CSS Bundle Builder — Build &amp; Download Custom CSS">
+  <meta property="og:description" content="Select EXSA components, pick a theme, and download a single minified CSS bundle. No build step. Just check boxes and download.">
+  <meta property="og:image" content="https://exsa.dev/logo.png">
+  <meta property="og:url" content="https://exsa.dev/generator.php">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="EXSA CSS Bundle Builder — Build &amp; Download Custom CSS">
+  <meta name="twitter:description" content="Select EXSA components, pick a theme, and download a single minified CSS bundle. No build step. Just check boxes and download.">
+  <meta name="twitter:image" content="https://exsa.dev/logo.png">
   <link rel="icon" type="image/png" href="logo.png">
-  <link id="theme-stylesheet" rel="stylesheet" href="themes/breeze.css">
   <link rel="stylesheet" href="style.css?v=24">
-  <link rel="stylesheet" href="components/topbar.css?v=15">
+  <link id="theme-stylesheet" rel="stylesheet" href="themes/breeze.css?v=3">
+  <?php include 'includes/head.php'; ?>
   <link rel="stylesheet" href="components/dropdown.css?v=2">
   <link rel="stylesheet" href="components/buttons.css?v=2">
   <link rel="stylesheet" href="components/badge.css">
   <link rel="stylesheet" href="components/footer.css">
   <style>
-    /* ── Reset ── */
+    /* -- Reset -- */
     *, *::before, *::after { box-sizing: border-box; }
     html { scroll-behavior: smooth; }
     @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
@@ -48,7 +60,7 @@ header('Strict-Transport-Security: max-age=31536000; includeSubDomains');
     a { color: var(--color-link); text-decoration: none; }
     a:hover { text-decoration: underline; }
 
-    /* ── Section headings ── */
+    /* -- Section headings -- */
     .gb-sec { margin-bottom: 28px; }
     .gb-sec__title {
       font-size: 11px; font-weight: 700; letter-spacing: 0.12em;
@@ -57,7 +69,7 @@ header('Strict-Transport-Security: max-age=31536000; includeSubDomains');
       border-bottom: 1px solid var(--color-bg-secondary);
     }
 
-    /* ── Theme Selector ── */
+    /* -- Theme Selector -- */
     .gb-themes { display: flex; gap: 10px; flex-wrap: wrap; }
     .gb-theme-btn {
       display: flex !important; align-items: center; gap: 8px;
@@ -87,7 +99,7 @@ header('Strict-Transport-Security: max-age=31536000; includeSubDomains');
       box-shadow: inset 0 1px 2px rgba(0,0,0,0.1);
     }
 
-    /* ── Toggle Row ── */
+    /* -- Toggle Row -- */
     .gb-row {
       display: flex; align-items: center; justify-content: space-between;
       padding: 7px 0;
@@ -116,7 +128,7 @@ header('Strict-Transport-Security: max-age=31536000; includeSubDomains');
     .gb-switch input:checked + .gb-switch__slider { background: var(--color-link); }
     .gb-switch input:checked + .gb-switch__slider::before { transform: translateX(18px); }
 
-    /* ── Component Cards ── */
+    /* -- Component Cards -- */
     .gb-comp-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); gap: 6px; }
     .gb-comp-card {
       display: flex; align-items: center; gap: 8px;
@@ -164,10 +176,10 @@ header('Strict-Transport-Security: max-age=31536000; includeSubDomains');
     }
     .gb-cat-toggle:hover { background: var(--color-accent) !important; filter: none !important; }
 
-    /* ── JS Behaviors ── */
+    /* -- JS Behaviors -- */
     .gb-js-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 8px; }
 
-    /* ── Stats Bar ── */
+    /* -- Stats Bar -- */
     .gb-stats {
       display: flex; gap: 40px; flex-wrap: wrap; align-items: center; justify-content: center;
       padding: 18px 24px;
@@ -179,7 +191,7 @@ header('Strict-Transport-Security: max-age=31536000; includeSubDomains');
     .gb-stat__val { font-size: 20px; font-weight: 700; color: var(--color-link); line-height: 1.3; }
     .gb-stat__lbl { font-size: 10px; color: var(--color-text-secondary); text-transform: uppercase; letter-spacing: 0.05em; margin-top: 1px; }
 
-    /* ── Download Button ── */
+    /* -- Download Button -- */
     .gb-dl {
       display: flex; gap: 10px; flex-wrap: wrap;
     }
@@ -199,7 +211,7 @@ header('Strict-Transport-Security: max-age=31536000; includeSubDomains');
     .gb-dl-btn--js  { background: var(--color-secondary) !important; background-color: var(--color-secondary) !important; }
     .gb-dl-btn--icons { background: var(--color-text-secondary) !important; background-color: var(--color-text-secondary) !important; }
 
-    /* ── Status ── */
+    /* -- Status -- */
     .gb-status {
       margin-top: 10px; padding: 8px 12px; border-radius: var(--border-radius);
       font-size: 12px; display: none;
@@ -208,10 +220,10 @@ header('Strict-Transport-Security: max-age=31536000; includeSubDomains');
     .gb-status--ok { background: #d4edda; color: #155724; }
     .gb-status--err { background: #f8d7da; color: #721c24; }
 
-    /* ── Loading ── */
+    /* -- Loading -- */
     .gb-loading { text-align: center; padding: 40px; color: var(--color-text-secondary); font-size: 14px; }
 
-    /* ── Preview ── */
+    /* -- Preview -- */
     .gb-preview {
       font-family: 'SF Mono', 'Cascadia Code', 'Fira Code', Consolas, monospace;
       font-size: 11px; line-height: 1.5; color: var(--color-text-secondary);
@@ -220,17 +232,6 @@ header('Strict-Transport-Security: max-age=31536000; includeSubDomains');
       white-space: pre-wrap; word-break: break-all; margin-top: 12px; display: none;
     }
     .gb-preview--show { display: block; }
-
-    /* ── Theme Switcher Dots ── */
-    .theme-dots{display:flex;align-items:center;gap:6px}
-    .theme-dot{width:16px;height:16px;border-radius:50%;border:2px solid transparent;cursor:pointer;transition:border-color .15s,transform .15s;padding:0}
-    .theme-dot:hover{transform:scale(1.2)}
-    .theme-dot--active{border-color:var(--color-link);box-shadow:0 0 0 2px color-mix(in srgb,var(--color-link)30%,transparent)}
-    .theme-dot--breeze{background:linear-gradient(135deg,#e8f0fe,#118bee)}
-    .theme-dot--night{background:linear-gradient(135deg,#1c1f2e,#60a5fa)}
-    .theme-dot--sepia{background:linear-gradient(135deg,#ede4cc,#b68b24)}
-    .theme-dot--forest{background:linear-gradient(135deg,#cce8d8,#2d6a4f)}
-    .theme-dot--coral{background:linear-gradient(135deg,#ffe0d8,#e8610b)}
 
     /* Responsive */
     @media (max-width: 600px) {
@@ -243,49 +244,27 @@ header('Strict-Transport-Security: max-age=31536000; includeSubDomains');
 </head>
 <body class="has-topbar">
 
-<!-- ═══════════════ TOPBAR ═══════════════ -->
-<header class="topbar">
-  <div class="topbar__left">
-    <a href="index.php" class="topbar__brand"><img src="logo.png" alt="EXSA" width="32" class="topbar__logo"> <span>EXSA</span></a>
-    <nav aria-label="Topbar navigation">
-      <ul class="topbar__nav">
-        <li><a href="index.php" class="topbar__link">Home</a></li>
-        <li><a href="docs.php" class="topbar__link">Docs</a></li>
-        <li><a href="showcase.php" class="topbar__link">Showcase</a></li>
-        <li><a href="cheatsheet.php" class="topbar__link">Cheatsheet</a></li>
-        <li><a href="generator.php" class="topbar__link">Generator</a></li>
-        <li><a href="icons.php" class="topbar__link">Icons</a></li>
-        <li><a href="source.php" class="topbar__link">Source</a></li>
-      </ul>
-    </nav>
-  </div>
-  <div class="topbar__right">
-    <div class="theme-dots" title="Switch theme">
-      <button class="theme-dot theme-dot--breeze theme-dot--active" data-theme="breeze" aria-label="Breeze theme"></button>
-      <button class="theme-dot theme-dot--night" data-theme="night" aria-label="Night theme"></button>
-      <button class="theme-dot theme-dot--sepia" data-theme="sepia" aria-label="Sepia theme"></button>
-      <button class="theme-dot theme-dot--forest" data-theme="forest" aria-label="Forest theme"></button>
-      <button class="theme-dot theme-dot--coral" data-theme="coral" aria-label="Coral theme"></button>
-    </div>
-    <a href="generator.php" class="topbar__btn topbar__btn--primary">Download</a>
-  </div>
-  <button class="topbar__toggle" aria-label="Toggle menu"><span class="ic ic-menu"></span></button>
-</header>
+<a href="#main-content" class="skip-link">Skip to main content</a>
 
-<!-- ═══════════════ MAIN ═══════════════ -->
+<!-- --------------- TOPBAR --------------- -->
+<?php $activePage = 'generator.php'; $topbarClass = 'topbar--xl topbar--transparent'; include 'includes/topbar.php'; ?>
+
+<!-- --------------- MAIN --------------- -->
 <main>
 
-<!-- ════════════════════════════════════════
+<h1>CSS Bundle Builder</h1>
+
+<!-- ----------------------------------------
      THEME
-═══════════════════════════════════════════ -->
+------------------------------------------- -->
 <section class="gb-sec">
   <div class="gb-sec__title">Themes (Multi-selection)</div>
   <div class="gb-themes" id="theme-grid"></div>
 </section>
 
-<!-- ════════════════════════════════════════
+<!-- ----------------------------------------
      BASE LAYER
-═══════════════════════════════════════════ -->
+------------------------------------------- -->
 <section class="gb-sec">
   <div class="gb-sec__title">Foundation</div>
   <div class="gb-row">
@@ -294,18 +273,18 @@ header('Strict-Transport-Security: max-age=31536000; includeSubDomains');
   </div>
 </section>
 
-<!-- ════════════════════════════════════════
+<!-- ----------------------------------------
      COMPONENTS
-═══════════════════════════════════════════ -->
+------------------------------------------- -->
 <section class="gb-sec">
   <div class="gb-sec__title">Components <span style="font-weight:600;color:var(--color-text-secondary);" id="picker-count">(0 selected)</span></div>
   <div class="gb-loading" id="picker-loading">Loading components...</div>
   <div id="picker-cats"></div>
 </section>
 
-<!-- ════════════════════════════════════════
+<!-- ----------------------------------------
      OPTIONS
-═══════════════════════════════════════════ -->
+------------------------------------------- -->
 <section class="gb-sec">
   <div class="gb-sec__title">Output Options</div>
   <div class="gb-row">
@@ -318,9 +297,9 @@ header('Strict-Transport-Security: max-age=31536000; includeSubDomains');
   </div>
 </section>
 
-<!-- ════════════════════════════════════════
+<!-- ----------------------------------------
      STATS + DOWNLOAD
-═══════════════════════════════════════════ -->
+------------------------------------------- -->
 <section class="gb-sec">
   <div class="gb-sec__title">Build</div>
   <div class="gb-stats">
@@ -348,7 +327,7 @@ header('Strict-Transport-Security: max-age=31536000; includeSubDomains');
   <div class="footer__inner">
     <div class="footer__grid">
       <div class="footer__brand">
-        <div class="footer__logo"><img src="logo.png" alt="" width="24" style="vertical-align:middle;margin-right:6px;"><span>EXSA</span> CSS Framework</div>
+        <div class="footer__logo"><img src="logo.png" alt="EXSA" width="24" style="vertical-align:middle;margin-right:6px;"><span>EXSA</span> CSS Framework</div>
         <p class="footer__tagline">A framework where tokens do the work, not tools. CSS, the way it was meant to work.</p>
       </div>
       <div class="footer__links">
@@ -378,12 +357,12 @@ header('Strict-Transport-Security: max-age=31536000; includeSubDomains');
   </div>
 </footer>
 
-<script src="components.js?v=13"></script>
+<script src="components.js?v=14"></script>
 <script>
-/* ═══════════════════════════════════════════════════════════
+/* -----------------------------------------------------------
    CSS BUNDLE BUILDER v2 
    Driven by manifest.json
-   ═══════════════════════════════════════════════════════════ */
+   ----------------------------------------------------------- */
 
 let manifest = null;
 let COMPONENTS = [];
@@ -427,7 +406,7 @@ const statSize = document.getElementById('stat-size');
 const statJs = document.getElementById('stat-js');
 const statTotal = document.getElementById('stat-total');
 
-// ── Load manifest ──
+// -- Load manifest --
 async function loadManifest() {
   try {
     const resp = await fetch('manifest.json?v=14');
@@ -450,7 +429,7 @@ async function loadManifest() {
   }
 }
 
-// ── Fetch ──
+// -- Fetch --
 async function fetchCSS(path) {
   if (cssCache[path]) return cssCache[path];
   try {
@@ -499,7 +478,7 @@ async function preloadAll() {
   updateStats();
 }
 
-// ── JS extraction (dynamic from manifest markers) ──
+// -- JS extraction (dynamic from manifest markers) --
 async function loadJSBehaviors() {
   try {
     const resp = await fetch('components.js');
@@ -509,7 +488,7 @@ async function loadJSBehaviors() {
     if (!manifest || !manifest.behaviors) return;
     for (const b of manifest.behaviors) {
       const escaped = b.marker.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-      const pattern = new RegExp('/\\*\\s*──\\s*' + escaped + '\\s*──\\s*\\*/([\\s\\S]*?)(?=\\/\\*\\s*──|\\s*$)');
+      const pattern = new RegExp('/\\*\\s*--\\s*' + escaped + '\\s*--\\s*\\*/([\\s\\S]*?)(?=\\/\\*\\s*--|\\s*$)');
       const match = fullJS.match(pattern);
       if (match) {
         jsCache[b.id] = match[1].trim();
@@ -520,7 +499,7 @@ async function loadJSBehaviors() {
   }
 }
 
-// ── Build UI ──
+// -- Build UI --
 function buildUI() {
   // Theme checkboxes (multi-select)
   THEMES.forEach(t => {
@@ -592,7 +571,7 @@ function buildUI() {
   });
 }
 
-// ── Theme multi-select ──
+// -- Theme multi-select --
 function toggleTheme(id, checked) {
   if (checked) {
     if (!selectedThemes.includes(id)) selectedThemes.push(id);
@@ -612,7 +591,7 @@ function toggleTheme(id, checked) {
   updateStats();
 }
 
-// ── Selectors ──
+// -- Selectors --
 function getSelectedComponents() {
   const cbs = document.querySelectorAll('.gb-comp-cb');
   const selected = [];
@@ -625,7 +604,7 @@ function getSelectedComponents() {
   return selected;
 }
 
-// ── JS behaviors auto-derived from selected components ──
+// -- JS behaviors auto-derived from selected components --
 function getSelectedJSBehaviors() {
   const selected = getSelectedComponents();
   const behaviors = new Set();
@@ -655,7 +634,7 @@ function getSelectedJSBehaviors() {
   return [...behaviors];
 }
 
-// ── Minify ──
+// -- Minify --
 function minifyCSS(css) {
   return css.replace(/\/\*[\s\S]*?\*\//g, '').replace(/\s+/g, ' ').replace(/\s*([{}:;,])\s*/g, '$1').replace(/;}/g, '}').trim();
 }
@@ -664,7 +643,7 @@ function minifyJS(js) {
   return js.replace(/\/\*[\s\S]*?\*\//g, '').replace(/\/\/[^\n]*/g, '').replace(/\n\s*\n/g, '\n').replace(/^\s+|\s+$/gm, '').trim();
 }
 
-// ── Build bundles ──
+// -- Build bundles --
 function buildCSSBundle() {
   const selected = getSelectedComponents();
   const includeBase = toggleBase.checked;
@@ -733,7 +712,7 @@ function buildJSBundle() {
     if (jsCache[id]) {
       if (doComments) parts.push('\n  /* ' + id + ' */');
       const lines = jsCache[id].split('\n');
-      const startIdx = (lines[0] && /^\/\*\s*──/.test(lines[0])) ? 1 : 0;
+      const startIdx = (lines[0] && /^\/\*\s*--/.test(lines[0])) ? 1 : 0;
       const indented = lines.slice(startIdx).map(line => '  ' + line).join('\n');
       parts.push(indented);
     }
@@ -746,7 +725,7 @@ function buildJSBundle() {
   return bundle;
 }
 
-// ── Stats ──
+// -- Stats --
 function updateStats() {
   const selected = getSelectedComponents();
   const includeBase = toggleBase.checked;
@@ -785,7 +764,7 @@ function updateStats() {
   btnDlCss.disabled = (selected.length === 0 && !includeBase);
 }
 
-// ── Minimal ZIP Creator ──
+// -- Minimal ZIP Creator --
 function createZip(files) {
   // files: [{ name: 'bundle.css', data: '...' }, ...]
   const encoder = new TextEncoder();
@@ -881,7 +860,7 @@ function crc32(data) {
   return (crc ^ 0xFFFFFFFF) >>> 0;
 }
 
-// ── Icons needed ──
+// -- Icons needed --
 function getNeededIcons() {
   const selected = getSelectedComponents();
   const icons = new Set();
@@ -893,7 +872,7 @@ function getNeededIcons() {
   return [...icons];
 }
 
-// ── Build full ZIP ──
+// -- Build full ZIP --
 function buildZip() {
   const files = [];
 
@@ -927,7 +906,7 @@ function buildZip() {
   return createZip(files);
 }
 
-// ── Download ──
+// -- Download --
 function downloadBlob(blob, filename) {
   const url = URL.createObjectURL(blob);
   const a = document.createElement('a');
@@ -936,7 +915,7 @@ function downloadBlob(blob, filename) {
   document.body.removeChild(a); URL.revokeObjectURL(url);
 }
 
-// ── ZIP download ──
+// -- ZIP download --
 btnDlZip.addEventListener('click', () => {
   const zip = buildZip();
   const blob = new Blob([zip], { type: 'application/zip' });
@@ -944,7 +923,7 @@ btnDlZip.addEventListener('click', () => {
   showStatus('exsa-bundle.zip downloaded! (' + (zip.length / 1024).toFixed(1) + ' KB)', 'ok');
 });
 
-// ── Individual downloads (advanced) ──
+// -- Individual downloads (advanced) --
 btnDlCss.addEventListener('click', () => {
   const bundle = buildCSSBundle();
   if (!bundle) { showStatus('No CSS content. Select components or enable Foundation.', 'err'); return; }
@@ -962,7 +941,7 @@ btnDlJs.addEventListener('click', () => {
   showStatus('bundle.js downloaded!', 'ok');
 });
 
-// ── Helpers ──
+// -- Helpers --
 function showStatus(msg, type) {
   genStatus.textContent = msg;
   genStatus.className = 'gb-status gb-status--show gb-status--' + (type || 'ok');
@@ -972,27 +951,12 @@ function showStatus(msg, type) {
 // Config change listeners
 [toggleBase, toggleMinify, toggleComments].forEach(el => el.addEventListener('change', updateStats));
 
-// ── Init ──
+// -- Init --
 (async function init() {
   const ok = await loadManifest();
   if (!ok) return;
   buildUI();
   await preloadAll();
-})();
-</script>
-<script>
-/* ── Theme Switcher ── */
-(function(){
-  var link = document.getElementById('theme-stylesheet');
-  var dots = document.querySelectorAll('.theme-dot');
-  function apply(n) {
-    link.href = 'themes/' + n + '.css';
-    localStorage.setItem('exsa-theme', n);
-    dots.forEach(function(d) { d.classList.toggle('theme-dot--active', d.getAttribute('data-theme') === n); });
-  }
-  dots.forEach(function(d) { d.addEventListener('click', function() { apply(this.getAttribute('data-theme')); }); });
-  var s = localStorage.getItem('exsa-theme');
-  if (s) apply(s);
 })();
 </script>
 </body>
