@@ -676,13 +676,15 @@ EXSA is in beta. Your feedback shapes what it becomes.
 
 ## Co-Founders Wanted
 
-EXSA is looking for three co-founders — not employees, not contractors:
+EXSA was founded by **Saif Almarri**, who invented the 5-layer architecture, Guarded Classless™ pattern, and built the entire framework solo. He holds **28% equity** and leads product direction.
 
-- 🧩 **Technical Co-Founder** — own the component library and engineering
-- 📣 **Growth Co-Founder** — own ads, video, community, and marketing (no coding)
-- 📢 **Brand & Community Co-Founder** — own conferences, technical writing, and community trust
+EXSA has three contributor slots — one per co-founder role. Invite-only, not an open call:
 
-No revenue yet. No salary. **20% equity each** after 12 months of hitting planned milestones. **+10% bonus** when EXSA reaches the sales stage successfully — up to 30% each. Tracked publicly on GitHub.
+- 🧩 **Technical** — own the component library and engineering
+- 📣 **Growth** — own ads, video, community, and marketing (no coding)
+- 📢 **Brand & Community** — own conferences, technical writing, and community trust
+
+No revenue yet. No salary. Everyone starts as a contributor. **24% equity each** — vests when effort meets the role targets. As fast as a month, or up to 12 months. Earned by shipping, not time served. Tracked publicly on GitHub.
 
 👉 **[See CONTRIBUTING.md](CONTRIBUTING.md)** for the full story and how to start.
 

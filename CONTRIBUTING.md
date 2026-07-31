@@ -1,6 +1,6 @@
 # Join EXSA as a Co-Founder
 
-EXSA is looking for three co-founders — not employees, not contractors. People who want to build something from zero, own their work, and share in what EXSA becomes.
+EXSA has three contributor slots, each targeting a co-founder role. These are invite-only — not open applications, not a job board. The founder invites someone into a slot, they know their targets from day one, and they work toward earning co-founder status.
 
 There's no revenue yet. No salary. No guarantees. What there is: a genuinely novel CSS framework, a clear audience (PHP developers who hate build steps), and the chance to be there from day one.
 
@@ -14,9 +14,16 @@ There's no revenue yet. No salary. No guarantees. What there is: a genuinely nov
 | Your expertise and time | Your name on the project — permanently |
 | Commitment to the vision | A seat at the table when decisions are made |
 
-**Year 1 — 24% equity.** Vests only if planned milestones are met. Not time-served — earned by shipping.
+**Equity split**
 
-Tracked publicly on GitHub. Goals set together. Equity earned by results.
+| Role | Equity |
+|---|---|
+| Founder (Saif Almarri) | 28% — inventor, core architecture, IP |
+| Technical | 24% — vests on effort against role targets |
+| Growth | 24% — vests on effort against role targets |
+| Brand & Community | 24% — vests on effort against role targets |
+
+**How vesting works.** Everyone starts as a contributor — only three contributor slots exist, one per role. Each role has defined targets listed above — that's what "done" looks like. The 12-month window is a maximum, not a minimum. If you deliver against your targets and the effort is visible, vesting can happen in as little as a month. There's no waiting period — just results. Once equity vests, you become a co-founder. Equity, title, all permanent.
 
 This is equity, not compensation. Ownership, not employment. We're building a company — together.
 
@@ -78,14 +85,13 @@ You'll own the relationships. Your job is trust, not code.
 
 ---
 
-## The Current Openings
+## How It Works
 
-1. **Introduce yourself.** Open a Discussion in [Ideas](https://github.com/Saif-Almarri/exsa/discussions/categories/ideas) with:
-   - Which co-founder role
-   - Your background and relevant work
-   - What you'd build or write first
-2. **Start building.** Pick a task, ship it. No interviews. No formal application. Your work is your application.
-3. **Keep shipping.** After 12 months of consistent, high-quality contribution, the equity conversation becomes formal.
+There are only three contributor slots — one per role. No open calls, no public applications.
+
+1. **The founder invites you** into a contributor slot based on your reputation, work, or connection to EXSA's mission. You'll know exactly which co-founder role you're targeting and what the targets are.
+2. **You ship against those targets.** No interviews. No formalities. Your work is your path to co-founder.
+3. **Vesting happens when the effort meets the targets.** As fast as a month, or up to 12 months. Once vested — co-founder. Equity, title, permanent.
 
 ---
 
