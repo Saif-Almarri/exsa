@@ -24,7 +24,7 @@ EXSA chooses a third path.
 
 **No template engine needed.** EXSA doesn't care if your view is a plain `.php` file, a static `.html` file, or served from Python, Node, Ruby, or Go. No Twig. No Blade. No SASS. No Webpack. If your server outputs HTML, EXSA styles it. Drop the files in your `public/` folder and you're done.
 
-**Components are files, not dependencies.** Every component is a single CSS file (~1 KB). Link what you need. The Generator bundles only your selected components into one file — zero dead styles.
+**Components are files, not dependencies.** Every component is a single CSS file (~1 KB). Link what you need — zero dead styles.
 
 In short: EXSA is what happens when you trust CSS custom properties, `@layer`, and `:where()` to do the work that frameworks usually delegate to tools. Its signature feature — **Guarded Classless™** — styles semantic HTML automatically, then steps aside the moment you add a single class. No overrides needed. No `!important`. Ever.
 
@@ -460,8 +460,6 @@ EXSA ships with **101 SVG icons** — stroke-based at 24×24, using `stroke="cur
 <span class="ic ic-settings"></span>
 ```
 
-Browse the full library with click-to-copy class names at **[icons.php](icons.php)**.
-
 | Category | Examples |
 |---|---|
 | **Navigation** | menu, home, search, chevron-*, external-link, map-pin |
@@ -472,17 +470,6 @@ Browse the full library with click-to-copy class names at **[icons.php](icons.ph
 | **Commerce** | cart, credit-card, dollar-sign, tag, gift, truck |
 | **Developer** | terminal, database, cloud, code, layers, layout |
 | **Status** | check, info, warning, x-circle, eye, help-circle |
-
----
-
-## Generator
-
-The **EXSA Generator** (`generator.php`) lets you cherry-pick components and themes, then download a single ZIP with only what you need.
-
-1. Select components (or all 50)
-2. Pick a theme (or bundle multiple)
-3. Choose options: minify, include comments
-4. Download ZIP — ready to deploy
 
 ---
 
@@ -508,25 +495,6 @@ EXSA targets WCAG 2.1 AA compliance.
 - Full keyboard audit across all 50 components
 - Screen reader testing (NVDA, VoiceOver)
 - Focus trap management in modals/drawers
-
----
-
-## VS Code IntelliSense
-
-EXSA ships a CSS custom data file (`exsa.css-data.json`) that enables autocomplete and hover documentation for all 51 tokens and 5 `@layer` names — **zero extensions required**.
-
-To activate: your workspace `.vscode/settings.json` should contain:
-
-```json
-{
-  "css.customData": ["./exsa.css-data.json"]
-}
-```
-
-Then:
-- Type `var(--color-` → see all 51 tokens with descriptions
-- Hover any token → see its default value and purpose
-- Type `@layer exsa.` → see the 5 layer names
 
 ---
 
@@ -557,9 +525,7 @@ Then:
 | Each component | ~1 KB |
 | Full framework (core + theme) | ~25 KB |
 | Typical deploy (core + theme + 10 components) | ~35 KB |
-| `exsa.css-data.json` | ~4 KB |
-
-No minification needed — the files are already compact. The Generator can minify for production.
+No minification needed — the files are already compact.
 
 ---
 
@@ -576,7 +542,6 @@ No minification needed — the files are already compact. The Generator can mini
 | **`@layer` cascade** | Yes — 5 layers | No | Yes (v3.2+) |
 | **`:has()` support** | Yes | No | No |
 | **Container queries** | Yes | No | Yes (v3.2+) |
-| **VS Code IntelliSense** | Custom data file, zero extensions | Requires extension | Requires official plugin |
 | **Component library** | 50 token-driven components | 20+ components | None (Headless UI separate) |
 | **Specificity model** | Zero (`:where()` + `@layer`) | Normal | Normal |
 
@@ -590,7 +555,6 @@ root
 ├── components.js          JavaScript behaviors (class-driven, portable)
 ├── manifest.json          Component & theme registry
 ├── tokens.json            Design token export (Figma, JS, Tailwind)
-├── exsa.css-data.json     VS Code IntelliSense definitions
 ├── package.json           NPM metadata
 ├── README.md              This file
 ├── LICENSE                MIT License
