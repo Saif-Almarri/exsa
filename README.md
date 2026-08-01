@@ -627,7 +627,7 @@ EXSA is in beta. Your feedback shapes what it becomes.
 
 - 🐛 **Bug reports & feature requests:** [GitHub Issues](https://github.com/Saif-Almarri/exsa/issues)
 - 💬 **Questions & ideas:** [GitHub Discussions](https://github.com/Saif-Almarri/exsa/discussions)
-- 📧 **Direct contact:** [contact@exsa.dev](mailto:contact@exsa.dev)
+- 🤝 **Interested in a co-founder role or contributor?** Email [safe@windowslive.com](mailto:safe@windowslive.com)
 
 ### How to Give Great Feedback
 

@@ -118,7 +118,7 @@ There are only three contributor slots — one per role. No open calls, no publi
 
 - **Tasks & progress:** [GitHub Issues](https://github.com/Saif-Almarri/exsa/issues)
 - **Ideas & strategy:** [GitHub Discussions](https://github.com/Saif-Almarri/exsa/discussions)
-- **Direct:** [contact@exsa.dev](mailto:contact@exsa.dev)
+- **Interested in a co-founder role or contributor?** Email [safe@windowslive.com](mailto:safe@windowslive.com)
 
 ---
 
