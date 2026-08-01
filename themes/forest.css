@@ -1,11 +1,11 @@
-﻿/* ============================================================
-   LAYER 4 — THEME: FOREST
+/* ============================================================
+   LAYER 4 � THEME: FOREST
    Earthy greens by default, deep pine in dark mode.
    Auto-switches via prefers-color-scheme.
    Force mode: <html data-theme-mode="light|dark">
    ============================================================ */
 
-/* ── Light mode (default) ── */
+/* -- Light mode (default) -- */
 :root {
   --color-bg:               #f0faf4;
   --color-bg-secondary:     #cce8d8;
@@ -17,7 +17,6 @@
   --color-accent:           #15803d12;
   --color-overlay: rgba(0,0,0,.5); --color-shadow:           #a8d4b8;
   --color-scrollbar:        #6db88a;
-  --color-table:            #15803d;
   --color-success:          #16a34a;
   --color-success-hover:    #15803d;
   --color-danger:           #dc2626;
@@ -30,7 +29,7 @@
   --border-radius:          8px;
 }
 
-/* ── Dark mode (auto) ── */
+/* -- Dark mode (auto) -- */
 @media (prefers-color-scheme: dark) {
   :root {
     --color-bg:               #0f1a13;
@@ -43,7 +42,6 @@
     --color-accent:           #4ade8014;
     --color-overlay: rgba(0,0,0,.5); --color-shadow:           #00000033;
     --color-scrollbar:        #2a4a32;
-    --color-table:            #4ade80;
   --color-success:          #22c55e;
   --color-success-hover:    #16a34a;
   --color-danger:           #ef4444;
@@ -76,7 +74,6 @@
   --color-accent:           #15803d12;
   --color-overlay: rgba(0,0,0,.5); --color-shadow:           #a8d4b8;
   --color-scrollbar:        #6db88a;
-  --color-table:            #15803d;
   --color-button-text:      var(--color-bg);
   --color-button-text-inverse: #000000;
   --border-radius:          8px;
@@ -100,7 +97,6 @@
   --color-accent:           #4ade8014;
   --color-overlay: rgba(0,0,0,.5); --color-shadow:           #00000033;
   --color-scrollbar:        #2a4a32;
-  --color-table:            #4ade80;
   --color-button-text:      var(--color-bg);
   --color-button-text-inverse: #ffffff;
   --border-radius:          8px;

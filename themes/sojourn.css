@@ -1,12 +1,12 @@
-﻿/* ============================================================
-   LAYER 4 — THEME: SOJOURN
+/* ============================================================
+   LAYER 4 � THEME: SOJOURN
    Warm black-brown palette. Deep, moody, with subtle
    terracotta warmth. A quiet journey through shadow.
    Auto-switches via prefers-color-scheme.
    Force mode: <html data-theme-mode="light|dark">
    ============================================================ */
 
-/* ── Dark mode (default): warm black + copper ── */
+/* -- Dark mode (default): warm black + copper -- */
 :root {
   --color-bg:               #0a0300;
   --color-bg-secondary:     #180a00;
@@ -18,7 +18,6 @@
   --color-accent:           #c8704014;
   --color-overlay: rgba(0,0,0,.5); --color-shadow:           #00000088;
   --color-scrollbar:        #240e05;
-  --color-table:            #c87040;
   --color-success:          #22c55e;
   --color-success-hover:    #16a34a;
   --color-danger:           #ef4444;
@@ -31,7 +30,7 @@
   --border-radius:          4px;
 }
 
-/* ── Light mode (auto): warm cream + terracotta ── */
+/* -- Light mode (auto): warm cream + terracotta -- */
 @media (prefers-color-scheme: light) {
   :root {
     --color-bg:               #faf6f4;
@@ -44,7 +43,6 @@
     --color-accent:           #a0402010;
     --color-overlay: rgba(0,0,0,.5); --color-shadow:           #d4c0b8;
     --color-scrollbar:        #b89888;
-    --color-table:            #a04020;
   --color-success:          #16a34a;
   --color-success-hover:    #15803d;
   --color-danger:           #dc2626;
@@ -58,7 +56,7 @@
   }
 }
 
-/* ── Force mode overrides ── */
+/* -- Force mode overrides -- */
 :root[data-theme-mode="dark"] {
   --color-success:          #22c55e;
   --color-success-hover:    #16a34a;
@@ -78,7 +76,6 @@
   --color-accent:           #c8704014;
   --color-overlay: rgba(0,0,0,.5); --color-shadow:           #00000088;
   --color-scrollbar:        #240e05;
-  --color-table:            #c87040;
   --color-button-text:      var(--color-bg);
   --color-button-text-inverse: #f8f8f8;
   --border-radius:          4px;
@@ -102,7 +99,6 @@
   --color-accent:           #a0402010;
   --color-overlay: rgba(0,0,0,.5); --color-shadow:           #d4c0b8;
   --color-scrollbar:        #b89888;
-  --color-table:            #a04020;
   --color-button-text:      var(--color-bg);
   --color-button-text-inverse: #131212;
   --border-radius:          4px;

@@ -1,11 +1,11 @@
-﻿/* ============================================================
-   LAYER 4 — THEME: STEEL
+/* ============================================================
+   LAYER 4 � THEME: STEEL
    Industrial warm concrete by default, dark iron in dark mode.
    Auto-switches via prefers-color-scheme.
    Force mode: <html data-theme-mode="light|dark">
    ============================================================ */
 
-/* ── Light mode (default) ── */
+/* -- Light mode (default) -- */
 :root {
   --color-bg:               #faf8f5;
   --color-bg-secondary:     #e8e0d5;
@@ -17,7 +17,6 @@
   --color-accent:           #e8610b10;
   --color-overlay: rgba(0,0,0,.5); --color-shadow:           #ccc0b4;
   --color-scrollbar:        #b8a898;
-  --color-table:            #e8610b;
   --color-success:          #16a34a;
   --color-success-hover:    #15803d;
   --color-danger:           #dc2626;
@@ -30,7 +29,7 @@
   --border-radius:          3px;
 }
 
-/* ── Dark mode (auto) ── */
+/* -- Dark mode (auto) -- */
 @media (prefers-color-scheme: dark) {
   :root {
     --color-bg:               #181614;
@@ -43,7 +42,6 @@
     --color-accent:           #fb923c14;
     --color-overlay: rgba(0,0,0,.5); --color-shadow:           #00000033;
     --color-scrollbar:        #3a322a;
-    --color-table:            #fb923c;
     --color-success:          #22c55e;
     --color-success-hover:    #16a34a;
     --color-danger:           #ef4444;
@@ -76,7 +74,6 @@
   --color-accent:           #e8610b10;
   --color-overlay: rgba(0,0,0,.5); --color-shadow:           #ccc0b4;
   --color-scrollbar:        #b8a898;
-  --color-table:            #e8610b;
   --color-success:          #16a34a;
   --color-success-hover:    #15803d;
   --color-danger:           #dc2626;
@@ -106,7 +103,6 @@
   --color-accent:           #fb923c14;
   --color-overlay: rgba(0,0,0,.5); --color-shadow:           #00000033;
   --color-scrollbar:        #3a322a;
-  --color-table:            #fb923c;
   --color-success:          #22c55e;
   --color-success-hover:    #16a34a;
   --color-danger:           #ef4444;

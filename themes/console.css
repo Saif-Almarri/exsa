@@ -1,12 +1,12 @@
-﻿/* ============================================================
-   LAYER 4 — THEME: CONSOLE
+/* ============================================================
+   LAYER 4 � THEME: CONSOLE
    Terminal phosphor-green on black. Monospace energy,
    sharp corners, high contrast. For the command-line soul.
    Auto-switches via prefers-color-scheme.
    Force mode: <html data-theme-mode="light|dark">
    ============================================================ */
 
-/* ── Dark mode (default): green phosphor on black ── */
+/* -- Dark mode (default): green phosphor on black -- */
 :root {
   --color-bg:               #0c0d0c;
   --color-bg-secondary:     #141714;
@@ -18,7 +18,6 @@
   --color-accent:           #33ff3312;
   --color-overlay: rgba(0,0,0,.5); --color-shadow:           #00000088;
   --color-scrollbar:        #1a2a1a;
-  --color-table:            #33ff33;
   --color-success:          #22c55e;
   --color-success-hover:    #16a34a;
   --color-danger:           #ef4444;
@@ -32,7 +31,7 @@
   --border-radius:          0px;
 }
 
-/* ── Light mode (auto): clean white + green accents ── */
+/* -- Light mode (auto): clean white + green accents -- */
 @media (prefers-color-scheme: light) {
   :root {
     --color-bg:               #f8faf8;
@@ -45,7 +44,6 @@
     --color-accent:           #1a8a1a10;
     --color-overlay: rgba(0,0,0,.5); --color-shadow:           #c0d0c0;
     --color-scrollbar:        #90b090;
-    --color-table:            #147a14;
     --color-success:          #16a34a;
     --color-success-hover:    #15803d;
     --color-danger:           #dc2626;
@@ -59,7 +57,7 @@
   }
 }
 
-/* ── Force mode overrides ── */
+/* -- Force mode overrides -- */
 :root[data-theme-mode="dark"] {
   --color-success:          #22c55e;
   --color-success-hover:    #16a34a;
@@ -79,7 +77,6 @@
   --color-accent:           #33ff3312;
   --color-overlay: rgba(0,0,0,.5); --color-shadow:           #00000088;
   --color-scrollbar:        #1a2a1a;
-  --color-table:            #33ff33;
   --color-success:          #22c55e;
   --color-success-hover:    #16a34a;
   --color-danger:           #ef4444;
@@ -109,7 +106,6 @@
   --color-accent:           #1a8a1a10;
   --color-overlay: rgba(0,0,0,.5); --color-shadow:           #c0d0c0;
   --color-scrollbar:        #90b090;
-  --color-table:            #147a14;
   --color-success:          #16a34a;
   --color-success-hover:    #15803d;
   --color-danger:           #dc2626;

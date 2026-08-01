@@ -1,11 +1,11 @@
-﻿/* ============================================================
-   LAYER 4 — THEME: BREEZE
+/* ============================================================
+   LAYER 4 � THEME: BREEZE
    Clean blue and white by default, deep navy in dark mode.
    Auto-switches via prefers-color-scheme.
    Force mode: <html data-theme-mode="light|dark">
    ============================================================ */
 
-/* ── Light mode (default) ── */
+/* -- Light mode (default) -- */
 :root {
   --color-bg:               #ffffff;
   --color-bg-secondary:     #e8f0fe;
@@ -17,7 +17,6 @@
   --color-accent:           #1a73e812;
   --color-overlay: rgba(0,0,0,.5); --color-shadow:           #c5d8f7;
   --color-scrollbar:        #a8c4f0;
-  --color-table:            #1a73e8;
   --color-success:          #16a34a;
   --color-success-hover:    #15803d;
   --color-danger:           #dc2626;
@@ -30,7 +29,7 @@
   --border-radius:          6px;
 }
 
-/* ── Dark mode (auto) ── */
+/* -- Dark mode (auto) -- */
 @media (prefers-color-scheme: dark) {
   :root {
     --color-bg:               #0f172a;
@@ -43,7 +42,6 @@
     --color-accent:           #60a5fa14;
     --color-overlay: rgba(0,0,0,.5); --color-shadow:           #00000044;
     --color-scrollbar:        #334155;
-    --color-table:            #3b82f6;
   --color-success:          #22c55e;
   --color-success-hover:    #16a34a;
   --color-danger:           #ef4444;
@@ -76,7 +74,6 @@
   --color-accent:           #1a73e812;
   --color-overlay: rgba(0,0,0,.5); --color-shadow:           #c5d8f7;
   --color-scrollbar:        #a8c4f0;
-  --color-table:            #1a73e8;
   --color-button-text:      var(--color-bg);
   --color-button-text-inverse: #000000;
   --border-radius:          6px;
@@ -100,7 +97,6 @@
   --color-accent:           #60a5fa14;
   --color-overlay: rgba(0,0,0,.5); --color-shadow:           #00000044;
   --color-scrollbar:        #334155;
-  --color-table:            #3b82f6;
   --color-button-text:      var(--color-bg);
   --color-button-text-inverse: #ffffff;
   --border-radius:          6px;

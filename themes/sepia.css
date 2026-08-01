@@ -1,11 +1,11 @@
-﻿/* ============================================================
-   LAYER 4 — THEME: SEPIA
+/* ============================================================
+   LAYER 4 � THEME: SEPIA
    Warm paper tones by default, deep espresso in dark mode.
    Auto-switches via prefers-color-scheme.
    Force mode: <html data-theme-mode="light|dark">
    ============================================================ */
 
-/* ── Light mode (default) ── */
+/* -- Light mode (default) -- */
 :root {
   --color-bg:               #fdf6e3;
   --color-bg-secondary:     #ede4cc;
@@ -17,7 +17,6 @@
   --color-accent:           #8b451312;
   --color-overlay: rgba(0,0,0,.5); --color-shadow:           #d4c09a;
   --color-scrollbar:        #c8b080;
-  --color-table:            #8b4513;
   --color-success:          #16a34a;
   --color-success-hover:    #15803d;
   --color-danger:           #dc2626;
@@ -30,7 +29,7 @@
   --border-radius:          3px;
 }
 
-/* ── Dark mode (auto) ── */
+/* -- Dark mode (auto) -- */
 @media (prefers-color-scheme: dark) {
   :root {
     --color-bg:               #1e1814;
@@ -43,7 +42,6 @@
     --color-accent:           #d4956b14;
     --color-overlay: rgba(0,0,0,.5); --color-shadow:           #00000033;
     --color-scrollbar:        #4a3a2e;
-    --color-table:            #d4956b;
   --color-success:          #22c55e;
   --color-success-hover:    #16a34a;
   --color-danger:           #ef4444;
@@ -76,7 +74,6 @@
   --color-accent:           #8b451312;
   --color-overlay: rgba(0,0,0,.5); --color-shadow:           #d4c09a;
   --color-scrollbar:        #c8b080;
-  --color-table:            #8b4513;
   --color-button-text:      var(--color-bg);
   --color-button-text-inverse: #000000;
   --border-radius:          3px;
@@ -100,7 +97,6 @@
   --color-accent:           #d4956b14;
   --color-overlay: rgba(0,0,0,.5); --color-shadow:           #00000033;
   --color-scrollbar:        #4a3a2e;
-  --color-table:            #d4956b;
   --color-button-text:      var(--color-bg);
   --color-button-text-inverse: #ffffff;
   --border-radius:          3px;

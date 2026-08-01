@@ -1,12 +1,12 @@
-﻿/* ============================================================
-   LAYER 4 — THEME: EMBER
+/* ============================================================
+   LAYER 4 � THEME: EMBER
    Warm cream + amber by default. Deep charcoal + glowing
    embers in dark mode. Campfire warmth.
    Auto-switches via prefers-color-scheme.
    Force mode: <html data-theme-mode="light|dark">
    ============================================================ */
 
-/* ── Light mode (default): warm cream + amber ── */
+/* -- Light mode (default): warm cream + amber -- */
 :root {
   --color-bg:               #fef9f0;
   --color-bg-secondary:     #f5e6d0;
@@ -18,7 +18,6 @@
   --color-accent:           #c8703010;
   --color-overlay: rgba(0,0,0,.5); --color-shadow:           #dcc8a8;
   --color-scrollbar:        #c0a888;
-  --color-table:            #c87030;
   --color-success:          #16a34a;
   --color-success-hover:    #15803d;
   --color-danger:           #dc2626;
@@ -31,7 +30,7 @@
   --border-radius:          6px;
 }
 
-/* ── Dark mode (auto): charcoal + amber glow ── */
+/* -- Dark mode (auto): charcoal + amber glow -- */
 @media (prefers-color-scheme: dark) {
   :root {
     --color-bg:               #181410;
@@ -44,7 +43,6 @@
     --color-accent:           #e8943a14;
     --color-overlay: rgba(0,0,0,.5); --color-shadow:           #00000066;
     --color-scrollbar:        #2a2218;
-    --color-table:            #e8943a;
     --color-button-text:      #181410;
   --color-button-text-inverse: #e4e1e1;
     --color-success:          #4ade80;
@@ -58,7 +56,7 @@
   }
 }
 
-/* ── Force mode overrides ── */
+/* -- Force mode overrides -- */
 :root[data-theme-mode="dark"] {
   --color-success:          #22c55e;
   --color-success-hover:    #16a34a;
@@ -78,7 +76,6 @@
   --color-accent:           #e8943a14;
   --color-overlay: rgba(0,0,0,.5); --color-shadow:           #00000066;
   --color-scrollbar:        #2a2218;
-  --color-table:            #e8943a;
   --color-button-text:      var(--color-bg);
   --color-button-text-inverse: #ffffff;
   --color-success:          #4ade80;
@@ -108,7 +105,6 @@
   --color-accent:           #c8703010;
   --color-overlay: rgba(0,0,0,.5); --color-shadow:           #dcc8a8;
   --color-scrollbar:        #c0a888;
-  --color-table:            #c87030;
   --color-button-text:      #ffffff;
   --color-button-text-inverse: #000000;
   --border-radius:          6px;

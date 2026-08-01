@@ -19,7 +19,6 @@
   --color-overlay:          rgba(0,0,0,.5);
   --color-shadow:           transparent;
   --color-scrollbar:        transparent;
-  --color-table:            transparent;
   --color-success:          #16a34a;
   --color-success-hover:    #15803d;
   --color-danger:           #dc2626;
@@ -46,7 +45,6 @@
     --color-overlay:          rgba(0,0,0,.5);
     --color-shadow:           transparent;
     --color-scrollbar:        transparent;
-    --color-table:            transparent;
     --color-success:          #22c55e;
     --color-success-hover:    #16a34a;
     --color-danger:           #ef4444;
@@ -81,7 +79,6 @@
   --color-overlay:          rgba(0,0,0,.5);
   --color-shadow:           transparent;
   --color-scrollbar:        transparent;
-  --color-table:            transparent;
   --color-button-text:      var(--color-bg);
   --color-button-text-inverse: #000000;
   --border-radius:          0;
@@ -106,7 +103,6 @@
   --color-overlay:          rgba(0,0,0,.5);
   --color-shadow:           transparent;
   --color-scrollbar:        transparent;
-  --color-table:            transparent;
   --color-button-text:      var(--color-bg);
   --color-button-text-inverse: #ffffff;
   --border-radius:          0;

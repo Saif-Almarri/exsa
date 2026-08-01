@@ -1,12 +1,12 @@
-﻿/* ============================================================
-   LAYER 4 — THEME: ABYSS
+/* ============================================================
+   LAYER 4 � THEME: ABYSS
    Cool white + teal by default. Deep ocean blue-black +
    cyan in dark mode. Immersive, high contrast.
    Auto-switches via prefers-color-scheme.
    Force mode: <html data-theme-mode="light|dark">
    ============================================================ */
 
-/* ── Light mode (default): cool white + teal ── */
+/* -- Light mode (default): cool white + teal -- */
 :root {
   --color-bg:               #f0f6fa;
   --color-bg-secondary:     #dce8f0;
@@ -18,7 +18,6 @@
   --color-accent:           #2a8a8410;
   --color-overlay: rgba(0,0,0,.5); --color-shadow:           #c4d4e4;
   --color-scrollbar:        #a0b8c8;
-  --color-table:            #2a8a84;
   --color-success:          #16a34a;
   --color-success-hover:    #15803d;
   --color-danger:           #dc2626;
@@ -31,7 +30,7 @@
   --border-radius:          4px;
 }
 
-/* ── Dark mode (auto): deep ocean + cyan ── */
+/* -- Dark mode (auto): deep ocean + cyan -- */
 @media (prefers-color-scheme: dark) {
   :root {
     --color-bg:               #0a0e14;
@@ -44,7 +43,6 @@
     --color-accent:           #38b2ac14;
     --color-overlay: rgba(0,0,0,.5); --color-shadow:           #00000066;
     --color-scrollbar:        #1a2a3a;
-    --color-table:            #38b2ac;
     --color-button-text:      #0a0e14;
   --color-button-text-inverse: #e4e1e1;
     --color-success:          #4ade80;
@@ -58,7 +56,7 @@
   }
 }
 
-/* ── Force mode overrides ── */
+/* -- Force mode overrides -- */
 :root[data-theme-mode="dark"] {
   --color-success:          #22c55e;
   --color-success-hover:    #16a34a;
@@ -78,7 +76,6 @@
   --color-accent:           #38b2ac14;
   --color-overlay: rgba(0,0,0,.5); --color-shadow:           #00000066;
   --color-scrollbar:        #1a2a3a;
-  --color-table:            #38b2ac;
   --color-button-text:      var(--color-bg);
   --color-button-text-inverse: #ffffff;
   --color-success:          #4ade80;
@@ -108,7 +105,6 @@
   --color-accent:           #2a8a8410;
   --color-overlay: rgba(0,0,0,.5); --color-shadow:           #c4d4e4;
   --color-scrollbar:        #a0b8c8;
-  --color-table:            #2a8a84;
   --color-button-text:      #ffffff;
   --color-button-text-inverse: #000000;
   --border-radius:          4px;

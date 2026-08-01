@@ -30,6 +30,7 @@
 }
 .sidebar__nav li {
   border-bottom: 1px solid var(--color-bg-secondary);
+  padding: 0;
 }
 
 /* ── Links ── */

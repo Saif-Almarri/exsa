@@ -1,11 +1,11 @@
-﻿/* ============================================================
-   LAYER 4 — THEME: CLINIC
+/* ============================================================
+   LAYER 4 � THEME: CLINIC
    Calming teal-white by default, deep teal in dark mode.
    Auto-switches via prefers-color-scheme.
    Force mode: <html data-theme-mode="light|dark">
    ============================================================ */
 
-/* ── Light mode (default) ── */
+/* -- Light mode (default) -- */
 :root {
   --color-bg:               #ffffff;
   --color-bg-secondary:     #eaf5f0;
@@ -17,7 +17,6 @@
   --color-accent:           #0d948810;
   --color-overlay: rgba(0,0,0,.5); --color-shadow:           #c5ddd2;
   --color-scrollbar:        #a0c8b8;
-  --color-table:            #0b7a70;
   --color-success:          #16a34a;
   --color-success-hover:    #15803d;
   --color-danger:           #dc2626;
@@ -30,7 +29,7 @@
   --border-radius:          8px;
 }
 
-/* ── Dark mode (auto) ── */
+/* -- Dark mode (auto) -- */
 @media (prefers-color-scheme: dark) {
   :root {
     --color-bg:               #0f1a18;
@@ -43,7 +42,6 @@
     --color-accent:           #2dd4bf14;
     --color-overlay: rgba(0,0,0,.5); --color-shadow:           #00000033;
     --color-scrollbar:        #1e4a3e;
-    --color-table:            #2dd4bf;
   --color-success:          #22c55e;
   --color-success-hover:    #16a34a;
   --color-danger:           #ef4444;
@@ -76,7 +74,6 @@
   --color-accent:           #0d948810;
   --color-overlay: rgba(0,0,0,.5); --color-shadow:           #c5ddd2;
   --color-scrollbar:        #a0c8b8;
-  --color-table:            #0b7a70;
   --color-button-text:      var(--color-bg);
   --color-button-text-inverse: #000000;
   --border-radius:          8px;
@@ -100,7 +97,6 @@
   --color-accent:           #2dd4bf14;
   --color-overlay: rgba(0,0,0,.5); --color-shadow:           #00000033;
   --color-scrollbar:        #1e4a3e;
-  --color-table:            #2dd4bf;
   --color-button-text:      var(--color-bg);
   --color-button-text-inverse: #ffffff;
   --border-radius:          8px;

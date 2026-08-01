@@ -1,11 +1,11 @@
-﻿/* ============================================================
-   LAYER 4 — THEME: NIGHT
+/* ============================================================
+   LAYER 4 � THEME: NIGHT
    Dark by default, light variant for daytime.
    Auto-switches via prefers-color-scheme.
    Force mode: <html data-theme-mode="light|dark">
    ============================================================ */
 
-/* ── Dark mode (default for Night) ── */
+/* -- Dark mode (default for Night) -- */
 :root {
   --color-bg:               #0f1117;
   --color-bg-secondary:     #1c1f2e;
@@ -17,7 +17,6 @@
   --color-accent:           #60a5fa12;
   --color-overlay: rgba(0,0,0,.5); --color-shadow:           #00000055;
   --color-scrollbar:        #334155;
-  --color-table:            #3b82f6;
   --color-success:          #22c55e;
   --color-success-hover:    #16a34a;
   --color-danger:           #ef4444;
@@ -30,7 +29,7 @@
   --border-radius:          6px;
 }
 
-/* ── Light mode (auto) ── */
+/* -- Light mode (auto) -- */
 @media (prefers-color-scheme: light) {
   :root {
     --color-bg:               #f8fafc;
@@ -43,7 +42,6 @@
     --color-accent:           #2563eb10;
     --color-overlay: rgba(0,0,0,.5); --color-shadow:           #cbd5e1;
     --color-scrollbar:        #94a3b8;
-    --color-table:            #2563eb;
     --color-success:          #16a34a;
     --color-success-hover:    #15803d;
     --color-danger:           #dc2626;
@@ -57,7 +55,7 @@
   }
 }
 
-/* ── Force mode overrides ── */
+/* -- Force mode overrides -- */
 :root[data-theme-mode="dark"] {
   --color-success:          #22c55e;
   --color-success-hover:    #16a34a;
@@ -77,7 +75,6 @@
   --color-accent:           #60a5fa12;
   --color-overlay: rgba(0,0,0,.5); --color-shadow:           #00000055;
   --color-scrollbar:        #334155;
-  --color-table:            #3b82f6;
   --color-success:          #22c55e;
   --color-success-hover:    #16a34a;
   --color-danger:           #ef4444;
@@ -107,7 +104,6 @@
   --color-accent:           #2563eb10;
   --color-overlay: rgba(0,0,0,.5); --color-shadow:           #cbd5e1;
   --color-scrollbar:        #94a3b8;
-  --color-table:            #2563eb;
   --color-button-text:      var(--color-bg);
   --color-button-text-inverse: #1a1a1a;
   --border-radius:          6px;

@@ -1,12 +1,12 @@
-﻿/* ============================================================
-   LAYER 4 — THEME: SHADOW
+/* ============================================================
+   LAYER 4 � THEME: SHADOW
    Soft grey + violet by default. Pure dark + subtle purple
    in dark mode. Minimal, moody, no distractions.
    Auto-switches via prefers-color-scheme.
    Force mode: <html data-theme-mode="light|dark">
    ============================================================ */
 
-/* ── Light mode (default): soft grey + violet ── */
+/* -- Light mode (default): soft grey + violet -- */
 :root {
   --color-bg:               #fafafa;
   --color-bg-secondary:     #e8e8e8;
@@ -18,7 +18,6 @@
   --color-accent:           #7c3aed10;
   --color-overlay: rgba(0,0,0,.5); --color-shadow:           #cccccc;
   --color-scrollbar:        #aaaaaa;
-  --color-table:            #7c3aed;
   --color-success:          #16a34a;
   --color-success-hover:    #15803d;
   --color-danger:           #dc2626;
@@ -31,7 +30,7 @@
   --border-radius:          8px;
 }
 
-/* ── Dark mode (auto): pure dark + violet ── */
+/* -- Dark mode (auto): pure dark + violet -- */
 @media (prefers-color-scheme: dark) {
   :root {
     --color-bg:               #121212;
@@ -44,7 +43,6 @@
     --color-accent:           #a78bfa12;
     --color-overlay: rgba(0,0,0,.5); --color-shadow:           #00000088;
     --color-scrollbar:        #2a2a2a;
-    --color-table:            #a78bfa;
     --color-button-text:      #121212;
   --color-button-text-inverse: #e4e1e1;
     --color-success:          #4ade80;
@@ -58,7 +56,7 @@
   }
 }
 
-/* ── Force mode overrides ── */
+/* -- Force mode overrides -- */
 :root[data-theme-mode="dark"] {
   --color-success:          #22c55e;
   --color-success-hover:    #16a34a;
@@ -78,7 +76,6 @@
   --color-accent:           #a78bfa12;
   --color-overlay: rgba(0,0,0,.5); --color-shadow:           #00000088;
   --color-scrollbar:        #2a2a2a;
-  --color-table:            #a78bfa;
   --color-button-text:      var(--color-bg);
   --color-button-text-inverse: #ffffff;
   --color-success:          #4ade80;
@@ -108,7 +105,6 @@
   --color-accent:           #7c3aed10;
   --color-overlay: rgba(0,0,0,.5); --color-shadow:           #cccccc;
   --color-scrollbar:        #aaaaaa;
-  --color-table:            #7c3aed;
   --color-button-text:      #ffffff;
   --color-button-text-inverse: #000000;
   --border-radius:          8px;

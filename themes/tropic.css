@@ -1,12 +1,12 @@
-﻿/* ============================================================
-   LAYER 4 — THEME: TROPIC
-   Tropical sea palette — lime foam, mint shallows, teal
+/* ============================================================
+   LAYER 4 � THEME: TROPIC
+   Tropical sea palette � lime foam, mint shallows, teal
    reef, deep navy abyss. Fresh, vibrant, oceanic.
    Auto-switches via prefers-color-scheme.
    Force mode: <html data-theme-mode="light|dark">
    ============================================================ */
 
-/* ── Light mode (default): lime foam + teal reef ── */
+/* -- Light mode (default): lime foam + teal reef -- */
 :root {
   --color-bg:               #e5fbc7;
   --color-bg-secondary:     #d4f5b0;
@@ -18,7 +18,6 @@
   --color-accent:           #10adaf10;
   --color-overlay: rgba(0,0,0,.5); --color-shadow:           #b8e8a0;
   --color-scrollbar:        #99eea9;
-  --color-table:            #10adaf;
   --color-success:          #16a34a;
   --color-success-hover:    #15803d;
   --color-danger:           #dc2626;
@@ -31,7 +30,7 @@
   --border-radius:          8px;
 }
 
-/* ── Dark mode (auto): deep navy + teal glow ── */
+/* -- Dark mode (auto): deep navy + teal glow -- */
 @media (prefers-color-scheme: dark) {
   :root {
     --color-bg:               #120049;
@@ -44,7 +43,6 @@
     --color-accent:           #6adcca14;
     --color-overlay: rgba(0,0,0,.5); --color-shadow:           #00000066;
     --color-scrollbar:        #1a1060;
-    --color-table:            #6adcca;
   --color-success:          #22c55e;
   --color-success-hover:    #16a34a;
   --color-danger:           #ef4444;
@@ -58,7 +56,7 @@
   }
 }
 
-/* ── Force mode overrides ── */
+/* -- Force mode overrides -- */
 :root[data-theme-mode="light"] {
   --color-success:          #16a34a;
   --color-success-hover:    #15803d;
@@ -78,7 +76,6 @@
   --color-accent:           #10adaf10;
   --color-overlay: rgba(0,0,0,.5); --color-shadow:           #b8e8a0;
   --color-scrollbar:        #99eea9;
-  --color-table:            #10adaf;
   --color-button-text:      var(--color-bg);
   --color-button-text-inverse: #000000;
   --border-radius:          8px;
@@ -102,7 +99,6 @@
   --color-accent:           #6adcca14;
   --color-overlay: rgba(0,0,0,.5); --color-shadow:           #00000066;
   --color-scrollbar:        #1a1060;
-  --color-table:            #6adcca;
   --color-button-text:      var(--color-bg);
   --color-button-text-inverse: #ffffff;
   --border-radius:          8px;

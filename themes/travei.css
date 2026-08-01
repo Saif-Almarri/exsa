@@ -1,12 +1,12 @@
-﻿/* ============================================================
-   LAYER 4 — THEME: TRAVEI
-   Booking-inspired — deep navy #003b95 with golden
+/* ============================================================
+   LAYER 4 � THEME: TRAVEI
+   Booking-inspired � deep navy #003b95 with golden
    #ffb700 accents. Clean, trusted, ready to explore.
    Auto-switches via prefers-color-scheme.
    Force mode: <html data-theme-mode="light|dark">
    ============================================================ */
 
-/* ── Light mode (default): white + navy + gold ── */
+/* -- Light mode (default): white + navy + gold -- */
 :root {
   --color-bg:               #ffffff;
   --color-bg-secondary:     #f5f5f5;
@@ -18,7 +18,6 @@
   --color-accent:           #006ce410;
   --color-overlay: rgba(0,0,0,.5); --color-shadow:           #e7e7e7;
   --color-scrollbar:        #c4c4c4;
-  --color-table:            #003b95;
   --color-success:          #16a34a;
   --color-success-hover:    #15803d;
   --color-danger:           #d4111e;
@@ -31,7 +30,7 @@
   --border-radius:          8px;
 }
 
-/* ── Dark mode (auto): navy depths + gold glow ── */
+/* -- Dark mode (auto): navy depths + gold glow -- */
 @media (prefers-color-scheme: dark) {
   :root {
     --color-bg:               #003b95;
@@ -44,7 +43,6 @@
     --color-accent:           #ffb70014;
     --color-overlay: rgba(0,0,0,.5); --color-shadow:           #00000066;
     --color-scrollbar:        #0045a5;
-    --color-table:            #ffb700;
   --color-success:          #22c55e;
   --color-success-hover:    #16a34a;
   --color-danger:           #ef4444;
@@ -58,7 +56,7 @@
   }
 }
 
-/* ── Force mode overrides ── */
+/* -- Force mode overrides -- */
 :root[data-theme-mode="light"] {
   --color-success:          #16a34a;
   --color-success-hover:    #15803d;
@@ -78,7 +76,6 @@
   --color-accent:           #006ce410;
   --color-overlay: rgba(0,0,0,.5); --color-shadow:           #e7e7e7;
   --color-scrollbar:        #c4c4c4;
-  --color-table:            #003b95;
   --color-button-text:      var(--color-bg);
   --color-button-text-inverse: #000000;
   --border-radius:          8px;
@@ -102,7 +99,6 @@
   --color-accent:           #ffb70014;
   --color-overlay: rgba(0,0,0,.5); --color-shadow:           #00000066;
   --color-scrollbar:        #0045a5;
-  --color-table:            #ffb700;
   --color-button-text:      var(--color-bg);
   --color-button-text-inverse: #ffffff;
   --border-radius:          8px;
