@@ -45,18 +45,18 @@ The codebase is intentionally small (~650 lines of core CSS) so it can evolve wi
 **CDN (fastest)** — two lines, zero install:
 
 ```html
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Saif-Almarri/exsa@main/style.css">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Saif-Almarri/exsa@main/themes/breeze.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/exsa/style.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/exsa/themes/breeze.css">
 ```
 
 Need a specific component or theme? Just add the path:
 
 ```html
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Saif-Almarri/exsa@main/components/buttons.css">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Saif-Almarri/exsa@main/themes/night.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/exsa/components/buttons.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/exsa/themes/night.css">
 ```
 
-> Pin a version by replacing `@main` with `@v1.0.0-beta.2` (or any tag/release).
+> Pin a version by adding `@1.0.0-beta.2` (or any version): `npm/exsa@1.0.0-beta.2/style.css`
 
 **Or download locally:**
 
