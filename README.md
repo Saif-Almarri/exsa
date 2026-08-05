@@ -87,6 +87,10 @@ your-project/
 └── your-page.html
 ```
 
+**Or use the Generator — pick components, pick a theme, download a single bundle.**
+
+Visit **[exsa.dev/generator.php](https://exsa.dev/generator.php)** — select the components you need, choose a theme, and download `exsa.bundle.css` + `bundle.js`. One file. Zero dead styles. No CLI. No config.
+
 ### Link and build
 
 ```html
