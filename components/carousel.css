@@ -1,0 +1,151 @@
+/* ============================================================
+   Carousel Web Component — <uni-carousel>
+   ── CSS Grid layout (Shoelace-inspired). Scroll-snap engine.
+   Link with style.css + a theme. Requires components.js.
+
+   Usage:
+     <uni-carousel pagination navigation autoplay loop>
+       <uni-carousel-item><img src="..." alt=""></uni-carousel-item>
+     </uni-carousel>
+
+   Attributes: pagination navigation autoplay loop mouse-dragging
+               slides-per-page=N slides-per-move=N orientation=vertical
+               autoplay-interval=N (ms)
+   CSS custom properties: --aspect-ratio  --slide-gap  --scroll-hint
+   ============================================================ */
+
+uni-carousel {
+  --slide-gap: 0px;
+  --aspect-ratio: 16 / 9;
+  --scroll-hint: 0px;
+  display: block;
+}
+
+.carousel {
+  position: relative;
+  width: 100% !important;
+}
+
+.carousel__slides {
+  display: grid !important;
+  overflow: auto;
+  overscroll-behavior-x: contain;
+  scrollbar-width: none;
+  border-radius: var(--border-radius);
+  cursor: default;
+}
+.carousel__slides::-webkit-scrollbar { display: none; }
+
+.carousel__slides--horizontal {
+  grid-auto-flow: column;
+  grid-auto-columns: var(--slide-size);
+  grid-auto-rows: 100%;
+  column-gap: var(--slide-gap);
+  scroll-snap-type: x mandatory;
+  scroll-padding-inline: var(--scroll-hint);
+  padding-inline: var(--scroll-hint);
+  overflow-y: hidden;
+  aspect-ratio: calc(var(--aspect-ratio) * var(--slides-per-page, 1));
+}
+
+.carousel__slides--vertical {
+  grid-auto-flow: row;
+  grid-auto-rows: var(--slide-size);
+  grid-auto-columns: 100%;
+  row-gap: var(--slide-gap);
+  scroll-snap-type: y mandatory;
+  scroll-padding-block: var(--scroll-hint);
+  padding-block: var(--scroll-hint);
+  overflow-x: hidden;
+}
+
+uni-carousel[orientation="vertical"] .carousel {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+uni-carousel[orientation="vertical"] .carousel__slides--vertical {
+  aspect-ratio: auto;
+  flex: 1;
+  min-height: 0;
+}
+uni-carousel[orientation="vertical"] .carousel__nav-btn {
+  display: none;
+}
+
+uni-carousel[mouse-dragging] .carousel__slides {
+  cursor: grab; user-select: none;
+}
+uni-carousel[mouse-dragging] .carousel__slides:active {
+  cursor: grabbing;
+}
+
+uni-carousel-item {
+  display: block !important;
+  position: relative;
+  scroll-snap-align: start !important;
+  overflow: hidden;
+  cursor: default;
+}
+uni-carousel-item img {
+  width: 100%; height: 100%; object-fit: cover; display: block;
+}
+
+/* ── Navigation ── */
+.carousel__navigation {
+  display: contents !important;
+}
+
+.carousel__nav-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10;
+  display: flex; align-items: center; justify-content: center;
+  background: none; color: var(--color-text);
+  border: none;
+  width: 32px; height: 48px; cursor: pointer !important; padding: 0;
+  font-size: 2.4rem; font-family: inherit; font-weight: 600;
+  transition: color .15s, opacity .15s;
+  opacity: 0.6;
+  pointer-events: auto;
+  text-shadow: 1px 1px 16px rgba(0,0,0,.3);
+}
+.carousel__nav-btn:hover {
+  color: var(--color-link);
+  opacity: 1;
+}
+.carousel__nav-btn--prev { inset-inline-start: 8px; }
+.carousel__nav-btn--next { inset-inline-end: 8px; }
+
+.carousel__nav-btn[aria-disabled="true"] {
+  opacity: .4; cursor: not-allowed; pointer-events: none;
+}
+
+uni-carousel[orientation="vertical"] .carousel__nav-btn {
+  margin: 6px 0;
+}
+
+/* ── Pagination ── */
+.carousel__pagination {
+  display: flex; flex-wrap: wrap; justify-content: center;
+  gap: .5rem; padding: .5rem 0 0;
+  min-height: 20px; min-width: 0;
+}
+
+.carousel__pagination-item {
+  width: 9px; height: 9px; background: var(--color-bg-secondary);
+  border: none; border-radius: 50%; cursor: pointer !important; padding: 0;
+  transition: background .2s, transform .2s;
+}
+.carousel__pagination-item:hover { background: var(--color-text-secondary); }
+.carousel__pagination-item--active {
+  background: var(--color-link); transform: scale(1.35);
+}
+
+/* ── RTL ── */
+[dir=rtl] .carousel__slides--horizontal { direction: ltr; }
+
+@media (prefers-reduced-motion: reduce) {
+  .carousel__slides { scroll-behavior: auto; }
+}

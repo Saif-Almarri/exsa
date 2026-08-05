@@ -91,7 +91,7 @@ Each layer feeds the next. Themes and user CSS sit *outside* all layers — unla
 - **Not a utility framework.** EXSA believes component classes (`card`, `btn--primary`) carry more meaning than atomic utilities (`bg-white rounded-lg shadow-md p-6`). Semantic HTML should work without 12 classes on a div.
 - **Not a design system.** EXSA ships no design opinions — 20 themes prove the same component can look completely different. The tokens are the system. You bring the design.
 - **Not a JavaScript framework.** No React, Vue, or Svelte wrappers needed. EXSA is CSS — it works with any backend, any static server, and yes, `npm install exsa` if you prefer packages over `<link>` tags.
-- **Not a "minimal" framework.** 50 components, 20 themes, 85+ layout utilities, a bundle generator, and a classless engine. Small in KB. Not small in capability.
+- **Not a "minimal" framework.** 50 components, 20 themes, 90+ layout utilities, a bundle generator, and a classless engine. Small in KB. Not small in capability.
 
 ---
 

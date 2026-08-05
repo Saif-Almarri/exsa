@@ -50,7 +50,7 @@ Initial beta launch of EXSA — a 5-layer CSS framework built on tokens, not too
 
 - **50 Components:** accordion, alert, avatar, back-to-top, badge, breadcrumbs, buttons, card, checkbox, code-block, color-picker, context-menu, cookie-bar, dashboard, data-list, date-picker, donut, drawer, dropdown, footer, form-required, form-validation, input-group, lightbox, modal, music-player, pagination, password-input, popover, pricing-table, progress, radio, range-slider, rating, resizer, select, separator, sidebar, skeleton, slideshow, spinner, stepper, table, tabs, timeline, toast, toggle, tooltip, topbar, video-gallery
 
-- **101 SVG Icons** — stroke-based, currentColor, 24×24. Browsable gallery at `icons.php`. Use with `<span class="ic ic-name"></span>`. Covers navigation, actions, text editing, media, account, security, commerce, and developer tools.
+- **110 SVG Icons** — stroke-based, currentColor, 24×24. Browsable gallery at `icons.php`. Use with `<span class="ic ic-name"></span>`. Covers navigation, actions, text editing, media, account, security, commerce, and developer tools.
 
 - **20 Themes:** abyss, breeze, clinic, console, coral, ember, forest, ink, ledger, mono, night, nova, prism, sepia, shadow, sojourn, steel, travei, tropic, volt
 

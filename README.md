@@ -20,13 +20,13 @@ EXSA chooses a third path.
 
 **Classes are optional.** Add `class="exsa"` to `<body>` and plain HTML — `<nav>`, `<section>`, `<table>`, `<form>`, `<button>`, `<blockquote>`, `<dialog>` — becomes a styled UI. Add any class to a structural element and EXSA steps aside. Zero specificity. No `!important`. You're always in control.
 
-**There is no build.** No CLI. No PostCSS. No config file. No `npm install`. Just `<link>` two files and you have a complete design system.
+**There is no build.** No CLI. No PostCSS. No config file. Just `<link>` two files from the CDN and you have a complete design system. No `npm install` required — ever. (npm exists if you want it, but you'll never need it.)
 
 **No template engine needed.** EXSA doesn't care if your view is a plain `.php` file, a static `.html` file, or served from Python, Node, Ruby, or Go. No Twig. No Blade. No SASS. No Webpack. If your server outputs HTML, EXSA styles it. Drop the files in your `public/` folder and you're done.
 
 **Components are files, not dependencies.** Every component is a single CSS file (~1 KB). Link what you need — zero dead styles.
 
-In short: EXSA is what happens when you trust CSS custom properties, `@layer`, and `:where()` to do the work that frameworks usually delegate to tools. Its signature feature — **Guarded Classless™** — styles semantic HTML automatically, then steps aside the moment you add a single class. No overrides needed. No `!important`. Ever.
+In short: EXSA is what happens when you trust CSS custom properties, `@layer`, and `:where()` to do the work that frameworks usually delegate to tools. Bootstrap launched in 2011. Tailwind in 2017. But the three CSS features that make Guarded Classless™ possible — `:not([class])`, `:where()`, and `@layer` — only became baseline together in 2022. EXSA is the first framework to combine all three into a single architectural pattern. Its signature feature — **Guarded Classless™** — styles semantic HTML automatically, then steps aside the moment you add a single class. No overrides needed. No `!important`. Ever.
 
 ## Built for Where CSS Is Going
 
@@ -42,21 +42,32 @@ The codebase is intentionally small (~650 lines of core CSS) so it can evolve wi
 
 ### Getting the files
 
-**CDN (fastest)** — two lines, zero install:
+**CDN — two lines, zero install. You're done.**
 
 ```html
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/exsa/style.css">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/exsa/themes/breeze.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Saif-Almarri/exsa@main/style.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Saif-Almarri/exsa@main/themes/breeze.css">
 ```
 
-Need a specific component or theme? Just add the path:
+Need a component or a different theme? Just add the path:
 
 ```html
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/exsa/components/buttons.css">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/exsa/themes/night.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Saif-Almarri/exsa@main/components/buttons.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Saif-Almarri/exsa@main/themes/night.css">
 ```
 
-> Pin a version by adding `@1.0.0-beta.2` (or any version): `npm/exsa@1.0.0-beta.2/style.css`
+> Pin a version by replacing `@main` with `@1.0.0-beta.2` (or any tag)
+
+<details>
+<summary>npm? (you don't need it — but it's there)</summary>
+
+```bash
+npm install @exsa/exsa
+```
+
+EXSA is published to npm for the CDN and discoverability — not because you need a build step. If you're already in a bundler project, `@import '@exsa/exsa/style.css'` works. But `<link>` tags are the recommended path.
+
+</details>
 
 **Or download locally:**
 
@@ -154,7 +165,7 @@ Priority  Layer                 Covers
 
 ## Design Tokens
 
-All 51 tokens live in `:root` inside `@layer exsa.tokens`. Themes override them by being unlayered. **Export:** [`tokens.json`](tokens.json) for Figma, JS, or Tailwind config.
+All 52 tokens live in `:root` inside `@layer exsa.tokens`. Themes override them by being unlayered. **Export:** [`tokens.json`](tokens.json) for Figma, JS, or Tailwind config.
 
 ### Base colors
 
@@ -443,7 +454,7 @@ Sizes: `.btn--sm`, `.btn--lg` | Modifiers: `.btn--icon`, `.btn--block` | State: 
 | **Layout** | Accordion, Drawer, Footer, Modal, Pricing Table |
 | **Navigation** | Topbar, Sidebar, Back to Top, Breadcrumbs, Pagination, Stepper, Timeline, Tooltip |
 | **Content** | Avatar, Badge, Card, Code Block, Table |
-| **Media** | Lightbox, Music Player, Video Gallery, Slideshow |
+| **Media** | Lightbox, Music Player, Video Gallery, Carousel, Slideshow |
 | **Data** | Donut Chart, Progress Bars, Range Slider |
 | **Actions** | Buttons, Checkbox, Color Picker, Date Picker, Dropdown, Form Validation, Icon Button, Input Group, Loading Button, Password Input, Radio, Rating, Select, Tabs, Toggle, Panel Resizer |
 | **Feedback** | Alert, Cookie Bar, Skeleton Loader, Spinner, Toast |
@@ -452,7 +463,7 @@ Sizes: `.btn--sm`, `.btn--lg` | Modifiers: `.btn--icon`, `.btn--block` | State: 
 
 ## Icons
 
-EXSA ships with **101 SVG icons** — stroke-based at 24×24, using `stroke="currentColor"` so they inherit color from the parent element. All icons are accessed via CSS mask classes:
+EXSA ships with **110 SVG icons** — stroke-based at 24×24, using `stroke="currentColor"` so they inherit color from the parent element. All icons are accessed via CSS mask classes:
 
 ```html
 <span class="ic ic-search"></span>

@@ -29,6 +29,7 @@
     { "name": "--color-button-text", "description": "Button text color (defined by themes). Fallback: #fff" },
     { "name": "--color-border", "description": "Default border color. Default: #e9e9e9" },
     { "name": "--font-family", "description": "System font stack" },
+    { "name": "--font-family-heading", "description": "Heading font family (falls back to --font-family). Premium fonts target this token." },
     { "name": "--font-weight-normal", "description": "Normal font weight. Default: 400" },
     { "name": "--font-weight-bold", "description": "Bold font weight. Default: 700" },
     { "name": "--font-weight-heavy", "description": "Heavy/black font weight. Default: 800" },

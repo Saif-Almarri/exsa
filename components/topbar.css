@@ -49,7 +49,8 @@ body:has(.topbar--xl) { --topbar-height: 72px; }
 .topbar--xl { --topbar-height: 72px; }
 
 /* Transparent — frosted glass, always slightly see-through */
-.topbar--transparent {
+.topbar--transparent,
+.exsa .topbar--transparent {
   background: color-mix(in srgb, var(--color-bg) 85%, transparent);
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
