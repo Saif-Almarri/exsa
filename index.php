@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 header('X-Content-Type-Options: nosniff');
 header('X-Frame-Options: DENY');
 header('Referrer-Policy: strict-origin-when-cross-origin');
@@ -255,9 +255,67 @@ header('Strict-Transport-Security: max-age=31536000; includeSubDomains');
     </div>
   </section>
 
+  <!-- -- Architecture -- -->
+  <section class="sec" id="architecture">
+    <div class="sec__label">Invention #1</div>
+    <h2>5 layers. Each with one job.</h2>
+    <p class="sec__sub">CSS <code>@layer</code> is the most underused feature in the language. EXSA builds its entire architecture on it — themes and your CSS sit <strong>outside</strong> the cascade, so they always win.</p>
+
+    <div class="arch">
+      <div class="arch__layer arch__layer--unlayered">
+        <div class="arch__num">?</div>
+        <div class="arch__info">
+          <h4>Your CSS & Themes</h4>
+          <p><strong>Unlayered</strong> — always wins. Themes override tokens. Your styles override everything. No <code>!important</code> needed.</p>
+          <code>themes/breeze.css — your-styles.css — style attribute</code>
+        </div>
+      </div>
+      <div class="arch__layer arch__layer--l5">
+        <div class="arch__num">5</div>
+        <div class="arch__info">
+          <h4>Components</h4>
+          <p>50 plug-and-play components. Each is one CSS file. Link only what you need. All use <code>:where()</code> for zero specificity.</p>
+          <code>accordion — modal — toast — tabs — card — table — dropdown</code>
+        </div>
+      </div>
+      <div class="arch__layer arch__layer--l4">
+        <div class="arch__num">4</div>
+        <div class="arch__info">
+          <h4>Elements</h4>
+          <p><strong>Guarded Classless</strong> — semantic HTML works out of the box. Add any class to any element and EXSA instantly steps aside.</p>
+          <code>&lt;section&gt; gets cards — &lt;section class="my-app"&gt; doesn't</code>
+        </div>
+      </div>
+      <div class="arch__layer arch__layer--l3">
+        <div class="arch__num">3</div>
+        <div class="arch__info">
+          <h4>Layout</h4>
+          <p>72+ flex & grid + 18 typography utilities. No prefix. No breakpoint memorization. Just compose.</p>
+          <code>.flex — .grid — .container — .gap-md — .grid-auto-fit</code>
+        </div>
+      </div>
+      <div class="arch__layer arch__layer--l2">
+        <div class="arch__num">2</div>
+        <div class="arch__info">
+          <h4>Reset</h4>
+          <p>Box model, focus rings, scrollbars, RTL, reduced motion, forced-colors, skip links.</p>
+          <code>box-sizing — :focus-visible — [dir=rtl] — prefers-reduced-motion</code>
+        </div>
+      </div>
+      <div class="arch__layer arch__layer--l1">
+        <div class="arch__num">1</div>
+        <div class="arch__info">
+          <h4>Tokens</h4>
+          <p>61 CSS custom properties. Colors, spacing, typography, shadows, breakpoints, behavioral factors. The foundation everything else references.</p>
+          <code>--color-link — --gap — --border-radius — --box-shadow</code>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- -- Code Comparison -- -->
   <section class="sec">
-    <div class="sec__label">Side by Side</div>
+    <div class="sec__label">Invention #2</div>
     <h2>The same card. Two very different philosophies.</h2>
     <p class="sec__sub">EXSA uses <strong>semantic component classes</strong> — you name what it <em>is</em>. Tailwind uses <strong>atomic utilities</strong> — you describe what it <em>looks like</em>. Change one token in EXSA, every card recolors. In Tailwind, you edit every class.</p>
 
@@ -350,63 +408,6 @@ header('Strict-Transport-Security: max-age=31536000; includeSubDomains');
     </div>
   </section>
 
-  <!-- -- Architecture -- -->
-  <section class="sec" id="architecture">
-    <div class="sec__label">Architecture</div>
-    <h2>5 layers. Each with one job.</h2>
-    <p class="sec__sub">CSS <code>@layer</code> is the most underused feature in the language. EXSA builds its entire architecture on it — themes and your CSS sit <strong>outside</strong> the cascade, so they always win.</p>
-
-    <div class="arch">
-      <div class="arch__layer arch__layer--unlayered">
-        <div class="arch__num">?</div>
-        <div class="arch__info">
-          <h4>Your CSS & Themes</h4>
-          <p><strong>Unlayered</strong> — always wins. Themes override tokens. Your styles override everything. No <code>!important</code> needed.</p>
-          <code>themes/breeze.css — your-styles.css — style attribute</code>
-        </div>
-      </div>
-      <div class="arch__layer arch__layer--l5">
-        <div class="arch__num">5</div>
-        <div class="arch__info">
-          <h4>Components</h4>
-          <p>50 plug-and-play components. Each is one CSS file. Link only what you need. All use <code>:where()</code> for zero specificity.</p>
-          <code>accordion — modal — toast — tabs — card — table — dropdown</code>
-        </div>
-      </div>
-      <div class="arch__layer arch__layer--l4">
-        <div class="arch__num">4</div>
-        <div class="arch__info">
-          <h4>Elements</h4>
-          <p><strong>Guarded Classless</strong> — semantic HTML works out of the box. Add any class to any element and EXSA instantly steps aside.</p>
-          <code>&lt;section&gt; gets cards — &lt;section class="my-app"&gt; doesn't</code>
-        </div>
-      </div>
-      <div class="arch__layer arch__layer--l3">
-        <div class="arch__num">3</div>
-        <div class="arch__info">
-          <h4>Layout</h4>
-          <p>72+ flex & grid + 18 typography utilities. No prefix. No breakpoint memorization. Just compose.</p>
-          <code>.flex — .grid — .container — .gap-md — .grid-auto-fit</code>
-        </div>
-      </div>
-      <div class="arch__layer arch__layer--l2">
-        <div class="arch__num">2</div>
-        <div class="arch__info">
-          <h4>Reset</h4>
-          <p>Box model, focus rings, scrollbars, RTL, reduced motion, forced-colors, skip links.</p>
-          <code>box-sizing — :focus-visible — [dir=rtl] — prefers-reduced-motion</code>
-        </div>
-      </div>
-      <div class="arch__layer arch__layer--l1">
-        <div class="arch__num">1</div>
-        <div class="arch__info">
-          <h4>Tokens</h4>
-          <p>61 CSS custom properties. Colors, spacing, typography, shadows, breakpoints, behavioral factors. The foundation everything else references.</p>
-          <code>--color-link — --gap — --border-radius — --box-shadow</code>
-        </div>
-      </div>
-    </div>
-  </section>
 
   <!-- -- A11y -- -->
   <section class="sec sec--alt">
