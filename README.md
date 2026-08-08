@@ -20,6 +20,8 @@ EXSA chooses a third path.
 
 **Classes are optional.** Add `class="exsa"` to `<body>` and plain HTML — `<nav>`, `<section>`, `<table>`, `<form>`, `<button>`, `<blockquote>`, `<dialog>` — becomes a styled UI. Add any class to a structural element and EXSA steps aside. Zero specificity. No `!important`. You're always in control.
 
+**Fluid by default.** Spacing, typography, and shape scale smoothly with viewport width — no breakpoints needed. Add `data-profile="compact"` or `data-profile="spacious"` to `<html>` and every component shifts density with one attribute. One optional file. Zero build.
+
 **There is no build.** No CLI. No PostCSS. No config file. Just `<link>` two files from the CDN and you have a complete design system. No `npm install` required — ever. (npm exists if you want it, but you'll never need it.)
 
 **No template engine needed.** EXSA doesn't care if your view is a plain `.php` file, a static `.html` file, or served from Python, Node, Ruby, or Go. No Twig. No Blade. No SASS. No Webpack. If your server outputs HTML, EXSA styles it. Drop the files in your `public/` folder and you're done.
@@ -685,7 +687,7 @@ No revenue yet. No salary. Everyone starts as a contributor. **24% equity each**
 
 ## Inventor's Statement
 
-The **5-layer CSS architecture** (tokens → reset → layout → elements → components) and the **Guarded Classless™** pattern are original inventions of Saif Almarri, first published in 2026. See [PHILOSOPHY.md](PHILOSOPHY.md) for the full technical documentation and design rationale.
+The **5-layer CSS architecture** (tokens → reset → layout → elements → components), the **Guarded Classless™** pattern, and the **Fluid Scale + Density Profiles** system are original inventions of Saif Almarri, first published in 2026. See [PHILOSOPHY.md](PHILOSOPHY.md) and [TRADEMARK.md](TRADEMARK.md) for the full technical documentation and design rationale.
 
 ---
 
