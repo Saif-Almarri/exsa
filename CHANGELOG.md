@@ -29,7 +29,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### 📦 Size
 
-- **24 KB** raw, **~5.6 KB** gzipped (was 19.8 KB / ~6.7 KB). Growth from new tokens, horizontal card, and a11y improvements. Comments trimmed — cheatsheet.php is the canonical docs source.
+- **26 KB** raw, **~5.6 KB** gzipped (was 19.8 KB / ~6.7 KB). Growth from new tokens, horizontal card, and a11y improvements. Comments trimmed — cheatsheet.php is the canonical docs source.
 
 ---
 
@@ -42,7 +42,7 @@ Initial beta launch of EXSA — a 5-layer CSS framework built on tokens, not too
 ### ✨ Added
 
 - **5-layer cascade architecture** (`@layer`):
-  1. `exsa.tokens` — 51 CSS custom properties
+  1. `exsa.tokens` — 61 CSS custom properties
   2. `exsa.reset` — Box model, focus rings, accessibility, RTL
   3. `exsa.layout` — 85+ flex/grid utilities
   4. `exsa.elements` — Guarded Classless™ semantic HTML styling

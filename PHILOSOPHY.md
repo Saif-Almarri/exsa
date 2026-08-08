@@ -64,7 +64,7 @@ This is the reversal of the traditional framework power dynamic. Most frameworks
 
 ### 2. Token-Driven Everything
 
-All 50 components share 51 CSS custom properties. Every color, every shadow, every border-radius, every gap — it all flows from `:root` tokens.
+All 50 components share 61 CSS custom properties. Every color, every shadow, every border-radius, every gap — it all flows from `:root` tokens.
 
 Swap one theme file. Every component, every element style, every utility class recolors instantly. No rebuild. No recompile. No class-name hunt across 200 files.
 
@@ -75,7 +75,7 @@ This is not "CSS variables are nice to have." This is: *the tokens are the desig
 CSS `@layer` is the most underused feature in the language. EXSA builds its entire architecture on it:
 
 ```
-@layer exsa.tokens      → 51 custom properties
+@layer exsa.tokens      → 61 custom properties
      exsa.reset       → box model, focus, a11y, RTL
      exsa.layout      → flex, grid, containers
      exsa.elements    → Guarded Classless
@@ -83,6 +83,17 @@ CSS `@layer` is the most underused feature in the language. EXSA builds its enti
 ```
 
 Each layer feeds the next. Themes and user CSS sit *outside* all layers — unlayered styles always override layered ones. Specificity becomes irrelevant. You never need `!important`.
+
+### 4. Fluid by Default. Adaptive When Needed.
+
+Tokens don't just drive colors — they drive responsive behavior. Via `clamp()`, scalar values like spacing, font size, and border radius scale smoothly with viewport width. No `@media` queries. No breakpoints. No responsive utility classes on every element.
+
+```css
+/* Mobile to desktop — no breakpoints, no classes */
+--gap: calc(clamp(0.75rem, 0.6rem + 0.5vw, 1.25rem) * var(--space-factor));
+```
+
+Behavioral profiles (`data-profile="compact"`, `data-profile="spacious"`) change the density of every component with one HTML attribute — `--space-factor`, `--radius-factor`, `--font-factor` cascade through the entire design system. Fluid for values. Adaptive for layout. One optional file. Zero build.
 
 ---
 

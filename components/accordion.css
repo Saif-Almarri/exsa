@@ -1,12 +1,37 @@
 ﻿/* ============================================================
-   ARIA: aria-expanded on .accordion__label, toggled via checkbox state
    Component: Accordion
+   Two APIs — use either, both work:
+
+   1. <details>/<summary> (RECOMMENDED — native a11y, zero JS)
+      <details class="accordion__item">
+        <summary class="accordion__label">Title</summary>
+        <div class="accordion__panel"><div class="accordion__panel-inner">...</div></div>
+      </details>
+
+   2. Checkbox hack (legacy — needs JS for aria-expanded sync)
+      <div class="accordion__item">
+        <input type="checkbox" id="a1" class="accordion__trigger">
+        <label for="a1" class="accordion__label">Title</label>
+        <div class="accordion__panel"><div class="accordion__panel-inner">...</div></div>
+      </div>
+
+   ARIA: <details> handles aria-expanded natively. For checkbox hack,
+   components.js syncs aria-expanded on checkbox change.
    ============================================================ */
 
-/* --- C1: ACCORDION --- */
 .accordion{border:1px solid var(--color-bg-secondary);border-radius:var(--border-radius);overflow:hidden}
 .accordion__item{border-bottom:1px solid var(--color-bg-secondary)}
 .accordion__item:last-child{border-bottom:none}
+
+/* ── <details>/<summary> — recommended ── */
+.accordion details.accordion__item summary::-webkit-details-marker{display:none}
+.accordion details.accordion__item summary{list-style:none}
+.accordion details.accordion__item[open] > .accordion__label{color:var(--color-link)}
+.accordion details.accordion__item[open] > .accordion__label::after{transform:rotate(45deg)}
+.accordion details.accordion__item > .accordion__panel{max-height:0;overflow:hidden;transition:max-height .35s ease,padding .35s ease}
+.accordion details.accordion__item[open] > .accordion__panel{max-height:2000px}
+
+/* ── Checkbox hack — legacy ── */
 .accordion__trigger{display:none}
 .accordion__label{display:flex;align-items:center;justify-content:space-between;padding:14px 18px;font-size:.9rem;font-weight:600;color:var(--color-text);cursor:pointer;user-select:none;transition:background .15s,color .15s;gap:12px}
 .accordion__label:hover{background:var(--color-bg-secondary)}

@@ -2,7 +2,7 @@
 
 > **v1.0.0-beta.2** — Now available. Stable core, gathering real-world feedback. [See what's new →](CHANGELOG.md)
 
-**EXSA is a lightweight CSS framework.** 24 KB core (~5.6 KB gzipped). 50 components. 20 themes. Zero build step. Works with any server — just link two CSS files and start building.
+**EXSA is a lightweight CSS framework.** 26 KB core (~5.6 KB gzipped). 50 components. 20 themes. Zero build step. Works with any server — just link two CSS files and start building.
 
 > *Link two files. Get a complete design system. Change one token — every component recolors.*
 >
@@ -16,7 +16,7 @@ CSS frameworks force a choice: utility-first means memorizing hundreds of classe
 
 EXSA chooses a third path.
 
-**Tokens are the design system.** 51 CSS custom properties drive 50 components, 20 themes, and every utility. Change `--color-link` in one place — every button, badge, link, and card recolors instantly. No recompile. No variable hunt across 2,000 files.
+**Tokens are the design system.** 61 CSS custom properties drive 50 components, 20 themes, and every utility. Change `--color-link` in one place — every button, badge, link, and card recolors instantly. No recompile. No variable hunt across 2,000 files.
 
 **Classes are optional.** Add `class="exsa"` to `<body>` and plain HTML — `<nav>`, `<section>`, `<table>`, `<form>`, `<button>`, `<blockquote>`, `<dialog>` — becomes a styled UI. Add any class to a structural element and EXSA steps aside. Zero specificity. No `!important`. You're always in control.
 
@@ -25,6 +25,8 @@ EXSA chooses a third path.
 **No template engine needed.** EXSA doesn't care if your view is a plain `.php` file, a static `.html` file, or served from Python, Node, Ruby, or Go. No Twig. No Blade. No SASS. No Webpack. If your server outputs HTML, EXSA styles it. Drop the files in your `public/` folder and you're done.
 
 **Components are files, not dependencies.** Every component is a single CSS file (~1 KB). Link what you need — zero dead styles.
+
+**CSS first, JS optional.** The core (`style.css` + a theme) is pure CSS — tokens, reset, layout utilities, Guarded Classless element styling. Zero JavaScript. 58% of components (29 of 50) are pure CSS too. The remaining 21 add interactivity via `components.js` — a single `<script>` tag, same zero-build philosophy. Dropdowns, modals, tabs, toasts — if you need them, link the JS. If you don't, nothing breaks. Same choice every CSS framework offers, just without the toolchain.
 
 In short: EXSA is what happens when you trust CSS custom properties, `@layer`, and `:where()` to do the work that frameworks usually delegate to tools. Bootstrap launched in 2011. Tailwind in 2017. But the three CSS features that make Guarded Classless™ possible — `:not([class])`, `:where()`, and `@layer` — only became baseline together in 2022. EXSA is the first framework to combine all three into a single architectural pattern. Its signature feature — **Guarded Classless™** — styles semantic HTML automatically, then steps aside the moment you add a single class. No overrides needed. No `!important`. Ever.
 
@@ -77,10 +79,17 @@ git clone https://github.com/Saif-Almarri/exsa.git
 
 Or grab the latest ZIP from [GitHub Releases](https://github.com/Saif-Almarri/exsa/releases).
 
+**Optional: Fluid tokens & profiles.** Link `exsa.fluid.css` after the core to make spacing, typography, and shape scale smoothly with viewport width — no breakpoints needed. Built-in behavioral profiles (Compact / Comfortable / Spacious) change density with one HTML attribute. One file. Build-free.
+
+```html
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Saif-Almarri/exsa@main/exsa.fluid.css">
+```
+
 Your project folder needs these:
 ```
 your-project/
 ├── style.css          ← core
+├── exsa.fluid.css     ← fluid tokens & profiles (optional)
 ├── components/        ← 50 component CSS files
 ├── themes/            ← 20 theme files
 ├── components.js       ← interactive behaviors (optional)
@@ -146,7 +155,7 @@ EXSA uses CSS `@layer` to enforce a browser-native cascade. **Unlayered user CSS
 ```
 Priority  Layer                 Covers
 ────────  ────────────────────  ──────────────────────────────────
-  1       @layer exsa.tokens    51 CSS custom properties in :root
+  1       @layer exsa.tokens    61 CSS custom properties in :root
   2       @layer exsa.reset     Box model, focus rings, RTL, body
   3       @layer exsa.layout    Flex, grid, containers, breakpoints
   4       @layer exsa.elements  Guarded Classless — semantic HTML with instant opt-out
@@ -169,7 +178,7 @@ Priority  Layer                 Covers
 
 ## Design Tokens
 
-All 52 tokens live in `:root` inside `@layer exsa.tokens`. Themes override them by being unlayered. **Export:** [`tokens.json`](tokens.json) for Figma, JS, or Tailwind config.
+All 61 tokens live in `:root` inside `@layer exsa.tokens`. Themes override them by being unlayered. **Export:** [`tokens.json`](tokens.json) for Figma, JS, or Tailwind config.
 
 ### Base colors
 
@@ -275,6 +284,8 @@ Always active — no `.exsa` prefix needed.
 | `.grid-auto-fill` | `repeat(auto-fill, minmax(200px, 1fr))` |
 
 ### Responsive Breakpoints
+
+> **Spacing, typography, and shape scale fluidly without breakpoints** — link `exsa.fluid.css` and tokens handle the rest. Use the responsive classes below only for structural changes: switching columns, flex direction, or layout overrides at specific widths.
 
 | Breakpoint | Flex classes | Grid classes |
 |---|---|---|
@@ -535,11 +546,12 @@ EXSA targets WCAG 2.1 AA compliance.
 
 | File | Size |
 |---|---|
-| `style.css` | 24 KB (~650 lines) |
+| `style.css` | 26 KB (~650 lines) |
+| `exsa.fluid.css` | ~1.5 KB (optional) |
 | Each theme | ~1 KB (~30 lines) |
 | Each component | ~1 KB |
-| Full framework (core + theme) | ~25 KB |
-| Typical deploy (core + theme + 10 components) | ~35 KB |
+| Full framework (core + theme) | ~27 KB |
+| Typical deploy (core + theme + 10 components) | ~37 KB |
 No minification needed — the files are already compact.
 
 ---
@@ -550,7 +562,7 @@ No minification needed — the files are already compact.
 |---|---|---|---|
 | **Build step** | None | None (SCSS optional) | Yes (PostCSS/CLI) |
 | **No template engine needed** | ✅ Yes — plain `.php` files, no Twig, no Blade | ✅ (HTML/CSS only) | ❌ Requires Node.js + PostCSS |
-| **File size (base)** | 24 KB | ~50 KB (minified grid+reboot) | ~4 KB (compiled, no utilities yet) |
+| **File size (base)** | 26 KB | ~50 KB (minified grid+reboot) | ~4 KB (compiled, no utilities yet) |
 | **Guarded Classless™** | Yes — semantic HTML with opt-out | No | No |
 | **Runtime theming** | 20 themes, live-swappable | Light/dark in 5.3 | Dark mode with `dark:` |
 | **CSS Grid utilities** | Yes | Limited | Yes |

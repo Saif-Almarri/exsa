@@ -17,7 +17,7 @@
   "layers": {
     "1_tokens": {
       "label": "Layer 1 — Tokens (CSS custom properties)",
-      "desc": "52 design tokens. Colors, spacing, shadows, type, fonts."
+      "desc": "61 design tokens. Colors, spacing, shadows, type, fonts, breakpoints, behavioral factors."
     },
     "2_reset": {
       "label": "Layer 2 — Reset",
@@ -40,7 +40,7 @@
     "css": [
       "style.css?v=24"
     ],
-    "description": "Complete core (24 KB, ~5.6 KB gzipped): tokens, reset, layout utilities, classless element styles for nav, table, form, button, blockquote, dialog, and more. One file, one link."
+    "description": "Complete core (26 KB, ~5.6 KB gzipped): tokens, reset, layout utilities, classless element styles for nav, table, form, button, blockquote, dialog, and more. One file, one link."
   },
   "layout": {
     "css": "style.css",
