@@ -310,11 +310,29 @@ header('Strict-Transport-Security: max-age=31536000; includeSubDomains');
     </div>
   </section>
 
+  <!-- -- Fluid Scale + Density Profiles -- -->
+  <section class="sec sec--alt">
+    <div class="sec__label">Invention #3</div>
+    <h2>Fluid by default. One attribute changes everything.</h2>
+    <p class="sec__sub">Spacing, typography, and border-radius scale smoothly with viewport width via <code>clamp()</code> — no breakpoints, no responsive classes. Then add <code>data-profile="compact"</code> or <code>data-profile="spacious"</code> to <code>&lt;html&gt;</code> and every component shifts density simultaneously. <code>--space-factor</code>, <code>--radius-factor</code>, <code>--font-factor</code>, and <code>--motion-factor</code> cascade through all 50 components. One optional file (<code>exsa.fluid.css</code>). Zero build.</p>
+
+    <div class="code-blk">
+      <div class="code-blk__bar">
+        <div class="code-blk__dot"></div><div class="code-blk__dot"></div><div class="code-blk__dot"></div>
+        <span class="code-blk__title">index.html</span>
+      </div>
+      <pre><span class="cmt">&lt;!-- Same components. Different feel. One attribute. --&gt;</span>
+<span class="tag">&lt;html</span> <span class="attr">lang</span>=<span class="val">"en"</span> <span class="attr">data-profile</span>=<span class="val">"compact"</span><span class="tag">&gt;</span>   <span class="cmt">&lt;!-- dashboard density --&gt;</span>
+<span class="tag">&lt;html</span> <span class="attr">lang</span>=<span class="val">"en"</span><span class="tag">&gt;</span>                        <span class="cmt">&lt;!-- comfortable (default) --&gt;</span>
+<span class="tag">&lt;html</span> <span class="attr">lang</span>=<span class="val">"en"</span> <span class="attr">data-profile</span>=<span class="val">"spacious"</span><span class="tag">&gt;</span> <span class="cmt">&lt;!-- landing page airiness --&gt;</span></pre>
+    </div>
+  </section>
+
   <!-- -- Why 2026 -- -->
   <section class="sec">
     <div class="sec__label">Why Now</div>
-    <h2>Three W3C standards. One architectural pattern.</h2>
-    <p class="sec__sub">Bootstrap launched in 2011. Tailwind in 2017. But the three CSS features that make Guarded Classless&trade; possible — <code>:not([class])</code>, <code>:where()</code>, and <code>@layer</code> — only became baseline together in 2022. EXSA is the first framework to combine all three into a single architectural pattern.</p>
+    <h2>Three W3C standards made EXSA possible.</h2>
+    <p class="sec__sub">Bootstrap launched in 2011. Tailwind in 2017. But <code>:not([class])</code>, <code>:where()</code>, and <code>@layer</code> — the three features that make EXSA's architecture, Guarded Classless&trade;, and Fluid Scale + Density Profiles possible — only became baseline together in 2022. EXSA is the first framework designed after all three.</p>
 
     <div class="cmp">
       <div class="cmp__card">
