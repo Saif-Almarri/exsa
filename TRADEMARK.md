@@ -18,7 +18,7 @@ original inventions. This means:
 
 ## EXSA's Original Inventions
 
-Three architectural ideas, first published in 2026 by **Saif Almarri** as part
+Three architectural ideas, first published in July 2026 by **Saif Almarri** as part
 of the EXSA CSS Framework. These are what make EXSA a category of one.
 
 ### 1. The 5-Layer Cascade Architecture
@@ -84,7 +84,7 @@ These aren't new ideas — but they're non-negotiable in EXSA:
 ## Attribution
 
 The three inventions above are original work. The code is MIT-licensed. If you
-build on these ideas, credit the source: **Saif Almarri / EXSA CSS Framework (2026).**
+build on these ideas, credit the source: **Saif Almarri / EXSA CSS Framework (July 2026).**
 
 See [PHILOSOPHY.md](PHILOSOPHY.md) for the full technical documentation and
 design rationale.
