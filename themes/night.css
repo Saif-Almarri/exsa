@@ -1,5 +1,5 @@
 /* ============================================================
-   LAYER 4 — THEME: NIGHT
+   LAYER 4 ï¿½ THEME: NIGHT
    Dark by default, light variant for daytime.
    Auto-switches via prefers-color-scheme.
    Force mode: <html data-theme-mode="light|dark">
@@ -15,7 +15,8 @@
   --color-secondary:        #c084fc;
   --color-secondary-accent: #c084fc12;
   --color-accent:           #60a5fa12;
-  --color-overlay: rgba(0,0,0,.5); --color-shadow:           #00000055;
+  --color-overlay: rgba(0,0,0,.5);
+  --color-shadow:           #00000055;
   --color-scrollbar:        #334155;
   --color-success:          #22c55e;
   --color-success-hover:    #16a34a;
@@ -40,7 +41,8 @@
     --color-secondary:        #7c3aed;
     --color-secondary-accent: #7c3aed0d;
     --color-accent:           #2563eb10;
-    --color-overlay: rgba(0,0,0,.5); --color-shadow:           #cbd5e1;
+    --color-overlay: rgba(0,0,0,.5);
+  --color-shadow:           #cbd5e1;
     --color-scrollbar:        #94a3b8;
     --color-success:          #16a34a;
     --color-success-hover:    #15803d;
@@ -73,14 +75,9 @@
   --color-secondary:        #c084fc;
   --color-secondary-accent: #c084fc12;
   --color-accent:           #60a5fa12;
-  --color-overlay: rgba(0,0,0,.5); --color-shadow:           #00000055;
+  --color-overlay: rgba(0,0,0,.5);
+  --color-shadow:           #00000055;
   --color-scrollbar:        #334155;
-  --color-success:          #22c55e;
-  --color-success-hover:    #16a34a;
-  --color-danger:           #ef4444;
-  --color-danger-hover:     #dc2626;
-  --color-warning:          #f59e0b;
-  --color-warning-hover:    #d97706;
   --color-button-text:      var(--color-bg);
   --color-button-text-inverse: #fcfcfc;
   --border-radius:          6px;
@@ -102,7 +99,8 @@
   --color-secondary:        #7c3aed;
   --color-secondary-accent: #7c3aed0d;
   --color-accent:           #2563eb10;
-  --color-overlay: rgba(0,0,0,.5); --color-shadow:           #cbd5e1;
+  --color-overlay: rgba(0,0,0,.5);
+  --color-shadow:           #cbd5e1;
   --color-scrollbar:        #94a3b8;
   --color-button-text:      var(--color-bg);
   --color-button-text-inverse: #1a1a1a;

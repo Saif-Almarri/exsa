@@ -6,9 +6,16 @@
 /* ── Layer order ── */
 @layer exsa.tokens, exsa.reset, exsa.layout, exsa.elements, exsa.components;
 
+/*
+   Layer 5 (exsa.components) is declared above but intentionally left empty.
+   The 50 component CSS files (components/*.css) are UNLAYERED — they sit
+   above all 5 layers in the cascade, always beating element styles.
+   Themes and user CSS are also unlayered — always winning over everything.
+*/
+
 @layer exsa.tokens {
 
-/* 52 design tokens */
+/* 61 design tokens */
 
 :root {
   color-scheme: light dark;
@@ -28,6 +35,8 @@
   --justify-heading:center;--justify-body:start;
   --width-card:285px;--width-card-medium:460px;--width-card-wide:800px;--width-content:1080px;--scroll-margin-top:80px;
   --gap-xs:0.25rem;--gap-sm:0.5rem;--gap-md:0.75rem;--gap:1rem;--gap-lg:1.5rem;--gap-xl:2rem;--gap-2xl:3rem;
+  --bp-sm:575px;--bp-md:768px;--bp-lg:1024px;--bp-xl:1280px;--bp-xxl:1440px;
+  --space-factor:1;--radius-factor:1;--font-factor:1;--motion-factor:1;
 }
 
 /* Dark/light — keep the four blocks below in sync */

@@ -1,9 +1,9 @@
 /* ============================================================
-   EXSA Carousel — <uni-carousel> Web Component
+   EXSA Carousel — <exsa-carousel> Web Component
    ── CSS scroll-snap + IntersectionObserver + pointer events.
-   Usage: <uni-carousel pagination navigation>
-            <uni-carousel-item><img src="..." alt=""></uni-carousel-item>
-          </uni-carousel>
+   Usage: <exsa-carousel pagination navigation>
+            <exsa-carousel-item><img src="..." alt=""></exsa-carousel-item>
+          </exsa-carousel>
    ============================================================ */
 
 class UniversalCarousel extends HTMLElement {
@@ -28,7 +28,7 @@ class UniversalCarousel extends HTMLElement {
   connectedCallback() {
     if (this._initialized) return;
     var self = this;
-    if (!this.children.length || !this.querySelector('uni-carousel-item')) {
+    if (!this.children.length || !this.querySelector('exsa-carousel-item')) {
       requestAnimationFrame(function() { self.connectedCallback(); });
       return;
     }
@@ -112,7 +112,7 @@ class UniversalCarousel extends HTMLElement {
     this._activeSlide = v;
     this.setAttribute('data-active', v);
     this._getSlides().forEach(function(s, i) { s.classList.toggle('--is-active', i === v); });
-    this.dispatchEvent(new CustomEvent('uni-slide-change', {
+    this.dispatchEvent(new CustomEvent('exsa-slide-change', {
       detail: { index: v, slide: this._getSlides()[v] }
     }));
     this._syncUI();
@@ -156,7 +156,7 @@ class UniversalCarousel extends HTMLElement {
   _getSlides(excludeClones) {
     if (excludeClones === undefined) excludeClones = true;
     return [].slice.call(this._slidesEl.children).filter(function(el) {
-      return el.tagName.toLowerCase() === 'uni-carousel-item' &&
+      return el.tagName.toLowerCase() === 'exsa-carousel-item' &&
         (!excludeClones || !el.hasAttribute('data-clone'));
     });
   }
@@ -323,6 +323,7 @@ class UniversalCarousel extends HTMLElement {
   _canScrollPrev()  { return this.hasAttribute('loop') || this._getCurrentPage() > 0; }
 
   _startAutoplay() {
+    if (this._prefersReducedMotion()) return;
     this._stopAutoplay();
     var interval = parseInt(this.getAttribute('autoplay-interval')) || 3000, self = this;
     this._autoplayTimer = setInterval(function() { self.next(); }, interval);
@@ -351,7 +352,7 @@ class UniversalCarousel extends HTMLElement {
     this._mutationObserver = new MutationObserver(function(mutations) {
       if (mutations.some(function(m) {
         return [].slice.call(m.addedNodes).concat([].slice.call(m.removedNodes)).some(function(n) {
-          return n.nodeType === 1 && n.tagName.toLowerCase() === 'uni-carousel-item' && !n.hasAttribute('data-clone');
+          return n.nodeType === 1 && n.tagName.toLowerCase() === 'exsa-carousel-item' && !n.hasAttribute('data-clone');
         });
       })) self._init();
     });
@@ -362,5 +363,5 @@ class UniversalCarousel extends HTMLElement {
   _prefersReducedMotion() { return window.matchMedia('(prefers-reduced-motion: reduce)').matches; }
 }
 
-customElements.define('uni-carousel', UniversalCarousel);
-customElements.define('uni-carousel-item', class extends HTMLElement {});
+customElements.define('exsa-carousel', UniversalCarousel);
+customElements.define('exsa-carousel-item', class extends HTMLElement {});

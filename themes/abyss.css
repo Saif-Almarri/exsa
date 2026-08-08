@@ -16,7 +16,8 @@
   --color-secondary:        #4a7a9a;
   --color-secondary-accent: #4a7a9a0d;
   --color-accent:           #2a8a8410;
-  --color-overlay: rgba(0,0,0,.5); --color-shadow:           #c4d4e4;
+  --color-overlay: rgba(0,0,0,.5);
+  --color-shadow:           #c4d4e4;
   --color-scrollbar:        #a0b8c8;
   --color-success:          #16a34a;
   --color-success-hover:    #15803d;
@@ -41,7 +42,8 @@
     --color-secondary:        #5a8aac;
     --color-secondary-accent: #5a8aac18;
     --color-accent:           #38b2ac14;
-    --color-overlay: rgba(0,0,0,.5); --color-shadow:           #00000066;
+    --color-overlay: rgba(0,0,0,.5);
+  --color-shadow:           #00000066;
     --color-scrollbar:        #1a2a3a;
     --color-button-text:      #0a0e14;
   --color-button-text-inverse: #e4e1e1;
@@ -74,7 +76,8 @@
   --color-secondary:        #5a8aac;
   --color-secondary-accent: #5a8aac18;
   --color-accent:           #38b2ac14;
-  --color-overlay: rgba(0,0,0,.5); --color-shadow:           #00000066;
+  --color-overlay: rgba(0,0,0,.5);
+  --color-shadow:           #00000066;
   --color-scrollbar:        #1a2a3a;
   --color-button-text:      var(--color-bg);
   --color-button-text-inverse: #ffffff;
@@ -103,7 +106,8 @@
   --color-secondary:        #4a7a9a;
   --color-secondary-accent: #4a7a9a0d;
   --color-accent:           #2a8a8410;
-  --color-overlay: rgba(0,0,0,.5); --color-shadow:           #c4d4e4;
+  --color-overlay: rgba(0,0,0,.5);
+  --color-shadow:           #c4d4e4;
   --color-scrollbar:        #a0b8c8;
   --color-button-text:      #ffffff;
   --color-button-text-inverse: #000000;

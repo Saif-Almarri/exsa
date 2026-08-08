@@ -28,6 +28,29 @@ var EXSA=EXSA||{};
   };
 })();
 
+/* ── Breakpoint Helpers ──
+   Reads --bp-* tokens from :root. Use with matchMedia for JS-driven
+   responsive logic. Tokens are the single source of truth — change
+   --bp-md in a theme file and both CSS & JS respond. */
+(function(){
+  var root= getComputedStyle(document.documentElement);
+
+  EXSA.bp={
+    /* min-width match — e.g. EXSA.bp.up('md').matches */
+    up: function(name){
+      return window.matchMedia('(min-width:' + root.getPropertyValue('--bp-' + name).trim() + ')');
+    },
+    /* max-width match — e.g. EXSA.bp.down('sm').matches */
+    down: function(name){
+      return window.matchMedia('(max-width:' + root.getPropertyValue('--bp-' + name).trim() + ')');
+    },
+    /* raw pixel value — e.g. EXSA.bp.val('lg') → "1024px" */
+    val: function(name){
+      return root.getPropertyValue('--bp-' + name).trim();
+    }
+  };
+})();
+
 /* ── Dropdown Menu ── */
 (function(){
   document.querySelectorAll('.dropdown').forEach(dd=>{
@@ -86,7 +109,8 @@ var EXSA=EXSA||{};
     const next=root.querySelector('.slideshow__arrow--next');
     if(prev)prev.addEventListener('click',()=>{go(idx-1);clearTimeout(timer);timer=setTimeout(adv,5000);});
     if(next)next.addEventListener('click',()=>{go(idx+1);clearTimeout(timer);timer=setTimeout(adv,5000);});
-    go(0);timer=setTimeout(adv,4200);
+    var prefersReduced=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    go(0);if(!prefersReduced)timer=setTimeout(adv,4200);
     root.addEventListener('keydown',function(e){
       if(e.key==='ArrowLeft'){go(idx-1);clearTimeout(timer);timer=setTimeout(adv,5000);e.preventDefault();}
       if(e.key==='ArrowRight'){go(idx+1);clearTimeout(timer);timer=setTimeout(adv,5000);e.preventDefault();}
@@ -163,10 +187,13 @@ var EXSA=EXSA||{};
 (function(){
   document.querySelectorAll('.rating').forEach(rating=>{
     const stars=rating.querySelectorAll('.rating__star');
-    const valEl=rating.querySelector('.rating__value');
-    // Default: 3 stars active
+    // .rating__value may be inside .rating or a sibling element after it
+    var valEl=rating.querySelector('.rating__value');
+    if(!valEl){var n=rating.nextElementSibling;if(n&&n.classList.contains('rating__value'))valEl=n;}
+    // Default: 3 stars active (or data-default attribute)
     var defaultVal=parseInt(rating.dataset.default)||3;
     stars.forEach((s,i)=>{if(i>=(5-defaultVal)){s.classList.add('rating__star--active');s.setAttribute('aria-checked','true');}});
+    if(valEl)valEl.textContent=defaultVal+' / 5';
     stars.forEach((s,i)=>{
       s.addEventListener('click',function(){
         stars.forEach((st,j)=>{var act=j>=i;st.classList.toggle('rating__star--active',act);st.setAttribute('aria-checked',act?'true':'false');});
@@ -197,7 +224,7 @@ var EXSA=EXSA||{};
       toast.appendChild(icon);toast.appendChild(msg);toast.appendChild(close);
       container.appendChild(toast);
       toast.querySelector('.toast__close').addEventListener('click',()=>dismiss(toast));
-      setTimeout(()=>dismiss(toast),3500);
+      if(!window.matchMedia('(prefers-reduced-motion: reduce)').matches)setTimeout(()=>dismiss(toast),3500);
     });
   });
 })();
@@ -405,8 +432,9 @@ var EXSA=EXSA||{};
 
 /* ── Password Input Toggle ── */
 (function(){
-  const eyeOpen='<svg viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>';
-  const eyeOff='<svg viewBox="0 0 24 24"><path d="M17.94 17.94A10.07 10.07 0 0112 20c-7 0-11-8-11-8a18.45 18.45 0 015.06-5.94M9.9 4.24A9.12 9.12 0 0112 4c7 0 11 8 11 8a18.5 18.5 0 01-2.16 3.19m-6.72-1.07a3 3 0 11-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/></svg>';
+  // SVG mirrors components/icons/eye.svg and eye-off.svg — keep in sync
+  var eyeOpen='<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>';
+  var eyeOff='<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.94 17.94A10.07 10.07 0 0112 20c-7 0-11-8-11-8a18.45 18.45 0 015.06-5.94M9.9 4.24A9.12 9.12 0 0112 4c7 0 11 8 11 8a18.5 18.5 0 01-2.16 3.19m-6.72-1.07a3 3 0 11-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/></svg>';
   document.querySelectorAll('.password-input').forEach(wrapper=>{
     const field=wrapper.querySelector('input');
     const toggle=wrapper.querySelector('.password-input__toggle');
@@ -429,10 +457,15 @@ var EXSA=EXSA||{};
       if(this.classList.contains('btn-loading--busy'))return;
       this.classList.add('btn-loading--busy');
       this.setAttribute('aria-busy','true');
-      setTimeout(()=>{
+      if(window.matchMedia('(prefers-reduced-motion: reduce)').matches){
         this.classList.remove('btn-loading--busy');
         this.removeAttribute('aria-busy');
-      },1800);
+      }else{
+        setTimeout(()=>{
+          this.classList.remove('btn-loading--busy');
+          this.removeAttribute('aria-busy');
+        },1800);
+      }
     });
   });
 })();

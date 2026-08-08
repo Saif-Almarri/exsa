@@ -16,7 +16,8 @@
   --color-secondary:        #8a5030;
   --color-secondary-accent: #8a503018;
   --color-accent:           #c8704014;
-  --color-overlay: rgba(0,0,0,.5); --color-shadow:           #00000088;
+  --color-overlay: rgba(0,0,0,.5);
+  --color-shadow:           #00000088;
   --color-scrollbar:        #240e05;
   --color-success:          #22c55e;
   --color-success-hover:    #16a34a;
@@ -41,7 +42,8 @@
     --color-secondary:        #8a4030;
     --color-secondary-accent: #8a40300d;
     --color-accent:           #a0402010;
-    --color-overlay: rgba(0,0,0,.5); --color-shadow:           #d4c0b8;
+    --color-overlay: rgba(0,0,0,.5);
+  --color-shadow:           #d4c0b8;
     --color-scrollbar:        #b89888;
   --color-success:          #16a34a;
   --color-success-hover:    #15803d;
@@ -74,7 +76,8 @@
   --color-secondary:        #8a5030;
   --color-secondary-accent: #8a503018;
   --color-accent:           #c8704014;
-  --color-overlay: rgba(0,0,0,.5); --color-shadow:           #00000088;
+  --color-overlay: rgba(0,0,0,.5);
+  --color-shadow:           #00000088;
   --color-scrollbar:        #240e05;
   --color-button-text:      var(--color-bg);
   --color-button-text-inverse: #f8f8f8;
@@ -97,7 +100,8 @@
   --color-secondary:        #8a4030;
   --color-secondary-accent: #8a40300d;
   --color-accent:           #a0402010;
-  --color-overlay: rgba(0,0,0,.5); --color-shadow:           #d4c0b8;
+  --color-overlay: rgba(0,0,0,.5);
+  --color-shadow:           #d4c0b8;
   --color-scrollbar:        #b89888;
   --color-button-text:      var(--color-bg);
   --color-button-text-inverse: #131212;
