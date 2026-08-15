@@ -1,8 +1,8 @@
 # EXSA CSS Framework — Built on Tokens, Not Tools
 
-> **v1.0.0-beta.2** — Now available. Stable core, gathering real-world feedback. [See what's new →](CHANGELOG.md)
+> **v1.0.0-beta.3** — Now available. Stable core, gathering real-world feedback. [See what's new →](CHANGELOG.md)
 
-**EXSA is a lightweight CSS framework.** 26 KB core (~5.6 KB gzipped). 50 components. 20 themes. Zero build step. Works with any server — just link two CSS files and start building.
+**EXSA is a lightweight CSS framework.** 32 KB core. 53 components. 20 themes. Zero build step. Works with any server — just link two CSS files and start building.
 
 > *Link two files. Get a complete design system. Change one token — every component recolors.*
 >
@@ -16,7 +16,7 @@ CSS frameworks force a choice: utility-first means memorizing hundreds of classe
 
 EXSA chooses a third path.
 
-**Tokens are the design system.** 61 CSS custom properties drive 50 components, 20 themes, and every utility. Change `--color-link` in one place — every button, badge, link, and card recolors instantly. No recompile. No variable hunt across 2,000 files.
+**Tokens are the design system.** 80 CSS custom properties drive 53 components, 20 themes, and every utility. Change `--color-link` in one place — every button, badge, link, and card recolors instantly. No recompile. No variable hunt across 2,000 files.
 
 **Classes are optional.** Add `class="exsa"` to `<body>` and plain HTML — `<nav>`, `<section>`, `<table>`, `<form>`, `<button>`, `<blockquote>`, `<dialog>` — becomes a styled UI. Add any class to a structural element and EXSA steps aside. Zero specificity. No `!important`. You're always in control.
 
@@ -28,7 +28,7 @@ EXSA chooses a third path.
 
 **Components are files, not dependencies.** Every component is a single CSS file (~1 KB). Link what you need — zero dead styles.
 
-**CSS first, JS optional.** The core (`style.css` + a theme) is pure CSS — tokens, reset, layout utilities, Guarded Classless element styling. Zero JavaScript. 58% of components (29 of 50) are pure CSS too. The remaining 21 add interactivity via `components.js` — a single `<script>` tag, same zero-build philosophy. Dropdowns, modals, tabs, toasts — if you need them, link the JS. If you don't, nothing breaks. Same choice every CSS framework offers, just without the toolchain.
+**CSS first, JS optional.** The core (`style.css` + a theme) is pure CSS — tokens, reset, layout utilities, Guarded Classless element styling. Zero JavaScript. 51% of components (27 of 53) are pure CSS too. The remaining 26 add interactivity via one behavior file each in `js/` — same zero-build philosophy. Dropdowns, modals, tabs, toasts — if you need them, link the JS. If you don't, nothing breaks. Same choice every CSS framework offers, just without the toolchain.
 
 In short: EXSA is what happens when you trust CSS custom properties, `@layer`, and `:where()` to do the work that frameworks usually delegate to tools. Bootstrap launched in 2011. Tailwind in 2017. But the three CSS features that make Guarded Classless™ possible — `:not([class])`, `:where()`, and `@layer` — only became baseline together in 2022. EXSA is the first framework to combine all three into a single architectural pattern. Its signature feature — **Guarded Classless™** — styles semantic HTML automatically, then steps aside the moment you add a single class. No overrides needed. No `!important`. Ever.
 
@@ -38,7 +38,7 @@ EXSA isn't designed for CSS as it was in 2015. It's designed for CSS as it is no
 
 Every architectural choice — `@layer` for cascade control, custom properties for theming, `:where()` for zero specificity, container queries for responsive cards — is built on W3C standards that browsers are actively investing in. As those standards mature, EXSA's foundation strengthens. No framework churn. No migration guides. No "version 2 with breaking changes."
 
-The codebase is intentionally small (~650 lines of core CSS) so it can evolve with the language rather than fight it. When CSS adds a native `popover` — swap the popover component. When `scroll-driven animations` land — add a file. The architecture stays the same.
+The codebase is intentionally small (~680 lines of core CSS) so it can evolve with the language rather than fight it. When CSS adds a native `popover` — swap the popover component. When `scroll-driven animations` land — add a file. The architecture stays the same.
 
 ---
 
@@ -60,7 +60,7 @@ Need a component or a different theme? Just add the path:
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Saif-Almarri/exsa@main/themes/night.css">
 ```
 
-> Pin a version by replacing `@main` with `@1.0.0-beta.2` (or any tag)
+> Pin a version by replacing `@main` with `@1.0.0-beta.3` (or any tag)
 
 <details>
 <summary>npm? (you don't need it — but it's there)</summary>
@@ -92,9 +92,10 @@ Your project folder needs these:
 your-project/
 ├── style.css          ← core
 ├── exsa.fluid.css     ← fluid tokens & profiles (optional)
-├── components/        ← 50 component CSS files
-├── themes/            ← 20 theme files
-├── components.js       ← interactive behaviors (optional)
+├── components/        ← 53 components (+ icons.css)
+├── themes/            ← 20 themes + custom.css starter
+├── layouts/           ← 6 page layouts (optional)
+├── js/                ← per-component behaviors (optional)
 └── your-page.html
 ```
 
@@ -105,46 +106,81 @@ Visit **[exsa.dev/generator.php](https://exsa.dev/generator.php)** — select th
 ### Link and build
 
 ```html
-<!-- 1. Core (tokens, reset, layout, element styles) -->
-<link rel="stylesheet" href="style.css">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Site</title>
 
-<!-- 2. A theme (20 to choose from) -->
-<link rel="stylesheet" href="themes/breeze.css">
+  <!-- 1. Core (tokens, reset, layout, element styles) -->
+  <link rel="stylesheet" href="style.css">
+
+  <!-- 2. A theme (20 to choose from) -->
+  <link rel="stylesheet" href="themes/breeze.css">
+</head>
 
 <!-- 3. Opt-in to classless element styling -->
 <body class="exsa">
+
   <nav>
     <ul>
-      <li><a href="#">Home</a></li>
-      <li><a href="#">About</a>
-        <ul>
-          <li><a href="#">Team</a></li>
-          <li><a href="#">History</a></li>
-        </ul>
-      </li>
+      <li><strong>Brand</strong></li>
+      <li><a href="#">Docs</a></li>
+      <li><a href="#">Pricing</a></li>
+      <li><a href="#">Blog</a></li>
     </ul>
   </nav>
 
+  <main>
+  <header>
+    <h1>Build faster. Ship sooner.</h1>
+    <p>Plain semantic HTML, styled automatically. Add a class to anything, EXSA steps aside.</p>
+    <p><button>Get Started</button></p>
+  </header>
+
   <section>
     <aside>
-      <h3>Card Title</h3>
-      <p>This card's colors come from tokens. Change the theme file — it recolors instantly.</p>
+      <h3>⚡ Zero Config</h3>
+      <p>No build step. No CLI. No config file. Just link and build.</p>
+    </aside>
+    <aside>
+      <h3>🎨 20 Themes</h3>
+      <p>Swap one file. Every component recolors instantly. No rebuild needed.</p>
+    </aside>
+    <aside>
+      <h3>🧩 53 Components</h3>
+      <p>Link only what you need. Each component is a single ~1 KB CSS file.</p>
     </aside>
   </section>
 
+  <h2 style="text-align:center;margin-top:var(--gap-2xl)">Simple pricing</h2>
   <table>
-    <thead><tr><th>Name</th><th>Role</th></tr></thead>
+    <thead>
+      <tr><th>Plan</th><th>Price</th><th>Projects</th><th>Support</th></tr>
+    </thead>
     <tbody>
-      <tr><td>Alice</td><td>Engineer</td></tr>
-      <tr><td>Bob</td><td>Designer</td></tr>
+      <tr><td>Starter</td><td>Free</td><td>3</td><td>Community</td></tr>
+      <tr><td>Pro</td><td>$29/mo</td><td>Unlimited</td><td>Email</td></tr>
+      <tr><td>Enterprise</td><td>Custom</td><td>Unlimited</td><td>24/7 Dedicated</td></tr>
     </tbody>
   </table>
 
-  <button>Click Me</button>
+  <blockquote>
+    <p>"The best DX we've ever used. Shipped our MVP in a weekend."</p>
+    <footer>— Developer, Startup Inc.</footer>
+  </blockquote>
+  </main>
+
+  <footer>
+    <small>&copy; 2026 My Site. Built with EXSA.</small>
+  </footer>
+
 </body>
+</html>
 ```
 
-That's it. Every element above — the nav bar with dropdowns, the card, the table, the button — is styled by EXSA's classless layer. **Zero component classes. Zero component files linked.** Plain HTML, baseline styling, always overridable.
+That's it. Every element above — the nav bar, the hero, the feature cards, the pricing table, the testimonial, the footer — is styled by EXSA's classless layer. **Zero component classes. Zero component files linked.** Plain HTML, baseline styling, always overridable.
 
 This is the EXSA model: classless styles give you a respectable baseline for free. When you need more — striped rows, hover effects, color variants — link the dedicated component file (`table.css`, `buttons.css`, etc.) and add the component classes. You upgrade when you're ready. You never fight the framework.
 
@@ -157,11 +193,11 @@ EXSA uses CSS `@layer` to enforce a browser-native cascade. **Unlayered user CSS
 ```
 Priority  Layer                 Covers
 ────────  ────────────────────  ──────────────────────────────────
-  1       @layer exsa.tokens    61 CSS custom properties in :root
+  1       @layer exsa.tokens    80 CSS custom properties in :root
   2       @layer exsa.reset     Box model, focus rings, RTL, body
   3       @layer exsa.layout    Flex, grid, containers, breakpoints
   4       @layer exsa.elements  Guarded Classless — semantic HTML with instant opt-out
-  5       @layer exsa.components 50 BEM components, zero specificity
+  5       @layer exsa.components 53 BEM components, zero specificity
 
   ∞       Unlayered             Themes & user CSS — always win
 ```
@@ -180,7 +216,7 @@ Priority  Layer                 Covers
 
 ## Design Tokens
 
-All 61 tokens live in `:root` inside `@layer exsa.tokens`. Themes override them by being unlayered. **Export:** [`tokens.json`](tokens.json) for Figma, JS, or Tailwind config.
+All 80 tokens live in `:root` inside `@layer exsa.tokens`. Themes override them by being unlayered. **Export:** [`tokens.json`](tokens.json) for Figma, JS, or Tailwind config.
 
 ### Base colors
 
@@ -435,7 +471,7 @@ document.getElementById('theme-link').href = 'themes/night.css';
 
 ## Components
 
-EXSA ships 50 standalone component CSS files in `components/`. Each is ~1 KB, self-contained, and token-driven.
+EXSA ships 53 standalone component CSS files in `components/`. Each is ~1 KB, self-contained, and token-driven.
 
 ### Using components
 
@@ -464,16 +500,17 @@ EXSA ships 50 standalone component CSS files in `components/`. Each is ~1 KB, se
 
 Sizes: `.btn--sm`, `.btn--lg` | Modifiers: `.btn--icon`, `.btn--block` | State: `disabled`
 
-### Full component list (50)
+### Full component list (53)
 
 | Category | Components |
 |---|---|
-| **Layout** | Accordion, Drawer, Footer, Modal, Pricing Table |
-| **Navigation** | Topbar, Sidebar, Back to Top, Breadcrumbs, Pagination, Stepper, Timeline, Tooltip |
-| **Content** | Avatar, Badge, Card, Code Block, Table |
+| **Layout** | Accordion, Drawer, Footer, Hero, Modal, Pricing Table |
+| **Navigation** | Topbar, Sidebar, Back to Top, Breadcrumbs, Context Menu, Pagination, Stepper, Timeline, Tooltip |
+| **Content** | Avatar, Badge, Card, Code Block, Data List, Separator, Table |
 | **Media** | Lightbox, Music Player, Video Gallery, Carousel, Slideshow |
-| **Data** | Donut Chart, Progress Bars, Range Slider |
-| **Actions** | Buttons, Checkbox, Color Picker, Date Picker, Dropdown, Form Validation, Icon Button, Input Group, Loading Button, Password Input, Radio, Rating, Select, Tabs, Toggle, Panel Resizer |
+| **Data** | Bar Chart, Donut Chart, Progress Bars, Range Slider |
+| **Forms** | Checkbox, Color Picker, Advanced Color Picker, Date Picker, Dropdown, Form Required Helpers, Form Validation, Input Group, Password Input, Popover, Radio, Rating, Select, Toggle |
+| **Actions** | Buttons, Panel Resizer, Tabs |
 | **Feedback** | Alert, Cookie Bar, Skeleton Loader, Spinner, Toast |
 
 ---
@@ -520,7 +557,7 @@ EXSA targets WCAG 2.1 AA compliance.
 
 ### Still in progress
 
-- Full keyboard audit across all 50 components
+- Full keyboard audit across all 53 components
 - Screen reader testing (NVDA, VoiceOver)
 - Focus trap management in modals/drawers
 
@@ -548,12 +585,12 @@ EXSA targets WCAG 2.1 AA compliance.
 
 | File | Size |
 |---|---|
-| `style.css` | 26 KB (~650 lines) |
+| `style.css` | 32 KB (~680 lines) |
 | `exsa.fluid.css` | ~1.5 KB (optional) |
 | Each theme | ~1 KB (~30 lines) |
 | Each component | ~1 KB |
-| Full framework (core + theme) | ~27 KB |
-| Typical deploy (core + theme + 10 components) | ~37 KB |
+| Full framework (core + theme) | ~33 KB |
+| Typical deploy (core + theme + 10 components) | ~43 KB |
 No minification needed — the files are already compact.
 
 ---
@@ -564,14 +601,14 @@ No minification needed — the files are already compact.
 |---|---|---|---|
 | **Build step** | None | None (SCSS optional) | Yes (PostCSS/CLI) |
 | **No template engine needed** | ✅ Yes — plain `.php` files, no Twig, no Blade | ✅ (HTML/CSS only) | ❌ Requires Node.js + PostCSS |
-| **File size (base)** | 26 KB | ~50 KB (minified grid+reboot) | ~4 KB (compiled, no utilities yet) |
+| **File size (base)** | 32 KB | ~50 KB (minified grid+reboot) | ~4 KB (compiled, no utilities yet) |
 | **Guarded Classless™** | Yes — semantic HTML with opt-out | No | No |
 | **Runtime theming** | 20 themes, live-swappable | Light/dark in 5.3 | Dark mode with `dark:` |
 | **CSS Grid utilities** | Yes | Limited | Yes |
 | **`@layer` cascade** | Yes — 5 layers | No | Yes (v3.2+) |
 | **`:has()` support** | Yes | No | No |
 | **Container queries** | Yes | No | Yes (v3.2+) |
-| **Component library** | 50 token-driven components | 20+ components | None (Headless UI separate) |
+| **Component library** | 53 token-driven components | 20+ components | None (Headless UI separate) |
 | **Specificity model** | Zero (`:where()` + `@layer`) | Normal | Normal |
 
 ---
@@ -582,7 +619,9 @@ No minification needed — the files are already compact.
 root
 ├── favicon.ico            Browser favicon
 ├── style.css              Core (tokens, reset, layout, elements, components)
-├── components.js          JavaScript behaviors (class-driven, portable)
+├── components.js          LEGACY behavior bundle (deprecated — use js/)
+├── js/                    JavaScript behaviors — one file per component
+├── layouts/               6 page layouts (general, blog, dashboard, store, fullpage, onepage)
 ├── manifest.json          Component & theme registry
 ├── tokens.json            Design token export (Figma, JS, Tailwind)
 ├── package.json           NPM metadata
@@ -593,13 +632,14 @@ root
 ├── CONTRIBUTING.md        Co-founder roles & how to join
 ├── CHANGELOG.md           Release history
 ├── themes/
-│   ├── breeze.css         ← 20 theme files
+│   ├── breeze.css         ← 20 themes + custom.css starter
 │   ├── night.css
 │   └── ...
 ├── components/
-│   ├── buttons.css        ← 50 component files
+│   ├── buttons.css        ← 53 component files
 │   ├── modal.css
 │   └── ...
+├── includes/images/       Layout imagery (backdrops, overlays)
 └── components/icons/      SVG icon library
 ```
 

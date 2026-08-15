@@ -12,7 +12,7 @@
 .lightbox-gallery__thumb:hover::after{opacity:1}
 
 /* Lightbox overlay */
-.lightbox{position:fixed;inset:0;z-index:1100;background:rgba(0,0,0,.88);display:flex;align-items:center;justify-content:center;opacity:0;visibility:hidden;transition:opacity .22s,visibility .22s}
+.lightbox{position:fixed;inset:0;z-index:var(--z-lightbox);background:rgba(0,0,0,.88);display:flex;align-items:center;justify-content:center;opacity:0;visibility:hidden;transition:opacity .22s,visibility .22s}
 .lightbox--open{opacity:1;visibility:visible}
 .lightbox__img{max-width:90vw;max-height:85vh;border-radius:var(--border-radius);box-shadow:0 8px 40px rgba(0,0,0,.5);transform:scale(.94);transition:transform .28s cubic-bezier(.4,0,.2,1);object-fit:contain}
 .lightbox--open .lightbox__img{transform:scale(1)}
@@ -21,7 +21,10 @@
 .lightbox__next{position:absolute;z-index:2;background:rgba(255,255,255,.12);color:#fff;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .15s;padding:0;margin:0}
 .lightbox__close:hover,
 .lightbox__prev:hover,
-.lightbox__next:hover{background:rgba(255,255,255,.25);filter:none !important}
+.lightbox__next:hover{background:rgba(255,255,255,.25)}
+a.lightbox__close:hover,
+a.lightbox__prev:hover,
+a.lightbox__next:hover{filter:none}
 .lightbox__close{top:16px;inset-inline-end:16px;width:40px;height:40px;border-radius:50%;font-size:1.2rem}
 .lightbox__prev,.lightbox__next{top:50%;transform:translateY(-50%);width:44px;height:44px;border-radius:50%;font-size:1rem}
 .lightbox__prev{inset-inline-start:16px}

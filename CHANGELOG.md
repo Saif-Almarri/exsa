@@ -7,6 +7,30 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [1.0.0-beta.3] — 2026-08-14
+
+### ✨ Added
+
+- **Two new page layouts** — `layouts/fullpage.css` (single-viewport landing: backdrop, centered brand, social rings, pure-CSS `:target` panels) and `layouts/onepage.css` (multi-section marketing page: photo hero, nested hover dropdowns, banner, carousel, features grid, dark footer). Layouts are selectable in the Bundle Generator.
+- **Token-driven z-index scale** — 19 `--z-*` tokens (from `--z-floating: 10` to `--z-skip: 10000`) in `style.css`. Every cross-component overlay (topbar, modal, drawer, toast, lightbox…) and layout shell layer consumes them. Modals now sit above the topbar (`--z-modal: 1050`).
+- **Code Block behavior** — `js/code-block.js`: copy-to-clipboard (Clipboard API + fallback) and automatic syntax highlighting (`hl-tag/attr/val/cmt`) that skips already-highlighted blocks. Loaded by showcase, elements, and page-layouts.
+- **Generator: Page Layouts section** — pick any of the six layouts; bundled into `bundle.css` with stats and cache-busted assets.
+- **Form Required showcase demo** — automatic `:user-invalid` / required-asterisk feedback documented in the showcase.
+
+### 🔧 Fixed
+
+- **Generator JS bundle was broken** — behaviors were regex-extracted from the legacy `components.js` using markers that don't exist; now each behavior's `source` file (`js/*.js`) is fetched directly from the manifest.
+- **Removed all `!important` from components** — back-top/lightbox/cookie-bar hover filters replaced with element-prefixed selectors that beat the guarded `:where()` link rules naturally; topbar list padding no longer needs `!important`.
+- **Tooltip sizing** — long tips now wrap into a clamped bubble (`width: max-content; max-width: min(320px, 100vw - 24px)`) instead of overflowing the viewport or collapsing into a skinny column.
+- **Tooltip demo clipping** — `.doc-demo:has(.tooltip)` now overflows visibly, matching the color-picker fix.
+- **Docs synced** — six layouts documented in `docs.php` and `page-layouts.php`; topbar CTA reads “Generate custom CSS”.
+
+### 📦 Size
+
+- **32 KB** core (z-index scale + layout tokens added).
+
+---
+
 ## [1.0.0-beta.2] — 2026-07-28
 
 ### ✨ Added
@@ -33,7 +57,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
-## [1.0.0-beta] — 2026-07-24
+## [1.0.0-beta] — 2026-July
 
 ### 🚀 First Public Release
 

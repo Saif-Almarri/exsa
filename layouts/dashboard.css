@@ -1,0 +1,186 @@
+/* ============================================================
+   EXSA Dashboard Layout — admin panel / app shell
+
+   Link AFTER style.css + your theme.
+   Add to <body> for dashboards, admin panels, and web apps.
+
+   Zones:
+     dash--sidebar     = fixed full-height left sidebar
+     dash--sidebar-sm  = collapsed icon-only sidebar (56px)
+     dash--sidebar-dark= dark background sidebar
+     dash--topbar      = fixed topbar
+     dash--topbar-full = topbar spans full width
+     dash--panel       = optional right detail panel
+
+   Tokens:
+     --topbar-height       inherited from topbar.css (56/48/64/72px)
+     --dash-sidebar-w   260px
+     --dash-sidebar-sm   56px
+     --dash-panel-w     320px
+   ============================================================ */
+
+:root {
+  --dash-sidebar-w: 260px;
+  --dash-sidebar-sm: 56px;
+  --dash-panel-w: 320px;
+}
+
+/* ════════════════════════════════════════
+   1. SHELL — full viewport, no body scroll
+   ════════════════════════════════════════ */
+.dash--sidebar,
+.dash--topbar {
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* ════════════════════════════════════════
+   2. TOPBAR
+   Uses --topbar-height (syncs with topbar.css size variants).
+   ════════════════════════════════════════ */
+.dash--topbar {
+  --topbar-height: 56px;
+}
+body.dash--topbar:has(.topbar--sm) { --topbar-height: 48px; }
+body.dash--topbar:has(.topbar--lg) { --topbar-height: 64px; }
+body.dash--topbar:has(.topbar--xl) { --topbar-height: 72px; }
+
+/* Topbar offset by sidebar (default with dash--sidebar) */
+.dash--sidebar.dash--topbar .topbar {
+  inset-inline-start: var(--dash-sidebar-w);
+}
+
+/* Full-width topbar override */
+.dash--sidebar.dash--topbar.dash--topbar-full .topbar {
+  inset-inline-start: 0; inset-inline-end: 0;
+}
+
+/* ════════════════════════════════════════
+   3. SIDEBAR — fixed, full-height
+   ════════════════════════════════════════ */
+.dash__sidebar {
+  position: fixed;
+  top: 0; inset-inline-start: 0; bottom: 0;
+  width: var(--dash-sidebar-w);
+  z-index: var(--z-layout-aside);
+  display: flex;
+  flex-direction: column;
+  background: var(--color-bg);
+  border-inline-end: 1px solid var(--color-bg-secondary);
+  overflow: hidden;
+}
+
+/* Dark sidebar variant */
+.dash--sidebar-dark .dash__sidebar {
+  background: color-mix(in srgb, var(--color-bg), #0f172a 85%);
+  border-inline-end-color: rgba(255,255,255,.06);
+  color: rgba(255,255,255,.85);
+}
+.dash--sidebar-dark .dash__sidebar .sidebar__link {
+  color: rgba(255,255,255,.65);
+}
+.dash--sidebar-dark .dash__sidebar .sidebar__link:hover {
+  color: #fff;
+  background: rgba(255,255,255,.06);
+}
+.dash--sidebar-dark .dash__sidebar .sidebar__link--active {
+  color: #fff;
+  background: rgba(255,255,255,.1);
+}
+
+/* Sidebar head */
+.dash__sidebar-head {
+  padding: 0 18px;
+  height: var(--topbar-height);
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid var(--color-bg-secondary);
+  flex-shrink: 0;
+  font-weight: 700;
+  font-size: 15px;
+  gap: 8px;
+}
+.dash--sidebar-dark .dash__sidebar-head {
+  border-bottom-color: rgba(255,255,255,.06);
+}
+
+/* Sidebar nav */
+.dash__sidebar .sidebar__nav {
+  flex: 1;
+  overflow-y: auto;
+}
+
+/* ════════════════════════════════════════
+   4. COLLAPSED SIDEBAR — icon-only 56px
+   ════════════════════════════════════════ */
+.dash--sidebar-sm .dash__sidebar {
+  width: var(--dash-sidebar-sm);
+}
+.dash--sidebar-sm .dash__sidebar-head {
+  justify-content: center; padding: 0;
+}
+.dash--sidebar-sm .dash__sidebar-head span { display: none; }
+.dash--sidebar-sm .sidebar__label,
+.dash--sidebar-sm .sidebar__arrow,
+.dash--sidebar-sm .sidebar__sub-menu,
+.dash--sidebar-sm .sidebar__badge {
+  display: none;
+}
+.dash--sidebar-sm .sidebar__link {
+  justify-content: center; padding: 14px 0;
+}
+.dash--sidebar-sm.dash--topbar .topbar {
+  inset-inline-start: var(--dash-sidebar-sm);
+}
+
+/* ════════════════════════════════════════
+   5. CONTENT — scrollable main area
+   ════════════════════════════════════════ */
+.dash__content {
+  margin-inline-start: var(--dash-sidebar-w);
+  height: 100vh;
+  overflow-y: auto;
+  background: var(--color-bg-secondary);
+}
+.dash--topbar .dash__content {
+  padding-top: var(--topbar-height);
+}
+.dash--sidebar-sm .dash__content {
+  margin-inline-start: var(--dash-sidebar-sm);
+}
+
+/* Content inner — optional padding wrapper */
+.dash__content-inner {
+  padding: 32px;
+  max-width: 1400px;
+}
+
+/* ════════════════════════════════════════
+   6. RIGHT PANEL — optional detail sidebar
+   ════════════════════════════════════════ */
+.dash--panel .dash__shell {
+  display: flex;
+}
+.dash--panel .dash__content {
+  flex: 1;
+  min-width: 0;
+}
+.dash--panel .dash__panel {
+  width: var(--dash-panel-w);
+  flex-shrink: 0;
+  height: 100vh;
+  overflow-y: auto;
+  background: var(--color-bg);
+  border-inline-start: 1px solid var(--color-bg-secondary);
+  padding: 24px;
+}
+.dash--topbar.dash--panel .dash__panel {
+  padding-top: calc(var(--topbar-height) + 24px);
+}
+
+/* ════════════════════════════════════════
+   7. NO SIDEBAR — topbar-only layout
+   ════════════════════════════════════════ */
+.dash--topbar:not(.dash--sidebar) .dash__content {
+  margin-inline-start: 0;
+}

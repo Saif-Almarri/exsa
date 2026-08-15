@@ -29,11 +29,11 @@ elements → components.** Each layer feeds the next. Themes and user CSS sit
 Specificity becomes irrelevant. No `!important` wars. Ever.
 
 ```
-@layer exsa.tokens      → 61 CSS custom properties
+@layer exsa.tokens      → 80 CSS custom properties
      exsa.reset       → box model, focus, a11y, RTL, scrollbar
      exsa.layout      → 90+ flex & grid utilities
      exsa.elements    → Guarded Classless™ semantic HTML styling
-     exsa.components  → 50 BEM components (intentionally unlayered)
+     exsa.components  → 53 BEM components (intentionally unlayered)
 ```
 
 ### 2. Guarded Classless™
@@ -58,7 +58,7 @@ classes. The UI breathes with the screen — automatically.
 default (comfortable), or `data-profile="spacious"` (landing pages, marketing)
 on `<html>` — and every component shifts density. One attribute. Four factors
 (`--space-factor`, `--radius-factor`, `--font-factor`, `--motion-factor`)
-cascade through all 50 components simultaneously.
+cascade through all 53 components simultaneously.
 
 One optional file (`exsa.fluid.css`). Zero build.
 
@@ -68,7 +68,7 @@ One optional file (`exsa.fluid.css`). Zero build.
 
 These aren't new ideas — but they're non-negotiable in EXSA:
 
-- **Token-driven.** 61 CSS custom properties drive every component and theme.
+- **Token-driven.** 80 CSS custom properties drive every component and theme.
   Components don't have colors — they have `var(--color-link)`. Themes are ~30
   lines of token overrides. (Token systems predate EXSA; see Open Props.)
 - **Zero build step.** Two `<link>` tags, no CLI, no config file. Works with
@@ -76,7 +76,7 @@ These aren't new ideas — but they're non-negotiable in EXSA:
   invention.)
 - **Components as files.** Each component is a single ~1 KB CSS file. Link only
   what you need. (Standard practice across the industry.)
-- **CSS first, JS optional.** 58% of components are pure CSS. Interactive
+- **CSS first, JS optional.** 51% of components (27 of 53) are pure CSS. Interactive
   behaviors are one `<script>` tag. (Many frameworks are CSS-only.)
 
 ---

@@ -1,0 +1,294 @@
+/* ============================================================
+   EXSA Layout — compositional page shells
+
+   Link AFTER style.css + your theme.
+   Add the layout classes to <body> — any zone can be on/off.
+
+   ── Structural zones (what exists on the page) ──
+   layout--has-topbar     = fixed topbar (reserves height)
+   layout--has-hero       = full-bleed hero below topbar
+   layout--aside-left     = left sidebar + content row
+   layout--aside-right    = right sidebar + content row
+   layout--has-sidebar    = shorthand for layout--aside-left
+
+   ── Mode modifiers (how zones behave) ──
+   layout--aside-full     = sidebar fixed full-height (dashboard)
+   layout--full-height    = viewport-height shell, content scrolls
+   layout--content-scroll = content pane scrolls independently
+   layout--aside-collapsed= left aside → icon-only 56px
+   layout--centered       = single column, max-width constrained
+   layout--sticky-footer  = footer at viewport bottom, shell grows
+
+   ── Width overrides (topbar/footer vs sidebar alignment) ──
+   layout--topbar-full    = topbar spans full viewport width
+   layout--topbar-content = topbar aligns with content area
+   layout--footer-full    = footer spans full viewport width
+   layout--footer-content = footer aligns with content area
+
+   Tokens (override in your theme):
+     --topbar-height          inherited from topbar.css (56/48/64/72px)
+     --layout-aside-left-w    260px
+     --layout-aside-right-w   260px
+     --layout-aside-collapsed  56px
+     --layout-hero-min-h       55vh
+   ============================================================ */
+
+
+:root {
+  --layout-aside-left-w: 260px;
+  --layout-aside-right-w: 260px;
+  --layout-aside-collapsed: 56px;
+  --layout-hero-min-h: 55vh;
+}
+
+/* ════════════════════════════════════════
+   1. TOPBAR
+   Uses --topbar-height (syncs with topbar.css size variants).
+   ════════════════════════════════════════ */
+
+/* Default topbar height */
+.layout--has-topbar {
+  --topbar-height: 56px;
+  padding-top: var(--topbar-height);
+}
+
+/* Topbar size variants — auto-sync body padding to actual topbar height */
+body.layout--has-topbar:has(.topbar--sm) { --topbar-height: 48px; }
+body.layout--has-topbar:has(.topbar--lg) { --topbar-height: 64px; }
+body.layout--has-topbar:has(.topbar--xl) { --topbar-height: 72px; }
+
+/* With aside-full: topbar aligns to content area (not full-width) */
+.layout--aside-left.layout--aside-full.layout--has-topbar .topbar,
+.layout--has-sidebar.layout--aside-full.layout--has-topbar .topbar {
+  inset-inline-start: var(--layout-aside-left-w);
+}
+.layout--aside-right.layout--aside-full.layout--has-topbar .topbar {
+  inset-inline-end: var(--layout-aside-right-w);
+}
+
+/* ════════════════════════════════════════
+   2. HERO — full-bleed, flush to topbar
+   ════════════════════════════════════════ */
+.layout--has-hero > header:not([class]) {
+  min-height: var(--layout-hero-min-h);
+}
+.layout--has-topbar.layout--has-hero > header:not([class]) {
+  margin-top: calc(-1 * var(--topbar-height));
+  padding-top: var(--topbar-height);
+}
+
+/* ════════════════════════════════════════
+   3. SHELL — flex/grid row: aside(s) + content
+   ════════════════════════════════════════ */
+.layout__shell { display: flex; flex: 1; min-height: 0; }
+
+/* Both asides → 3-column grid */
+.layout--aside-left.layout--aside-right .layout__shell {
+  display: grid;
+  grid-template-columns: var(--layout-aside-left-w) 1fr var(--layout-aside-right-w);
+}
+
+/* Aside sizing (flex mode, one aside) */
+.layout--aside-left:not(.layout--aside-right) .layout__shell > .layout__aside-left,
+.layout--has-sidebar:not(.layout--aside-right) .layout__shell > .layout__aside-left,
+.layout--aside-right:not(.layout--aside-left) .layout__shell > .layout__aside-right {
+  display: flex; flex-direction: column;
+}
+.layout--aside-left .layout__shell > .layout__aside-left,
+.layout--has-sidebar .layout__shell > .layout__aside-left {
+  width: var(--layout-aside-left-w); flex-shrink: 0;
+  height: auto; overflow: hidden;
+}
+.layout--aside-right .layout__shell > .layout__aside-right {
+  width: var(--layout-aside-right-w); flex-shrink: 0;
+  height: auto; overflow: hidden;
+  order: 2;
+}
+.layout--aside-right .layout__content { order: 1; }
+
+/* Aside nav: fills and scrolls */
+.layout--aside-left .layout__shell > .layout__aside-left .sidebar__nav,
+.layout--has-sidebar .layout__shell > .layout__aside-left .sidebar__nav,
+.layout--aside-right .layout__shell > .layout__aside-right .sidebar__nav {
+  flex: 1; overflow-y: auto;
+}
+
+/* ════════════════════════════════════════
+   4. CONTENT
+   ════════════════════════════════════════ */
+.layout__content { flex: 1; min-width: 0; }
+
+/* ════════════════════════════════════════
+   5. FULL-HEIGHT — viewport-filling dashboard
+   ════════════════════════════════════════ */
+.layout--full-height { height: 100vh; overflow: hidden; }
+.layout--full-height .layout__shell { height: 100%; }
+.layout--has-topbar.layout--full-height .layout__shell {
+  height: calc(100vh - var(--topbar-height));
+}
+.layout--full-height .layout__content { overflow-y: auto; }
+
+/* Hero + full-height: let body grow past viewport */
+.layout--has-hero.layout--full-height {
+  height: auto; min-height: 100vh; overflow: visible;
+}
+.layout--has-hero.layout--full-height .layout__shell {
+  height: auto; flex: 1;
+}
+
+/* ════════════════════════════════════════
+   6. ASIDE-FULL — fixed full-height sidebar
+   Works with left, right, or both asides.
+   ════════════════════════════════════════ */
+/* Left aside full-height */
+.layout--aside-left.layout--aside-full .layout__aside-left,
+.layout--has-sidebar.layout--aside-full .layout__aside-left {
+  position: fixed; top: 0; inset-inline-start: 0; height: 100vh; z-index: var(--z-layout-aside);
+}
+/* Nav: fill and scroll */
+.layout--aside-left.layout--aside-full .layout__aside-left .sidebar__nav,
+.layout--has-sidebar.layout--aside-full .layout__aside-left .sidebar__nav {
+  height: 100vh; overflow-y: auto;
+}
+/* Topbar full-width overlaps sidebar → pad nav below topbar */
+.layout--aside-left.layout--aside-full.layout--topbar-full .layout__aside-left {
+  padding-top: var(--topbar-height);
+}
+.layout--aside-left.layout--aside-full.layout--topbar-full .layout__aside-left .sidebar__nav {
+  height: calc(100vh - var(--topbar-height));
+}
+
+/* Right aside full-height */
+.layout--aside-right.layout--aside-full .layout__aside-right {
+  position: fixed; top: 0; inset-inline-end: 0; height: 100vh; z-index: var(--z-layout-aside);
+}
+.layout--aside-right.layout--aside-full.layout--topbar-full .layout__aside-right {
+  padding-top: var(--topbar-height);
+}
+
+/* Shell offset to clear fixed asides */
+.layout--aside-left.layout--aside-full:not(.layout--aside-right) .layout__shell {
+  margin-inline-start: var(--layout-aside-left-w);
+}
+.layout--aside-right.layout--aside-full:not(.layout--aside-left) .layout__shell {
+  margin-inline-end: var(--layout-aside-right-w);
+}
+.layout--aside-left.layout--aside-right.layout--aside-full .layout__shell {
+  margin-inline-start: var(--layout-aside-left-w);
+  margin-inline-end: var(--layout-aside-right-w);
+}
+
+/* No body padding — asides handle their own top offset */
+.layout--aside-full.layout--has-topbar { padding-top: 0; }
+
+/* Content top padding for topbar */
+.layout--aside-full.layout--has-topbar .layout__content {
+  padding-top: var(--topbar-height);
+}
+
+/* Body flex column so footer sits below shell */
+.layout--aside-full.layout--full-height {
+  height: auto; min-height: 100vh; overflow: visible;
+  display: flex; flex-direction: column;
+}
+.layout--aside-full.layout--full-height .layout__shell {
+  height: auto; flex: 1;
+}
+
+/* Footer above sidebar bleed-through */
+.layout--aside-full .footer { position: relative; z-index: var(--z-layout-footer); }
+
+/* Default with aside-full: footer aligns to content area */
+.layout--aside-full .footer {
+  margin-inline-start: var(--layout-aside-left-w);
+}
+.layout--aside-right.layout--aside-full .footer {
+  margin-inline-end: var(--layout-aside-right-w);
+}
+
+/* ════════════════════════════════════════
+   7. TOPBAR / FOOTER WIDTH TOGGLES
+   Default: full-width
+   With aside-full: content-aligned
+   Override with --full or --content to flip.
+   ════════════════════════════════════════ */
+
+/* Force topbar full-width (overrides aside-full) */
+.layout--topbar-full.layout--has-topbar .topbar {
+  inset-inline-start: 0 !important; inset-inline-end: 0 !important;
+}
+
+/* Force topbar content-aligned (even without aside-full) */
+.layout--topbar-content.layout--has-topbar .topbar {
+  inset-inline-start: var(--layout-aside-left-w);
+}
+
+/* Force footer full-width (overrides aside-full) */
+.layout--footer-full .footer {
+  margin-inline-start: 0 !important; margin-inline-end: 0 !important;
+}
+
+/* Force footer content-aligned (even without aside-full) */
+.layout--footer-content .footer {
+  margin-inline-start: var(--layout-aside-left-w);
+}
+
+/* ════════════════════════════════════════
+   8. CONTENT-SCROLL
+   ════════════════════════════════════════ */
+.layout--content-scroll .layout__content { overflow-y: auto; }
+
+/* ════════════════════════════════════════
+   9. ASIDE COLLAPSED — left aside → icon-only 56px
+   ════════════════════════════════════════ */
+.layout--aside-collapsed .layout__shell > .layout__aside-left {
+  width: var(--layout-aside-collapsed) !important;
+}
+.layout--aside-collapsed .layout__aside-left .sidebar__label,
+.layout--aside-collapsed .layout__aside-left .sidebar__arrow,
+.layout--aside-collapsed .layout__aside-left .sidebar__sub-menu,
+.layout--aside-collapsed .layout__aside-left .sidebar__badge {
+  display: none;
+}
+.layout--aside-collapsed .layout__aside-left .sidebar__link {
+  justify-content: center; padding: 14px 0;
+}
+
+/* ════════════════════════════════════════
+   10. CENTERED — single-column, max-width
+   ════════════════════════════════════════ */
+.layout--centered .layout__content {
+  max-width: var(--width-content);
+  margin: 0 auto;
+  padding: var(--gap-2xl) var(--gap);
+}
+
+/* ════════════════════════════════════════
+   11. STICKY FOOTER — footer at viewport bottom
+   ════════════════════════════════════════ */
+.layout--sticky-footer {
+  display: flex; flex-direction: column; min-height: 100vh;
+}
+.layout--sticky-footer .layout__shell { flex: 1; }
+.layout--sticky-footer.layout--has-topbar {
+  min-height: calc(100vh - var(--topbar-height));
+}
+
+/* ════════════════════════════════════════
+   12. ASIDE STICKY — sidebar sticks on scroll
+   ════════════════════════════════════════ */
+.layout--aside-sticky .layout__shell > .layout__aside-left {
+  position: sticky;
+  top: var(--topbar-height);
+  height: calc(100vh - var(--topbar-height));
+  overflow: visible;
+  align-self: flex-start;
+}
+.layout--aside-sticky:not(.layout--has-topbar) .layout__shell > .layout__aside-left {
+  top: 0;
+  height: 100vh;
+}
+.layout--aside-sticky .layout__shell > .layout__aside-left .sidebar__nav {
+  flex: 1 1 0%;
+  overflow-y: auto;
+}

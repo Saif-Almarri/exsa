@@ -1,10 +1,10 @@
 /* ============================================================
-   EXSA Fluid Tokens & Profiles � link AFTER style.css (optional)
+   EXSA Fluid Tokens & Profiles — link AFTER style.css + your theme (optional)
 
    One file, two features:
-   1. Fluid tokens � spacing, typography, shape scale with viewport
+   1. Fluid tokens - spacing, typography, shape scale with viewport
       via clamp(). No @media queries. No breakpoints.
-   2. Behavioral profiles � change density with one HTML attribute.
+   2. Behavioral profiles - change density with one HTML attribute.
       <html data-profile="compact">   ← denser (dashboards)
       <html data-profile="spacious">  ← airier (landing pages)
       (no attribute)                  ← default comfortable
@@ -63,7 +63,7 @@
 /* -- Shape -- */
 :root {
   --border-radius: calc(clamp(4px, 0.3vw, 10px) * var(--radius-factor));
-  --box-shadow: 0 calc(2px * var(--space-factor)) calc(10px * var(--space-factor)) var(--color-shadow);
+  --box-shadow: 0 calc(2px * var(--space-factor)) calc(10px * var(--space-factor));
   --scroll-margin-top: clamp(60px, 4rem + 2vw, 100px);
   --width-content: clamp(320px, 90%, 1080px);
 }

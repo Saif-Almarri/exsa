@@ -4,7 +4,7 @@
    ============================================================ */
 
 /* --- C3: MODAL WINDOW --- */
-.modal{position:fixed;inset:0;z-index:1000;background:var(--color-overlay);display:flex;align-items:center;justify-content:center;opacity:0;visibility:hidden;transition:opacity .22s,visibility .22s}
+.modal{position:fixed;inset:0;z-index:var(--z-modal);background:var(--color-overlay);display:flex;align-items:center;justify-content:center;opacity:0;visibility:hidden;transition:opacity .22s,visibility .22s}
 .modal--open{opacity:1;visibility:visible}
 .modal__dialog{position:relative;width:90%;max-width:520px;max-height:85vh;background:var(--color-bg);border-radius:var(--border-radius);box-shadow:var(--box-shadow);transform:translateY(16px);transition:transform .28s cubic-bezier(.4,0,.2,1);overflow:hidden;display:flex;flex-direction:column}
 .modal--open .modal__dialog{transform:translateY(0)}

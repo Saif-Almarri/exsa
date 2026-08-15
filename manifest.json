@@ -1,6 +1,6 @@
 {
   "name": "EXSA",
-  "version": "1.0.0-beta.2",
+  "version": "1.0.0-beta.3",
   "description": "5-layer CSS framework. Token cascade → reset → layout → elements → components. Zero build, zero CLI, pure plug & play.",
   "tiers": {
     "free": {
@@ -33,14 +33,14 @@
     },
     "5_components": {
       "label": "Layer 5 — Components",
-      "desc": "50 plug-and-play components. Single CSS files."
+      "desc": "53 plug-and-play components. Single CSS files."
     }
   },
   "core": {
     "css": [
-      "style.css?v=24"
+      "style.css?v=29"
     ],
-    "description": "Complete core (26 KB, ~5.6 KB gzipped): tokens, reset, layout utilities, classless element styles for nav, table, form, button, blockquote, dialog, and more. One file, one link."
+    "description": "Complete core: tokens, reset, layout utilities, classless element styles for 47 HTML elements (nav, table, form, fieldset, button, blockquote, dialog, kbd, progress, meter + structural detection). One file, one link."
   },
   "layout": {
     "css": "style.css",
@@ -188,6 +188,50 @@
       "color": "#003b95"
     }
   ],
+  "layouts": [
+    {
+      "id": "general",
+      "name": "General",
+      "file": "layouts/general.css",
+      "desc": "Compositional page shell — topbar, hero, aside, content, footer toggles.",
+      "tier": "free"
+    },
+    {
+      "id": "blog",
+      "name": "Blog",
+      "file": "layouts/blog.css",
+      "desc": "Centered, reading-optimized layout with optional sticky TOC.",
+      "tier": "free"
+    },
+    {
+      "id": "dashboard",
+      "name": "Dashboard",
+      "file": "layouts/dashboard.css",
+      "desc": "Full-viewport admin shell with fixed sidebar and scrollable content.",
+      "tier": "free"
+    },
+    {
+      "id": "store",
+      "name": "Store",
+      "file": "layouts/store.css",
+      "desc": "Product catalog — announce bar, cart topbar, filter sidebar, product grid.",
+      "tier": "free"
+    },
+    {
+      "id": "fullpage",
+      "name": "Fullpage",
+      "file": "layouts/fullpage.css",
+      "desc": "Single-viewport landing — backdrop, centered brand, social rings, :target panels.",
+      "tier": "free"
+    },
+    {
+      "id": "onepage",
+      "name": "Onepage",
+      "file": "layouts/onepage.css",
+      "desc": "Multi-section marketing page — photo hero, nav dropdowns, banner, carousel, features, footer.",
+      "tier": "free"
+    }
+  ],
   "categories": [
     {
       "id": "layout",
@@ -196,6 +240,7 @@
         "accordion",
         "drawer",
         "footer",
+        "hero",
         "modal",
         "pricing-table",
         "sidebar"
@@ -232,6 +277,7 @@
       "id": "media",
       "name": "Media",
       "components": [
+        "carousel",
         "lightbox",
         "music",
         "slideshow",
@@ -252,6 +298,7 @@
       "id": "actions",
       "name": "Actions",
       "components": [
+        "advanced-color-picker",
         "checkbox",
         "color-picker",
         "date-picker",
@@ -322,7 +369,7 @@
       "name": "Modal Window",
       "category": "layout",
       "css": "components/modal.css",
-      "js": "modal",
+      "js": "js/modal.js",
       "pureCss": false,
       "icons": [
         "x-circle.svg"
@@ -345,11 +392,21 @@
       "tier": "free"
     },
     {
+      "id": "hero",
+      "name": "Hero Header",
+      "category": "layout",
+      "css": "components/hero.css",
+      "js": null,
+      "pureCss": true,
+      "desc": "Full-width header with video/image background overlay. Auto-detects figure for absolute fill. Gradient overlay via --hero-overlay token. Height via --hero-height (default 60vh).",
+      "tier": "free"
+    },
+    {
       "id": "sidebar",
       "name": "Sidebar Navigation",
       "category": "layout",
       "css": "components/sidebar.css",
-      "js": "sidebar",
+      "js": "js/sidebar.js",
       "pureCss": false,
       "icons": [
         "chevron-right.svg",
@@ -368,7 +425,7 @@
       "name": "Topbar / Navbar",
       "category": "navigation",
       "css": "components/topbar.css",
-      "js": "topbar",
+      "js": "js/topbar.js",
       "pureCss": false,
       "icons": [
         "menu.svg"
@@ -381,7 +438,7 @@
       "name": "Back to Top",
       "category": "navigation",
       "css": "components/back-top.css",
-      "js": "back-top",
+      "js": "js/back-top.js",
       "pureCss": false,
       "icons": [
         "arrow-up.svg",
@@ -448,7 +505,7 @@
       "name": "Context Menu",
       "category": "navigation",
       "css": "components/context-menu.css",
-      "js": "context-menu",
+      "js": "js/context-menu.js",
       "pureCss": false,
       "desc": "Right-click popup menu with items, separators, shortcuts, danger actions, and soft/solid variants. Closes on outside click or Escape.",
       "tier": "free"
@@ -521,13 +578,13 @@
       "name": "Code Block",
       "category": "content",
       "css": "components/code-block.css",
-      "js": "code-block",
+      "js": "js/code-block.js",
       "pureCss": false,
       "icons": [
         "copy.svg",
         "check.svg"
       ],
-      "desc": "Syntax-highlighted code block with header bar, language label, and copy-to-clipboard button with Copied! feedback. No-header and compact variants.",
+      "desc": "Syntax-highlighted code block with header bar, language label, and copy-to-clipboard button with Copied! feedback. Copy + auto highlighting come from js/code-block.js. No-header and compact variants.",
       "tier": "free"
     },
     {
@@ -535,7 +592,7 @@
       "name": "Lightbox",
       "category": "media",
       "css": "components/lightbox.css",
-      "js": "lightbox",
+      "js": "js/lightbox.js",
       "pureCss": false,
       "desc": "Fullscreen image gallery overlay with thumbnail grid, prev/next, and keyboard nav.",
       "tier": "free"
@@ -545,7 +602,7 @@
       "name": "Music Player",
       "category": "media",
       "css": "components/music.css",
-      "js": "music",
+      "js": "js/music.js",
       "pureCss": false,
       "icons": [
         "play.svg",
@@ -559,7 +616,7 @@
       "name": "Video Gallery",
       "category": "media",
       "css": "components/video-gallery.css",
-      "js": "video-gallery",
+      "js": "js/video-gallery.js",
       "pureCss": false,
       "desc": "Responsive video card grid. Click opens iframe modal with autoplay.",
       "tier": "free"
@@ -569,13 +626,23 @@
       "name": "Slideshow",
       "category": "media",
       "css": "components/slideshow.css",
-      "js": "slideshow",
+      "js": "js/slideshow.js",
       "pureCss": false,
       "icons": [
         "chevron-left.svg",
         "chevron-right.svg"
       ],
       "desc": "Auto-playing image carousel with navigation dots, prev/next arrows, and keyboard.",
+      "tier": "free"
+    },
+    {
+      "id": "carousel",
+      "name": "Carousel",
+      "category": "media",
+      "css": "components/carousel.css",
+      "js": "js/carousel.js",
+      "pureCss": false,
+      "desc": "Web Component carousel. Scroll-snap + IntersectionObserver. Attributes: pagination, navigation, autoplay, loop, mouse-dragging, slides-per-page, orientation=vertical. Tokens: --aspect-ratio, --slide-gap, --scroll-hint.",
       "tier": "free"
     },
     {
@@ -636,9 +703,19 @@
       "name": "Color Picker",
       "category": "actions",
       "css": "components/color-picker.css",
-      "js": "color-picker",
+      "js": "js/color-picker.js",
       "pureCss": false,
       "desc": "Styled native color input with swatch preview, hex value display, and sm/default/lg sizes.",
+      "tier": "free"
+    },
+    {
+      "id": "advanced-color-picker",
+      "name": "Advanced Color Picker",
+      "category": "actions",
+      "css": "components/advanced-color-picker.css",
+      "js": "js/advanced-color-picker.js",
+      "pureCss": false,
+      "desc": "Custom HSL+Alpha canvas picker. Hue-saturation grid, alpha slider with checkerboard transparency, hex input. Open/close on trigger click.",
       "tier": "free"
     },
     {
@@ -646,7 +723,7 @@
       "name": "Date Picker",
       "category": "actions",
       "css": "components/date-picker.css",
-      "js": "date-picker",
+      "js": "js/date-picker.js",
       "pureCss": false,
       "icons": [
         "calendar.svg",
@@ -661,7 +738,7 @@
       "name": "Dropdown Menu",
       "category": "actions",
       "css": "components/dropdown.css",
-      "js": "dropdown",
+      "js": "js/dropdown.js",
       "pureCss": false,
       "icons": [
         "chevron-down.svg",
@@ -707,7 +784,7 @@
       "name": "Password Input",
       "category": "actions",
       "css": "components/password-input.css",
-      "js": "password",
+      "js": "js/password-input.js",
       "pureCss": false,
       "icons": [
         "eye.svg",
@@ -721,7 +798,7 @@
       "name": "Popover",
       "category": "actions",
       "css": "components/popover.css",
-      "js": "popover",
+      "js": "js/popover.js",
       "pureCss": false,
       "desc": "Click-triggered floating card for rich content (forms, text, media). Arrow, 4 sizes, start/end alignment. Closes on outside click or Escape.",
       "tier": "free"
@@ -741,7 +818,7 @@
       "name": "Rating Stars",
       "category": "actions",
       "css": "components/rating.css",
-      "js": "rating",
+      "js": "js/rating.js",
       "pureCss": false,
       "icons": [
         "star.svg",
@@ -768,7 +845,7 @@
       "name": "Tabs",
       "category": "actions",
       "css": "components/tabs.css",
-      "js": "tabs",
+      "js": "js/tabs.js",
       "pureCss": false,
       "desc": "Tabbed interface with active tab underline. JS switches panels.",
       "tier": "free"
@@ -804,7 +881,7 @@
       "name": "Cookie Bar",
       "category": "feedback",
       "css": "components/cookie-bar.css",
-      "js": "cookie-bar",
+      "js": "js/cookie-bar.js",
       "pureCss": false,
       "desc": "Fixed bottom cookie consent banner with accept button. JS handles dismiss.",
       "tier": "free"
@@ -834,7 +911,7 @@
       "name": "Toast Notifications",
       "category": "feedback",
       "css": "components/toast.css",
-      "js": "toast",
+      "js": "js/toast.js",
       "pureCss": false,
       "icons": [
         "check.svg",
@@ -869,7 +946,7 @@
       "name": "Panel Resizer",
       "category": "actions",
       "css": "components/resizer.css",
-      "js": "resizer",
+      "js": "js/resizer.js",
       "pureCss": false,
       "icons": [
         "grip.svg"
@@ -880,200 +957,123 @@
   ],
   "behaviors": [
     {
-      "id": "dropdown",
-      "name": "Dropdown Menu",
-      "source": "components.js",
-      "marker": "Dropdown Menu",
+      "id": "dropdown", "name": "dropdown", "source": "js/dropdown.js",
       "desc": "Click toggle + outside click dismiss"
     },
     {
-      "id": "slideshow",
-      "name": "Slideshow",
-      "source": "components.js",
-      "marker": "Slideshow",
+      "id": "slideshow", "name": "slideshow", "source": "js/slideshow.js",
       "desc": "Auto-play carousel with dots, arrows, and keyboard navigation"
     },
     {
-      "id": "music",
-      "name": "Music Player",
-      "source": "components.js",
-      "marker": "Music Player",
+      "id": "carousel",
+      "name": "Carousel",
+      "source": "js/carousel.js",
+      "marker": "Carousel",
+      "desc": "Web Component. Scroll-snap + IntersectionObserver. <exsa-carousel> with pagination/navigation/autoplay/loop/mouse-dragging."
+    },
+    {
+      "id": "music", "name": "music", "source": "js/music.js",
       "desc": "Play/pause toggle with elapsed time display"
     },
     {
-      "id": "tabs",
-      "name": "Tabs",
-      "source": "components.js",
-      "marker": "Tabs",
+      "id": "tabs", "name": "tabs", "source": "js/tabs.js",
       "desc": "Tab panel switching with active state management"
     },
     {
-      "id": "rating",
-      "name": "Rating Stars",
-      "source": "components.js",
-      "marker": "Rating",
+      "id": "rating", "name": "rating", "source": "js/rating.js",
       "desc": "Interactive 5-star rating with hover preview"
     },
     {
-      "id": "toast",
-      "name": "Toast Notifications",
-      "source": "components.js",
-      "marker": "Toast",
+      "id": "toast", "name": "toast", "source": "js/toast.js",
       "desc": "Auto-dismiss notification popups with slide-out animation"
     },
     {
-      "id": "video-gallery",
-      "name": "Video Gallery",
-      "source": "components.js",
-      "marker": "Video Gallery Modal",
+      "id": "video-gallery", "name": "video-gallery", "source": "js/video-gallery.js",
       "desc": "Click-to-play video modal with iframe embed"
     },
     {
-      "id": "modal",
-      "name": "Modal Window",
-      "source": "components.js",
-      "marker": "Modal Window",
+      "id": "modal", "name": "modal", "source": "js/modal.js",
       "desc": "Open/close with overlay click, Escape key, and button triggers"
     },
     {
-      "id": "lightbox",
-      "name": "Lightbox Gallery",
-      "source": "components.js",
-      "marker": "Lightbox Gallery",
+      "id": "lightbox", "name": "lightbox", "source": "js/lightbox.js",
       "desc": "Fullscreen image viewer with thumbnail grid and keyboard arrows"
     },
     {
-      "id": "cookie-bar",
-      "name": "Cookie Consent Bar",
-      "source": "components.js",
-      "marker": "Cookie Consent Bar",
+      "id": "cookie-bar", "name": "cookie-bar", "source": "js/cookie-bar.js",
       "desc": "Show/hide fixed cookie consent banner with localStorage"
     },
     {
-      "id": "back-top",
-      "name": "Back to Top",
-      "source": "components.js",
-      "marker": "Back to Top",
+      "id": "back-top", "name": "back-top", "source": "js/back-top.js",
       "desc": "Show button on scroll, smooth scroll-to-top on click"
     },
     {
-      "id": "range-slider",
-      "name": "Range Slider Value",
-      "source": "components.js",
-      "marker": "Range Slider Value Display",
+      "id": "range-slider", "name": "range-slider", "source": "js/range-slider.js",
       "desc": "Live numeric value display next to range slider"
     },
     {
-      "id": "password",
-      "name": "Password Toggle",
-      "source": "components.js",
-      "marker": "Password Input Toggle",
+      "id": "password-input", "name": "Password Toggle", "source": "js/password-input.js",
       "desc": "Show/hide password field text on button click"
     },
     {
-      "id": "topbar",
-      "name": "Topbar",
-      "source": "components.js",
-      "marker": "Topbar (scroll transparency + mobile menu + dropdowns)",
+      "id": "topbar", "name": "topbar", "source": "js/topbar.js",
       "desc": "Scroll transparency + mobile hamburger menu + dropdown toggles"
     },
     {
-      "id": "date-picker",
-      "name": "Date Picker",
-      "source": "components.js",
-      "marker": "Date Picker",
+      "id": "date-picker", "name": "date-picker", "source": "js/date-picker.js",
       "desc": "Calendar popup with month navigation, date selection, and outside-click dismiss"
     },
     {
-      "id": "color-picker",
-      "name": "Color Picker",
-      "source": "components.js",
-      "marker": "Color Picker",
+      "id": "color-picker", "name": "color-picker", "source": "js/color-picker.js",
       "desc": "Native color input with swatch preview and hex value display"
     },
     {
-      "id": "theme-switcher",
-      "name": "Theme Switcher",
-      "source": "components.js",
-      "marker": "Theme Switcher",
+      "id": "advanced-color-picker", "name": "advanced-color-picker", "source": "js/advanced-color-picker.js",
+      "desc": "Custom HSL+Alpha canvas picker with checkerboard transparency"
+    },
+    {
+      "id": "theme-switcher", "name": "theme-switcher", "source": "js/theme-switcher.js",
       "desc": "Dynamic theme CSS swap with localStorage persistence"
     },
     {
-      "id": "resizer",
-      "name": "Panel Resizer",
-      "source": "components.js",
-      "marker": "Resizer (drag handle for panels)",
+      "id": "resizer", "name": "resizer", "source": "js/resizer.js",
       "desc": "Drag-to-resize panel handle (horizontal and vertical)"
     },
     {
-      "id": "sidebar",
-      "name": "Sidebar Navigation",
-      "source": "components.js",
-      "marker": "Sidebar Navigation",
+      "id": "sidebar", "name": "sidebar", "source": "js/sidebar.js",
       "desc": "Collapsible sub-menu accordion toggle on sidebar links"
     },
     {
-      "id": "scroll-spy",
-      "name": "Scroll Spy",
-      "source": "components.js",
-      "marker": "Scroll Spy",
+      "id": "scroll-spy", "name": "scroll-spy", "source": "js/scroll-spy.js",
       "desc": "Highlights nav links based on scroll position. Add data-scroll-spy to the nav."
     },
     {
-      "id": "accordion-aria",
-      "name": "Accordion ARIA",
-      "source": "components.js",
-      "marker": "Accordion ARIA",
+      "id": "accordion", "name": "Accordion ARIA", "source": "js/accordion.js",
       "desc": "Syncs aria-expanded on accordion labels with checkbox state for screen readers"
     },
     {
-      "id": "toggle-aria",
-      "name": "Toggle Switch ARIA",
-      "source": "components.js",
-      "marker": "Toggle Switch ARIA",
+      "id": "toggle", "name": "Toggle Switch ARIA", "source": "js/toggle.js",
       "desc": "Adds role=switch and aria-checked to toggle inputs for proper screen reader announcement"
     },
     {
-      "id": "drawer-aria",
-      "name": "Drawer ARIA",
-      "source": "components.js",
-      "marker": "Drawer ARIA + Focus Trap",
+      "id": "drawer", "name": "Drawer ARIA", "source": "js/drawer.js",
       "desc": "Syncs aria-expanded on drawer trigger labels with checkbox open/close state"
     },
     {
-      "id": "focus-trap",
-      "name": "Focus Trap Utility",
-      "source": "components.js",
-      "marker": "Focus Trap Utility",
-      "desc": "Trap keyboard focus inside a container (modal, drawer, lightbox). Required by modal/drawer/lightbox/video-gallery."
-    },
-    {
-      "id": "rtl-toggle",
-      "name": "RTL Toggle",
-      "source": "components.js",
-      "marker": "Topbar Toggles (RTL)",
+      "id": "rtl-toggle", "name": "rtl-toggle", "source": "js/rtl-toggle.js",
       "desc": "Toggle html[dir] between ltr/rtl with localStorage persistence"
     },
     {
-      "id": "context-menu",
-      "name": "Context Menu",
-      "source": "components.js",
-      "marker": "Context Menu",
+      "id": "context-menu", "name": "context-menu", "source": "js/context-menu.js",
       "desc": "Right-click popup with viewport clamping, backdrop dismiss, and Escape key"
     },
     {
-      "id": "popover",
-      "name": "Popover",
-      "source": "components.js",
-      "marker": "Popover",
+      "id": "popover", "name": "popover", "source": "js/popover.js",
       "desc": "Click-triggered floating card with backdrop dismiss, Escape key, and single-open enforcement"
     },
     {
-      "id": "code-block",
-      "name": "Code Block Copy",
-      "source": "components.js",
-      "marker": "Code Block",
-      "desc": "Copy code content to clipboard with 'Copied!' feedback state"
+      "id": "code-block", "name": "code-block", "source": "js/code-block.js",
+      "desc": "Copy-to-clipboard button with Copied! feedback + auto syntax highlighting (hl-tag/attr/val/cmt)"
     }
   ],
   "icons": {

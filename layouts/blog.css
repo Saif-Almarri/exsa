@@ -1,0 +1,134 @@
+/* ============================================================
+   EXSA Blog Layout — centered reading-optimized page shell
+
+   Link AFTER style.css + your theme.
+   Add to <body> for blog, article, docs, or any centered prose.
+
+   Zones:
+     layout--has-topbar     = fixed topbar (reserves height)
+     layout--has-hero       = full-bleed banner/hero
+     layout--has-toc        = sticky table-of-contents sidebar
+
+   Tokens:
+     --topbar-height          inherited from topbar.css (56/48/64/72px)
+     --layout-content-w     720px   (readable line length)
+     --layout-hero-min-h     40vh
+   ============================================================ */
+
+:root {
+  --layout-content-w: 720px;
+  --layout-hero-min-h: 40vh;
+}
+
+/* ════════════════════════════════════════
+   1. TOPBAR
+   Uses --topbar-height (syncs with topbar.css size variants).
+   ════════════════════════════════════════ */
+.blog--has-topbar {
+  --topbar-height: 56px;
+  padding-top: var(--topbar-height);
+}
+body.blog--has-topbar:has(.topbar--sm) { --topbar-height: 48px; }
+body.blog--has-topbar:has(.topbar--lg) { --topbar-height: 64px; }
+body.blog--has-topbar:has(.topbar--xl) { --topbar-height: 72px; }
+
+/* ════════════════════════════════════════
+   2. HERO / BANNER
+   ════════════════════════════════════════ */
+.blog--has-hero > header:not([class]) {
+  min-height: var(--layout-hero-min-h);
+}
+.blog--has-topbar.blog--has-hero > header:not([class]) {
+  margin-top: calc(-1 * var(--topbar-height));
+  padding-top: var(--topbar-height);
+}
+
+/* ════════════════════════════════════════
+   3. CONTENT — centered, reading-optimized
+   ════════════════════════════════════════ */
+.blog__content {
+  max-width: var(--layout-content-w);
+  margin: 0 auto;
+  padding: var(--gap-2xl) var(--gap);
+}
+
+/* Wider variant for docs/guides */
+.blog--wide .blog__content {
+  max-width: calc(var(--layout-content-w) + 260px);
+}
+
+/* Full-width content sections (for code blocks, tables) */
+.blog--fullwidth .blog__content {
+  max-width: none;
+  padding: var(--gap-2xl) var(--gap);
+}
+
+/* ════════════════════════════════════════
+   4. STICKY FOOTER
+   ════════════════════════════════════════ */
+.blog--sticky-footer {
+  display: flex; flex-direction: column; min-height: 100vh;
+}
+.blog--sticky-footer .blog__content { flex: 1; }
+.blog--sticky-footer.blog--has-topbar {
+  min-height: calc(100vh - var(--topbar-height));
+}
+
+/* ════════════════════════════════════════
+   5. TABLE OF CONTENTS — optional sticky aside
+   ════════════════════════════════════════ */
+.blog--has-toc .blog__shell {
+  display: flex;
+  justify-content: center;
+  gap: var(--gap-xl);
+  max-width: calc(var(--layout-content-w) + 260px + var(--gap-xl));
+  margin: 0 auto;
+  padding: var(--gap-2xl) var(--gap);
+}
+.blog--has-toc .blog__content {
+  flex: 1;
+  min-width: 0;
+  max-width: var(--layout-content-w);
+  margin: 0;
+  padding: 0;
+}
+.blog--has-toc .blog__toc {
+  width: 200px;
+  flex-shrink: 0;
+  position: sticky;
+  top: calc(var(--topbar-height) + var(--gap));
+  align-self: flex-start;
+  max-height: calc(100vh - var(--topbar-height) - var(--gap-2xl));
+  overflow-y: auto;
+  font-size: 0.82rem;
+}
+.blog--has-toc .blog__toc a {
+  display: block;
+  padding: 4px 0;
+  color: var(--color-text-secondary);
+  text-decoration: none;
+  border-inline-start: 2px solid transparent;
+  padding-inline-start: 12px;
+  transition: color 0.15s, border-inline-start-color 0.15s;
+}
+.blog--has-toc .blog__toc a:hover,
+.blog--has-toc .blog__toc a.active {
+  color: var(--color-link);
+  border-inline-start-color: var(--color-link);
+}
+
+/* ════════════════════════════════════════
+   6. PROSE — optional typography boost
+   ════════════════════════════════════════ */
+.blog--prose .blog__content {
+  font-size: 1.05rem;
+  line-height: 1.8;
+}
+.blog--prose .blog__content h2 { margin-top: 2.5rem; }
+.blog--prose .blog__content h3 { margin-top: 2rem; }
+.blog--prose .blog__content p  { margin-bottom: 1.5rem; }
+.blog--prose .blog__content img {
+  border-radius: var(--border-radius);
+  margin: 2rem auto;
+  display: block;
+}

@@ -19,7 +19,7 @@
 .video-gallery__meta{font-size:.72rem;color:var(--color-text-secondary);margin-top:4px}
 
 /* Modal overlay */
-.video-modal{position:fixed;inset:0;z-index:1000;background:rgba(0,0,0,.78);display:flex;align-items:center;justify-content:center;opacity:0;visibility:hidden;transition:opacity .25s,visibility .25s}
+.video-modal{position:fixed;inset:0;z-index:var(--z-modal);background:rgba(0,0,0,.78);display:flex;align-items:center;justify-content:center;opacity:0;visibility:hidden;transition:opacity .25s,visibility .25s}
 .video-modal--open{opacity:1;visibility:visible}
 .video-modal__inner{position:relative;width:90%;max-width:860px;background:#000;border-radius:var(--border-radius);overflow:hidden;box-shadow:0 12px 40px rgba(0,0,0,.5);transform:translateY(20px);transition:transform .3s}
 .video-modal--open .video-modal__inner{transform:translateY(0)}

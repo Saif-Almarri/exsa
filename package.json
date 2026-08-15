@@ -1,7 +1,7 @@
 {
   "name": "@exsa/exsa",
-  "version": "1.0.0-beta.2",
-  "description": "A 5-layer CSS framework built on tokens, not tools. 26 KB core (~5.6 KB gzipped). 50 components. 20 themes. Zero build step.",
+  "version": "1.0.0-beta.3",
+  "description": "A 5-layer CSS framework built on tokens, not tools. 53 components. 20 themes. Zero build step.",
   "author": "EXSA",
   "license": "MIT",
   "homepage": "https://github.com/Saif-Almarri/exsa#readme",
@@ -28,6 +28,9 @@
     "a11y"
   ],
   "main": "style.css",
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
     "lint:css": "stylelint \"**/*.css\" --ignore-path .gitignore",
     "lint:css:fix": "stylelint \"**/*.css\" --fix --ignore-path .gitignore"
@@ -39,20 +42,28 @@
   "style": "style.css",
   "files": [
     "style.css",
+    "exsa.fluid.css",
     "components.js",
     "tokens.json",
     "manifest.json",
+    "exsa.css-data.json",
     "README.md",
     "LICENSE",
     "components/",
-    "themes/"
+    "js/",
+    "themes/",
+    "layouts/",
+    "includes/images/"
   ],
   "exports": {
     ".": "./style.css",
+    "./fluid": "./exsa.fluid.css",
     "./tokens": "./tokens.json",
     "./manifest": "./manifest.json",
     "./components/*": "./components/*",
-    "./themes/*": "./themes/*"
+    "./js/*": "./js/*",
+    "./themes/*": "./themes/*",
+    "./layouts/*": "./layouts/*"
   },
   "browserslist": [
     "Chrome >= 88",

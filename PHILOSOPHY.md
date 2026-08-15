@@ -64,7 +64,7 @@ This is the reversal of the traditional framework power dynamic. Most frameworks
 
 ### 2. Token-Driven Everything
 
-All 50 components share 61 CSS custom properties. Every color, every shadow, every border-radius, every gap — it all flows from `:root` tokens.
+All 53 components share 80 CSS custom properties. Every color, every shadow, every border-radius, every gap, every z-index — it all flows from `:root` tokens.
 
 Swap one theme file. Every component, every element style, every utility class recolors instantly. No rebuild. No recompile. No class-name hunt across 200 files.
 
@@ -75,11 +75,11 @@ This is not "CSS variables are nice to have." This is: *the tokens are the desig
 CSS `@layer` is the most underused feature in the language. EXSA builds its entire architecture on it:
 
 ```
-@layer exsa.tokens      → 61 custom properties
+@layer exsa.tokens      → 80 custom properties
      exsa.reset       → box model, focus, a11y, RTL
      exsa.layout      → flex, grid, containers
      exsa.elements    → Guarded Classless
-     exsa.components  → 50 BEM components
+     exsa.components  → 53 BEM components
 ```
 
 Each layer feeds the next. Themes and user CSS sit *outside* all layers — unlayered styles always override layered ones. Specificity becomes irrelevant. You never need `!important`.
@@ -102,7 +102,7 @@ Behavioral profiles (`data-profile="compact"`, `data-profile="spacious"`) change
 - **Not a utility framework.** EXSA believes component classes (`card`, `btn--primary`) carry more meaning than atomic utilities (`bg-white rounded-lg shadow-md p-6`). Semantic HTML should work without 12 classes on a div.
 - **Not a design system.** EXSA ships no design opinions — 20 themes prove the same component can look completely different. The tokens are the system. You bring the design.
 - **Not a JavaScript framework.** No React, Vue, or Svelte wrappers needed. EXSA is CSS — it works with any backend, any static server, and yes, `npm install exsa` if you prefer packages over `<link>` tags.
-- **Not a "minimal" framework.** 50 components, 20 themes, 90+ layout utilities, a bundle generator, and a classless engine. Small in KB. Not small in capability.
+- **Not a "minimal" framework.** 53 components, 20 themes, 90+ layout utilities, a bundle generator, and a classless engine. Small in KB. Not small in capability.
 
 ---
 
@@ -136,11 +136,11 @@ No other framework occupies the intersection EXSA does.
 | Traditional | Bootstrap, Bulma | ✅ | ❌ | ❌ | ❌ |
 | Token-only | Open Props, Pollen | ❌ | ✅ | ❌ | ❌ |
 | Classless | Pico, Water, Simple, Sakura | ❌ | ❌ | ✅ | ❌ |
-| **EXSA** | — | ✅ 50 | ✅ 37 | ✅ | ✅ |
+| **EXSA** | — | ✅ 53 | ✅ 80 | ✅ | ✅ |
 
 *\*Guarded = styles automatically, but steps aside when you add any class*
 
-**Open Props** (Adam Argyle, Google) is philosophically closest — design tokens as CSS variables. But it ships zero components. You get `--size-3`; you don't get `.card`, `.modal`, or `.toast`. EXSA gives you both: the token system *and* 50 components already wired to it.
+**Open Props** (Adam Argyle, Google) is philosophically closest — design tokens as CSS variables. But it ships zero components. You get `--size-3`; you don't get `.card`, `.modal`, or `.toast`. EXSA gives you both: the token system *and* 53 components already wired to it.
 
 **Pico CSS** (~13K GitHub stars) proved developers want classless semantic HTML styling. But it has no guard — add a class and Pico still imposes its styles. You fight it with specificity. And it offers very few components beyond forms and typography.
 
@@ -156,7 +156,7 @@ This is CSS, the way it was meant to work.
 
 EXSA is for developers who want their CSS to be as simple as their PHP.
 
-If your templates are plain `.php` files and your server is Apache or nginx, EXSA is built for you. No Twig. No Blade. No `npm install`. No `vite.config.js`. Drop the files in `public/`, add two `<link>` tags, and you have a complete design system with 50 components, 20 themes, and automatic semantic HTML styling.
+If your templates are plain `.php` files and your server is Apache or nginx, EXSA is built for you. No Twig. No Blade. No `npm install`. No `vite.config.js`. Drop the files in `public/`, add two `<link>` tags, and you have a complete design system with 53 components, 20 themes, and automatic semantic HTML styling.
 
 EXSA also works with any other stack — Python, Ruby, Node, React, Vue, Svelte, Hugo, WordPress — but it was designed first and foremost for the developer who chose PHP because it's simple, and expects their CSS framework to be just as simple. Two `<link>` tags or one `npm install`. Universal CSS. Zero friction.
 

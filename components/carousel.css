@@ -100,7 +100,7 @@ exsa-carousel-item img {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  z-index: 10;
+  z-index: var(--z-floating);
   display: flex; align-items: center; justify-content: center;
   background: none; color: var(--color-text);
   border: none;

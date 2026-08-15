@@ -21,6 +21,13 @@
 .sidebar::-webkit-scrollbar-track { background: transparent; }
 .sidebar::-webkit-scrollbar-thumb { background: var(--color-bg-secondary); border-radius: 2px; }
 
+/* ── Optional header slot (logo, search, theme picker, etc.) ── */
+.sidebar__head {
+  padding: 18px;
+  border-bottom: 1px solid var(--color-bg-secondary);
+  flex-shrink: 0;
+}
+
 /* ── Nav list ── */
 .sidebar__nav,
 .sidebar__nav ul {

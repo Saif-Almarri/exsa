@@ -126,7 +126,7 @@
   position: absolute;
   top: calc(100% + 4px);
   left: 0;
-  z-index: 100;
+  z-index: var(--z-dropdown);
   display: none;
 }
 .date-picker__wrapper--open .date-picker { display: block; }

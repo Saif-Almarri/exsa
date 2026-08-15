@@ -33,7 +33,7 @@ This is equity, not compensation. Ownership, not employment. We're building a co
 
 Most CSS frameworks are iterations of the same idea. EXSA isn't.
 
-**A genuine technical edge.** Guarded Classless™ — semantic HTML styled automatically via `:where()`, then the framework steps aside on `:not([class])`. Five `@layer` cascade levels. 61 tokens driving 50 components. 110 icons. 20 themes. Zero build step. No other framework combines all of this. The CSS features that make it possible — `@layer`, `:where()`, `:not([class])` — only became baseline in 2022. EXSA is the first framework designed for them, not retrofitted.
+**A genuine technical edge.** Guarded Classless™ — semantic HTML styled automatically via `:where()`, then the framework steps aside on `:not([class])`. Five `@layer` cascade levels. 80 tokens driving 53 components. 110 icons. 20 themes. Zero build step. No other framework combines all of this. The CSS features that make it possible — `@layer`, `:where()`, `:not([class])` — only became baseline in 2022. EXSA is the first framework designed for them, not retrofitted.
 
 **A clear, underserved audience.** PHP developers who write `.php` files directly — no Twig, no Blade, no `vite.config.js`. Millions of them. Every existing framework tells them to install Node, learn a templating language, or memorize utility classes. EXSA tells them: two `<link>` tags and you're building.
 
@@ -51,7 +51,7 @@ Most CSS frameworks are iterations of the same idea. EXSA isn't.
 
 You'll own the product:
 
-- Build and maintain the 50-component library
+- Build and maintain the 53-component library
 - Improve the Generator, manifest, and tooling
 - Review and merge community contributions
 - Make architectural decisions about the framework
