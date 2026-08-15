@@ -22,7 +22,7 @@ EXSA chooses a third path.
 
 **Fluid by default.** Spacing, typography, and shape scale smoothly with viewport width — no breakpoints needed. Add `data-profile="compact"` or `data-profile="spacious"` to `<html>` and every component shifts density with one attribute. One optional file. Zero build.
 
-**There is no build.** No CLI. No PostCSS. No config file. Just `<link>` two files from the CDN and you have a complete design system. No `npm install` required — ever. (npm exists if you want it, but you'll never need it.)
+**There is no build.** No CLI. No PostCSS. No config file. Just `<link>` two files from the CDN and you have a complete design system. No `npm install`. Ever.
 
 **No template engine needed.** EXSA doesn't care if your view is a plain `.php` file, a static `.html` file, or served from Python, Node, Ruby, or Go. No Twig. No Blade. No SASS. No Webpack. If your server outputs HTML, EXSA styles it. Drop the files in your `public/` folder and you're done.
 
@@ -61,17 +61,6 @@ Need a component or a different theme? Just add the path:
 ```
 
 > Pin a version by replacing `@main` with `@1.0.0-beta.3` (or any tag)
-
-<details>
-<summary>npm? (you don't need it — but it's there)</summary>
-
-```bash
-npm install @exsa/exsa
-```
-
-EXSA is published to npm for the CDN and discoverability — not because you need a build step. If you're already in a bundler project, `@import '@exsa/exsa/style.css'` works. But `<link>` tags are the recommended path.
-
-</details>
 
 **Or download locally:**
 
@@ -624,7 +613,6 @@ root
 ├── layouts/               6 page layouts (general, blog, dashboard, store, fullpage, onepage)
 ├── manifest.json          Component & theme registry
 ├── tokens.json            Design token export (Figma, JS, Tailwind)
-├── package.json           NPM metadata
 ├── README.md              This file
 ├── LICENSE                MIT License
 ├── TRADEMARK.md           Trademark guidelines

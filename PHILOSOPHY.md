@@ -101,7 +101,7 @@ Behavioral profiles (`data-profile="compact"`, `data-profile="spacious"`) change
 
 - **Not a utility framework.** EXSA believes component classes (`card`, `btn--primary`) carry more meaning than atomic utilities (`bg-white rounded-lg shadow-md p-6`). Semantic HTML should work without 12 classes on a div.
 - **Not a design system.** EXSA ships no design opinions — 20 themes prove the same component can look completely different. The tokens are the system. You bring the design.
-- **Not a JavaScript framework.** No React, Vue, or Svelte wrappers needed. EXSA is CSS — it works with any backend, any static server, and yes, `npm install exsa` if you prefer packages over `<link>` tags.
+- **Not a JavaScript framework.** No React, Vue, or Svelte wrappers needed. EXSA is CSS — it works with any backend, any static server, no package manager required.
 - **Not a "minimal" framework.** 53 components, 20 themes, 90+ layout utilities, a bundle generator, and a classless engine. Small in KB. Not small in capability.
 
 ---
@@ -112,7 +112,7 @@ Behavioral profiles (`data-profile="compact"`, `data-profile="spacious"`) change
 2. **Tokens are the truth.** Components don't have colors. They have `var(--color-link)`. Themes are just token overrides.
 3. **One file, one component.** No monolithic CSS. Link only what you need. For production, the **Generator** bundles only your selected components — same outcome as tree-shaking, no build step needed.
 4. **The platform is the framework.** `@layer`, `:where()`, custom properties, container queries, `prefers-reduced-motion`, `forced-colors` — EXSA doesn't reinvent. It orchestrates what browsers already do.
-5. **Zero build step, forever.** No bundler. No CLI. No config file. No template engine required — Twig, Blade, SASS, PostCSS: none of it. Plain `.php` files and `<link>` tags always work. `npm install` works too. The Generator handles optimization when you're ready. This is not a temporary state. It is a permanent design constraint.
+5. **Zero build step, forever.** No bundler. No CLI. No config file. No template engine required — Twig, Blade, SASS, PostCSS: none of it. Plain `.php` files and `<link>` tags always work. The Generator handles optimization when you're ready. This is not a temporary state. It is a permanent design constraint.
 
 ---
 
@@ -158,7 +158,7 @@ EXSA is for developers who want their CSS to be as simple as their PHP.
 
 If your templates are plain `.php` files and your server is Apache or nginx, EXSA is built for you. No Twig. No Blade. No `npm install`. No `vite.config.js`. Drop the files in `public/`, add two `<link>` tags, and you have a complete design system with 53 components, 20 themes, and automatic semantic HTML styling.
 
-EXSA also works with any other stack — Python, Ruby, Node, React, Vue, Svelte, Hugo, WordPress — but it was designed first and foremost for the developer who chose PHP because it's simple, and expects their CSS framework to be just as simple. Two `<link>` tags or one `npm install`. Universal CSS. Zero friction.
+EXSA also works with any other stack — Python, Ruby, Node, React, Vue, Svelte, Hugo, WordPress — but it was designed first and foremost for the developer who chose PHP because it's simple, and expects their CSS framework to be just as simple. Two `<link>` tags. Universal CSS. Zero friction.
 
 ---
 
