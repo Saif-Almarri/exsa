@@ -46,23 +46,26 @@ The codebase is intentionally small (~680 lines of core CSS) so it can evolve wi
 
 ### Getting the files
 
-**CDN — two lines, zero install. You're done.**
+**Link only what you need. No download. No installer.**
+
+EXSA distributes as individual files — you never download the whole framework, so there are never dead styles to ship.
 
 ```html
+<!-- Core + theme: the only two files every page needs -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Saif-Almarri/exsa@main/style.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Saif-Almarri/exsa@main/themes/breeze.css">
-```
 
-Need a component or a different theme? Just add the path:
-
-```html
+<!-- Add a component only when you use it -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Saif-Almarri/exsa@main/components/buttons.css">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Saif-Almarri/exsa@main/themes/night.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Saif-Almarri/exsa@main/components/modal.css">
+
+<!-- Add a behavior only when you use it -->
+<script src="https://cdn.jsdelivr.net/gh/Saif-Almarri/exsa@main/js/modal.js"></script>
 ```
 
 > Pin a version by replacing `@main` with `@1.0.0-beta.3` (or any tag)
 
-**Or download locally:**
+**Want the files locally instead?**
 
 ```bash
 git clone https://github.com/Saif-Almarri/exsa.git
@@ -76,17 +79,19 @@ Or grab the latest ZIP from [GitHub Releases](https://github.com/Saif-Almarri/ex
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Saif-Almarri/exsa@main/exsa.fluid.css">
 ```
 
-Your project folder needs these:
+Your project folder needs only the files you link:
 ```
 your-project/
 ├── style.css          ← core
 ├── exsa.fluid.css     ← fluid tokens & profiles (optional)
-├── components/        ← 53 components (+ icons.css)
-├── themes/            ← 20 themes + custom.css starter
-├── layouts/           ← 6 page layouts (optional)
-├── js/                ← per-component behaviors (optional)
+├── components/        ← copy only the component files you use
+├── themes/            ← copy only the theme files you use
+├── layouts/           ← copy only the layout file you use (optional)
+├── js/                ← copy only the behavior files you use (optional)
 └── your-page.html
 ```
+
+Everything is optional except `style.css` and your theme. Nothing unused ever ships.
 
 **Or use the Generator — pick components, pick a theme, download a single bundle.**
 
