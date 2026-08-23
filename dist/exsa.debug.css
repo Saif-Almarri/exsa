@@ -10,6 +10,69 @@
   --dbg-danger: var(--color-danger, #dc2626);
 }
 
+[data-debug] .accordion:not(:has(.accordion__item)){
+  outline: 2px dashed var(--dbg-danger);
+  outline-offset: 2px;
+  position: relative;
+}
+[data-debug] .accordion:not(:has(.accordion__item))::after{
+  content: "missing .accordion__item";
+  position: absolute;
+  top: -1.6em;
+  inset-inline-start: 0;
+  z-index: 9999;
+  background: var(--dbg-danger);
+  color: #fff;
+  font-family: var(--font-family-mono, monospace);
+  font-size: 11px;
+  line-height: 1;
+  padding: 4px 8px;
+  border-radius: 4px;
+  white-space: nowrap;
+  pointer-events: none;
+}
+[data-debug] .drawer__toggle:not(:has(~ .drawer__panel)){
+  outline: 2px dashed var(--dbg-danger);
+  outline-offset: 2px;
+  position: relative;
+}
+[data-debug] .drawer__toggle:not(:has(~ .drawer__panel))::after{
+  content: "missing ~ .drawer__panel";
+  position: absolute;
+  top: -1.6em;
+  inset-inline-start: 0;
+  z-index: 9999;
+  background: var(--dbg-danger);
+  color: #fff;
+  font-family: var(--font-family-mono, monospace);
+  font-size: 11px;
+  line-height: 1;
+  padding: 4px 8px;
+  border-radius: 4px;
+  white-space: nowrap;
+  pointer-events: none;
+}
+[data-debug] .modal:not(:has(.modal__dialog)){
+  outline: 2px dashed var(--dbg-danger);
+  outline-offset: 2px;
+  position: relative;
+}
+[data-debug] .modal:not(:has(.modal__dialog))::after{
+  content: "missing .modal__dialog";
+  position: absolute;
+  top: -1.6em;
+  inset-inline-start: 0;
+  z-index: 9999;
+  background: var(--dbg-danger);
+  color: #fff;
+  font-family: var(--font-family-mono, monospace);
+  font-size: 11px;
+  line-height: 1;
+  padding: 4px 8px;
+  border-radius: 4px;
+  white-space: nowrap;
+  pointer-events: none;
+}
 [data-debug] .sidebar:not(:has(.sidebar__nav)){
   outline: 2px dashed var(--dbg-danger);
   outline-offset: 2px;
@@ -80,6 +143,69 @@
 }
 [data-debug] .stepper:not(:has(.stepper__step))::after{
   content: "missing .stepper__step";
+  position: absolute;
+  top: -1.6em;
+  inset-inline-start: 0;
+  z-index: 9999;
+  background: var(--dbg-danger);
+  color: #fff;
+  font-family: var(--font-family-mono, monospace);
+  font-size: 11px;
+  line-height: 1;
+  padding: 4px 8px;
+  border-radius: 4px;
+  white-space: nowrap;
+  pointer-events: none;
+}
+[data-debug] .timeline:not(:has(.timeline__item)){
+  outline: 2px dashed var(--dbg-danger);
+  outline-offset: 2px;
+  position: relative;
+}
+[data-debug] .timeline:not(:has(.timeline__item))::after{
+  content: "missing .timeline__item";
+  position: absolute;
+  top: -1.6em;
+  inset-inline-start: 0;
+  z-index: 9999;
+  background: var(--dbg-danger);
+  color: #fff;
+  font-family: var(--font-family-mono, monospace);
+  font-size: 11px;
+  line-height: 1;
+  padding: 4px 8px;
+  border-radius: 4px;
+  white-space: nowrap;
+  pointer-events: none;
+}
+[data-debug] .data-list:not(:has(.data-list__item)){
+  outline: 2px dashed var(--dbg-danger);
+  outline-offset: 2px;
+  position: relative;
+}
+[data-debug] .data-list:not(:has(.data-list__item))::after{
+  content: "missing .data-list__item";
+  position: absolute;
+  top: -1.6em;
+  inset-inline-start: 0;
+  z-index: 9999;
+  background: var(--dbg-danger);
+  color: #fff;
+  font-family: var(--font-family-mono, monospace);
+  font-size: 11px;
+  line-height: 1;
+  padding: 4px 8px;
+  border-radius: 4px;
+  white-space: nowrap;
+  pointer-events: none;
+}
+[data-debug] .code-block:not(:has(.code-block__body)){
+  outline: 2px dashed var(--dbg-danger);
+  outline-offset: 2px;
+  position: relative;
+}
+[data-debug] .code-block:not(:has(.code-block__body))::after{
+  content: "missing .code-block__body";
   position: absolute;
   top: -1.6em;
   inset-inline-start: 0;
@@ -178,6 +304,27 @@
   white-space: nowrap;
   pointer-events: none;
 }
+[data-debug] .range:not(:has(.range__input)){
+  outline: 2px dashed var(--dbg-danger);
+  outline-offset: 2px;
+  position: relative;
+}
+[data-debug] .range:not(:has(.range__input))::after{
+  content: "missing .range__input";
+  position: absolute;
+  top: -1.6em;
+  inset-inline-start: 0;
+  z-index: 9999;
+  background: var(--dbg-danger);
+  color: #fff;
+  font-family: var(--font-family-mono, monospace);
+  font-size: 11px;
+  line-height: 1;
+  padding: 4px 8px;
+  border-radius: 4px;
+  white-space: nowrap;
+  pointer-events: none;
+}
 [data-debug] .checkbox:not(:has(.checkbox__box)){
   outline: 2px dashed var(--dbg-danger);
   outline-offset: 2px;
@@ -185,6 +332,48 @@
 }
 [data-debug] .checkbox:not(:has(.checkbox__box))::after{
   content: "missing .checkbox__box";
+  position: absolute;
+  top: -1.6em;
+  inset-inline-start: 0;
+  z-index: 9999;
+  background: var(--dbg-danger);
+  color: #fff;
+  font-family: var(--font-family-mono, monospace);
+  font-size: 11px;
+  line-height: 1;
+  padding: 4px 8px;
+  border-radius: 4px;
+  white-space: nowrap;
+  pointer-events: none;
+}
+[data-debug] .dropdown:not(:has(.dropdown__trigger)){
+  outline: 2px dashed var(--dbg-danger);
+  outline-offset: 2px;
+  position: relative;
+}
+[data-debug] .dropdown:not(:has(.dropdown__trigger))::after{
+  content: "missing .dropdown__trigger";
+  position: absolute;
+  top: -1.6em;
+  inset-inline-start: 0;
+  z-index: 9999;
+  background: var(--dbg-danger);
+  color: #fff;
+  font-family: var(--font-family-mono, monospace);
+  font-size: 11px;
+  line-height: 1;
+  padding: 4px 8px;
+  border-radius: 4px;
+  white-space: nowrap;
+  pointer-events: none;
+}
+[data-debug] .dropdown:not(:has(.dropdown__menu)){
+  outline: 2px dashed var(--dbg-danger);
+  outline-offset: 2px;
+  position: relative;
+}
+[data-debug] .dropdown:not(:has(.dropdown__menu))::after{
+  content: "missing .dropdown__menu";
   position: absolute;
   top: -1.6em;
   inset-inline-start: 0;
@@ -290,6 +479,27 @@
 }
 [data-debug] .rating:not(:has(.rating__star))::after{
   content: "missing .rating__star";
+  position: absolute;
+  top: -1.6em;
+  inset-inline-start: 0;
+  z-index: 9999;
+  background: var(--dbg-danger);
+  color: #fff;
+  font-family: var(--font-family-mono, monospace);
+  font-size: 11px;
+  line-height: 1;
+  padding: 4px 8px;
+  border-radius: 4px;
+  white-space: nowrap;
+  pointer-events: none;
+}
+[data-debug] .select:not(:has(.select__field)){
+  outline: 2px dashed var(--dbg-danger);
+  outline-offset: 2px;
+  position: relative;
+}
+[data-debug] .select:not(:has(.select__field))::after{
+  content: "missing .select__field";
   position: absolute;
   top: -1.6em;
   inset-inline-start: 0;

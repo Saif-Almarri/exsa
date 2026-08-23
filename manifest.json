@@ -373,6 +373,7 @@
         "minus.svg"
       ],
       "desc": "Pure CSS expandable sections using checkbox hack. Add .accordion--sm for compact variant.",
+      "structure": { "root": ".accordion", "required": [".accordion__item"], "optional": [".accordion__label", ".accordion__trigger", ".accordion__panel", ".accordion__panel-inner"] },
       "tier": "free"
     },
     {
@@ -383,6 +384,7 @@
       "js": null,
       "pureCss": true,
       "desc": "Slide-in panel from screen edge. Toggle with checkbox or JS.",
+      "structure": { "root": ".drawer__toggle", "required": ["~ .drawer__panel"], "optional": [".drawer__backdrop", ".drawer__head", ".drawer__title", ".drawer__close", ".drawer__body"] },
       "tier": "free"
     },
     {
@@ -406,6 +408,7 @@
         "x-circle.svg"
       ],
       "desc": "Overlay dialog with backdrop. Open/close with JS, Escape key, and overlay click.",
+      "structure": { "root": ".modal", "required": [".modal__dialog"], "optional": [".modal__header", ".modal__title", ".modal__close", ".modal__body", ".modal__footer", ".modal__btn"] },
       "tier": "free"
     },
     {
@@ -523,6 +526,7 @@
       "js": null,
       "pureCss": true,
       "desc": "Vertical event timeline with alternating sides and connector line.",
+      "structure": { "root": ".timeline", "required": [".timeline__item"], "optional": [".timeline__dot", ".timeline__content", ".timeline__title", ".timeline__time", ".timeline__desc"] },
       "tier": "free"
     },
     {
@@ -597,6 +601,7 @@
       "js": null,
       "pureCss": true,
       "desc": "Key-value metadata display using <dl>/<dt>/<dd>. Horizontal or vertical orientation. Bordered, striped, and size variants.",
+      "structure": { "root": ".data-list", "required": [".data-list__item"], "optional": [".data-list__label", ".data-list__value"] },
       "tier": "free"
     },
     {
@@ -621,6 +626,7 @@
         "check.svg"
       ],
       "desc": "Syntax-highlighted code block with header bar, language label, and copy-to-clipboard button with Copied! feedback. Copy + auto highlighting come from js/code-block.js. No-header and compact variants.",
+      "structure": { "root": ".code-block", "required": [".code-block__body"], "optional": [".code-block__header", ".code-block__lang", ".code-block__copy"] },
       "tier": "free"
     },
     {
@@ -722,6 +728,7 @@
       "js": "dist/js/range-slider.js",
       "pureCss": false,
       "desc": "Styled range input with custom track/thumb. JS shows live value.",
+      "structure": { "root": ".range", "required": [".range__input"], "optional": [".range__val"] },
       "tier": "free"
     },
     {
@@ -788,6 +795,7 @@
         "trash.svg"
       ],
       "desc": "Click-triggered popup with items, shortcuts, labels, separators, danger actions. Solid/soft variants, sm size.",
+      "structure": { "root": ".dropdown", "required": [".dropdown__trigger", ".dropdown__menu"], "optional": [".dropdown__arrow", ".dropdown__item", ".dropdown__shortcut", ".dropdown__divider", ".dropdown__label"] },
       "tier": "free"
     },
     {
@@ -883,6 +891,7 @@
         "chevron-down.svg"
       ],
       "desc": "Custom select wrapper with chevron icon, focus ring, and sm/default/lg sizes.",
+      "structure": { "root": ".select", "required": [".select__field"], "optional": [] },
       "tier": "free"
     },
     {

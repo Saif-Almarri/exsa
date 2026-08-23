@@ -255,6 +255,7 @@ if (process.argv.includes('--baseline')) {
 
 /* ---------- rule 12: manifest structure contracts ---------- */
 const stripMod = (s) => s.replace(/--[a-z0-9-]+$/i, '');
+const stripComb = (s) => s.replace(/^[~+>]\s*/, ''); // sibling/child prefixes (rootless components like drawer)
 for (const c of manifest.components) {
   const s = c.structure;
   if (!s) continue;
@@ -265,9 +266,9 @@ for (const c of manifest.components) {
   if (!css.includes(s.root + '{') && !css.includes(s.root + ' ') && !css.includes(s.root + ',')) {
     fail(`component ${c.id}: structure root ${s.root} not defined in ${cssPath}`);
   }
-  const listed = new Set([...(s.required || []), ...(s.optional || [])].map(stripMod));
+  const listed = new Set([...(s.required || []), ...(s.optional || [])].map((p) => stripComb(stripMod(p))));
   for (const part of [...s.required || [], ...s.optional || []]) {
-    const base = stripMod(part);
+    const base = stripComb(stripMod(part));
     if (!css.includes(base + '{') && !css.includes(base + ' ') && !css.includes(base + ',') && !css.includes(base + ':')) {
       fail(`component ${c.id}: structure part ${part} not defined in ${cssPath}`);
     }

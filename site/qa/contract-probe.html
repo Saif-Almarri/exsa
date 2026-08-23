@@ -106,6 +106,48 @@
           </li>
         </ul>
       </nav>
+
+      <div class="accordion" data-good="accordion">
+        <details class="accordion__item">
+          <summary class="accordion__label">What is EXSA?</summary>
+          <div class="accordion__panel"><div class="accordion__panel-inner">Answer</div></div>
+        </details>
+      </div>
+
+      <div class="code-block" data-good="code-block">
+        <div class="code-block__body"><pre><code>console.log('hi');</code></pre></div>
+      </div>
+
+      <dl class="data-list" data-good="data-list">
+        <div class="data-list__item"><dt class="data-list__label">Size</dt><dd class="data-list__value">31 KB</dd></div>
+      </dl>
+
+      <div data-good="drawer">
+        <input type="checkbox" id="probe-drawer" class="drawer__toggle">
+        <div class="drawer__panel"><div class="drawer__body">Panel</div></div>
+      </div>
+
+      <div class="dropdown" data-good="dropdown">
+        <button type="button" class="dropdown__trigger">Menu <span class="dropdown__arrow">&#9662;</span></button>
+        <div class="dropdown__menu"><a class="dropdown__item" href="#">Action</a></div>
+      </div>
+
+      <div class="modal" data-good="modal">
+        <div class="modal__dialog"><div class="modal__body">Hello</div></div>
+      </div>
+
+      <div class="range" data-good="range">
+        <input type="range" class="range__input" value="50">
+        <span class="range__val">50</span>
+      </div>
+
+      <div class="select" data-good="select">
+        <select class="select__field"><option>One</option><option>Two</option></select>
+      </div>
+
+      <div class="timeline" data-good="timeline">
+        <div class="timeline__item"><div class="timeline__dot"></div><div class="timeline__content"><div class="timeline__title">Step 1</div></div></div>
+      </div>
     </div>
   </div>
 
@@ -120,6 +162,9 @@
       <div class="slideshow" data-bad="slideshow-missing-track"><div class="slideshow__slide">Orphan slide</div></div>
       <div class="popover" data-bad="popover-missing-content"><button type="button">Open</button></div>
       <nav class="sidebar" data-bad="sidebar-missing-link"><ul class="sidebar__nav"><li>No links</li></ul></nav>
+      <div data-bad="drawer-missing-panel"><input type="checkbox" class="drawer__toggle"><div class="drawer__backdrop"></div></div>
+      <div class="select" data-bad="select-missing-field"><span>No field</span></div>
+      <div class="dropdown" data-bad="dropdown-missing-menu"><button type="button" class="dropdown__trigger">Menu</button></div>
     </div>
   </div>
 
@@ -162,10 +207,19 @@
           slideshow: ['.slideshow__track', '.slideshow__slide'],
           popover: ['.popover__content'],
           sidebar: ['.sidebar__nav', '.sidebar__link'],
+          accordion: ['.accordion__item'],
+          'code-block': ['.code-block__body'],
+          'data-list': ['.data-list__item'],
+          drawer: ['.drawer__panel'],
+          dropdown: ['.dropdown__trigger', '.dropdown__menu'],
+          modal: ['.modal__dialog'],
+          range: ['.range__input'],
+          select: ['.select__field'],
+          timeline: ['.timeline__item'],
         }[id] || [];
-        const scope = [...el.classList].some((c) => /^(progress-item|tabs|checkbox|radio|toggle|avatar|donut|alert|stepper|rating|password-input|input-group|breadcrumbs|pagination|slideshow|popover|sidebar)$/.test(c))
+        const scope = [...el.classList].some((c) => /^(progress-item|tabs|checkbox|radio|toggle|avatar|donut|alert|stepper|rating|password-input|input-group|breadcrumbs|pagination|slideshow|popover|sidebar|accordion|code-block|data-list|dropdown|modal|range|select|timeline)$/.test(c))
           ? el
-          : (el.querySelector('.tabs,.progress-item,.checkbox,.radio,.toggle,.avatar,.donut,.alert,.stepper,.rating,.password-input,.input-group,.breadcrumbs,.pagination,.slideshow,.popover,.sidebar') || el);
+          : (el.querySelector('.tabs,.progress-item,.checkbox,.radio,.toggle,.avatar,.donut,.alert,.stepper,.rating,.password-input,.input-group,.breadcrumbs,.pagination,.slideshow,.popover,.sidebar,.accordion,.code-block,.data-list,.dropdown,.modal,.range,.select,.timeline') || el);
         const missing = required.filter((sel) => {
           const node = scope.querySelector(sel) || document.querySelector(sel);
           if (!node) return true;
@@ -175,12 +229,17 @@
         const outlined = getComputedStyle(scope).outlineStyle === 'dashed';
         add({ id: 'good ' + id, pass: missing.length === 0 && !outlined, expect: 'parts render, no outline', actual: missing.length ? 'zero-size/missing: ' + missing.join(',') : outlined ? 'outlined' : 'ok' });
       });
-      // BAD snippets: debug linter must flag them
+      // BAD snippets: debug linter must flag them. The outline may land on a
+      // descendant — the rootless drawer flags its .drawer__toggle input,
+      // which cannot host ::after, hence the INPUT exception below.
       document.querySelectorAll('[data-bad]').forEach((el) => {
-        const cs = getComputedStyle(el);
-        const after = getComputedStyle(el, '::after');
-        const flagged = cs.outlineStyle === 'dashed' && after.content !== 'none';
-        add({ id: 'bad ' + el.dataset.bad, pass: flagged, expect: 'dashed outline + label', actual: flagged ? 'flagged (' + after.content + ')' : cs.outlineStyle + ' / ' + after.content });
+        const flagged = (e) => {
+          const cs = getComputedStyle(e);
+          const after = getComputedStyle(e, '::after');
+          return cs.outlineStyle === 'dashed' && (after.content !== 'none' || e.tagName === 'INPUT');
+        };
+        const hit = [el, ...el.querySelectorAll('*')].find(flagged);
+        add({ id: 'bad ' + el.dataset.bad, pass: !!hit, expect: 'dashed outline + label', actual: hit ? 'flagged (' + getComputedStyle(hit, '::after').content + ')' : 'no flag found' });
       });
       window.__CONTRACT_PROBES = results;
       window.__CONTRACT_PROBES_DONE = true;
