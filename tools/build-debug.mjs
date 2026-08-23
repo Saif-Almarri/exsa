@@ -26,20 +26,16 @@ export function generateDebugCss(manifestPath = join(root, 'manifest.json')) {
 
 `;
   const rules = [];
-  for (const c of manifest.components) {
-    const s = c.structure;
-    if (!s || !s.required || !s.required.length) continue;
-    const root = s.root;
-    // one rule per required part — a root missing ANY required part is flagged
-    for (const r of s.required) {
-      const sel = `[data-debug] ${root}:not(:has(${r}))`;
-      rules.push(`${sel}{
+  const emit = (scope, part) => {
+    // one rule per required part — a scope missing ANY required part is flagged
+    const sel = `[data-debug] ${scope}:not(:has(${part}))`;
+    rules.push(`${sel}{
   outline: 2px dashed var(--dbg-danger);
   outline-offset: 2px;
   position: relative;
 }`);
-      rules.push(`${sel}::after{
-  content: "missing ${r}";
+    rules.push(`${sel}::after{
+  content: "missing ${part}";
   position: absolute;
   top: -1.6em;
   inset-inline-start: 0;
@@ -54,6 +50,16 @@ export function generateDebugCss(manifestPath = join(root, 'manifest.json')) {
   white-space: nowrap;
   pointer-events: none;
 }`);
+  };
+  for (const c of manifest.components) {
+    const s = c.structure;
+    if (!s || !s.required || !s.required.length) continue;
+    for (const r of s.required) emit(s.root, r);
+  }
+  /* layouts: conditional contracts — a body mode class must contain its zones */
+  for (const lay of manifest.layouts || []) {
+    for (const cond of lay.structure || []) {
+      for (const r of cond.required || []) emit(cond.when, r);
     }
   }
   return head + rules.join('\n') + '\n';

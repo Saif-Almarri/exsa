@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <title>EXSA Layout Contract Probe — QA</title>
+  <link rel="stylesheet" href="../../dist/exsa.bundle.css?v=35">
+  <link rel="stylesheet" href="../../dist/themes/breeze.css?v=35">
+  <style>
+    body { padding: 24px; font-family: var(--font-family); }
+    iframe { width: 680px; height: 200px; border: 1px solid #ccc; display: block; margin: 10px 0 4px; }
+    .lbl { font-size: .8rem; color: var(--color-text-secondary); }
+    #probe-results { width: 100%; border-collapse: collapse; margin-top: 16px; }
+    #probe-results td, #probe-results th { border: 1px solid #ddd; padding: 4px 8px; text-align: left; }
+    .p-pass { color: #16a34a; } .p-fail { color: #dc2626; }
+  </style>
+</head>
+<body>
+  <h1>Layout Contract Probe</h1>
+  <p>Each fixture runs with <code>&lt;html data-debug&gt;</code>. GOOD fixtures must show no debug outline on <code>&lt;body&gt;</code>; BAD fixtures must be flagged (dashed outline + label).</p>
+
+  <div class="lbl">good — dash (sidebar + topbar)</div><iframe src="layout-fixtures/dash-good.html" data-good="dash sidebar+topbar"></iframe>
+  <div class="lbl">bad — dash missing .dash__content</div><iframe src="layout-fixtures/dash-bad.html" data-bad="dash-missing-content"></iframe>
+  <div class="lbl">good — general (topbar + aside-left)</div><iframe src="layout-fixtures/general-good.html" data-good="general topbar+aside"></iframe>
+  <div class="lbl">bad — general missing .layout__aside-left</div><iframe src="layout-fixtures/general-bad.html" data-bad="general-missing-aside"></iframe>
+  <div class="lbl">good — store (announce + topbar + sidebar)</div><iframe src="layout-fixtures/store-good.html" data-good="store announce+topbar+sidebar"></iframe>
+  <div class="lbl">bad — store missing .shop__announce</div><iframe src="layout-fixtures/store-bad.html" data-bad="store-missing-announce"></iframe>
+  <div class="lbl">good — fullpage (backdrop + content)</div><iframe src="layout-fixtures/fullpage-good.html" data-good="fullpage backdrop+content"></iframe>
+  <div class="lbl">bad — fullpage missing .fullpage__backdrop</div><iframe src="layout-fixtures/fullpage-bad.html" data-bad="fullpage-missing-backdrop"></iframe>
+
+  <table id="probe-results">
+    <thead><tr><th>Probe</th><th>Result</th><th>Expected</th><th>Actual</th></tr></thead>
+    <tbody></tbody>
+  </table>
+
+  <script>
+  (function () {
+    const results = [];
+    const add = (r) => {
+      results.push(r);
+      const tr = document.createElement('tr');
+      tr.innerHTML = '<td>' + r.id + '</td><td class="' + (r.pass ? 'p-pass' : 'p-fail') + '">' + (r.pass ? 'PASS' : 'FAIL') +
+        '</td><td>' + String(r.expect) + '</td><td>' + String(r.actual) + '</td>';
+      document.querySelector('#probe-results tbody').appendChild(tr);
+    };
+    const run = () => {
+      document.querySelectorAll('iframe').forEach((f) => {
+        const doc = f.contentDocument;
+        if (!doc || !doc.body) return;
+        const w = doc.defaultView;
+        const cs = w.getComputedStyle(doc.body);
+        const after = w.getComputedStyle(doc.body, '::after');
+        const flagged = cs.outlineStyle === 'dashed' && after.content !== 'none';
+        const good = f.dataset.good !== undefined;
+        const id = (good ? 'good ' : 'bad ') + (f.dataset.good || f.dataset.bad);
+        add({
+          id,
+          pass: good ? !flagged : flagged,
+          expect: good ? 'no outline on body' : 'dashed outline + label',
+          actual: flagged ? 'flagged (' + after.content + ')' : 'no outline',
+        });
+      });
+      window.__LAYOUT_PROBES = results;
+      window.__LAYOUT_PROBES_DONE = true;
+    };
+    window.addEventListener('load', () => setTimeout(run, 1500));
+  })();
+  </script>
+</body>
+</html>

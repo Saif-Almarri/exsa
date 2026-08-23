@@ -367,3 +367,717 @@
   white-space: nowrap;
   pointer-events: none;
 }
+[data-debug] body.layout--has-topbar:not(:has(.topbar)){
+  outline: 2px dashed var(--dbg-danger);
+  outline-offset: 2px;
+  position: relative;
+}
+[data-debug] body.layout--has-topbar:not(:has(.topbar))::after{
+  content: "missing .topbar";
+  position: absolute;
+  top: -1.6em;
+  inset-inline-start: 0;
+  z-index: 9999;
+  background: var(--dbg-danger);
+  color: #fff;
+  font-family: var(--font-family-mono, monospace);
+  font-size: 11px;
+  line-height: 1;
+  padding: 4px 8px;
+  border-radius: 4px;
+  white-space: nowrap;
+  pointer-events: none;
+}
+[data-debug] body.layout--has-hero:not(:has(> header:not([class]))){
+  outline: 2px dashed var(--dbg-danger);
+  outline-offset: 2px;
+  position: relative;
+}
+[data-debug] body.layout--has-hero:not(:has(> header:not([class])))::after{
+  content: "missing > header:not([class])";
+  position: absolute;
+  top: -1.6em;
+  inset-inline-start: 0;
+  z-index: 9999;
+  background: var(--dbg-danger);
+  color: #fff;
+  font-family: var(--font-family-mono, monospace);
+  font-size: 11px;
+  line-height: 1;
+  padding: 4px 8px;
+  border-radius: 4px;
+  white-space: nowrap;
+  pointer-events: none;
+}
+[data-debug] body.layout--aside-left:not(:has(.layout__shell)){
+  outline: 2px dashed var(--dbg-danger);
+  outline-offset: 2px;
+  position: relative;
+}
+[data-debug] body.layout--aside-left:not(:has(.layout__shell))::after{
+  content: "missing .layout__shell";
+  position: absolute;
+  top: -1.6em;
+  inset-inline-start: 0;
+  z-index: 9999;
+  background: var(--dbg-danger);
+  color: #fff;
+  font-family: var(--font-family-mono, monospace);
+  font-size: 11px;
+  line-height: 1;
+  padding: 4px 8px;
+  border-radius: 4px;
+  white-space: nowrap;
+  pointer-events: none;
+}
+[data-debug] body.layout--aside-left:not(:has(.layout__aside-left)){
+  outline: 2px dashed var(--dbg-danger);
+  outline-offset: 2px;
+  position: relative;
+}
+[data-debug] body.layout--aside-left:not(:has(.layout__aside-left))::after{
+  content: "missing .layout__aside-left";
+  position: absolute;
+  top: -1.6em;
+  inset-inline-start: 0;
+  z-index: 9999;
+  background: var(--dbg-danger);
+  color: #fff;
+  font-family: var(--font-family-mono, monospace);
+  font-size: 11px;
+  line-height: 1;
+  padding: 4px 8px;
+  border-radius: 4px;
+  white-space: nowrap;
+  pointer-events: none;
+}
+[data-debug] body.layout--aside-left:not(:has(.layout__content)){
+  outline: 2px dashed var(--dbg-danger);
+  outline-offset: 2px;
+  position: relative;
+}
+[data-debug] body.layout--aside-left:not(:has(.layout__content))::after{
+  content: "missing .layout__content";
+  position: absolute;
+  top: -1.6em;
+  inset-inline-start: 0;
+  z-index: 9999;
+  background: var(--dbg-danger);
+  color: #fff;
+  font-family: var(--font-family-mono, monospace);
+  font-size: 11px;
+  line-height: 1;
+  padding: 4px 8px;
+  border-radius: 4px;
+  white-space: nowrap;
+  pointer-events: none;
+}
+[data-debug] body.layout--has-sidebar:not(:has(.layout__shell)){
+  outline: 2px dashed var(--dbg-danger);
+  outline-offset: 2px;
+  position: relative;
+}
+[data-debug] body.layout--has-sidebar:not(:has(.layout__shell))::after{
+  content: "missing .layout__shell";
+  position: absolute;
+  top: -1.6em;
+  inset-inline-start: 0;
+  z-index: 9999;
+  background: var(--dbg-danger);
+  color: #fff;
+  font-family: var(--font-family-mono, monospace);
+  font-size: 11px;
+  line-height: 1;
+  padding: 4px 8px;
+  border-radius: 4px;
+  white-space: nowrap;
+  pointer-events: none;
+}
+[data-debug] body.layout--has-sidebar:not(:has(.layout__aside-left)){
+  outline: 2px dashed var(--dbg-danger);
+  outline-offset: 2px;
+  position: relative;
+}
+[data-debug] body.layout--has-sidebar:not(:has(.layout__aside-left))::after{
+  content: "missing .layout__aside-left";
+  position: absolute;
+  top: -1.6em;
+  inset-inline-start: 0;
+  z-index: 9999;
+  background: var(--dbg-danger);
+  color: #fff;
+  font-family: var(--font-family-mono, monospace);
+  font-size: 11px;
+  line-height: 1;
+  padding: 4px 8px;
+  border-radius: 4px;
+  white-space: nowrap;
+  pointer-events: none;
+}
+[data-debug] body.layout--has-sidebar:not(:has(.layout__content)){
+  outline: 2px dashed var(--dbg-danger);
+  outline-offset: 2px;
+  position: relative;
+}
+[data-debug] body.layout--has-sidebar:not(:has(.layout__content))::after{
+  content: "missing .layout__content";
+  position: absolute;
+  top: -1.6em;
+  inset-inline-start: 0;
+  z-index: 9999;
+  background: var(--dbg-danger);
+  color: #fff;
+  font-family: var(--font-family-mono, monospace);
+  font-size: 11px;
+  line-height: 1;
+  padding: 4px 8px;
+  border-radius: 4px;
+  white-space: nowrap;
+  pointer-events: none;
+}
+[data-debug] body.layout--aside-right:not(:has(.layout__shell)){
+  outline: 2px dashed var(--dbg-danger);
+  outline-offset: 2px;
+  position: relative;
+}
+[data-debug] body.layout--aside-right:not(:has(.layout__shell))::after{
+  content: "missing .layout__shell";
+  position: absolute;
+  top: -1.6em;
+  inset-inline-start: 0;
+  z-index: 9999;
+  background: var(--dbg-danger);
+  color: #fff;
+  font-family: var(--font-family-mono, monospace);
+  font-size: 11px;
+  line-height: 1;
+  padding: 4px 8px;
+  border-radius: 4px;
+  white-space: nowrap;
+  pointer-events: none;
+}
+[data-debug] body.layout--aside-right:not(:has(.layout__aside-right)){
+  outline: 2px dashed var(--dbg-danger);
+  outline-offset: 2px;
+  position: relative;
+}
+[data-debug] body.layout--aside-right:not(:has(.layout__aside-right))::after{
+  content: "missing .layout__aside-right";
+  position: absolute;
+  top: -1.6em;
+  inset-inline-start: 0;
+  z-index: 9999;
+  background: var(--dbg-danger);
+  color: #fff;
+  font-family: var(--font-family-mono, monospace);
+  font-size: 11px;
+  line-height: 1;
+  padding: 4px 8px;
+  border-radius: 4px;
+  white-space: nowrap;
+  pointer-events: none;
+}
+[data-debug] body.layout--aside-right:not(:has(.layout__content)){
+  outline: 2px dashed var(--dbg-danger);
+  outline-offset: 2px;
+  position: relative;
+}
+[data-debug] body.layout--aside-right:not(:has(.layout__content))::after{
+  content: "missing .layout__content";
+  position: absolute;
+  top: -1.6em;
+  inset-inline-start: 0;
+  z-index: 9999;
+  background: var(--dbg-danger);
+  color: #fff;
+  font-family: var(--font-family-mono, monospace);
+  font-size: 11px;
+  line-height: 1;
+  padding: 4px 8px;
+  border-radius: 4px;
+  white-space: nowrap;
+  pointer-events: none;
+}
+[data-debug] body.layout--centered:not(:has(.layout__content)){
+  outline: 2px dashed var(--dbg-danger);
+  outline-offset: 2px;
+  position: relative;
+}
+[data-debug] body.layout--centered:not(:has(.layout__content))::after{
+  content: "missing .layout__content";
+  position: absolute;
+  top: -1.6em;
+  inset-inline-start: 0;
+  z-index: 9999;
+  background: var(--dbg-danger);
+  color: #fff;
+  font-family: var(--font-family-mono, monospace);
+  font-size: 11px;
+  line-height: 1;
+  padding: 4px 8px;
+  border-radius: 4px;
+  white-space: nowrap;
+  pointer-events: none;
+}
+[data-debug] body.blog--has-toc:not(:has(.blog__shell)){
+  outline: 2px dashed var(--dbg-danger);
+  outline-offset: 2px;
+  position: relative;
+}
+[data-debug] body.blog--has-toc:not(:has(.blog__shell))::after{
+  content: "missing .blog__shell";
+  position: absolute;
+  top: -1.6em;
+  inset-inline-start: 0;
+  z-index: 9999;
+  background: var(--dbg-danger);
+  color: #fff;
+  font-family: var(--font-family-mono, monospace);
+  font-size: 11px;
+  line-height: 1;
+  padding: 4px 8px;
+  border-radius: 4px;
+  white-space: nowrap;
+  pointer-events: none;
+}
+[data-debug] body.blog--has-toc:not(:has(.blog__content)){
+  outline: 2px dashed var(--dbg-danger);
+  outline-offset: 2px;
+  position: relative;
+}
+[data-debug] body.blog--has-toc:not(:has(.blog__content))::after{
+  content: "missing .blog__content";
+  position: absolute;
+  top: -1.6em;
+  inset-inline-start: 0;
+  z-index: 9999;
+  background: var(--dbg-danger);
+  color: #fff;
+  font-family: var(--font-family-mono, monospace);
+  font-size: 11px;
+  line-height: 1;
+  padding: 4px 8px;
+  border-radius: 4px;
+  white-space: nowrap;
+  pointer-events: none;
+}
+[data-debug] body.blog--has-toc:not(:has(.blog__toc)){
+  outline: 2px dashed var(--dbg-danger);
+  outline-offset: 2px;
+  position: relative;
+}
+[data-debug] body.blog--has-toc:not(:has(.blog__toc))::after{
+  content: "missing .blog__toc";
+  position: absolute;
+  top: -1.6em;
+  inset-inline-start: 0;
+  z-index: 9999;
+  background: var(--dbg-danger);
+  color: #fff;
+  font-family: var(--font-family-mono, monospace);
+  font-size: 11px;
+  line-height: 1;
+  padding: 4px 8px;
+  border-radius: 4px;
+  white-space: nowrap;
+  pointer-events: none;
+}
+[data-debug] body.dash--sidebar:not(:has(.dash__sidebar)){
+  outline: 2px dashed var(--dbg-danger);
+  outline-offset: 2px;
+  position: relative;
+}
+[data-debug] body.dash--sidebar:not(:has(.dash__sidebar))::after{
+  content: "missing .dash__sidebar";
+  position: absolute;
+  top: -1.6em;
+  inset-inline-start: 0;
+  z-index: 9999;
+  background: var(--dbg-danger);
+  color: #fff;
+  font-family: var(--font-family-mono, monospace);
+  font-size: 11px;
+  line-height: 1;
+  padding: 4px 8px;
+  border-radius: 4px;
+  white-space: nowrap;
+  pointer-events: none;
+}
+[data-debug] body.dash--sidebar:not(:has(.dash__content)){
+  outline: 2px dashed var(--dbg-danger);
+  outline-offset: 2px;
+  position: relative;
+}
+[data-debug] body.dash--sidebar:not(:has(.dash__content))::after{
+  content: "missing .dash__content";
+  position: absolute;
+  top: -1.6em;
+  inset-inline-start: 0;
+  z-index: 9999;
+  background: var(--dbg-danger);
+  color: #fff;
+  font-family: var(--font-family-mono, monospace);
+  font-size: 11px;
+  line-height: 1;
+  padding: 4px 8px;
+  border-radius: 4px;
+  white-space: nowrap;
+  pointer-events: none;
+}
+[data-debug] body.dash--topbar:not(:has(.topbar)){
+  outline: 2px dashed var(--dbg-danger);
+  outline-offset: 2px;
+  position: relative;
+}
+[data-debug] body.dash--topbar:not(:has(.topbar))::after{
+  content: "missing .topbar";
+  position: absolute;
+  top: -1.6em;
+  inset-inline-start: 0;
+  z-index: 9999;
+  background: var(--dbg-danger);
+  color: #fff;
+  font-family: var(--font-family-mono, monospace);
+  font-size: 11px;
+  line-height: 1;
+  padding: 4px 8px;
+  border-radius: 4px;
+  white-space: nowrap;
+  pointer-events: none;
+}
+[data-debug] body.dash--panel:not(:has(.dash__shell)){
+  outline: 2px dashed var(--dbg-danger);
+  outline-offset: 2px;
+  position: relative;
+}
+[data-debug] body.dash--panel:not(:has(.dash__shell))::after{
+  content: "missing .dash__shell";
+  position: absolute;
+  top: -1.6em;
+  inset-inline-start: 0;
+  z-index: 9999;
+  background: var(--dbg-danger);
+  color: #fff;
+  font-family: var(--font-family-mono, monospace);
+  font-size: 11px;
+  line-height: 1;
+  padding: 4px 8px;
+  border-radius: 4px;
+  white-space: nowrap;
+  pointer-events: none;
+}
+[data-debug] body.dash--panel:not(:has(.dash__content)){
+  outline: 2px dashed var(--dbg-danger);
+  outline-offset: 2px;
+  position: relative;
+}
+[data-debug] body.dash--panel:not(:has(.dash__content))::after{
+  content: "missing .dash__content";
+  position: absolute;
+  top: -1.6em;
+  inset-inline-start: 0;
+  z-index: 9999;
+  background: var(--dbg-danger);
+  color: #fff;
+  font-family: var(--font-family-mono, monospace);
+  font-size: 11px;
+  line-height: 1;
+  padding: 4px 8px;
+  border-radius: 4px;
+  white-space: nowrap;
+  pointer-events: none;
+}
+[data-debug] body.dash--panel:not(:has(.dash__panel)){
+  outline: 2px dashed var(--dbg-danger);
+  outline-offset: 2px;
+  position: relative;
+}
+[data-debug] body.dash--panel:not(:has(.dash__panel))::after{
+  content: "missing .dash__panel";
+  position: absolute;
+  top: -1.6em;
+  inset-inline-start: 0;
+  z-index: 9999;
+  background: var(--dbg-danger);
+  color: #fff;
+  font-family: var(--font-family-mono, monospace);
+  font-size: 11px;
+  line-height: 1;
+  padding: 4px 8px;
+  border-radius: 4px;
+  white-space: nowrap;
+  pointer-events: none;
+}
+[data-debug] body.shop--announce:not(:has(.shop__announce)){
+  outline: 2px dashed var(--dbg-danger);
+  outline-offset: 2px;
+  position: relative;
+}
+[data-debug] body.shop--announce:not(:has(.shop__announce))::after{
+  content: "missing .shop__announce";
+  position: absolute;
+  top: -1.6em;
+  inset-inline-start: 0;
+  z-index: 9999;
+  background: var(--dbg-danger);
+  color: #fff;
+  font-family: var(--font-family-mono, monospace);
+  font-size: 11px;
+  line-height: 1;
+  padding: 4px 8px;
+  border-radius: 4px;
+  white-space: nowrap;
+  pointer-events: none;
+}
+[data-debug] body.shop--topbar:not(:has(.topbar)){
+  outline: 2px dashed var(--dbg-danger);
+  outline-offset: 2px;
+  position: relative;
+}
+[data-debug] body.shop--topbar:not(:has(.topbar))::after{
+  content: "missing .topbar";
+  position: absolute;
+  top: -1.6em;
+  inset-inline-start: 0;
+  z-index: 9999;
+  background: var(--dbg-danger);
+  color: #fff;
+  font-family: var(--font-family-mono, monospace);
+  font-size: 11px;
+  line-height: 1;
+  padding: 4px 8px;
+  border-radius: 4px;
+  white-space: nowrap;
+  pointer-events: none;
+}
+[data-debug] body.shop--hero:not(:has(> header:not([class]))){
+  outline: 2px dashed var(--dbg-danger);
+  outline-offset: 2px;
+  position: relative;
+}
+[data-debug] body.shop--hero:not(:has(> header:not([class])))::after{
+  content: "missing > header:not([class])";
+  position: absolute;
+  top: -1.6em;
+  inset-inline-start: 0;
+  z-index: 9999;
+  background: var(--dbg-danger);
+  color: #fff;
+  font-family: var(--font-family-mono, monospace);
+  font-size: 11px;
+  line-height: 1;
+  padding: 4px 8px;
+  border-radius: 4px;
+  white-space: nowrap;
+  pointer-events: none;
+}
+[data-debug] body.shop--sidebar:not(:has(.shop__shell)){
+  outline: 2px dashed var(--dbg-danger);
+  outline-offset: 2px;
+  position: relative;
+}
+[data-debug] body.shop--sidebar:not(:has(.shop__shell))::after{
+  content: "missing .shop__shell";
+  position: absolute;
+  top: -1.6em;
+  inset-inline-start: 0;
+  z-index: 9999;
+  background: var(--dbg-danger);
+  color: #fff;
+  font-family: var(--font-family-mono, monospace);
+  font-size: 11px;
+  line-height: 1;
+  padding: 4px 8px;
+  border-radius: 4px;
+  white-space: nowrap;
+  pointer-events: none;
+}
+[data-debug] body.shop--sidebar:not(:has(.shop__aside)){
+  outline: 2px dashed var(--dbg-danger);
+  outline-offset: 2px;
+  position: relative;
+}
+[data-debug] body.shop--sidebar:not(:has(.shop__aside))::after{
+  content: "missing .shop__aside";
+  position: absolute;
+  top: -1.6em;
+  inset-inline-start: 0;
+  z-index: 9999;
+  background: var(--dbg-danger);
+  color: #fff;
+  font-family: var(--font-family-mono, monospace);
+  font-size: 11px;
+  line-height: 1;
+  padding: 4px 8px;
+  border-radius: 4px;
+  white-space: nowrap;
+  pointer-events: none;
+}
+[data-debug] body.shop--sidebar:not(:has(.shop__content)){
+  outline: 2px dashed var(--dbg-danger);
+  outline-offset: 2px;
+  position: relative;
+}
+[data-debug] body.shop--sidebar:not(:has(.shop__content))::after{
+  content: "missing .shop__content";
+  position: absolute;
+  top: -1.6em;
+  inset-inline-start: 0;
+  z-index: 9999;
+  background: var(--dbg-danger);
+  color: #fff;
+  font-family: var(--font-family-mono, monospace);
+  font-size: 11px;
+  line-height: 1;
+  padding: 4px 8px;
+  border-radius: 4px;
+  white-space: nowrap;
+  pointer-events: none;
+}
+[data-debug] body.shop--sidebar-right:not(:has(.shop__shell)){
+  outline: 2px dashed var(--dbg-danger);
+  outline-offset: 2px;
+  position: relative;
+}
+[data-debug] body.shop--sidebar-right:not(:has(.shop__shell))::after{
+  content: "missing .shop__shell";
+  position: absolute;
+  top: -1.6em;
+  inset-inline-start: 0;
+  z-index: 9999;
+  background: var(--dbg-danger);
+  color: #fff;
+  font-family: var(--font-family-mono, monospace);
+  font-size: 11px;
+  line-height: 1;
+  padding: 4px 8px;
+  border-radius: 4px;
+  white-space: nowrap;
+  pointer-events: none;
+}
+[data-debug] body.shop--sidebar-right:not(:has(.shop__aside-right)){
+  outline: 2px dashed var(--dbg-danger);
+  outline-offset: 2px;
+  position: relative;
+}
+[data-debug] body.shop--sidebar-right:not(:has(.shop__aside-right))::after{
+  content: "missing .shop__aside-right";
+  position: absolute;
+  top: -1.6em;
+  inset-inline-start: 0;
+  z-index: 9999;
+  background: var(--dbg-danger);
+  color: #fff;
+  font-family: var(--font-family-mono, monospace);
+  font-size: 11px;
+  line-height: 1;
+  padding: 4px 8px;
+  border-radius: 4px;
+  white-space: nowrap;
+  pointer-events: none;
+}
+[data-debug] body.shop--sidebar-right:not(:has(.shop__content)){
+  outline: 2px dashed var(--dbg-danger);
+  outline-offset: 2px;
+  position: relative;
+}
+[data-debug] body.shop--sidebar-right:not(:has(.shop__content))::after{
+  content: "missing .shop__content";
+  position: absolute;
+  top: -1.6em;
+  inset-inline-start: 0;
+  z-index: 9999;
+  background: var(--dbg-danger);
+  color: #fff;
+  font-family: var(--font-family-mono, monospace);
+  font-size: 11px;
+  line-height: 1;
+  padding: 4px 8px;
+  border-radius: 4px;
+  white-space: nowrap;
+  pointer-events: none;
+}
+[data-debug] body.layout--fullpage:not(:has(.fullpage__backdrop)){
+  outline: 2px dashed var(--dbg-danger);
+  outline-offset: 2px;
+  position: relative;
+}
+[data-debug] body.layout--fullpage:not(:has(.fullpage__backdrop))::after{
+  content: "missing .fullpage__backdrop";
+  position: absolute;
+  top: -1.6em;
+  inset-inline-start: 0;
+  z-index: 9999;
+  background: var(--dbg-danger);
+  color: #fff;
+  font-family: var(--font-family-mono, monospace);
+  font-size: 11px;
+  line-height: 1;
+  padding: 4px 8px;
+  border-radius: 4px;
+  white-space: nowrap;
+  pointer-events: none;
+}
+[data-debug] body.layout--fullpage:not(:has(.fullpage__content)){
+  outline: 2px dashed var(--dbg-danger);
+  outline-offset: 2px;
+  position: relative;
+}
+[data-debug] body.layout--fullpage:not(:has(.fullpage__content))::after{
+  content: "missing .fullpage__content";
+  position: absolute;
+  top: -1.6em;
+  inset-inline-start: 0;
+  z-index: 9999;
+  background: var(--dbg-danger);
+  color: #fff;
+  font-family: var(--font-family-mono, monospace);
+  font-size: 11px;
+  line-height: 1;
+  padding: 4px 8px;
+  border-radius: 4px;
+  white-space: nowrap;
+  pointer-events: none;
+}
+[data-debug] body.layout--onepage:not(:has(.onepage__header)){
+  outline: 2px dashed var(--dbg-danger);
+  outline-offset: 2px;
+  position: relative;
+}
+[data-debug] body.layout--onepage:not(:has(.onepage__header))::after{
+  content: "missing .onepage__header";
+  position: absolute;
+  top: -1.6em;
+  inset-inline-start: 0;
+  z-index: 9999;
+  background: var(--dbg-danger);
+  color: #fff;
+  font-family: var(--font-family-mono, monospace);
+  font-size: 11px;
+  line-height: 1;
+  padding: 4px 8px;
+  border-radius: 4px;
+  white-space: nowrap;
+  pointer-events: none;
+}
+[data-debug] body.layout--onepage:not(:has(.onepage__footer)){
+  outline: 2px dashed var(--dbg-danger);
+  outline-offset: 2px;
+  position: relative;
+}
+[data-debug] body.layout--onepage:not(:has(.onepage__footer))::after{
+  content: "missing .onepage__footer";
+  position: absolute;
+  top: -1.6em;
+  inset-inline-start: 0;
+  z-index: 9999;
+  background: var(--dbg-danger);
+  color: #fff;
+  font-family: var(--font-family-mono, monospace);
+  font-size: 11px;
+  line-height: 1;
+  padding: 4px 8px;
+  border-radius: 4px;
+  white-space: nowrap;
+  pointer-events: none;
+}

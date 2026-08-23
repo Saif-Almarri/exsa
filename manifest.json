@@ -195,6 +195,15 @@
       "name": "General",
       "file": "dist/layouts/general.css",
       "desc": "Compositional page shell — topbar, hero, aside, content, footer toggles, plus merged blog mode (blog--prose, blog--has-toc).",
+      "structure": [
+        { "when": "body.layout--has-topbar", "required": [".topbar"] },
+        { "when": "body.layout--has-hero", "required": ["> header:not([class])"] },
+        { "when": "body.layout--aside-left", "required": [".layout__shell", ".layout__aside-left", ".layout__content"] },
+        { "when": "body.layout--has-sidebar", "required": [".layout__shell", ".layout__aside-left", ".layout__content"] },
+        { "when": "body.layout--aside-right", "required": [".layout__shell", ".layout__aside-right", ".layout__content"] },
+        { "when": "body.layout--centered", "required": [".layout__content"] },
+        { "when": "body.blog--has-toc", "required": [".blog__shell", ".blog__content", ".blog__toc"] }
+      ],
       "tier": "free"
     },
     {
@@ -202,6 +211,11 @@
       "name": "Dashboard",
       "file": "dist/layouts/dashboard.css",
       "desc": "Full-viewport admin shell with fixed sidebar and scrollable content.",
+      "structure": [
+        { "when": "body.dash--sidebar", "required": [".dash__sidebar", ".dash__content"] },
+        { "when": "body.dash--topbar", "required": [".topbar"] },
+        { "when": "body.dash--panel", "required": [".dash__shell", ".dash__content", ".dash__panel"] }
+      ],
       "tier": "free"
     },
     {
@@ -209,6 +223,13 @@
       "name": "Store",
       "file": "dist/layouts/store.css",
       "desc": "Product catalog — announce bar, cart topbar, filter sidebar, product grid.",
+      "structure": [
+        { "when": "body.shop--announce", "required": [".shop__announce"] },
+        { "when": "body.shop--topbar", "required": [".topbar"] },
+        { "when": "body.shop--hero", "required": ["> header:not([class])"] },
+        { "when": "body.shop--sidebar", "required": [".shop__shell", ".shop__aside", ".shop__content"] },
+        { "when": "body.shop--sidebar-right", "required": [".shop__shell", ".shop__aside-right", ".shop__content"] }
+      ],
       "tier": "free"
     },
     {
@@ -217,6 +238,9 @@
       "file": "dist/templates/fullpage/fullpage.css",
       "html": "dist/templates/fullpage/index.html",
       "desc": "Starter template: single-viewport landing — backdrop, centered brand, social rings, :target panels. Copy the folder, open index.html.",
+      "structure": [
+        { "when": "body.layout--fullpage", "required": [".fullpage__backdrop", ".fullpage__content"] }
+      ],
       "tier": "free"
     },
     {
@@ -225,6 +249,9 @@
       "file": "dist/templates/onepage/onepage.css",
       "html": "dist/templates/onepage/index.html",
       "desc": "Starter template: multi-section marketing page — photo hero, nav dropdowns, banner, carousel, features, footer. Copy the folder, open index.html.",
+      "structure": [
+        { "when": "body.layout--onepage", "required": [".onepage__header", ".onepage__footer"] }
+      ],
       "tier": "free"
     }
   ],

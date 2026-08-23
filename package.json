@@ -11,7 +11,8 @@
     "baseline": "node tools/validate.mjs --baseline",
     "probe": "node tools/layer-probe.mjs",
     "probe:baseline": "node tools/layer-probe.mjs --baseline",
-    "probe:contract": "node tools/contract-probe.mjs"
+    "probe:contract": "node tools/contract-probe.mjs",
+    "probe:layout": "node tools/layout-contract-probe.mjs"
   },
   "license": "MIT",
   "devDependencies": {

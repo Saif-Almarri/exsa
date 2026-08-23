@@ -16,9 +16,11 @@ Thumbs.db
 *.html
 *.php
 
-# Exception: the QA layer-probe page ships with the release tooling
+# Exception: the QA probe pages ship with the release tooling
 !site/qa/layer-probe.html
 !site/qa/contract-probe.html
+!site/qa/layout-probe.html
+!site/qa/layout-fixtures/*.html
 
 # Website-specific CSS
 demo.css

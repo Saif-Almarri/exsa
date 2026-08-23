@@ -20,6 +20,7 @@
   13. --check-debug : dist/exsa.debug.css must be generated output
   14. no `.calc(` corruption signature (dot-form tokenizer bug) in any CSS file
   15. site pages reference only defined EXSA tokens (or file-local custom props)
+  16. every layout structure contract cross-checks its CSS (when-class + parts)
 
    --token-audit prints a spacing-discipline report (hardcoded margin/padding/gap
    that should reference tokens) and exits with the normal rule result.
@@ -330,6 +331,24 @@ for (const f of siteFiles) {
     if (t.length < 4 || siteTokenIgnore.has(t)) continue;
     if (!knownTokens.has(t) && !localDefs.has(t)) {
       fail(`${f}: references ${t}, which is not a defined EXSA token (or file-local custom property)`);
+    }
+  }
+}
+
+/* ---------- rule 16: layout structure cross-check ----------
+   Every conditional contract's `when` body class must exist in the layout
+   file, and every required part must be defined in some dist CSS file.
+   Structural selectors (`> header:not([class])`, pseudo-parts) are skipped. */
+for (const lay of manifest.layouts || []) {
+  const arr = lay.structure;
+  if (!arr || !arr.length) continue;
+  const src = readFileSync(join(root, lay.file), 'utf8');
+  for (const cond of arr) {
+    const whenClass = cond.when.replace(/^body\./, '');
+    if (!src.includes(whenClass)) fail(`layout ${lay.id}: structure.when "${cond.when}" not found in ${lay.file}`);
+    for (const part of cond.required || []) {
+      if (part.startsWith('>') || part.includes(':')) continue; // structural selectors — skip static check
+      if (!allCss.includes(part)) fail(`layout ${lay.id}: required part ${part} not defined in any dist CSS file`);
     }
   }
 }
