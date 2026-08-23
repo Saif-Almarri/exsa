@@ -1,0 +1,42 @@
+@layer exsa.themes {
+
+/* ============================================================
+   LAYER 4 � THEME: SOJOURN
+   Warm black-brown palette. Deep, moody, with subtle
+   terracotta warmth. A quiet journey through shadow.
+   Auto-switches via prefers-color-scheme.
+   Force mode: <html data-theme-mode="light|dark">
+   ============================================================ */
+
+:root {
+  color-scheme: light dark;
+  --color-bg: light-dark(#faf6f4, #0a0300);
+  --color-bg-secondary: light-dark(#efe0d8, #180a00);
+  --color-text: light-dark(#180a00, #d4c8c0);
+  --color-text-secondary: light-dark(#6a4030, #8a7060);
+  --color-link: light-dark(#a04020, #c87040);
+  --color-secondary: light-dark(#8a4030, #8a5030);
+  --color-secondary-accent: light-dark(#8a40300d, #8a503018);
+  --color-accent: light-dark(#a0402010, #c8704014);
+  --color-overlay: rgba(0,0,0,.5);
+  --color-shadow: light-dark(#d4c0b8, #00000088);
+  --color-scrollbar: light-dark(#b89888, #240e05);
+  --color-success: light-dark(#16a34a, #22c55e);
+  --color-success-hover: light-dark(#15803d, #16a34a);
+  --color-danger: light-dark(#dc2626, #ef4444);
+  --color-danger-hover: light-dark(#b91c1c, #dc2626);
+  --color-warning: light-dark(#d97706, #f59e0b);
+  --color-warning-hover: light-dark(#b45309, #d97706);
+  --color-border: light-dark(#d4c0b8, #240e05);
+  --color-button-text: light-dark(#ffffff, #0a0300);
+  --color-button-text-inverse: light-dark(#222222, #eeeeee);
+  --border-radius: 4px;
+}
+
+/* Forced dark — <html data-theme-mode="dark">, ignores OS preference */
+:root[data-theme-mode="dark"] { color-scheme: dark; }
+
+/* Forced light — <html data-theme-mode="light">, ignores OS preference */
+:root[data-theme-mode="light"] { color-scheme: light; }
+
+}

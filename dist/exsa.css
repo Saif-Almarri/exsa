@@ -1,0 +1,855 @@
+/* Copyright © 2026 Saif Almarri. MIT License. See LICENSE.
+   Cascade: tokens → themes → fluid → reset → utilities → elements → components → layouts → overrides.
+*/
+
+/* ── Layer order ──
+   Token sources first (tokens → themes → fluid): themes recolor, fluid rescales.
+   Structural layers follow; components beat elements, layouts beat components.
+   overrides (u-* escape hatch) beats everything layered. User CSS stays
+   unlayered and always wins. */
+@layer exsa.tokens, exsa.themes, exsa.fluid, exsa.reset, exsa.utilities, exsa.elements, exsa.components, exsa.layouts, exsa.overrides;
+
+@layer exsa.tokens {
+
+/* 82 design tokens */
+
+:root {
+  color-scheme: light dark;
+  --color-bg:light-dark(#fff,#333);--color-bg-secondary:light-dark(#e9e9e9,#555);--color-text:light-dark(#000,#f7f7f7);--color-text-secondary:light-dark(#757575,#aaa);
+  --color-link:light-dark(#118bee,#0097fc);--color-secondary:light-dark(#920de9,#e20de9);--color-secondary-accent:light-dark(#920de90b,#e20de94f);
+  --color-accent:light-dark(#118bee15,#0097fc4f);--color-shadow:light-dark(#f4f4f4,#bbbbbb20);--color-overlay:light-dark(rgba(0,0,0,.5),rgba(0,0,0,.65));--color-scrollbar:color-mix(in srgb,var(--color-text)25%,transparent);
+  --color-success:light-dark(#16a34a,#22c55e);--color-success-hover:light-dark(#15803d,#16a34a);--color-danger:light-dark(#dc2626,#ef4444);
+  --color-danger-hover:light-dark(#b91c1c,#dc2626);--color-warning:light-dark(#d97706,#f59e0b);--color-warning-hover:light-dark(#b45309,#d97706);
+  --color-button-text:#fff;--color-button-text-inverse:light-dark(#000,#eee);--color-border:light-dark(#e9e9e9,#555); /* hover variants & --color-button-text consumed by component CSS files */
+  --font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen-Sans,Ubuntu,Cantarell,"Helvetica Neue",sans-serif;
+  --font-family-mono:'SF Mono','Cascadia Code','Fira Code',Consolas,monospace;
+  --font-family-heading:var(--font-family);
+  --font-weight-normal:400;--font-weight-bold:700;--font-weight-heavy:800;
+  --font-size-xs:.7rem;--font-size-sm:.78rem;--font-size-base:.88rem;--font-size-md:.95rem;--font-size-lg:1.08rem;--font-size-xl:1.3rem;--font-size-2xl:1.8rem;
+  --line-height:1.5;--border-radius:5px;--box-shadow:2px 2px 10px;
+  --hover-brightness:1.2;--active-brightness:0.85;
+  --justify-heading:center;--justify-body:start;--justify-nav:space-between;--blockquote-border:4px solid var(--color-secondary);
+  --width-card:285px;--width-card-medium:460px;--width-card-wide:800px;--width-content:1080px;--scroll-margin-top:80px;
+  --gap-xs:0.25rem;--gap-sm:0.5rem;--gap-md:0.75rem;--gap:1rem;--gap-lg:1.5rem;--gap-xl:2rem;--gap-2xl:3rem;
+  --bp-sm:575px;--bp-md:768px;--bp-lg:1024px;--bp-xl:1280px;--bp-xxl:1440px;
+  --space-factor:1;--radius-factor:1;--font-factor:1;--motion-factor:1; /* global scaling knobs — consumed by JS / components */
+  /* z-index scale — one stack for the whole framework. Override any layer in your theme. */
+  --z-floating:10;          /* in-component floating controls (carousel arrows) */
+  --z-dropdown:100;         /* dropdowns, tooltips, date/color picker popups */
+  --z-back-top:800;         /* back-to-top button */
+  --z-drawer:900;           /* drawer backdrop */
+  --z-drawer-panel:901;     /* drawer panel */
+  --z-cookiebar:950;        /* cookie consent bar */
+  --z-topbar:1000;          /* fixed topbar */
+  --z-topbar-dropdown:1001; /* topbar dropdown menus */
+  --z-modal:1050;           /* modal dialogs + video modals (above topbar) */
+  --z-lightbox:1100;        /* fullscreen lightbox */
+  --z-popover-backdrop:9995;
+  --z-popover:9996;         /* popover content */
+  --z-context-backdrop:9997;
+  --z-context-menu:9998;    /* context menu */
+  --z-toast:9999;           /* toast notifications */
+  --z-skip:10000;           /* skip link */
+  --z-layout-aside:90;      /* fixed sidebars in layout shells (below bars/overlays) */
+  --z-layout-footer:95;     /* footer above aside in aside-full mode */
+  --z-announce:1001;        /* store announcement bar (above topbar) */
+}
+
+/* Dark/light — one definition per token via light-dark(); forced mode flips color-scheme */
+
+/* Forced dark — <html data-theme-mode="dark">, ignores OS preference */
+:root[data-theme-mode="dark"] { color-scheme: dark; }
+
+/* Forced light — <html data-theme-mode="light">, ignores OS preference */
+:root[data-theme-mode="light"] { color-scheme: light; }
+
+} /* tokens */
+
+@layer exsa.reset {
+
+*,*::before,*::after{box-sizing:border-box}
+:focus-visible{outline:2px solid var(--color-link);outline-offset:2px}
+:focus:not(:focus-visible){outline:none}
+
+/* Universal a11y utility — intentionally unscoped, works without class="exsa" */
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin: calc(-1px * var(--space-factor, 1));overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+
+/* Windows High Contrast Mode */
+@media(forced-colors:active){
+  :focus-visible{outline:2px solid Highlight;outline-offset:2px}
+  .sr-only{clip:auto;clip-path:none;position:static;width:auto;height:auto}
+  .skip-link{background:Highlight;color:HighlightText}
+}
+/* High contrast preference — boost borders and text weight */
+@media(prefers-contrast:high){
+  body{text-shadow:none}
+  :where(.exsa a){text-decoration-thickness:2px}
+  *,*::before,*::after{border-color:currentColor}
+}
+@media(prefers-contrast:low){
+  /* Low contrast = softer borders, not thinner text */
+  *,*::before,*::after{border-color:color-mix(in srgb,currentColor 40%,transparent)}
+}
+*{scrollbar-width:thin;scrollbar-color:var(--color-scrollbar) transparent}
+*::-webkit-scrollbar{width:5px;height:5px}
+*::-webkit-scrollbar-track{background:transparent}
+*::-webkit-scrollbar-thumb{background-color:var(--color-scrollbar);border-radius:10px}
+html{scroll-behavior:smooth}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}:target{animation:none}*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
+@media(prefers-reduced-data:reduce){img,video{min-height:0;height:auto}}
+[dir=rtl]{direction:rtl;unicode-bidi:isolate}
+body{background:var(--color-bg);color:var(--color-text);font-family:var(--font-family);line-height:var(--line-height);margin:0;padding:0}
+h1,h2,h3,h4,h5,h6{line-height:var(--line-height);text-wrap:balance;margin:0 0 var(--gap-md)}
+img,svg,video{max-width:100%;height:auto}
+figure{margin:0;padding:0}
+[hidden]{display:none!important}
+
+/* Universal a11y utilities — intentionally unscoped, work without class="exsa" */
+.skip-link{position:absolute;top:-100px;inset-inline-start:0;background:var(--color-link);color:#fff;padding:var(--gap-sm) var(--gap);z-index:var(--z-skip);font-weight:700;border-radius:0 0 var(--border-radius) var(--border-radius);text-decoration:none;transition:top .15s}
+.skip-link:focus{top:0}
+[dir=rtl] .skip-link{border-radius:0 0 var(--border-radius) 0}
+/* Intentionally unscoped — anchor-target flash highlight works globally */
+:target{scroll-margin-top:var(--scroll-margin-top);animation:exsa-target-flash 1.2s ease-out}
+@keyframes exsa-target-flash{0%{background:var(--color-accent)}100%{background:transparent}}
+
+} /* reset */
+
+@layer exsa.utilities {
+
+.container{max-width:var(--width-content);margin:0 auto;padding:0 var(--gap)}
+.container-sm{max-width:var(--width-card-wide);margin:0 auto;padding:0 var(--gap-sm)}
+.container-full{width:100%}
+.flex{display:flex}.flex-inline{display:inline-flex}
+.flex-col{flex-direction:column}.flex-col-rev{flex-direction:column-reverse}.flex-row-rev{flex-direction:row-reverse}
+.flex-wrap{flex-wrap:wrap}.flex-nowrap{flex-wrap:nowrap}
+.flex-1{flex:1}.flex-auto{flex:0 1 auto}.flex-none{flex:none}
+.justify-start{justify-content:flex-start}.justify-end{justify-content:flex-end}.justify-center{justify-content:center}
+.justify-between{justify-content:space-between}.justify-around{justify-content:space-around}.justify-evenly{justify-content:space-evenly}
+.items-start{align-items:flex-start}.items-end{align-items:flex-end}.items-center{align-items:center}
+.items-baseline{align-items:baseline}.items-stretch{align-items:stretch}
+.self-start{align-self:flex-start}.self-end{align-self:flex-end}.self-center{align-self:center}.self-stretch{align-self:stretch}
+.content-start{align-content:flex-start}.content-end{align-content:flex-end}.content-center{align-content:center}
+.content-between{align-content:space-between}.content-around{align-content:space-around}
+.gap-0{gap:0}.gap-xs{gap:var(--gap-xs)}.gap-sm{gap:var(--gap-sm)}.gap-md{gap:var(--gap-md)}.gap{gap:var(--gap)}
+.gap-lg{gap:var(--gap-lg)}.gap-xl{gap:var(--gap-xl)}.gap-2xl{gap:var(--gap-2xl)}
+.col-1{flex:0 0 100%}.col-2{flex:0 0 calc(50% - var(--gap-sm))}.col-3{flex:0 0 calc(33.333% - var(--gap))}
+.col-4{flex:0 0 calc(25% - var(--gap))}.col-5{flex:0 0 calc(20% - var(--gap-sm))}.col-6{flex:0 0 calc(16.667% - var(--gap-sm))}
+.grid{display:grid}
+.grid-cols-1{grid-template-columns:repeat(1,1fr)}.grid-cols-2{grid-template-columns:repeat(2,1fr)}
+.grid-cols-3{grid-template-columns:repeat(3,1fr)}.grid-cols-4{grid-template-columns:repeat(4,1fr)}
+.grid-cols-5{grid-template-columns:repeat(5,1fr)}.grid-cols-6{grid-template-columns:repeat(6,1fr)}
+.grid-auto-fit{grid-template-columns:repeat(auto-fit,minmax(200px,1fr))}
+/* Fluid typography — opt-in. Add .fluid-type to <body> */
+.fluid-type{--font-size-base:clamp(.85rem,.8rem + .25vw,1rem);--font-size-xl:clamp(1.2rem,1.1rem + .5vw,1.5rem);--font-size-2xl:clamp(1.6rem,1.4rem + 1vw,2.2rem)}
+/* Position */
+.relative{position:relative}.absolute{position:absolute}.fixed{position:fixed}.sticky{position:sticky}
+.inset-0{inset:0}
+/* Sizing */
+.w-full{width:100%}.h-full{height:100%}
+/* Text alignment (logical + physical) */
+.text-start{text-align:start}.text-end{text-align:end}.text-center{text-align:center}
+.text-left{text-align:left}.text-right{text-align:right}
+/* Typography — font sizes, weights, families, transforms */
+.text-xs{font-size:var(--font-size-xs)}.text-sm{font-size:var(--font-size-sm)}.text-base{font-size:var(--font-size-base)}.text-md{font-size:var(--font-size-md)}.text-lg{font-size:var(--font-size-lg)}.text-xl{font-size:var(--font-size-xl)}.text-2xl{font-size:var(--font-size-2xl)}
+.fw-normal{font-weight:var(--font-weight-normal)}.fw-bold{font-weight:var(--font-weight-bold)}.fw-heavy{font-weight:var(--font-weight-heavy)}
+.font-sans{font-family:var(--font-family)}.font-mono{font-family:var(--font-family-mono)}.font-heading{font-family:var(--font-family-heading)}
+.italic{font-style:italic}.uppercase{text-transform:uppercase}.capitalize{text-transform:capitalize}.text-muted{color:var(--color-text-secondary)}
+/* Overflow */
+.overflow-hidden{overflow:hidden}.overflow-auto{overflow:auto}
+/* Order (flex/grid children) */
+.order-first{order:-1}.order-last{order:999}
+@media(max-width:575px){.col-2,.col-3,.col-4,.col-5,.col-6{flex:0 0 100%}.sm\:flex-col{flex-direction:column}.sm\:flex-wrap{flex-wrap:wrap}.sm\:grid-cols-1{grid-template-columns:repeat(1,1fr)}.sm\:text-center{text-align:center}}
+@media(min-width:768px){.md\:col-2{flex:0 0 calc(50% - var(--gap-sm))}.md\:col-3{flex:0 0 calc(33.333% - var(--gap))}.md\:col-4{flex:0 0 calc(25% - var(--gap))}.md\:col-5{flex:0 0 calc(20% - var(--gap-sm))}.md\:col-6{flex:0 0 calc(16.667% - var(--gap-sm))}.md\:grid-cols-2{grid-template-columns:repeat(2,1fr)}.md\:grid-cols-3{grid-template-columns:repeat(3,1fr)}.md\:grid-cols-4{grid-template-columns:repeat(4,1fr)}.md\:grid-cols-5{grid-template-columns:repeat(5,1fr)}.md\:grid-cols-6{grid-template-columns:repeat(6,1fr)}}
+@media(min-width:1024px){.lg\:col-2{flex:0 0 calc(50% - var(--gap-sm))}.lg\:col-3{flex:0 0 calc(33.333% - var(--gap))}.lg\:col-4{flex:0 0 calc(25% - var(--gap))}.lg\:col-5{flex:0 0 calc(20% - var(--gap-sm))}.lg\:col-6{flex:0 0 calc(16.667% - var(--gap-sm))}.lg\:grid-cols-3{grid-template-columns:repeat(3,1fr)}.lg\:grid-cols-4{grid-template-columns:repeat(4,1fr)}.lg\:grid-cols-5{grid-template-columns:repeat(5,1fr)}.lg\:grid-cols-6{grid-template-columns:repeat(6,1fr)}}
+@media(min-width:1280px){.xl\:col-2{flex:0 0 calc(50% - var(--gap-sm))}.xl\:col-3{flex:0 0 calc(33.333% - var(--gap))}.xl\:col-4{flex:0 0 calc(25% - var(--gap))}.xl\:col-5{flex:0 0 calc(20% - var(--gap-sm))}.xl\:col-6{flex:0 0 calc(16.667% - var(--gap-sm))}.xl\:grid-cols-3{grid-template-columns:repeat(3,1fr)}.xl\:grid-cols-4{grid-template-columns:repeat(4,1fr)}.xl\:grid-cols-5{grid-template-columns:repeat(5,1fr)}.xl\:grid-cols-6{grid-template-columns:repeat(6,1fr)}}
+@media(min-width:1440px){.xxl\:col-2{flex:0 0 calc(50% - var(--gap-sm))}.xxl\:col-3{flex:0 0 calc(33.333% - var(--gap))}.xxl\:col-4{flex:0 0 calc(25% - var(--gap))}.xxl\:col-5{flex:0 0 calc(20% - var(--gap-sm))}.xxl\:col-6{flex:0 0 calc(16.667% - var(--gap-sm))}.xxl\:grid-cols-3{grid-template-columns:repeat(3,1fr)}.xxl\:grid-cols-4{grid-template-columns:repeat(4,1fr)}.xxl\:grid-cols-5{grid-template-columns:repeat(5,1fr)}.xxl\:grid-cols-6{grid-template-columns:repeat(6,1fr)}}
+
+} /* utilities */
+
+@layer exsa.elements {
+
+/* ── Inline text ── */
+:where(.exsa p) {
+  margin: var(--gap-md) 0;
+  padding: 0;
+}
+:where(.exsa a) {
+  color: var(--color-link);
+  font-weight: bold;
+  text-decoration: underline;
+}
+:where(.exsa a:visited) {
+  color: var(--color-secondary);
+}
+:where(.exsa a:hover) {
+  filter: brightness(var(--hover-brightness));
+}
+:where(.exsa a:active) {
+  filter: brightness(var(--active-brightness));
+}
+:where(.exsa small:not([class])) {
+  color: var(--color-text-secondary);
+}
+:where(.exsa mark:not([class])) {
+  padding: calc(0.1rem * var(--space-factor, 1));
+}
+:where(.exsa kbd:not([class])) {
+  background: var(--color-bg-secondary);
+  border: 1px solid var(--color-border);
+  border-radius: 3px;
+  box-shadow: 0 1px 0 var(--color-border);
+  font-family: var(--font-family-mono);
+  font-size: .85em;
+  padding: .15em .4em;
+}
+:where(.exsa abbr:not([class])) {
+  cursor: help;
+  text-decoration: underline dotted;
+}
+:where(.exsa del:not([class])) {
+  color: var(--color-danger);
+}
+:where(.exsa ins:not([class])) {
+  color: var(--color-success);
+  text-decoration: none;
+}
+:where(.exsa cite:not([class])) {
+  font-style: italic;
+  color: var(--color-text-secondary);
+}
+:where(.exsa sup:not([class])) {
+  background-color: var(--color-secondary);
+  border-radius: var(--border-radius);
+  color: var(--color-bg);
+  font-size: xx-small;
+  font-weight: bold;
+  margin: calc(0.2rem * var(--space-factor, 1));
+  padding: calc(0.2rem * var(--space-factor, 1)) calc(0.3rem * var(--space-factor, 1));
+  vertical-align: super;
+  position: relative;
+}
+
+/* ── Code ── */
+:where(.exsa code) {
+  background-color: var(--color-accent);
+  border-radius: var(--border-radius);
+  color: var(--color-text);
+  display: inline-block;
+  font-family: var(--font-family-mono);
+  margin: 0 calc(0.1rem * var(--space-factor, 1));
+  padding: 0 var(--gap-sm);
+}
+:where(.exsa pre) {
+  font-family: var(--font-family-mono);
+  margin: var(--gap) 0;
+  max-width: var(--width-card-wide);
+  padding: var(--gap);
+  overflow: auto;
+}
+:where(.exsa pre code) {
+  display: block;
+  max-width: var(--width-card-wide);
+  padding: var(--gap-sm) var(--gap-xl);
+  white-space: pre-wrap;
+}
+
+/* ── Lists & dividers ── */
+:where(.exsa ol li),
+:where(.exsa ul li) {
+  padding: 0;
+  padding-inline-start: 1.2em;
+}
+:where(.exsa hr) {
+  background: var(--color-text);
+  opacity: .12;
+  border: none;
+  height: 1px;
+  margin: var(--gap-2xl) 0;
+  width: 100%;
+}
+:where(.exsa details) {
+  margin: var(--gap) 0;
+}
+:where(.exsa details summary) {
+  font-weight: bold;
+  cursor: pointer;
+}
+:where(.exsa details details) {
+  margin-inline-start: var(--gap-lg);
+  border-inline-start: 2px solid var(--color-border);
+  padding-inline-start: var(--gap);
+}
+
+/* ── Figure & caption ── */
+:where(.exsa figure:not([class])) {
+  margin: var(--gap-xl) auto;
+  max-width: 100%;
+  text-align: center;
+}
+:where(.exsa figure:not([class]) img),
+:where(.exsa figure:not([class]) svg),
+:where(.exsa figure:not([class]) video) {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+}
+:where(.exsa figure:not([class]) figcaption) {
+  color: var(--color-text-secondary);
+  font-size: var(--font-size-sm);
+  margin-top: var(--gap-sm);
+}
+
+/* ── Structural containers ──
+   Guarded — a class on header/main/footer opts the WHOLE subtree out. */
+:where(.exsa header:not([class])),
+:where(.exsa main:not([class])),
+:where(.exsa footer:not([class])) {
+  margin: 0 auto;
+  max-width: var(--width-content);
+  padding: var(--gap-2xl) var(--gap);
+  text-align: var(--justify-heading);
+}
+:where(.exsa main:not([class])) {
+  text-align: var(--justify-body);
+}
+:where(.exsa article header),
+:where(.exsa div header),
+:where(.exsa main header) {
+  padding-top: 0;
+}
+:where(.exsa header:not([class]) nav img) {
+  margin: var(--gap) 0;
+}
+
+/* ── Section (container queries on classless sections only) ── */
+:where(.exsa section:not([class])) {
+  container-type: inline-size;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: var(--justify-heading);
+}
+:where(.exsa section header) {
+  padding-top: 0;
+  width: 100%;
+}
+:where(.exsa section img),
+:where(.exsa article img) {
+  max-width: 100%;
+}
+:where(.exsa section pre) {
+  overflow: auto;
+}
+
+/* ── Card (<section> <aside>) ── */
+:where(.exsa section:not([class]) aside) {
+  --card-padding: var(--gap-lg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--border-radius);
+  box-shadow: var(--box-shadow) var(--color-shadow);
+  margin: var(--gap);
+  padding: var(--card-padding);
+  width: var(--width-card);
+}
+:where(.exsa section:not([class]) aside:hover) {
+  box-shadow: var(--box-shadow) var(--color-bg-secondary);
+}
+/* Full-bleed image at top of card — flush with edges */
+:where(.exsa section:not([class]) aside > svg:first-child),
+:where(.exsa section:not([class]) aside > img:first-child):not(:only-child) {
+  display: block;
+  width: calc(100% + var(--card-padding) * 2);
+  max-width: calc(100% + var(--card-padding) * 2);
+  height: auto;
+  margin: calc(var(--card-padding) * -1) calc(var(--card-padding) * -1) var(--gap) calc(var(--card-padding) * -1);
+  border-radius: var(--border-radius) var(--border-radius) 0 0;
+}
+@container (max-width: 320px) {
+  :where(.exsa section:not([class]) aside) {
+    --card-padding: var(--gap-md);
+    margin: var(--gap-sm);
+    padding: var(--card-padding);
+    width: auto;
+  }
+}
+@container (min-width: 500px) {
+  :where(.exsa section:not([class]) aside) {
+    padding: var(--gap-lg);
+  }
+}
+
+/* Classless horizontal card — :has() auto-detects <img>/<figure>/<video> */
+:where(.exsa section:not([class]) aside:has(> img, > figure, > video)) {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: stretch;
+  width: auto;
+  padding: 0;
+  overflow: hidden;
+}
+:where(.exsa section:not([class]) aside:has(> img, > figure, > video)) > img,
+:where(.exsa section:not([class]) aside:has(> img, > figure, > video)) > figure,
+:where(.exsa section:not([class]) aside:has(> img, > figure, > video)) > video {
+  width: clamp(150px, 30vw, 260px);
+  height: calc(100% + 2px);
+  margin: calc(-1px * var(--space-factor, 1)) 0;
+  padding: 0;
+  align-self: stretch;
+  border-radius: var(--border-radius) 0 0 var(--border-radius);
+  overflow: hidden;
+}
+:where(.exsa section:not([class]) aside:has(> img, > figure, > video)) > img,
+:where(.exsa section:not([class]) aside:has(> img, > figure, > video)) > video {
+  object-fit: cover;
+}
+:where(.exsa section:not([class]) aside:has(> img, > figure)) > figure img,
+:where(.exsa section:not([class]) aside:has(> img, > figure)) > figure svg,
+:where(.exsa section:not([class]) aside:has(> img, > figure)) > figure video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+/* Content area — wrapping <div> */
+:where(.exsa section:not([class]) aside:has(> img, > figure, > video)) > div {
+  padding: var(--gap-lg);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+/* Content card — aside with wrapper <div> but no media (shares row with siblings) */
+:where(.exsa section:not([class]) aside:has(> div)):not(:has(> img)):not(:has(> figure)):not(:has(> video)) {
+  flex: 1;
+  min-width: 260px;
+  padding: var(--gap-lg);
+}
+/* No <div> wrapper fallback — text children wrap and stack */
+:where(.exsa section:not([class]) aside:has(> img, > figure)):not(:has(> div)) {
+  grid-template-columns: auto 1fr;
+  overflow: hidden;
+}
+:where(.exsa section:not([class]) aside:has(> img, > figure)):not(:has(> div)) > :not(img):not(figure) {
+  margin: 0 var(--gap-lg);
+}
+:where(.exsa section:not([class]) aside:has(> img, > figure)):not(:has(> div)) > :is(h1,h2,h3,h4,h5,h6):first-of-type {
+  margin-top: var(--gap-lg);
+}
+:where(.exsa section:not([class]) aside:has(> img, > figure)):not(:has(> div)) > p:last-of-type {
+  margin-bottom: var(--gap-lg);
+}
+
+/* Collapse to vertical on narrow containers */
+@container (max-width: 380px) {
+  :where(.exsa section:not([class]) aside:has(> img, > figure)) {
+    grid-template-columns: 1fr;
+  }
+  :where(.exsa section:not([class]) aside:has(> img, > figure)) > img,
+  :where(.exsa section:not([class]) aside:has(> img, > figure)) > figure {
+    width: 100%;
+    height: auto;
+    max-height: 220px;
+  }
+}
+
+/* ── Callout (<article> <aside>) ── */
+:where(.exsa article:not([class]) > aside) {
+  background: var(--callout-bg, var(--color-secondary-accent));
+  border-inline-start: 4px solid var(--callout-accent, var(--color-secondary));
+  border-radius: var(--border-radius);
+  padding: var(--gap) var(--gap-lg);
+  margin: var(--gap) 0;
+  color: var(--color-text-secondary);
+  font-size: .9rem;
+  line-height: 1.6;
+}
+:where(.exsa article:not([class]) > aside p) {
+  margin: 0;
+}
+:where(.exsa article:not([class]) > aside p + p) {
+  margin-top: var(--gap-sm);
+}
+:where(.exsa article:not([class]) > aside strong) {
+  color: var(--callout-accent, var(--color-secondary));
+}
+:where(.exsa article:not([class]) > aside code) {
+  font-family: var(--font-family-mono);
+  font-size: .85em;
+  background: var(--color-bg-secondary);
+  padding: calc(1px * var(--space-factor, 1)) calc(6px * var(--space-factor, 1));
+  border-radius: 3px;
+  color: var(--color-text);
+}
+:where(.exsa article:not([class]) > aside a) {
+  color: var(--callout-accent, var(--color-secondary));
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+/* ── Nav ── */
+:where(.exsa nav:not([class])) {
+  align-items: center;
+  display: flex;
+  font-weight: bold;
+  justify-content: var(--justify-nav, space-between);
+  margin-bottom: var(--gap-xl);
+}
+:where(.exsa nav:not([class]) ul) {
+  list-style: none;
+  padding: 0;
+}
+:where(.exsa nav:not([class]) ul li) {
+  display: inline-block;
+  margin: 0 var(--gap-sm);
+  text-align: start;
+}
+@media (max-width: 768px) {
+  :where(.exsa nav:not([class])) {
+    flex-wrap: wrap;
+  }
+  :where(.exsa nav:not([class]) ul li) {
+    width: calc(100% - 1em);
+  }
+}
+
+/* ── Table ── */
+:where(.exsa table:not([class])) {
+  border: 1px solid var(--color-border);
+  border-radius: var(--border-radius);
+  border-spacing: 0;
+  border-collapse: separate;
+  display: table;
+  width: 100%;
+  max-width: 100%;
+  padding: 0;
+  font-size: .84rem;
+  color: var(--color-text);
+}
+:where(.exsa table:not([class]) td),
+:where(.exsa table:not([class]) th) {
+  padding: calc(0.4rem * var(--space-factor, 1)) calc(0.8rem * var(--space-factor, 1));
+  text-align: var(--justify-heading);
+}
+:where(.exsa table:not([class]) thead) {
+  background-color: var(--color-link);
+  border-collapse: collapse;
+  border-radius: var(--border-radius);
+  color: var(--color-bg);
+  margin: 0;
+  padding: 0;
+}
+:where(.exsa table:not([class]) thead tr:first-child th:first-child) {
+  border-start-start-radius: var(--border-radius);
+}
+:where(.exsa table:not([class]) thead tr:first-child th:last-child) {
+  border-start-end-radius: var(--border-radius);
+}
+:where(.exsa table:not([class]) thead th:first-child),
+:where(.exsa table:not([class]) tr td:first-child) {
+  text-align: var(--justify-body);
+}
+
+/* ── Form ── */
+:where(.exsa form:not([class])) {
+  border: 1px solid var(--color-border);
+  border-radius: var(--border-radius);
+  box-shadow: var(--box-shadow) var(--color-shadow);
+  display: block;
+  max-width: var(--width-card-wide);
+  min-width: var(--width-card);
+  padding: calc(1.5rem * var(--space-factor, 1));
+  text-align: var(--justify-body);
+}
+:where(.exsa form:not([class]) header) {
+  margin: calc(1.5rem * var(--space-factor, 1)) 0;
+  padding: calc(1.5rem * var(--space-factor, 1)) 0;
+}
+:where(.exsa form:not([class]) label) {
+  display: block;
+  font-weight: bold;
+  margin-bottom: calc(0.2rem * var(--space-factor, 1));
+}
+:where(.exsa form:not([class]) input),
+:where(.exsa form:not([class]) select),
+:where(.exsa form:not([class]) textarea) {
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  border: 1px solid var(--color-border);
+  border-radius: var(--border-radius);
+  display: block;
+  font-size: inherit;
+  margin-bottom: calc(1rem * var(--space-factor, 1));
+  max-width: var(--width-card-wide);
+  padding: calc(0.4rem * var(--space-factor, 1)) calc(0.8rem * var(--space-factor, 1));
+}
+:where(.exsa form:not([class]) input[type=checkbox]),
+:where(.exsa form:not([class]) input[type=radio]) {
+  display: inline-block;
+}
+:where(.exsa form:not([class]) input[type=checkbox] + label),
+:where(.exsa form:not([class]) input[type=radio] + label) {
+  display: inline-block;
+  font-weight: normal;
+  position: relative;
+  top: 1px;
+}
+:where(.exsa form:not([class]) input[type=range]) {
+  padding: calc(0.4rem * var(--space-factor, 1)) 0;
+}
+:where(.exsa form:not([class]) input[type=text]),
+:where(.exsa form:not([class]) input:not([type])),
+:where(.exsa form:not([class]) input[type=password]),
+:where(.exsa form:not([class]) input[type=email]),
+:where(.exsa form:not([class]) input[type=search]),
+:where(.exsa form:not([class]) textarea) {
+  width: 100%;
+}
+:where(.exsa form:not([class]) input[readonly]),
+:where(.exsa form:not([class]) textarea[readonly]) {
+  background-color: var(--color-bg-secondary);
+}
+:where(.exsa form:not([class]) input[type=file]) {
+  border: 1px solid var(--color-border);
+  border-radius: var(--border-radius);
+  font-size: inherit;
+  max-width: var(--width-card-wide);
+  padding: calc(0.3rem * var(--space-factor, 1));
+}
+
+/* Fieldset */
+:where(.exsa form:not([class]) fieldset) {
+  border: 1px solid var(--color-border);
+  border-radius: var(--border-radius);
+  margin: 0 0 calc(1rem * var(--space-factor, 1));
+  padding: var(--gap-lg) var(--gap) var(--gap);
+}
+:where(.exsa form:not([class]) fieldset legend) {
+  font-weight: bold;
+  padding: 0 var(--gap-sm);
+}
+
+/* Validation states */
+:where(.exsa form:not([class]) input:invalid:not(:placeholder-shown)),
+:where(.exsa form:not([class]) textarea:invalid:not(:placeholder-shown)) {
+  border-color: var(--color-danger);
+}
+:where(.exsa form:not([class]) input:valid:not(:placeholder-shown)),
+:where(.exsa form:not([class]) textarea:valid:not(:placeholder-shown)) {
+  border-color: var(--color-success);
+}
+
+/* ── Progress & Meter ── */
+:where(.exsa progress),
+:where(.exsa meter) {
+  width: 100%;
+  height: .8rem;
+  border-radius: var(--border-radius);
+  overflow: hidden;
+}
+:where(.exsa progress)::-webkit-progress-bar,
+:where(.exsa meter)::-webkit-meter-bar {
+  background: var(--color-bg-secondary);
+  border-radius: var(--border-radius);
+}
+:where(.exsa progress)::-webkit-progress-value {
+  background: var(--color-link);
+  border-radius: var(--border-radius);
+}
+:where(.exsa meter)::-webkit-meter-optimum-value {
+  background: var(--color-success);
+  border-radius: var(--border-radius);
+}
+:where(.exsa meter)::-webkit-meter-suboptimum-value {
+  background: var(--color-warning);
+  border-radius: var(--border-radius);
+}
+:where(.exsa meter)::-webkit-meter-even-less-good-value {
+  background: var(--color-danger);
+  border-radius: var(--border-radius);
+}
+:where(.exsa progress)::-moz-progress-bar {
+  background: var(--color-link);
+  border-radius: var(--border-radius);
+}
+:where(.exsa meter)::-moz-meter-bar {
+  background: var(--color-success);
+  border-radius: var(--border-radius);
+}
+
+/* ── Blockquote ── */
+:where(.exsa blockquote:not([class])) {
+  border-inline-start: var(--blockquote-border, 4px solid var(--color-secondary));
+  display: block;
+  font-size: x-large;
+  line-height: var(--line-height);
+  margin: calc(1rem * var(--space-factor, 1)) auto;
+  max-width: var(--width-card-medium);
+  padding: calc(1rem * var(--space-factor, 1)) calc(1.5rem * var(--space-factor, 1));
+  text-align: var(--justify-heading);
+}
+:where(.exsa blockquote:not([class]) footer) {
+  color: var(--color-text-secondary);
+  display: block;
+  font-size: small;
+  line-height: var(--line-height);
+  padding: calc(1.5rem * var(--space-factor, 1)) 0;
+}
+
+/* ── Dialog ── */
+:where(.exsa dialog:not([class])) {
+  max-width: 90%;
+  max-height: 85dvh;
+  margin: auto;
+  padding-block: 0;
+  padding-inline: calc(20px * var(--space-factor, 1));
+  border: 1px solid var(--color-border);
+  border-radius: .5rem;
+  overscroll-behavior: contain;
+  scroll-behavior: smooth;
+  animation: dialog-enter .25s ease-in-out forwards;
+}
+:where(.exsa dialog:not([class]))::backdrop {
+  background-color: var(--color-overlay);
+}
+@keyframes dialog-enter {
+  from {
+    opacity: 0;
+    transform: translateY(10%);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+:where(.exsa dialog:not([class]) hr) {
+  margin-block: calc(1rem * var(--space-factor, 1));
+}
+
+/* ── Button ── */
+:where(.exsa button:not([class])) {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: calc(6px * var(--space-factor, 1));
+  font-family: inherit;
+  font-size: .88rem;
+  font-weight: 600;
+  line-height: 1;
+  padding: calc(10px * var(--space-factor, 1)) calc(20px * var(--space-factor, 1));
+  border-radius: var(--border-radius);
+  border: 2px solid var(--color-border);
+  background: var(--color-bg);
+  color: var(--color-button-text-inverse);
+  cursor: pointer;
+  transition: background .15s, border-color .15s, transform .1s;
+  text-decoration: none;
+  white-space: nowrap;
+  user-select: none;
+}
+:where(.exsa button:not([class]):hover) {
+  background: var(--color-bg-secondary);
+  border-color: var(--color-text-secondary);
+}
+:where(.exsa button:not([class]):active) {
+  transform: scale(.97);
+}
+:where(.exsa button:not([class]):disabled) {
+  cursor: not-allowed;
+  opacity: .5;
+  transform: none;
+}
+
+/* ── Guarded Structural Detection ── */
+/* Card grid — 3+ articles in a section */
+:where(.exsa section:not([class]):has(> article:not([class]):nth-child(3))) {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: var(--gap);
+}
+:where(.exsa section:not([class]):has(> article:not([class]):nth-child(3)) > article:not([class])) {
+  border: 1px solid var(--color-border);
+  border-radius: var(--border-radius);
+  box-shadow: var(--box-shadow) var(--color-shadow);
+  padding: var(--gap-lg);
+  margin: 0;
+}
+
+/* Gallery — 2+ figures in a section (exclude sections with articles/asides) */
+:where(.exsa section:not([class]):has(> figure:nth-child(2))):not(:has(> aside)):not(:has(> article)) {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: var(--gap-sm);
+}
+:where(.exsa section:not([class]):has(> figure:nth-child(2))):not(:has(> aside)):not(:has(> article)) > figure {
+  margin: 0;
+}
+
+/* Sidebar — aside as first child of main */
+:where(.exsa main:not([class]):has(> aside:first-child)) {
+  display: grid;
+  grid-template-columns: clamp(220px, 25%, 300px) 1fr;
+  gap: var(--gap-lg);
+  align-items: start;
+}
+
+/* Hero split — header inside <main> that contains an image/figure/svg/video */
+:where(.exsa main header:not([class]):has(> img, > figure, > svg, > video)) {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--gap-xl);
+  align-items: center;
+  max-width: none;
+}
+
+/* Full-width header — header outside <main> (direct child of body) */
+:where(body.exsa > header:not([class])) {
+  max-width: none;
+}
+
+/* Nav flush with hero — when nav is directly followed by header */
+:where(.exsa nav:has(+ header:not([class]))) {
+  margin-bottom: 0;
+}
+
+/* Stats row — 3+ sibling paragraphs in a section */
+:where(.exsa section:not([class]):has(> p:nth-child(3))):not(:has(> aside)):not(:has(> article)) {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: var(--gap);
+  text-align: center;
+}
+:where(.exsa section:not([class]):has(> p:nth-child(3))):not(:has(> aside)):not(:has(> article)) > p {
+  border: 1px solid var(--color-border);
+  border-radius: var(--border-radius);
+  padding: var(--gap-lg) var(--gap);
+  margin: 0;
+}
+
+} /* elements */
+
+@layer exsa.overrides {
+
+/* ── Override utilities — u-* escape hatch ──
+   Unprefixed utilities (exsa.utilities) are structural and lose to components.
+   u-* classes live in the top layer: they always beat components and layouts.
+   Unlayered user CSS still beats them. */
+
+.u-text-start{text-align:start}
+.u-text-center{text-align:center}
+.u-text-end{text-align:end}
+.u-block{display:block}
+.u-flex{display:flex}
+.u-inline-flex{display:inline-flex}
+.u-none{display:none}
+.u-w-full{width:100%}
+.u-w-auto{width:auto}
+.u-m-0{margin:0}
+.u-p-0{padding:0}
+.u-mx-auto{margin-inline:auto}
+.u-gap-0{gap:0}
+.u-gap-sm{gap:var(--gap-sm)}
+.u-gap{gap:var(--gap)}
+.u-gap-lg{gap:var(--gap-lg)}
+.u-radius-0{border-radius:0}
+.u-radius-full{border-radius:9999px}
+
+} /* overrides */

@@ -1,0 +1,72 @@
+@layer exsa.fluid {
+
+/* ============================================================
+   EXSA Fluid Tokens & Profiles — link AFTER exsa.css + your theme (optional)
+
+   One file, two features:
+   1. Fluid tokens - spacing, typography, shape scale with viewport
+      via clamp(). No @media queries. No breakpoints.
+   2. Behavioral profiles - change density with one HTML attribute.
+      <html data-profile="compact">   ← denser (dashboards)
+      <html data-profile="spacious">  ← airier (landing pages)
+      (no attribute)                  ← default comfortable
+
+   To customize: edit the clamp() ranges. Smaller min = more
+   compact on mobile. Larger max = more spacious on desktop.
+   ============================================================ */
+
+:root {
+  --space-factor: 1;
+  --radius-factor: 1;
+  --font-factor: 1;
+  --motion-factor: 1;
+}
+
+[data-profile="compact"] {
+  --space-factor: 0.8;
+  --radius-factor: 0.85;
+  --font-factor: 0.95;
+  --motion-factor: 0.6;
+}
+
+[data-profile="spacious"] {
+  --space-factor: 1.3;
+  --radius-factor: 1.2;
+  --font-factor: 1.1;
+  --motion-factor: 1.4;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root { --motion-factor: 0; }
+}
+
+/* -- Spacing -- */
+:root {
+  --gap-xs:  calc(clamp(0.2rem,  0.15rem + 0.2vw, 0.35rem)  * var(--space-factor));
+  --gap-sm:  calc(clamp(0.35rem, 0.3rem + 0.3vw,  0.6rem)   * var(--space-factor));
+  --gap-md:  calc(clamp(0.5rem,  0.4rem + 0.4vw,  0.85rem)  * var(--space-factor));
+  --gap:     calc(clamp(0.75rem, 0.6rem + 0.5vw,  1.25rem)  * var(--space-factor));
+  --gap-lg:  calc(clamp(1rem,    0.8rem + 0.8vw,  1.75rem)  * var(--space-factor));
+  --gap-xl:  calc(clamp(1.5rem,  1rem + 1vw,      2.5rem)   * var(--space-factor));
+  --gap-2xl: calc(clamp(2rem,    1.5rem + 1.5vw,  3.5rem)   * var(--space-factor));
+}
+
+/* -- Typography -- */
+:root {
+  --font-size-xs:   calc(clamp(0.65rem, 0.6rem + 0.1vw,  0.75rem) * var(--font-factor));
+  --font-size-sm:   calc(clamp(0.72rem, 0.7rem + 0.15vw, 0.85rem) * var(--font-factor));
+  --font-size-base: calc(clamp(0.82rem, 0.8rem + 0.3vw,  1.05rem) * var(--font-factor));
+  --font-size-md:   calc(clamp(0.9rem,  0.85rem + 0.4vw, 1.1rem)  * var(--font-factor));
+  --font-size-lg:   calc(clamp(1rem,    0.9rem + 0.5vw,  1.4rem)  * var(--font-factor));
+  --font-size-xl:   calc(clamp(1.2rem,  1.1rem + 0.8vw,  1.7rem)  * var(--font-factor));
+  --font-size-2xl:  calc(clamp(1.5rem,  1.3rem + 1.2vw,  2.4rem)  * var(--font-factor));
+}
+
+/* -- Shape -- */
+:root {
+  --border-radius: calc(clamp(4px, 0.3vw, 10px) * var(--radius-factor));
+  --box-shadow: 0 calc(2px * var(--space-factor)) calc(10px * var(--space-factor));
+  --scroll-margin-top: clamp(60px, 4rem + 2vw, 100px);
+  --width-content: clamp(320px, 90%, 1080px);
+}
+}

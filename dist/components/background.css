@@ -1,0 +1,159 @@
+@layer exsa.components {
+
+/* ============================================================
+   EXSA Background — image backgrounds for pages & sections
+   Link after exsa.css + your theme.
+
+   Base: add class="bg-page" to any element (usually <body> or a
+   <section> with height) and set --bg-image. Everything else is
+   optional and driven by tokens or modifier classes.
+
+   Tokens:
+     --bg-image        url(...) — comma-separate for layers
+     --bg-color        color behind the image (loading fallback)
+     --bg-size         cover | contain | auto | <length>
+     --bg-position     center | top | bottom | left | right
+     --bg-repeat       no-repeat | repeat | repeat-x | repeat-y
+     --bg-attachment   scroll | fixed (parallax) | local
+     --bg-overlay      veil color/gradient above the image
+     --bg-blend        normal | multiply | screen | overlay | soft-light
+     --bg-filter       optional image filter (grayscale, sepia, blur…)
+
+   Classes:
+     .bg-page          activates the background
+     .bg-cover / .bg-contain / .bg-auto
+     .bg-center / .bg-top / .bg-bottom / .bg-left / .bg-right
+     .bg-repeat / .bg-repeat-x / .bg-repeat-y / .bg-no-repeat
+     .bg-fixed / .bg-scroll / .bg-local
+     .bg-veil--dark / .bg-veil--light / .bg-veil--gradient / .bg-veil--color
+     .bg-blend--multiply / .bg-blend--screen / .bg-blend--overlay / .bg-blend--soft
+     .bg-blur           backdrop blur only (apply to your own panels)
+     .glass             frosted glass panel — bg + blur + border + shadow
+                        modifiers: .glass--strong, .glass--dark
+     .bg-grayscale / .bg-sepia    filters (image only, never content)
+     .bg-pattern        tiled SVG dot-grid (override --bg-pattern-image / -size)
+     .bg-none           remove any background
+
+   A11y: bg-fixed falls back to scroll under prefers-reduced-motion.
+   ============================================================ */
+
+:root {
+  --bg-image: none;
+  --bg-color: var(--color-bg);
+  --bg-size: cover;
+  --bg-position: center;
+  --bg-repeat: no-repeat;
+  --bg-attachment: scroll;
+  --bg-overlay: transparent;
+  --bg-blend: normal;
+  --bg-filter: none;
+  --bg-pattern-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24'%3E%3Cpath d='M0 23.5h24M23.5 0v24' stroke='%23118bee' stroke-opacity='.18' fill='none'/%3E%3C/svg%3E");
+  --bg-pattern-size: 24px 24px;
+}
+
+/* ── Base — image + veil live on pseudo-layers so content & filters stay clean ── */
+.bg-page {
+  position: relative;
+  isolation: isolate;
+  background-color: var(--bg-color);
+}
+
+.bg-page::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  background-image: var(--bg-image);
+  background-size: var(--bg-size);
+  background-position: var(--bg-position);
+  background-repeat: var(--bg-repeat);
+  background-attachment: var(--bg-attachment);
+  background-blend-mode: var(--bg-blend);
+  filter: var(--bg-filter);
+}
+
+.bg-page::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: var(--bg-overlay);
+}
+
+/* ── Size ── */
+.bg-cover   { --bg-size: cover; }
+.bg-contain { --bg-size: contain; }
+.bg-auto    { --bg-size: auto; }
+
+/* ── Position ── */
+.bg-center { --bg-position: center; }
+.bg-top    { --bg-position: top; }
+.bg-bottom { --bg-position: bottom; }
+.bg-left   { --bg-position: left; }
+.bg-right  { --bg-position: right; }
+
+/* ── Repeat ── */
+.bg-repeat    { --bg-repeat: repeat; }
+.bg-repeat-x  { --bg-repeat: repeat-x; }
+.bg-repeat-y  { --bg-repeat: repeat-y; }
+.bg-no-repeat { --bg-repeat: no-repeat; }
+
+/* ── Attachment (parallax) ── */
+.bg-fixed  { --bg-attachment: fixed; }
+.bg-scroll { --bg-attachment: scroll; }
+.bg-local  { --bg-attachment: local; }
+@media (prefers-reduced-motion: reduce) {
+  .bg-fixed { --bg-attachment: scroll; }
+}
+
+/* ── Readability veils ── */
+.bg-veil--dark     { --bg-overlay: rgba(0,0,0,.45); }
+.bg-veil--light    { --bg-overlay: rgba(255,255,255,.45); }
+.bg-veil--gradient { --bg-overlay: linear-gradient(to bottom, rgba(0,0,0,.08), rgba(0,0,0,.65)); }
+.bg-veil--color    { --bg-overlay: color-mix(in srgb, var(--color-link) 28%, transparent); }
+
+/* ── Blend modes ── */
+.bg-blend--multiply { --bg-blend: multiply; }
+.bg-blend--screen   { --bg-blend: screen; }
+.bg-blend--overlay  { --bg-blend: overlay; }
+.bg-blend--soft     { --bg-blend: soft-light; }
+
+/* ── Effects ── */
+.bg-blur {
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+.bg-grayscale { --bg-filter: grayscale(1); }
+.bg-sepia     { --bg-filter: sepia(.65); }
+
+/* ── Glass panels — frosted cards for use above a background ── */
+.glass {
+  background: color-mix(in srgb, var(--color-bg) 55%, transparent);
+  border: 1px solid color-mix(in srgb, #fff 25%, transparent);
+  border-radius: var(--border-radius);
+  backdrop-filter: blur(12px) saturate(1.4);
+  -webkit-backdrop-filter: blur(12px) saturate(1.4);
+  box-shadow: 0 8px 32px rgba(0,0,0,.12);
+}
+.glass--strong {
+  background: color-mix(in srgb, var(--color-bg) 78%, transparent);
+  backdrop-filter: blur(18px) saturate(1.5);
+  -webkit-backdrop-filter: blur(18px) saturate(1.5);
+}
+.glass--dark {
+  background: color-mix(in srgb, #0f172a 45%, transparent);
+  border-color: rgba(255,255,255,.18);
+  color: #fff;
+}
+
+/* ── Pattern tile ── */
+.bg-pattern {
+  --bg-image: var(--bg-pattern-image);
+  --bg-size: var(--bg-pattern-size);
+  --bg-repeat: repeat;
+}
+
+/* ── Kill switch ── */
+.bg-none { --bg-image: none; }
+
+}

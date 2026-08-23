@@ -1,0 +1,41 @@
+@layer exsa.themes {
+
+/* ============================================================
+   LAYER 4 � THEME: STEEL
+   Industrial warm concrete by default, dark iron in dark mode.
+   Auto-switches via prefers-color-scheme.
+   Force mode: <html data-theme-mode="light|dark">
+   ============================================================ */
+
+:root {
+  color-scheme: light dark;
+  --color-bg: light-dark(#faf8f5, #181614);
+  --color-bg-secondary: light-dark(#e8e0d5, #26211c);
+  --color-text: light-dark(#1e1b18, #e8e0d8);
+  --color-text-secondary: light-dark(#6b6058, #a09888);
+  --color-link: light-dark(#c44a08, #fb923c);
+  --color-secondary: light-dark(#3b4b5e, #94a3b8);
+  --color-secondary-accent: light-dark(#3b4b5e0d, #94a3b815);
+  --color-accent: light-dark(#e8610b10, #fb923c14);
+  --color-overlay: rgba(0,0,0,.5);
+  --color-shadow: light-dark(#ccc0b4, #00000033);
+  --color-scrollbar: light-dark(#b8a898, #3a322a);
+  --color-success: light-dark(#16a34a, #22c55e);
+  --color-success-hover: light-dark(#15803d, #16a34a);
+  --color-danger: light-dark(#dc2626, #ef4444);
+  --color-danger-hover: light-dark(#b91c1c, #dc2626);
+  --color-warning: light-dark(#d97706, #f59e0b);
+  --color-warning-hover: light-dark(#b45309, #d97706);
+  --color-border: light-dark(#ccc0b4, #3a322a);
+  --color-button-text: #ffffff;
+  --color-button-text-inverse: light-dark(#eeeeee, #e4e1e1);
+  --border-radius: 3px;
+}
+
+/* Forced dark — <html data-theme-mode="dark">, ignores OS preference */
+:root[data-theme-mode="dark"] { color-scheme: dark; }
+
+/* Forced light — <html data-theme-mode="light">, ignores OS preference */
+:root[data-theme-mode="light"] { color-scheme: light; }
+
+}

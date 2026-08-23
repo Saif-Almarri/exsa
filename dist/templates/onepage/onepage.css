@@ -1,0 +1,309 @@
+@layer exsa.layouts {
+
+/* ============================================================
+   EXSA Template — Onepage (starter skin, inspired by HTML5UP's Helios)
+   Palette derived from HTML5UP's helios main.css
+   (© HTML5UP, licensed CC BY 3.0 — html5up.net/license).
+
+   Link AFTER exsa.css + your theme, plus the components you
+   use (icons.css, buttons.css, card.css, carousel.css + js).
+
+   Body class: layout--onepage
+
+   Hardcoded palette on top of any theme — a starter skin, not a
+   token-driven layout. Set --onepage-header-bg to your own image
+   (gradient + url('your/photo.jpg') center / cover).
+
+   ── Zones ──
+   .onepage__header      full-viewport photo hero + top nav
+   .onepage__nav         absolute top nav, nested hover dropdowns
+   .onepage__hero        brand block: logo, hr, tagline, action
+   .onepage__banner      white headline band
+   .onepage__section     white content band (--alt = #fafafa)
+   .onepage__container   centered max-width column
+   .onepage__section-head section heading block
+   .onepage__grid        responsive card grid
+   .onepage__article     featured article (image + copy)
+   .onepage__footer      dark columns + contact icons + copyright
+
+   Tokens:
+     --onepage-max-w        container width (default: --width-content)
+     --onepage-body-bg      page background        (default #f0f4f4)
+     --onepage-section-bg   content band bg        (default #fff)
+     --onepage-heading      heading color          (default #483949)
+     --onepage-accent       link / highlight       (default #ef8376)
+     --onepage-accent-hover hover accent           (default #df7366)
+     --onepage-header-bg    hero backdrop          (photo + veil)
+     --onepage-footer-bg    footer bg              (default #2b252c)
+     --onepage-icon-size    circled icon diameter
+   ============================================================ */
+
+:root {
+  --onepage-max-w: var(--width-content);
+  --onepage-body-bg: #f0f4f4;
+  --onepage-section-bg: #fff;
+  --onepage-heading: #483949;
+  --onepage-accent: #ef8376;
+  --onepage-accent-hover: #df7366;
+  --onepage-header-bg:
+    linear-gradient(rgba(28, 9, 32, .55), rgba(28, 9, 32, .82));
+  --onepage-footer-bg: #2b252c;
+  --onepage-icon-size: 2.5em;
+}
+
+/* ── Page — Helios-native palette, retokens any theme ── */
+.layout--onepage {
+  --color-bg: var(--onepage-body-bg);
+  --color-bg-secondary: var(--onepage-section-bg);
+  --color-text: #5b5b5b;
+  --color-text-secondary: rgba(128, 128, 128, .75);
+  --color-link: var(--onepage-accent);
+  background: var(--onepage-body-bg);
+  color: #5b5b5b;
+}
+.layout--onepage h1, .layout--onepage h2, .layout--onepage h3,
+.layout--onepage h4, .layout--onepage h5, .layout--onepage h6 {
+  color: var(--onepage-heading);
+}
+
+/* ── Container ── */
+.onepage__container { max-width: var(--onepage-max-w); margin: 0 auto; padding: 0 var(--gap); }
+
+/* ════════════════════════════════════════
+   HEADER — full-viewport photo hero
+   ════════════════════════════════════════ */
+.onepage__header {
+  position: relative;
+  min-height: 100vh;
+  display: flex; align-items: center; justify-content: center;
+  padding: 8em var(--gap) 4em;
+  background: var(--onepage-header-bg);
+  color: #fff;
+  text-align: center;
+}
+.onepage__header h1, .onepage__header h2 { color: #fff; }
+.onepage__header a { color: #fff; }
+
+/* Dark veil that lifts on load (like the original is-preload fade) */
+.onepage__header::after {
+  content: ''; position: absolute; inset: 0; z-index: 0;
+  background: #1C0920;
+  animation: onepage-unveil 2.5s .5s forwards;
+  pointer-events: none;
+}
+@keyframes onepage-unveil { to { opacity: 0; } }
+
+.onepage__hero { position: relative; z-index: 1; max-width: 46em; }
+.onepage__logo {
+  display: inline-block;
+  font-size: clamp(2.6rem, 6vw, 4em);
+  font-weight: 300;
+  letter-spacing: -.025em;
+  text-decoration: none;
+  margin: 0;
+}
+.onepage__hero hr {
+  border: 0; border-top: 1px solid rgba(255, 255, 255, .35);
+  margin: 1.5em auto;
+}
+.onepage__hero p { font-size: 1.25em; color: rgba(255, 255, 255, .75); margin: 0 0 2.5em; }
+
+/* Circled Start button (original: rgba(72,57,73,.5) → coral hover) */
+.onepage__hero .btn {
+  width: 5.5em; height: 5.5em; padding: 0;
+  border: 0; border-radius: 50%;
+  display: inline-flex; align-items: center; justify-content: center;
+  background: rgba(72, 57, 73, .5);
+  color: #fff; font-size: 1.25em;
+  transition: background-color .35s ease-in-out;
+}
+.onepage__hero .btn:hover {
+  background: rgba(239, 131, 118, .75);
+  color: #fff; transform: none; filter: none;
+}
+
+/* ════════════════════════════════════════
+   NAV — transparent top bar over the hero,
+   bordered link row, pure-CSS dropdowns
+   ════════════════════════════════════════ */
+.onepage__nav {
+  position: absolute; top: 0; inset-inline: 0; z-index: 2;
+  padding: 1.5em var(--gap);
+}
+.onepage__nav > ul {
+  list-style: none; margin: 0 auto; padding: 0 .75em;
+  width: max-content; max-width: 100%;
+  display: flex; flex-wrap: wrap;
+  border-inline: 1px solid rgba(192, 192, 192, .35);
+}
+.onepage__nav li { position: relative; }
+.onepage__nav a {
+  display: block; padding: .55em 1em;
+  color: #fff; text-decoration: none; font-size: .9em; white-space: nowrap;
+  transition: color .2s;
+}
+.onepage__nav a:hover { color: rgba(255, 255, 255, .65); }
+
+/* Dropdown panels — light, like the original dropotron */
+.onepage__nav ul ul {
+  display: none; position: absolute; top: 100%; inset-inline-start: 0;
+  min-width: 12em; padding: 1em 1.25em; z-index: 10;
+  background: rgba(255, 255, 255, .975);
+  border-radius: .5em;
+  box-shadow: 0 .15em .25em 0 rgba(0, 0, 0, .25);
+  text-align: start;
+}
+.onepage__nav ul ul li { border-top: 1px solid rgba(128, 128, 128, .2); }
+.onepage__nav ul ul li:first-child { border-top: 0; }
+.onepage__nav ul ul a { color: #5b5b5b; padding: .5em 0; }
+.onepage__nav ul ul a:hover { color: var(--onepage-accent); }
+.onepage__nav li:hover > ul,
+.onepage__nav li:focus-within > ul { display: block; }
+
+/* Nested submenu opens inline-forward */
+.onepage__nav ul ul ul { top: -1em; inset-inline-start: 100%; }
+
+/* ════════════════════════════════════════
+   BANNER — white headline band
+   ════════════════════════════════════════ */
+.onepage__banner {
+  background: #fff;
+  padding: 4.5em var(--gap);
+  text-align: center;
+  scroll-margin-top: 4em;
+}
+.onepage__banner h2 {
+  font-size: clamp(1.8rem, 4vw, 2.6rem);
+  font-weight: 300;
+  color: #2b252c;
+  margin: 0 0 .5em;
+}
+.onepage__banner p {
+  color: #5b5b5b;
+  max-width: 42em; margin: 0 auto; line-height: 1.7;
+}
+
+/* ════════════════════════════════════════
+   SECTIONS — white bands on the light body
+   ════════════════════════════════════════ */
+.onepage__section {
+  background: var(--onepage-section-bg);
+  padding: 5em 0;
+  margin-bottom: 2em;
+}
+.onepage__section--alt { background: #fafafa; }
+
+.onepage__section-head {
+  text-align: center; max-width: 46em;
+  margin: 0 auto 2.5em;
+}
+.onepage__section-head h2 { margin: 0 0 .4em; font-size: 1.9rem; }
+.onepage__section-head p { color: var(--color-text-secondary); margin: 0; }
+
+/* Responsive card grid */
+.onepage__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: var(--gap);
+}
+.onepage__grid .card__title { color: var(--onepage-heading); }
+.onepage__grid .card__footer a { color: var(--onepage-accent); }
+
+/* Carousel wrapper + circled arrows (original: dark → coral hover) */
+.onepage__carousel { --slide-gap: var(--gap-sm); margin-top: var(--gap-lg); }
+.onepage__carousel .carousel__nav-btn {
+  width: 3em; height: 3em; border-radius: 50%;
+  background: rgba(72, 57, 73, .5);
+  color: #fff; font-size: 1.4em; opacity: 1;
+  display: flex; align-items: center; justify-content: center;
+}
+.onepage__carousel .carousel__nav-btn:hover { background: rgba(239, 131, 118, .75); color: #fff; }
+
+/* ════════════════════════════════════════
+   FEATURED ARTICLE
+   ════════════════════════════════════════ */
+.onepage__article { max-width: 52em; margin: 0 auto; text-align: center; }
+.onepage__featured { display: block; margin-bottom: var(--gap-lg); }
+.onepage__featured img { width: 100%; height: auto; display: block; border-radius: var(--border-radius); }
+.onepage__article h2 { font-size: 1.9rem; margin: 0 0 .5em; }
+.onepage__article p { color: var(--color-text-secondary); line-height: 1.75; }
+.onepage__article .btn { margin-top: var(--gap-lg); }
+
+/* ════════════════════════════════════════
+   FOOTER — dark, like the original #2b252c
+   ════════════════════════════════════════ */
+.onepage__footer {
+  background: var(--onepage-footer-bg);
+  color: #fff;
+  margin-top: 2em;
+  padding: 6em 0 4em;
+  font-size: .9em;
+}
+.onepage__footer h2, .onepage__footer h3, .onepage__footer h4 { color: #fff; }
+.onepage__footer a { color: rgba(212, 212, 212, .85); }
+.onepage__footer a:hover { color: var(--onepage-accent); }
+
+.onepage__cols {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: var(--gap-xl);
+}
+.onepage__col-head {
+  display: flex; align-items: center; gap: var(--gap-sm);
+  margin-bottom: var(--gap);
+  font-weight: var(--font-weight-bold);
+  color: #fff;
+}
+.onepage__icon {
+  width: var(--onepage-icon-size); height: var(--onepage-icon-size);
+  border: 1px solid #fff; border-radius: 50%;
+  display: inline-flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+  background: #fff; color: var(--onepage-footer-bg);
+  transition: background-color .2s, color .2s;
+}
+.onepage__icon .ic { width: 55%; height: 55%; }
+.onepage__list { list-style: none; margin: 0; padding: 0; }
+.onepage__list li { padding: .55em 0; border-bottom: 1px solid rgba(255, 255, 255, .12); }
+.onepage__list li:last-child { border-bottom: 0; }
+.onepage__timestamp { display: block; font-size: .8em; color: rgba(128, 128, 128, .75); margin-top: .15em; }
+.onepage__photos { display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--gap-sm); }
+.onepage__photos img {
+  width: 100%; height: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  display: block; border-radius: var(--border-radius);
+}
+
+.onepage__footer hr { border: 0; border-top: 1px solid rgba(255, 255, 255, .12); margin: var(--gap-xl) 0; }
+
+.onepage__contact { text-align: center; }
+.onepage__icons { display: flex; justify-content: center; flex-wrap: wrap; gap: var(--gap-sm); margin-bottom: var(--gap-lg); }
+.onepage__icons a { text-decoration: none; }
+.onepage__icons a:hover .onepage__icon { background: var(--onepage-accent); color: #fff; border-color: var(--onepage-accent); }
+.onepage__copyright { color: rgba(128, 128, 128, .75); font-size: .85em; }
+
+/* ════════════════════════════════════════
+   RESPONSIVE
+   ════════════════════════════════════════ */
+@media (max-width: 768px) {
+  .onepage__header { min-height: 40em; padding: 7em var(--gap) 4em; }
+  /* Dropdowns become inline expanding lists */
+  .onepage__nav ul ul {
+    position: static; display: none;
+    min-width: 0; padding: 0;
+    background: transparent; box-shadow: none; border-radius: 0;
+  }
+  .onepage__nav ul ul li { border-top: 0; }
+  .onepage__nav ul ul a { color: #fff; padding: .4em 1em; }
+  .onepage__nav ul ul a:hover { color: rgba(255, 255, 255, .65); }
+  .onepage__section { padding: 3em 0; }
+  .onepage__footer { padding: 4em 0 3em; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .onepage__header::after { animation: none; opacity: 0; }
+  .onepage__icons a, .onepage__nav a, .onepage__hero .btn { transition: none; }
+}
+
+}

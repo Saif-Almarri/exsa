@@ -1,0 +1,42 @@
+@layer exsa.themes {
+
+/* ============================================================
+   LAYER 4 � THEME: VOLT
+   Deep navy with electric volt-green accents. High-voltage
+   contrast � dark enough for focus, bright enough to guide.
+   Auto-switches via prefers-color-scheme.
+   Force mode: <html data-theme-mode="light|dark">
+   ============================================================ */
+
+:root {
+  color-scheme: light dark;
+  --color-bg: light-dark(#f0f4fa, #0d254c);
+  --color-bg-secondary: light-dark(#dde6f4, #132d58);
+  --color-text: light-dark(#0d254c, #dce4f4);
+  --color-text-secondary: light-dark(#3f6798, #7bafd4);
+  --color-link: light-dark(#8cbf00, #ceff00);
+  --color-secondary: light-dark(#b4975a, #3f6798);
+  --color-secondary-accent: light-dark(#b4975a0d, #3f679818);
+  --color-accent: light-dark(#8cbf0010, #ceff0014);
+  --color-overlay: rgba(0,0,0,.5);
+  --color-shadow: light-dark(#c8d4e4, #00000066);
+  --color-scrollbar: light-dark(#7bafd4, #15305c);
+  --color-success: light-dark(#16a34a, #22c55e);
+  --color-success-hover: light-dark(#15803d, #16a34a);
+  --color-danger: light-dark(#dc2626, #ef4444);
+  --color-danger-hover: light-dark(#b91c1c, #dc2626);
+  --color-warning: light-dark(#d97706, #f59e0b);
+  --color-warning-hover: light-dark(#b45309, #d97706);
+  --color-border: light-dark(#c8d4e4, #15305c);
+  --color-button-text: light-dark(#ffffff, #0d254c);
+  --color-button-text-inverse: light-dark(#181717, #eeeeee);
+  --border-radius: 4px;
+}
+
+/* Forced dark — <html data-theme-mode="dark">, ignores OS preference */
+:root[data-theme-mode="dark"] { color-scheme: dark; }
+
+/* Forced light — <html data-theme-mode="light">, ignores OS preference */
+:root[data-theme-mode="light"] { color-scheme: light; }
+
+}

@@ -1,0 +1,91 @@
+@layer exsa.components {
+
+/* ============================================================
+   Component: Dashboard Primitives — reusable app pieces
+   Extracted from layouts/dashboard.css so they work in any shell.
+   Tokens (optional, set on <body> by layouts/dashboard.css):
+     --dash-gap, --dash-col-min, --dash-toolbar-z
+   Fallbacks keep the component functional without the layout.
+   ============================================================ */
+
+/* Panel card */
+.dash-card {
+  background: var(--color-bg);
+  border: 1px solid var(--color-bg-secondary);
+  border-radius: var(--border-radius);
+  padding: calc(16px * var(--space-factor, 1));
+  margin-bottom: var(--dash-gap, var(--gap));
+}
+.dash-card:last-child { margin-bottom: 0; }
+.dash-card--sm { padding: calc(12px * var(--space-factor, 1)); }
+.dash-card--lg { padding: calc(24px * var(--space-factor, 1)); }
+
+.dash-card__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--dash-gap, var(--gap));
+  flex-wrap: wrap;
+  margin-bottom: calc(12px * var(--space-factor, 1));
+}
+.dash-card__title {
+  margin: 0;
+  font-size: calc(.95rem * var(--font-factor, 1));
+  font-weight: 700;
+}
+.dash-card__sub {
+  margin: calc(2px * var(--space-factor, 1)) 0 0;
+  font-size: calc(.74rem * var(--font-factor, 1));
+  color: var(--color-text-secondary);
+}
+
+/* Auto-fit grid — KPI rows, card groups. Override --dash-col-min per grid. */
+.dash-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(var(--dash-col-min, 180px), 100%), 1fr));
+  gap: var(--dash-gap, var(--gap));
+  margin-bottom: var(--dash-gap, var(--gap));
+}
+.dash-grid:last-child { margin-bottom: 0; }
+
+/* Stat / KPI card */
+.dash-stat { display: flex; flex-direction: column; gap: calc(2px * var(--space-factor, 1)); }
+.dash-stat__label {
+  font-size: calc(.68rem * var(--font-factor, 1));
+  font-weight: 700;
+  letter-spacing: .05em;
+  text-transform: uppercase;
+  color: var(--color-text-secondary);
+}
+.dash-stat__value {
+  font-size: calc(1.25rem * var(--font-factor, 1));
+  font-weight: 800;
+  margin: calc(2px * var(--space-factor, 1)) 0;
+}
+.dash-stat__value--num {
+  font-family: var(--font-family-mono);
+  font-variant-numeric: tabular-nums;
+  text-align: end;
+}
+.dash-stat__delta { font-size: calc(.72rem * var(--font-factor, 1)); }
+.dash-stat__delta--up   { color: var(--color-success); }
+.dash-stat__delta--down { color: var(--color-danger); }
+
+/* Sticky toolbar — filter bar above tables; sits just below the topbar */
+.dash__toolbar {
+  position: sticky;
+  top: var(--topbar-height, 0);
+  z-index: var(--dash-toolbar-z, 89);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--dash-gap, var(--gap));
+  flex-wrap: wrap;
+  background: var(--color-bg);
+  border: 1px solid var(--color-bg-secondary);
+  border-radius: var(--border-radius);
+  padding: calc(10px * var(--space-factor, 1)) calc(14px * var(--space-factor, 1));
+  margin-bottom: var(--dash-gap, var(--gap));
+}
+
+}

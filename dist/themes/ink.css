@@ -1,0 +1,43 @@
+@layer exsa.themes {
+
+/* ============================================================
+   LAYER 4 � THEME: INK
+   Warm paper + dark ink by default. Near-black + parchment
+   text in dark mode. High contrast, comfortable reading.
+   Auto-switches via prefers-color-scheme.
+   Force mode: <html data-theme-mode="light|dark">
+   ============================================================ */
+
+:root {
+  color-scheme: light dark;
+  --color-bg: light-dark(#f8f4e8, #0f0f0c);
+  --color-bg-secondary: light-dark(#ebe4d0, #1a1a14);
+  --color-text: light-dark(#1a1814, #d4cebc);
+  --color-text-secondary: light-dark(#6a6458, #8a8478);
+  --color-link: light-dark(#8a6a30, #c4a44a);
+  --color-secondary: light-dark(#6a5030, #a08040);
+  --color-secondary-accent: light-dark(#6a50300d, #a0804018);
+  --color-accent: light-dark(#8a6a3010, #c4a44a14);
+  --color-overlay: rgba(0,0,0,.5);
+  --color-shadow: light-dark(#d4ccb8, #00000088);
+  --color-scrollbar: light-dark(#b8b098, #2a2a20);
+  --color-success: light-dark(#16a34a, #4ade80);
+  --color-success-hover: light-dark(#15803d, #22c55e);
+  --color-danger: light-dark(#dc2626, #f87171);
+  --color-danger-hover: light-dark(#b91c1c, #ef4444);
+  --color-warning: light-dark(#d97706, #fbbf24);
+  --color-warning-hover: light-dark(#b45309, #f59e0b);
+  --color-border: light-dark(#d4ccb8, #2a2a20);
+  --color-button-text: light-dark(var(--color-bg), #0f0f0c);
+  --color-button-text-inverse: light-dark(#eeeeee, #e4e1e1);
+  --font-family: Georgia,'Times New Roman',serif;
+  --border-radius: 3px;
+}
+
+/* Forced dark — <html data-theme-mode="dark">, ignores OS preference */
+:root[data-theme-mode="dark"] { color-scheme: dark; }
+
+/* Forced light — <html data-theme-mode="light">, ignores OS preference */
+:root[data-theme-mode="light"] { color-scheme: light; }
+
+}

@@ -1,0 +1,22 @@
+@layer exsa.components {
+
+/* ============================================================
+   Component: Pagination
+   ============================================================ */
+
+/* --- C7: PAGINATION --- */
+.pagination{display:flex;align-items:center;gap: calc(4px * var(--space-factor, 1));flex-wrap:wrap;list-style:none;padding:0;margin:0;font-weight:normal;justify-content:flex-start}
+.pagination__item{display:inline-flex}
+.pagination__link{display:inline-flex;align-items:center;justify-content:center;min-width:36px;height:36px;padding: 0 calc(10px * var(--space-factor, 1));border-radius:var(--border-radius);font-size:.82rem;font-weight:600;color:var(--color-button-text-inverse);text-decoration:none;border:1px solid var(--color-border);background:var(--color-bg);transition:background .15s,color .15s,border-color .15s;cursor:pointer}
+.pagination__link:hover{background:var(--color-bg-secondary);border-color:var(--color-bg-secondary);filter:none}
+.pagination__link:visited{color:var(--color-text)}
+.pagination__link--active{background:var(--color-link);color:var(--color-button-text);border-color:var(--color-link)}
+.pagination__link--active:hover{background:var(--color-link);filter:none}
+.pagination__link--disabled{opacity:.4;pointer-events:none;cursor:default}
+.pagination__ellipsis{display:inline-flex;align-items:center;justify-content:center;min-width:36px;height:36px;font-size:.82rem;color:var(--color-text-secondary);letter-spacing:.08em}
+
+/* Compact */
+.pagination--sm .pagination__link{min-width:30px;height:30px;font-size:.74rem}
+.pagination--sm .pagination__ellipsis{min-width:30px;height:30px;font-size:.74rem}
+
+}

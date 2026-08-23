@@ -1,0 +1,42 @@
+@layer exsa.themes {
+
+/* ============================================================
+   LAYER 4 � THEME: EMBER
+   Warm cream + amber by default. Deep charcoal + glowing
+   embers in dark mode. Campfire warmth.
+   Auto-switches via prefers-color-scheme.
+   Force mode: <html data-theme-mode="light|dark">
+   ============================================================ */
+
+:root {
+  color-scheme: light dark;
+  --color-bg: light-dark(#fef9f0, #181410);
+  --color-bg-secondary: light-dark(#f5e6d0, #241e18);
+  --color-text: light-dark(#2a1e10, #e8dcc8);
+  --color-text-secondary: light-dark(#7a6850, #9e8e78);
+  --color-link: light-dark(#c87030, #e8943a);
+  --color-secondary: light-dark(#a05030, #c87040);
+  --color-secondary-accent: light-dark(#a050300d, #c8704018);
+  --color-accent: light-dark(#c8703010, #e8943a14);
+  --color-overlay: rgba(0,0,0,.5);
+  --color-shadow: light-dark(#dcc8a8, #00000066);
+  --color-scrollbar: light-dark(#c0a888, #2a2218);
+  --color-success: light-dark(#16a34a, #4ade80);
+  --color-success-hover: light-dark(#15803d, #22c55e);
+  --color-danger: light-dark(#dc2626, #f87171);
+  --color-danger-hover: light-dark(#b91c1c, #ef4444);
+  --color-warning: light-dark(#d97706, #fbbf24);
+  --color-warning-hover: light-dark(#b45309, #f59e0b);
+  --color-border: light-dark(#dcc8a8, #2a2218);
+  --color-button-text: light-dark(var(--color-bg), #181410);
+  --color-button-text-inverse: light-dark(#eeeeee, #e4e1e1);
+  --border-radius: 6px;
+}
+
+/* Forced dark — <html data-theme-mode="dark">, ignores OS preference */
+:root[data-theme-mode="dark"] { color-scheme: dark; }
+
+/* Forced light — <html data-theme-mode="light">, ignores OS preference */
+:root[data-theme-mode="light"] { color-scheme: light; }
+
+}

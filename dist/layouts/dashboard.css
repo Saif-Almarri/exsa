@@ -1,0 +1,328 @@
+@layer exsa.layouts {
+
+/* ============================================================
+   EXSA Dashboard Layout — admin panel / app shell
+
+   Link AFTER exsa.css + your theme.
+   Add to <body> for dashboards, admin panels, and web apps.
+
+   Zones (body classes):
+     dash--sidebar         = fixed full-height left sidebar
+     dash--sidebar-sm      = always-collapsed icon-only sidebar
+     dash--sidebar-fixed   = never auto-collapse (opt out of responsive)
+     dash--sidebar-dark    = dark background sidebar
+     dash--sidebar-open    = mobile: drawer expanded (JS toggles)
+     dash--topbar          = fixed topbar
+     dash--topbar-full     = topbar spans full width
+     dash--panel           = optional right detail panel
+     dash--dense           = compact density (overrides the factors)
+
+   Responsive behavior (automatic, no JS required):
+     ≤1023px   sidebar auto-collapses to icon mode (unless dash--sidebar-fixed)
+     ≤767px    sidebar becomes an overlay drawer + backdrop;
+               toggle dash--sidebar-open on <body> (e.g. via .topbar__toggle)
+
+   Density — consumes the global factors from exsa.css/exsa.fluid.css:
+     --space-factor, --radius-factor, --font-factor, --motion-factor
+     data-profile="compact|spacious" or .dash--dense rescales the shell.
+
+   Tokens:
+     --topbar-height       inherited from topbar.css (56/48/64/72px)
+     --dash-sidebar-w      260px (scaled by --space-factor, floored)
+     --dash-sidebar-sm      56px (icon mode, scaled + floored)
+     --dash-panel-w        320px (scaled + floored)
+     --dash-padding         32px (content gutter)
+     --dash-panel-padding   24px
+     --dash-gap             16px (grid/gutter spacing)
+     --dash-col-min        180px (dash-grid min column width)
+     --dash-toolbar-z       89 (sticky toolbar layer)
+   ============================================================ */
+
+/* Tokens live on <body> (not :root) so --space-factor / --font-factor
+   set on the body (dash--dense, data-profile) resolve correctly. */
+body {
+  --dash-sidebar-w: max(224px, calc(260px * var(--space-factor, 1)));
+  --dash-sidebar-sm: max(52px, calc(56px * var(--space-factor, 1)));
+  --dash-panel-w: max(280px, calc(320px * var(--space-factor, 1)));
+  --dash-padding: calc(32px * var(--space-factor, 1));
+  --dash-panel-padding: calc(24px * var(--space-factor, 1));
+  --dash-gap: calc(16px * var(--space-factor, 1));
+  --dash-col-min: 180px;
+  --dash-toolbar-z: 89;
+}
+
+/* Dense modifier — compact the whole shell without touching the page profile */
+.dash--dense {
+  --space-factor: .85;
+  --radius-factor: .85;
+  --font-factor: .95;
+  --motion-factor: .6;
+}
+
+/* ════════════════════════════════════════
+   1. SHELL — full viewport, no body scroll
+   ════════════════════════════════════════ */
+.dash--sidebar,
+.dash--topbar {
+  height: 100vh;
+  height: 100dvh;      /* mobile-safe: tracks dynamic browser chrome */
+  overflow: hidden;
+}
+
+/* ════════════════════════════════════════
+   2. TOPBAR — height scales with --space-factor
+   ════════════════════════════════════════ */
+body.dash--topbar {
+  --topbar-height: max(44px, calc(56px * var(--space-factor, 1)));
+}
+body.dash--topbar:has(.topbar--sm) { --topbar-height: max(40px, calc(48px * var(--space-factor, 1))); }
+body.dash--topbar:has(.topbar--lg) { --topbar-height: max(56px, calc(64px * var(--space-factor, 1))); }
+body.dash--topbar:has(.topbar--xl) { --topbar-height: max(60px, calc(72px * var(--space-factor, 1))); }
+
+/* Keep the element-level variant tokens (set by topbar.css) in sync with the factor */
+body.dash--topbar .topbar--sm { --topbar-height: max(40px, calc(48px * var(--space-factor, 1))); }
+body.dash--topbar .topbar--lg { --topbar-height: max(56px, calc(64px * var(--space-factor, 1))); }
+body.dash--topbar .topbar--xl { --topbar-height: max(60px, calc(72px * var(--space-factor, 1))); }
+
+/* Topbar offset by sidebar (default with dash--sidebar) */
+.dash--sidebar.dash--topbar .topbar {
+  inset-inline-start: var(--dash-sidebar-w);
+}
+
+/* Full-width topbar override */
+.dash--sidebar.dash--topbar.dash--topbar-full .topbar {
+  inset-inline-start: 0; inset-inline-end: 0;
+}
+
+/* ════════════════════════════════════════
+   3. SIDEBAR — fixed, full-height
+   ════════════════════════════════════════ */
+.dash__sidebar {
+  position: fixed;
+  top: 0; inset-inline-start: 0; bottom: 0;
+  width: var(--dash-sidebar-w);
+  z-index: var(--z-layout-aside);
+  display: flex;
+  flex-direction: column;
+  background: var(--color-bg);
+  border-inline-end: 1px solid var(--color-bg-secondary);
+  overflow: hidden;
+}
+
+/* Dark sidebar variant */
+.dash--sidebar-dark .dash__sidebar {
+  background: color-mix(in srgb, var(--color-bg), #0f172a 85%);
+  border-inline-end-color: rgba(255,255,255,.06);
+  color: rgba(255,255,255,.85);
+}
+.dash--sidebar-dark .dash__sidebar .sidebar__link {
+  color: rgba(255,255,255,.65);
+}
+.dash--sidebar-dark .dash__sidebar .sidebar__link:hover {
+  color: #fff;
+  background: rgba(255,255,255,.06);
+}
+.dash--sidebar-dark .dash__sidebar .sidebar__link--active {
+  color: #fff;
+  background: rgba(255,255,255,.1);
+}
+
+/* Sidebar head */
+.dash__sidebar-head {
+  padding: 0 calc(18px * var(--space-factor, 1));
+  height: var(--topbar-height, 56px);
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid var(--color-bg-secondary);
+  flex-shrink: 0;
+  font-weight: 700;
+  font-size: calc(15px * var(--font-factor, 1));
+  gap: calc(8px * var(--space-factor, 1));
+}
+.dash--sidebar-dark .dash__sidebar-head {
+  border-bottom-color: rgba(255,255,255,.06);
+}
+
+/* Sidebar nav */
+.dash__sidebar .sidebar__nav {
+  flex: 1;
+  overflow-y: auto;
+}
+.dash__sidebar .sidebar__nav::-webkit-scrollbar { width: 4px; }
+.dash__sidebar .sidebar__nav::-webkit-scrollbar-track { background: transparent; }
+.dash__sidebar .sidebar__nav::-webkit-scrollbar-thumb { background: var(--color-scrollbar); border-radius: 2px; }
+
+/* ════════════════════════════════════════
+   4. COLLAPSED SIDEBAR — icon-only
+   Manual: dash--sidebar-sm (all sizes)
+   Auto:   ≤1023px unless dash--sidebar-fixed / dash--sidebar-open
+   ════════════════════════════════════════ */
+.dash--sidebar-sm .dash__sidebar {
+  width: var(--dash-sidebar-sm);
+}
+.dash--sidebar-sm .dash__sidebar-head {
+  justify-content: center; padding: 0;
+}
+.dash--sidebar-sm .dash__sidebar-head span { display: none; }
+.dash--sidebar-sm .sidebar__label,
+.dash--sidebar-sm .sidebar__arrow,
+.dash--sidebar-sm .sidebar__sub-menu,
+.dash--sidebar-sm .sidebar__badge {
+  display: none;
+}
+.dash--sidebar-sm .sidebar__link {
+  justify-content: center; padding: calc(14px * var(--space-factor, 1)) 0;
+}
+.dash--sidebar-sm.dash--topbar .topbar {
+  inset-inline-start: var(--dash-sidebar-sm);
+}
+.dash--sidebar-sm .dash__content {
+  margin-inline-start: var(--dash-sidebar-sm);
+}
+
+/* Auto-collapse to icon mode below the lg breakpoint */
+@media (max-width: 1023px) {
+  .dash--sidebar:not(.dash--sidebar-fixed):not(.dash--sidebar-open) .dash__sidebar {
+    width: var(--dash-sidebar-sm);
+  }
+  .dash--sidebar:not(.dash--sidebar-fixed):not(.dash--sidebar-open) .dash__sidebar-head {
+    justify-content: center; padding: 0;
+  }
+  .dash--sidebar:not(.dash--sidebar-fixed):not(.dash--sidebar-open) .dash__sidebar-head span { display: none; }
+  .dash--sidebar:not(.dash--sidebar-fixed):not(.dash--sidebar-open) .sidebar__label,
+  .dash--sidebar:not(.dash--sidebar-fixed):not(.dash--sidebar-open) .sidebar__arrow,
+  .dash--sidebar:not(.dash--sidebar-fixed):not(.dash--sidebar-open) .sidebar__sub-menu,
+  .dash--sidebar:not(.dash--sidebar-fixed):not(.dash--sidebar-open) .sidebar__badge {
+    display: none;
+  }
+  .dash--sidebar:not(.dash--sidebar-fixed):not(.dash--sidebar-open) .sidebar__link {
+    justify-content: center; padding: calc(14px * var(--space-factor, 1)) 0;
+  }
+  .dash--sidebar:not(.dash--sidebar-fixed):not(.dash--sidebar-open).dash--topbar .topbar {
+    inset-inline-start: var(--dash-sidebar-sm);
+  }
+  .dash--sidebar:not(.dash--sidebar-fixed):not(.dash--sidebar-open) .dash__content {
+    margin-inline-start: var(--dash-sidebar-sm);
+  }
+}
+
+/* ════════════════════════════════════════
+   5. CONTENT — scrollable main area
+   ════════════════════════════════════════ */
+.dash__content {
+  margin-inline-start: var(--dash-sidebar-w);
+  height: 100vh;
+  height: 100dvh;
+  overflow-y: auto;
+  background: var(--color-bg-secondary);
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-scrollbar) transparent;
+}
+.dash__content::-webkit-scrollbar { width: 8px; }
+.dash__content::-webkit-scrollbar-track { background: transparent; }
+.dash__content::-webkit-scrollbar-thumb { background: var(--color-scrollbar); border-radius: 4px; }
+.dash--topbar .dash__content {
+  padding-top: var(--topbar-height);
+}
+
+/* Content inner — optional padding wrapper */
+.dash__content-inner {
+  padding: var(--dash-padding);
+  max-width: 1400px;
+  margin-inline: auto;
+}
+
+/* ════════════════════════════════════════
+   6. RIGHT PANEL — optional detail sidebar
+   ════════════════════════════════════════ */
+.dash--panel .dash__shell {
+  display: flex;
+}
+.dash--panel .dash__content {
+  flex: 1;
+  min-width: 0;
+}
+.dash--panel .dash__panel {
+  width: var(--dash-panel-w);
+  flex-shrink: 0;
+  height: 100vh;
+  height: 100dvh;
+  overflow-y: auto;
+  background: var(--color-bg);
+  border-inline-start: 1px solid var(--color-bg-secondary);
+  padding: var(--dash-panel-padding);
+}
+.dash--topbar.dash--panel .dash__panel {
+  padding-top: calc(var(--topbar-height) + var(--dash-panel-padding));
+}
+
+/* ════════════════════════════════════════
+   7. NO SIDEBAR — topbar-only layout
+   ════════════════════════════════════════ */
+.dash--topbar:not(.dash--sidebar) .dash__content {
+  margin-inline-start: 0;
+}
+
+/* ════════════════════════════════════════
+   8. MOBILE DRAWER (≤767px) + backdrop
+   ════════════════════════════════════════ */
+.dash__backdrop {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-drawer);
+  background: var(--color-overlay);
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity calc(250ms * var(--motion-factor, 1)) ease;
+}
+.dash--sidebar-open .dash__backdrop {
+  display: block;
+  opacity: 1;
+}
+
+@media (max-width: 767px) {
+  /* Closed — slide the full sidebar off-canvas (overrides icon-mode width) */
+  .dash--sidebar:not(.dash--sidebar-fixed):not(.dash--sidebar-open) .dash__sidebar {
+    width: var(--dash-sidebar-w);
+    z-index: var(--z-drawer-panel);
+    transform: translateX(-100%);
+    box-shadow: none;
+    transition: transform calc(250ms * var(--motion-factor, 1)) ease;
+  }
+  [dir="rtl"] .dash--sidebar:not(.dash--sidebar-fixed):not(.dash--sidebar-open) .dash__sidebar {
+    transform: translateX(100%);
+  }
+
+  /* Open — drawer overlays content */
+  .dash--sidebar.dash--sidebar-open .dash__sidebar {
+    z-index: var(--z-drawer-panel);
+    transform: translateX(0);
+    box-shadow: 8px 0 32px var(--color-shadow);
+    transition: transform calc(250ms * var(--motion-factor, 1)) ease;
+  }
+
+  /* Content + topbar go full width in drawer mode */
+  .dash--sidebar:not(.dash--sidebar-fixed):not(.dash--sidebar-open) .dash__content,
+  .dash--sidebar.dash--sidebar-open .dash__content {
+    margin-inline-start: 0;
+  }
+  .dash--sidebar:not(.dash--sidebar-fixed):not(.dash--sidebar-open).dash--topbar .topbar,
+  .dash--sidebar.dash--sidebar-open.dash--topbar .topbar {
+    inset-inline-start: 0;
+  }
+  .dash--sidebar:not(.dash--sidebar-fixed):not(.dash--sidebar-open).dash--topbar.dash--topbar-full .topbar,
+  .dash--sidebar.dash--sidebar-open.dash--topbar.dash--topbar-full .topbar {
+    inset-inline-start: 0; inset-inline-end: 0;
+  }
+}
+
+/* ════════════════════════════════════════
+   9. CONTENT PRIMITIVES — moved to components/dashboard.css
+   (.dash-card, .dash-grid, .dash-stat, .dash__toolbar now ship as
+   standalone components and work in any layout.)
+   ════════════════════════════════════════ */
+
+}

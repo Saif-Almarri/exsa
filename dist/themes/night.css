@@ -1,0 +1,41 @@
+@layer exsa.themes {
+
+/* ============================================================
+   LAYER 4 � THEME: NIGHT
+   Dark by default, light variant for daytime.
+   Auto-switches via prefers-color-scheme.
+   Force mode: <html data-theme-mode="light|dark">
+   ============================================================ */
+
+:root {
+  color-scheme: light dark;
+  --color-bg: light-dark(#f8fafc, #0f1117);
+  --color-bg-secondary: light-dark(#e2e8f0, #1c1f2e);
+  --color-text: light-dark(#0f172a, #e2e8f0);
+  --color-text-secondary: #64748b;
+  --color-link: light-dark(#2563eb, #60a5fa);
+  --color-secondary: light-dark(#7c3aed, #c084fc);
+  --color-secondary-accent: light-dark(#7c3aed0d, #c084fc12);
+  --color-accent: light-dark(#2563eb10, #60a5fa12);
+  --color-overlay: rgba(0,0,0,.5);
+  --color-shadow: light-dark(#cbd5e1, #00000055);
+  --color-scrollbar: light-dark(#94a3b8, #334155);
+  --color-success: light-dark(#16a34a, #22c55e);
+  --color-success-hover: light-dark(#15803d, #16a34a);
+  --color-danger: light-dark(#dc2626, #ef4444);
+  --color-danger-hover: light-dark(#b91c1c, #dc2626);
+  --color-warning: light-dark(#d97706, #f59e0b);
+  --color-warning-hover: light-dark(#b45309, #d97706);
+  --color-border: light-dark(#cbd5e1, #334155);
+  --color-button-text: #ffffff;
+  --color-button-text-inverse: light-dark(#e4e1e1, #eeeeee);
+  --border-radius: 6px;
+}
+
+/* Forced dark — <html data-theme-mode="dark">, ignores OS preference */
+:root[data-theme-mode="dark"] { color-scheme: dark; }
+
+/* Forced light — <html data-theme-mode="light">, ignores OS preference */
+:root[data-theme-mode="light"] { color-scheme: light; }
+
+}

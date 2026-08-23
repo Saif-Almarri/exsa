@@ -1,0 +1,234 @@
+@layer exsa.layouts {
+
+/* ============================================================
+   EXSA Template — Fullpage · single-viewport landing (starter skin)
+   Hardcoded palette — a starter skin, not a token-driven layout.
+
+   Link AFTER exsa.css + your theme:
+   <link rel="stylesheet" href="layouts/fullpage.css">
+
+   <body class="exsa layout--fullpage">
+
+   ── Zones ──
+   .fullpage__backdrop        full-viewport media (first img/video covers)
+   .fullpage__backdrop--pan   seamless scrolling tile (set --fullpage-pan-image)
+   .fullpage__veil            pattern + gradient above the backdrop
+   .fullpage__content         centered brand block (h1 + tagline)
+   .fullpage__social          icon rings under the tagline (link icons.css)
+   .fullpage__logo            optional mark above the title (CSS diamond)
+   .fullpage__nav             link row under the tagline
+   .fullpage__panels          wrapper for .fullpage__panel overlays
+   .fullpage__panel           full-screen overlay — opens via :target (#id link)
+   .fullpage__panel-close     ✕ that closes panels (link it to the shell id)
+   .fullpage__copyright       bottom gradient footer
+
+   ── Tokens (override in your theme) ──
+   --fullpage-font            brand font (default: var(--font-family))
+   --fullpage-base-font-size  page scale (default: 15pt)
+   --fullpage-pan-image       seamless tile — required for --pan mode
+   --fullpage-pan-distance    tile width (default: 2250px)
+   --fullpage-pan-duration    one loop (default: 60s)
+   --fullpage-pan-color       base color behind the tile (default: #348cb2)
+   --fullpage-pattern         optional texture over the backdrop (default: none)
+   --fullpage-overlay         gradient over the backdrop (default: dark)
+   --fullpage-social-size     icon ring diameter (default: 2.5em)
+   --fullpage-logo-size       logo ring diameter (default: 5.5em)
+   --fullpage-nav-gap         nav link spacing (default: clamp(10px,2vw,24px))
+   --fullpage-panel-bg        panel background (default: rgba(14,15,21,.97))
+   --fullpage-panel-width     panel content width (default: 620px)
+
+   Pure CSS. Staggered entrance, reduced-motion safe, RTL-safe.
+   Serve over HTTP — CSS mask icons don't load from file:// pages.
+
+   NOTE: browsers resolve url() inside custom properties relative to
+   THIS file (layouts/), not your page. Use ../-style or absolute
+   paths when overriding --fullpage-pan-image / --fullpage-pattern /
+   --fullpage-overlay from your own stylesheet.
+   ============================================================ */
+
+:root {
+  --fullpage-font: var(--font-family);
+  --fullpage-base-font-size: 15pt;
+  --fullpage-pan-distance: 2250px;
+  --fullpage-pan-duration: 60s;
+  --fullpage-pan-color: #348cb2;
+  --fullpage-overlay: linear-gradient(rgba(0, 0, 0, .3), rgba(0, 0, 0, .55));
+  --fullpage-social-size: 2.5em;
+  --fullpage-logo-size: 5.5em;
+  --fullpage-nav-gap: clamp(10px, 2vw, 24px);
+  --fullpage-panel-bg: rgba(14, 15, 21, .97);
+  --fullpage-panel-width: 620px;
+}
+
+/* ── Page ── */
+body.layout--fullpage {
+  position: relative; overflow: hidden; min-height: 50vh;
+  background: var(--fullpage-pan-color);
+  color: #fff;
+  font-family: var(--fullpage-font);
+  font-weight: 300;
+  letter-spacing: -.025em;
+  font-size: var(--fullpage-base-font-size);
+}
+.layout--fullpage a { color: #fff; text-decoration: none; border-bottom: dotted 1px; transition: border-color .2s ease-in-out; }
+.layout--fullpage a:hover { border-color: transparent; }
+
+/* ── Backdrop: cover mode (video / image) ── */
+.fullpage__backdrop { position: fixed; inset: 0; z-index: 0; overflow: hidden; }
+.fullpage__backdrop > img,
+.fullpage__backdrop > video { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+/* ── Backdrop: pan mode — seamless scrolling tile ── */
+.fullpage__backdrop--pan {
+  width: calc(var(--fullpage-pan-distance) * 3);
+  height: 100%;
+  inset-inline-start: 0; top: 0;
+  background: var(--fullpage-pan-image, none) bottom left repeat-x;
+  background-size: var(--fullpage-pan-distance) auto;
+  animation: fullpage-pan var(--fullpage-pan-duration) linear infinite;
+  will-change: transform;
+}
+@keyframes fullpage-pan { to { transform: translate3d(calc(var(--fullpage-pan-distance) * -1), 0, 0); } }
+
+/* ── Veil: pattern + overlay above the backdrop ── */
+.fullpage__veil {
+  position: fixed; inset: 0; z-index: 1; pointer-events: none;
+  background-image: var(--fullpage-pattern, none), var(--fullpage-overlay);
+  background-position: top left, center center;
+  background-repeat: repeat, no-repeat;
+  background-size: auto, cover;
+  opacity: 0;
+  animation: fullpage-fade 1.5s 1.5s forwards;
+}
+
+/* ── Content: centered brand block ── */
+.fullpage__content {
+  position: fixed; inset: 0; z-index: 2;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  text-align: center; padding: 0 var(--gap);
+}
+.fullpage__brand { width: 90%; opacity: 0; animation: fullpage-rise 1s 2.25s forwards; }
+.fullpage__brand h1 {
+  font-size: 4.25em; font-weight: 800; letter-spacing: -.035em; line-height: 2;
+  margin: 0; color: #fff;
+}
+.fullpage__brand p { font-size: .8em; font-weight: 400; margin: .75em 0 .25em; opacity: .75; color: #ffffffd8; 
+text-transform: uppercase; letter-spacing: 0.2rem;}
+
+/* ── Social icon rings (needs icons.css) ── */
+.fullpage__social { display: flex; justify-content: center; flex-wrap: wrap; margin-top: 1.5em; }
+.fullpage__social a {
+  width: var(--fullpage-social-size); height: var(--fullpage-social-size);
+  margin: 0 .9em;
+  border-radius: 50%; border: 1px solid #fff;
+  display: inline-flex; align-items: center; justify-content: center;
+  color: #fff;
+  transition: background-color .2s ease-in-out, transform .2s ease-in-out;
+  opacity: 0;
+  animation: fullpage-fade .5s ease-in-out forwards;
+}
+.fullpage__social a:nth-child(1) { animation-delay: 2.5s; }
+.fullpage__social a:nth-child(2) { animation-delay: 2.75s; }
+.fullpage__social a:nth-child(3) { animation-delay: 3s; }
+.fullpage__social a:nth-child(4) { animation-delay: 3.25s; }
+.fullpage__social a:nth-child(5) { animation-delay: 3.5s; }
+.fullpage__social a .ic { width: 60%; height: 60%; }
+.fullpage__social a:hover { background-color: rgba(255,255,255,.175); transform: scale(1.1); }
+.fullpage__social a:active { background-color: rgba(255,255,255,.35); transform: scale(.95); }
+
+/* ── Copyright footer: dark gradient at the bottom ── */
+.fullpage__copyright {
+  position: fixed; inset-inline: 0; bottom: 0; z-index: 2;
+  height: 6em;
+  display: flex; align-items: flex-end; justify-content: center;
+  padding-bottom: 1.2em;
+  background: linear-gradient(to top, rgba(0,0,0,.5), rgba(0,0,0,0) 75%);
+  font-size: .8em; color: rgba(255,255,255,.65);
+  opacity: 0;
+  animation: fullpage-fade 1s 3.5s forwards;
+}
+
+/* ── Logo: optional mark above the title (CSS diamond) ── */
+.fullpage__logo {
+  width: var(--fullpage-logo-size); height: var(--fullpage-logo-size);
+  margin: 0 auto 1.2em;
+  border-radius: 50%;
+  border: 1px solid rgba(255,255,255,.7);
+  display: flex; align-items: center; justify-content: center;
+}
+.fullpage__logo::before {
+  content: '';
+  width: 32%; height: 32%;
+  background: #fff;
+  transform: rotate(45deg);
+  border-radius: 2px;
+}
+
+/* ── Nav row under the tagline ── */
+.fullpage__nav {
+  display: flex; justify-content: center; flex-wrap: wrap;
+  gap: var(--fullpage-nav-gap);
+  margin-top: 1.75em;
+  font-size: 1.1em;
+}
+.fullpage__nav a { opacity: .85; transition: opacity .15s, border-color .15s; }
+.fullpage__nav a:hover { opacity: 1; }
+
+/* ── Content panels: full-screen overlays — PURE CSS via :target ──
+   Nav links href="#panel-id" open a panel; the ✕ links to the shell
+   id (e.g. #home) to close. No JavaScript required. */
+.fullpage__panel {
+  position: fixed; inset: 0; z-index: 3;
+  display: none;
+  overflow-y: auto;
+  background: var(--fullpage-panel-bg);
+  color: #fff;
+  padding: 2.5rem var(--gap) 2rem;
+}
+.fullpage__panel:target { display: block; animation: fullpage-fade .2s ease-out; }
+.fullpage__panel-inner { max-width: var(--fullpage-panel-width); margin: 0 auto; }
+.fullpage__panel h2 {
+  color: #fff; font-size: 1.7em; font-weight: 700;
+  border-bottom: 1px solid rgba(255,255,255,.25);
+  padding-bottom: .45em; margin: 0 0 1em;
+}
+.fullpage__panel img { width: 100%; border-radius: var(--border-radius); margin-bottom: 1em; }
+.fullpage__panel p { color: rgba(255,255,255,.85); line-height: 1.5; margin-bottom: 1em; }
+.fullpage__panel .fullpage__fields { display: grid; grid-template-columns: 1fr 1fr; gap: var(--gap); }
+.fullpage__panel .fullpage__fields .full { grid-column: 1 / -1; }
+
+/* Close ✕ — only shows while a panel is :target */
+.fullpage__panel-close {
+  display: none;
+  position: fixed; top: 24px; inset-inline-end: 24px; z-index: 4;
+  width: 44px; height: 44px; border-radius: 50%;
+  border: 1px solid rgba(255,255,255,.4); background: none;
+  color: #fff; font-size: 1rem; cursor: pointer;
+  align-items: center; justify-content: center;
+  transition: background-color .15s, border-color .15s;
+}
+.layout--fullpage a.fullpage__panel-close { border-bottom: 1px solid rgba(255,255,255,.4); }
+.fullpage__panel-close:hover { background-color: rgba(255,255,255,.15); }
+.fullpage__panels:has(.fullpage__panel:target) .fullpage__panel-close { display: inline-flex; }
+
+/* ── Entrance keyframes ── */
+@keyframes fullpage-fade { from { opacity: 0; } to { opacity: 1; } }
+@keyframes fullpage-rise { from { opacity: 0; transform: translate3d(0,1em,0); } to { opacity: 1; transform: translate3d(0,0,0); } }
+
+/* ── Responsive scale (tile shrinks, font scales) ── */
+@media (max-width: 1680px) {
+  body.layout--fullpage { font-size: 13pt; }
+  :root { --fullpage-pan-distance: 1500px; }
+}
+@media (max-width: 1280px) {
+  body.layout--fullpage { font-size: 12pt; }
+}
+
+/* ── Reduced motion: everything visible, no pan ── */
+@media (prefers-reduced-motion: reduce) {
+  .fullpage__backdrop--pan { animation: none; }
+  .fullpage__panel:target { animation: none; }
+  .fullpage__veil, .fullpage__brand, .fullpage__social a, .fullpage__copyright { animation: none; opacity: 1; }
+}
+
+}

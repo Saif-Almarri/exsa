@@ -1,0 +1,156 @@
+# Changelog
+
+All notable changes to EXSA will be documented in this file.
+
+Format based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
+and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+
+---
+
+## [Unreleased]
+
+## [1.0.0-rc.1] — 2026-08-23
+
+### ⚠️ Breaking changes (from beta)
+
+- **CDN paths are now `@main/dist/…`** — the library moved into `dist/` (`exsa.css`, `components/`, `themes/`, `layouts/`, `templates/`, `js/`). Pin `@1.0.0-rc.1` for stability.
+- **Core renamed `style.css` → `exsa.css`** — `dist/style.css` remains as a one-line deprecation shim and will be removed in 1.0.0.
+- **Everything is layer-wrapped** — all 84 framework CSS files live inside the 9 `@layer exsa.*` cascade; unlayered user CSS always beats components. Themes moved into `@layer exsa.themes` (they are no longer unlayered).
+- **`components.js` removed** — behaviors are per-component files in `dist/js/` (or the prebuilt `dist/exsa.js` bundle).
+- **Layouts consolidated 6 → 3 + 2 templates** — `blog.css` merged into `general.css` (blog mode: `blog--prose`, `blog--has-toc`); `fullpage.css`/`onepage.css` moved to `dist/templates/` as starter-kit folders.
+- **Prebuilt bundles** — `dist/exsa.bundle.css` (core + all 56 components + breeze) and `dist/exsa.js` (core + 29 behaviors) replace hand-rolled bundles.
+- **Spacing is tokenized** — every `margin`/`padding`/`gap` is `calc(N × var(--space-factor, 1))`; with `exsa.fluid.css`, `data-profile="compact|spacious"` rescales density globally. Pixel-identical at defaults.
+- **Theme format** — themes now use `light-dark()` pairs with `color-scheme: light dark`; force a mode with `<html data-theme-mode="light|dark">`.
+- **Theme persistence key** — renamed `cc-theme` → `exsa-theme` (the old key is still read once for migration).
+- **Icon class fix** — toast icons use the `.ic` convention (the dead `a-icon` class is gone).
+
+### ✨ Added
+
+- **Layer probe (release gate)** — `site/qa/layer-probe.html` + `tools/layer-probe.mjs` (`npm run probe` / `npm run probe:baseline`): 26 in-browser cascade probes (tokens → theme → u-* → user CSS, guarded elements, JS behaviors, density profiles, RTL, focus ring) plus 6 pixel-diff screenshots with a 2% tolerance.
+- **`schemaVersion` in `manifest.json`** — the manifest is now a stable, versioned contract for tooling (starter kits, generators, sync scripts). Fields are additive only; breaking schema changes will bump `schemaVersion`.
+- **Framework validator** — `tools/validate.mjs` + `package.json` (`npm test`): manifest file references exist, every `tokens.json` token is defined, no `!important` outside the reset layer, optional `--layers` / `--no-legacy` checks, `--baseline` stats.
+- **Token definitions completed** — `--justify-nav` and `--blockquote-border` were documented but never defined; now real `:root` tokens. `exsa.css` `:root` defines 82 tokens (64 documented in `tokens.json`); all docs updated from the stale 61/80 claims.
+- **Core renamed `style.css` → `exsa.css`** — `style.css` is now a one-line `@import` deprecation alias (removed in v1.0.0). Manifest, tokens.json, generator, theme-builder, source viewer, and all docs point at `exsa.css`.
+- **Dark mode collapsed with `light-dark()`** — the four manually-synced token blocks (core + 21 theme files) became single `light-dark()` definitions with `color-scheme` flips for forced modes. ~90 silently-drifted forced-mode values were normalized across themes. Total CSS: 326.5 KB → 277.9 KB (−15%). Requires Chrome 123+ / Firefox 120+ / Safari 17.5+.
+- **Legacy `components.js` bundle deleted** — all 7 site pages migrated to `js/*.js` (only topbar + theme-builder's toggle were actually needed). `docs.php` no longer double-loads topbar behavior; its prose now documents the per-component `js/` model.
+- **Icon system consolidated** — inline `.ic` styles removed from `includes/head.php`; all pages now load `components/icons.css` once (duplicate links removed from 5 pages).
+- **Theme Builder exports the new format** — generates a single `light-dark()` block + forced-mode flips; its PHP parser reads `light-dark()` pairs from `:root`.
+- **Layer 5 is real — full 8-layer cascade** — `exsa.css` now declares `tokens → themes → fluid → reset → layout → elements → components → layouts`. All 84 framework CSS files are layer-wrapped (`@layer exsa.components;` on 56 components, `exsa.layouts` on 6 layouts, `exsa.themes` on 21 themes, `exsa.fluid` on exsa.fluid.css). Unlayered user CSS now always beats every component without specificity escalation — the "no `!important`" promise is enforced, not just advertised.
+- **Cascade workarounds retired** — element-prefixed `filter:none` counter-selectors in back-top/cookie-bar/lightbox merged into their natural hover rules (layer order now beats the guarded `:where()` core rules).
+- **Validator hardened** — `npm test` now runs with `--layers --no-legacy`; every new component file must be layer-wrapped or CI fails.
+- **Override utilities (`u-*`)** — new top layer `exsa.overrides` with 18 single-property escape-hatch classes (`.u-text-center`, `.u-flex`, `.u-w-full`, `.u-gap-*`, `.u-m-0`, `.u-radius-full`…). Unprefixed utilities stay structural (components win); `u-*` always beats components and layouts; unlayered user CSS still beats everything.
+- **Utilities layer renamed** `exsa.layout` → `exsa.utilities` — kills the `exsa.layout`/`exsa.layouts` name collision and encodes the "theme + structure" model in the cascade itself.
+- **Cascade inversion bug fixed** — mixing blockless `@layer` statements (distributed files) with block statements (core) silently inverted the layer order in Chromium; all 84 distributed files now use the full block form `@layer exsa.X { … }`. Verified in-browser: `u-*` beats components, plain utilities stay structural, user CSS always wins. Validator now requires the block form (and bans stray U+FEFF characters — 41 cleaned out of the CSS files).
+- **Layouts consolidated 6 → 3 + 2 templates** — `blog.css` merged into `general.css` (blog mode: `blog--prose`, `blog--has-toc`); dashboard-mode classes (`layout--aside-full/full-height/content-scroll/aside-collapsed`) removed from `general.css` in favor of `layouts/dashboard.css`; all `!important` gone from `general.css` (validator green for the first time); `.dash-card`/`.dash-grid`/`.dash-stat`/`.dash__toolbar` extracted to `components/dashboard.css` (replacing the legacy float demo, with standalone token fallbacks); `fullpage.css` + `onepage.css` moved to `templates/` as starter skins — onepage's docs-site image dependency removed (gradient default) and its Helios-derived palette attributed (CC BY 3.0). `store.css` fixes: badge positioning parent, dead no-sidebar rule removed, topbar sync deduplicated. **Templates upgraded to full folders** — each ships `index.html` (all zones pre-wired, CDN links with self-hosted alternatives, local SVG assets) + its skin CSS: copy a folder, open, edit.
+- **Repo restructured (Phase 4)** — library → `dist/` (exsa.css, exsa.fluid.css, components/, themes/, layouts/, templates/, js/ — 234 files), website → `site/` (all PHP pages, includes/, site CSS, nginx.conf — 43 files), docs → `docs/` (README, PHILOSOPHY, CHANGELOG, CONTRIBUTING). Root README is now a map; `tools/` holds the validator + migration scripts (generator & theme-builder stay in `site/` as web pages). Manifest/tokens paths prefixed `dist/`; site pages link `../dist/…`; generator fetches `../manifest.json` + `../dist/…`; nginx root → `site/`. **CDN paths are now `@main/dist/…` — breaking change for 1.0.0.**
+- **One metadata source of truth (Phase 5)** — `manifest.json` now carries the canonical token catalog (64 core + 19 z-index + 8 component + 3 layout tokens: names, types, notes) plus JS `requires` edges (drawer/lightbox/modal/video-gallery → exsa-core.js); **`tools/build-tokens.mjs` generates `tokens.json`** from the manifest + actual CSS values, and CI (`npm test` → `--check-tokens`) fails if it's stale. `exsa.css-data.json` had zero consumers — deleted. Validator gains 5 rules: catalog ↔ CSS definitions both ways, fallback-less `var(--x)` must resolve (theme key drift), `components[].js` null-or-file, generated-tokens equality. **Latent bugs fixed en route:** range-slider's manifest `js` was the bare string `"range-slider"`; carousel used an undefined, fallback-less `--slide-size` (now defaults `100%`); the token export now reports `--blockquote-border`'s real value instead of a stale `none`.
+- **JS hardened + prebuilt bundles (Phase 6)** — all 29 behavior files are now DOM-ready guarded (work from `<head>`, `defer`, or end-of-body — scripted by `tools/add-dom-guards.mjs`); the four EXSA-dependent behaviors (drawer/lightbox/modal/video-gallery) degrade with a console warning instead of throwing when `exsa-core.js` is missing. **`tools/build-bundle.mjs` ships `dist/exsa.js` (~69 KB, core + every behavior) and `dist/exsa.bundle.css` (~186 KB, core + 56 component files + breeze)** with relative `url()` icon paths rebased for the bundle location; `npm run build` regenerates both and CI (`--check-bundles`) fails if they're stale. **Latent bugs fixed:** `a-icon` class in toast.js (icons never rendered — now `ic`), `cc-theme` storage key → `exsa-theme` (old key still read once for migration), drawer.js now resolves its own `.drawer__panel` instead of the first on the page; orphaned `loading-button.js` (old `.btn-loading` demo, zero references) deleted. **The entire site now dogfoods the bundles** (12 files, ~80 `<link>`/`<script>` tags deleted) — plus a mask-path bug in `icons.php` (`components/icons/` → `../dist/components/icons/`) fixed; all 10 pages browser-verified with zero failed requests.
+- **Demo images self-hosted** — the showcase depended on 29 external `picsum.photos` URLs (avatars, cards, lightbox, video gallery, carousel, hero) that render empty when the service is unreachable; the fullpage template's placeholder photo also became a bundled `img/photo-1.svg`. All showcase demos now use the local photos in `site/includes/images/` (`1–11.jpg`, `s1–s5.jpg`, `f1–f4.jpg`, `bg.jpg`, `man.png`, `carto.png`) — the component library renders fully offline.
+- **Naming, docs & DX consistency (Phase 7)** — all 56 component files verified BEM-conformant (documented abbreviations listed in CONTRIBUTING); `has-*`/`layout--*` state classes confirmed `<body>`-only; dead demo classes (`st-icon`, `ig-icon`) removed. **`CONTRIBUTING.md` now has a component-author checklist + a six-step "add a component" guide** (layer wrapper, manifest entry, token catalog, gate commands). **One cache-bust version** — `site/includes/version.php` (`$EXSA_VER = 31`) replaces 38 scattered `?v=NN`; bump once, everything refreshes. **19 duplicated inline `.ic` rules removed** from four pages (the bundle's `icons.css` covers the base + all 110 masks). **`PHILOSOPHY.md` reconciled with shipped code** — 9-layer cascade wording, per-element "steps aside" with the `class=""` / JS-hook edge cases, "Fluid as an Option", and the feature table now lists `:has()` + container queries with real support dates.
+- **Pre-release full-repo audit (Phase 8 gate)** — sweep for leftovers, bugs, and misalignment. Fixed: `source.php`'s layer viewer still parsed 5 layers and globbed `components/` (empty list) instead of `dist/components/` — now renders all 9 layers with synthetic themes/fluid/layouts sections and the full cascade-order table; every remaining `5-layer` claim and stale count (`80 tokens`, `61 custom properties`, `six layouts`) corrected across `manifest.json`, docs, and site meta (9-layer + 82 tokens everywhere); doc code examples updated to `dist/…` paths; orphaned `site/landing.css` and the unwired `.stylelintrc.json` deleted; dead demo classes (`ig-icon`, `ib-icon`, `st-icon`) removed from `demo.css`; stale `components.js` mention in `accordion.css` header fixed; `.htaccess` comment updated. Verified: **no genuine duplicate class definitions** across distributed CSS — every cross-file hit is an intentional scoped override (layouts adapting components, icon sizing, complementary error states).
+- **Spacing-tokenization pass (Phase 8.5)** — new `npm run audit` (`--token-audit`) exposed **350 hardcoded `margin`/`padding`/`gap` literals** that ignored the density-profile tokens. `tools/tokenize-spacing.mjs` rewrote all 394 px/rem spacing values to `calc(N × var(--space-factor, 1))` — pixel-identical at the default factor (browser-verified), and **`data-profile="compact|spacious"` now genuinely rescales every component** (card body: 20px → 16px / 26px), making the PHILOSOPHY density claim literally true. Re-audit: **0 actionable** literals (only intentional em/% geometry and the `--gap-*` scale defaults remain).
+- **Showcase + cheatsheet copy audit** — every claim and snippet in `site/showcase.php` and `site/cheatsheet.php` fact-checked against the shipped CSS/JS. Fixed: stale `80 custom properties` / `5 layers` / `--color-error` / `animated SVG checkmark` / `--sliceN` percentage wording; dead `a-icon` classes normalized to `ic`; the music-player demo's external Unsplash image self-hosted; manifest "Bar Chart" entry corrected (dash primitives vs. `.bar-row` in donut.css). Cheatsheet: badge/tooltip/tabs/cookie-bar/dashboard modifiers replaced with the real ones, toast auto-dismiss corrected to 3.5s, JS line counts updated, token grid completed to all **82 tokens** (colors, typography, breakpoints, density factors, full z-index scale), utilities badge made exact (89 + responsive variants). **Latent bug fixed:** the tokenizer corrupted dot-form values (`.1rem` → `.calc(1rem …)` = 16px instead of 1.6px) in `exsa.css`, `carousel.css`, `drawer.css`, `separator.css` — all 17 restored to `calc(0.Nrem …)` and bundles rebuilt.
+
+### 📦 Baseline (2026-08-23)
+
+- Core `dist/exsa.css`: **32.8 KB** (7.7 KB gzipped) — 85 CSS files (56 components, 21 themes, 3 layouts, 2 template folders, fluid)
+- Bundles: `dist/exsa.bundle.css` **194.0 KB** (core + 56 components + breeze) · `dist/exsa.js` **68.7 KB** (core + 29 behaviors)
+- `npm test` green: 114 manifest refs, 64 tokens, 85 CSS files · `npm run probe` green: 26 browser probes + 6 screenshots
+- Tag `v1.0.0-rc.1` created as the release-candidate gate; `v1.0.0-beta.3` remains the pre-professionalization rollback point
+- Known open issues: none — the last 5 `!important` rules (in `layouts/general.css`) were removed during the layouts consolidation, and the validator now enforces the no-`!important` promise
+
+
+---
+
+## [1.0.0-beta.3] — 2026-08-14
+
+### ✨ Added
+
+- **Two new page layouts** — `layouts/fullpage.css` (single-viewport landing: backdrop, centered brand, social rings, pure-CSS `:target` panels) and `layouts/onepage.css` (multi-section marketing page: photo hero, nested hover dropdowns, banner, carousel, features grid, dark footer). Layouts are selectable in the Bundle Generator.
+- **Token-driven z-index scale** — 19 `--z-*` tokens (from `--z-floating: 10` to `--z-skip: 10000`) in `style.css`. Every cross-component overlay (topbar, modal, drawer, toast, lightbox…) and layout shell layer consumes them. Modals now sit above the topbar (`--z-modal: 1050`).
+- **Code Block behavior** — `js/code-block.js`: copy-to-clipboard (Clipboard API + fallback) and automatic syntax highlighting (`hl-tag/attr/val/cmt`) that skips already-highlighted blocks. Loaded by showcase, elements, and page-layouts.
+- **Generator: Page Layouts section** — pick any of the six layouts; bundled into `bundle.css` with stats and cache-busted assets.
+- **Form Required showcase demo** — automatic `:user-invalid` / required-asterisk feedback documented in the showcase.
+
+### 🔧 Fixed
+
+- **Generator JS bundle was broken** — behaviors were regex-extracted from the legacy `components.js` using markers that don't exist; now each behavior's `source` file (`js/*.js`) is fetched directly from the manifest.
+- **Removed all `!important` from components** — back-top/lightbox/cookie-bar hover filters replaced with element-prefixed selectors that beat the guarded `:where()` link rules naturally; topbar list padding no longer needs `!important`.
+- **Tooltip sizing** — long tips now wrap into a clamped bubble (`width: max-content; max-width: min(320px, 100vw - 24px)`) instead of overflowing the viewport or collapsing into a skinny column.
+- **Tooltip demo clipping** — `.doc-demo:has(.tooltip)` now overflows visibly, matching the color-picker fix.
+- **Docs synced** — six layouts documented in `docs.php` and `page-layouts.php`; topbar CTA reads “Generate custom CSS”.
+
+### 📦 Size
+
+- **32 KB** core (z-index scale + layout tokens added).
+
+---
+
+## [1.0.0-beta.2] — 2026-07-28
+
+### ✨ Added
+
+- **Card horizontal variants** — `.card--horizontal` and `.card--horizontal-reverse` with CSS Grid layout (image beside content, footer under body). New sub-elements: `.card__head-row`, `.card__rating`, `.card__divider`.
+- **Typography tokens** — `--font-size-xs` through `--font-size-2xl` (7 tokens), `--font-weight-normal/bold/heavy` (3 tokens), `--font-family-mono`.
+- **Border token** — `--color-border` added; all element borders now reference it instead of `--color-bg-secondary`.
+- **Overlay & button tokens** — `--color-overlay` (modal/drawer backdrops), `--color-button-text-inverse` (dark theme button text).
+- **Logical alignment classes** — `.text-start` and `.text-end` alongside `.text-left`/`.text-right`.
+
+### 🔧 Fixed
+
+- **Skip-link** — RTL border-radius, `inset-inline-start` for logical positioning, forced-colors support.
+- **Nav dropdown** — gap changed from `1.7rem` to `margin-top: var(--gap-xs)`.
+- **Sup badge** — `vertical-align: super` replaces `top: -2px`.
+- **List padding** — `padding-inline-start: 1.2em` replaces physical `padding-left`.
+- **Form width** — `input:not([type])` included in full-width selector.
+- **`img:not([alt])`** — red dashed outline dev warning for missing alt text.
+- **`[hidden]`** — `display: none !important` prevents accidental overrides.
+
+### 📦 Size
+
+- **26 KB** raw, **~5.6 KB** gzipped (was 19.8 KB / ~6.7 KB). Growth from new tokens, horizontal card, and a11y improvements. Comments trimmed — cheatsheet.php is the canonical docs source.
+
+---
+
+## [1.0.0-beta] — 2026-July
+
+### 🚀 First Public Release
+
+Initial beta launch of EXSA — a 5-layer CSS framework built on tokens, not tools.
+
+### ✨ Added
+
+- **5-layer cascade architecture** (`@layer`):
+  1. `exsa.tokens` — 61 CSS custom properties
+  2. `exsa.reset` — Box model, focus rings, accessibility, RTL
+  3. `exsa.utilities` — 85+ flex/grid utilities
+  4. `exsa.elements` — Guarded Classless™ semantic HTML styling
+  5. `exsa.components` — 50 BEM components with zero specificity (`:where()`)
+
+- **50 Components:** accordion, alert, avatar, back-to-top, badge, breadcrumbs, buttons, card, checkbox, code-block, color-picker, context-menu, cookie-bar, dashboard, data-list, date-picker, donut, drawer, dropdown, footer, form-required, form-validation, input-group, lightbox, modal, music-player, pagination, password-input, popover, pricing-table, progress, radio, range-slider, rating, resizer, select, separator, sidebar, skeleton, slideshow, spinner, stepper, table, tabs, timeline, toast, toggle, tooltip, topbar, video-gallery
+
+- **110 SVG Icons** — stroke-based, currentColor, 24×24. Browsable gallery at `icons.php`. Use with `<span class="ic ic-name"></span>`. Covers navigation, actions, text editing, media, account, security, commerce, and developer tools.
+
+- **20 Themes:** abyss, breeze, clinic, console, coral, ember, forest, ink, ledger, mono, night, nova, prism, sepia, shadow, sojourn, steel, travei, tropic, volt
+
+- **Guarded Classless™** — Semantic HTML styled automatically; adding any class instantly opts out
+
+- **CDN support** via jsDelivr — no install required
+
+- **Bundle Generator** — select only the components you need
+
+- **Design tokens export** (`tokens.json`) — for Figma, JS, or Tailwind config
+
+- **OpenLiteSpeed / CyberPanel compatibility**
+
+### 📦 Size
+
+- **19.8 KB** core (style.css)
+- Components: ~1 KB each
+- Themes: ~1–2 KB each
+
+### 🔗 Links
+
+- **Website:** [exsa.dev](https://exsa.dev)
+- **GitHub:** [github.com/Saif-Almarri/exsa](https://github.com/Saif-Almarri/exsa)
+- **CDN:** `https://cdn.jsdelivr.net/gh/Saif-Almarri/exsa@main/style.css`

@@ -1,0 +1,252 @@
+@layer exsa.layouts {
+
+/* ============================================================
+   EXSA Layout — compositional page shells
+
+   Link AFTER exsa.css + your theme.
+   Add the layout classes to <body> — any zone can be on/off.
+
+   ── Structural zones (what exists on the page) ──
+   layout--has-topbar     = fixed topbar (reserves height)
+   layout--has-hero       = full-bleed hero below topbar
+   layout--aside-left     = left sidebar + content row
+   layout--aside-right    = right sidebar + content row
+   layout--has-sidebar    = shorthand for layout--aside-left
+
+   ── Mode modifiers (how zones behave) ──
+   layout--centered       = single column, max-width constrained
+   layout--sticky-footer  = footer at viewport bottom, shell grows
+   (Dashboard-style fixed sidebar / collapsed aside / scrolling panes:
+    use layouts/dashboard.css — dash--sidebar, dash--sidebar-sm, etc.)
+
+   ── Width overrides (topbar/footer vs sidebar alignment) ──
+   layout--topbar-full    = topbar spans full viewport width
+   layout--topbar-content = topbar aligns with content area
+   layout--footer-full    = footer spans full viewport width
+   layout--footer-content = footer aligns with content area
+
+   Tokens (override in your theme):
+     --topbar-height          inherited from topbar.css (56/48/64/72px)
+     --layout-aside-left-w    260px
+     --layout-aside-right-w   260px
+     --layout-hero-min-h       55vh
+   ============================================================ */
+
+
+:root {
+  --layout-aside-left-w: 260px;
+  --layout-aside-right-w: 260px;
+  --layout-content-w: 720px;
+  --layout-hero-min-h: 55vh;
+}
+
+/* ════════════════════════════════════════
+   1. TOPBAR
+   Uses --topbar-height (syncs with topbar.css size variants).
+   ════════════════════════════════════════ */
+
+/* Default topbar height — the size-variant sync (body:has(.topbar--sm/lg/xl))
+   lives in topbar.css; this rule only guarantees the fallback. */
+.layout--has-topbar {
+  --topbar-height: 56px;
+  padding-top: var(--topbar-height);
+}
+
+/* ════════════════════════════════════════
+   2. HERO — full-bleed, flush to topbar
+   ════════════════════════════════════════ */
+.layout--has-hero > header:not([class]) {
+  min-height: var(--layout-hero-min-h);
+}
+.layout--has-topbar.layout--has-hero > header:not([class]) {
+  margin-top: calc(-1 * var(--topbar-height));
+  padding-top: var(--topbar-height);
+}
+
+/* ════════════════════════════════════════
+   3. SHELL — flex/grid row: aside(s) + content
+   ════════════════════════════════════════ */
+.layout__shell { display: flex; flex: 1; min-height: 0; }
+
+/* Both asides → 3-column grid */
+.layout--aside-left.layout--aside-right .layout__shell {
+  display: grid;
+  grid-template-columns: var(--layout-aside-left-w) 1fr var(--layout-aside-right-w);
+}
+
+/* Aside sizing (flex mode, one aside) */
+.layout--aside-left:not(.layout--aside-right) .layout__shell > .layout__aside-left,
+.layout--has-sidebar:not(.layout--aside-right) .layout__shell > .layout__aside-left,
+.layout--aside-right:not(.layout--aside-left) .layout__shell > .layout__aside-right {
+  display: flex; flex-direction: column;
+}
+.layout--aside-left .layout__shell > .layout__aside-left,
+.layout--has-sidebar .layout__shell > .layout__aside-left {
+  width: var(--layout-aside-left-w); flex-shrink: 0;
+  height: auto; overflow: hidden;
+}
+.layout--aside-right .layout__shell > .layout__aside-right {
+  width: var(--layout-aside-right-w); flex-shrink: 0;
+  height: auto; overflow: hidden;
+  order: 2;
+}
+.layout--aside-right .layout__content { order: 1; }
+
+/* Aside nav: fills and scrolls */
+.layout--aside-left .layout__shell > .layout__aside-left .sidebar__nav,
+.layout--has-sidebar .layout__shell > .layout__aside-left .sidebar__nav,
+.layout--aside-right .layout__shell > .layout__aside-right .sidebar__nav {
+  flex: 1; overflow-y: auto;
+}
+
+/* ════════════════════════════════════════
+   4. CONTENT
+   ════════════════════════════════════════ */
+.layout__content { flex: 1; min-width: 0; }
+
+/* ════════════════════════════════════════
+   5. DASHBOARD MODES — moved to layouts/dashboard.css
+   layout--aside-full / layout--full-height / layout--content-scroll /
+   layout--aside-collapsed were removed. Use dash--sidebar, dash--topbar,
+   dash--sidebar-sm instead.
+   ════════════════════════════════════════ */
+
+/* ════════════════════════════════════════
+   6. TOPBAR / FOOTER WIDTH TOGGLES
+   Default: full-width. --content aligns to the content column.
+   ════════════════════════════════════════ */
+
+/* Topbar width toggles */
+.layout--topbar-full.layout--has-topbar .topbar {
+  inset-inline-start: 0; inset-inline-end: 0;
+}
+.layout--topbar-content.layout--has-topbar .topbar {
+  inset-inline-start: var(--layout-aside-left-w);
+}
+
+/* Footer width toggles */
+.layout--footer-full .footer {
+  margin-inline-start: 0; margin-inline-end: 0;
+}
+
+/* Force footer content-aligned (even without aside-full) */
+.layout--footer-content .footer {
+  margin-inline-start: var(--layout-aside-left-w);
+}
+
+/* ════════════════════════════════════════
+   8. CENTERED — single-column, max-width
+   ════════════════════════════════════════ */
+.layout--centered .layout__content {
+  max-width: var(--width-content);
+  margin: 0 auto;
+  padding: var(--gap-2xl) var(--gap);
+}
+
+/* ════════════════════════════════════════
+   9. STICKY FOOTER — footer at viewport bottom
+   ════════════════════════════════════════ */
+.layout--sticky-footer {
+  display: flex; flex-direction: column; min-height: 100vh;
+}
+.layout--sticky-footer .layout__shell { flex: 1; }
+.layout--sticky-footer.layout--has-topbar {
+  min-height: calc(100vh - var(--topbar-height));
+}
+
+/* ════════════════════════════════════════
+   10. ASIDE STICKY — sidebar sticks on scroll
+   ════════════════════════════════════════ */
+.layout--aside-sticky .layout__shell > .layout__aside-left {
+  position: sticky;
+  top: var(--topbar-height);
+  height: calc(100vh - var(--topbar-height));
+  overflow: visible;
+  align-self: flex-start;
+}
+.layout--aside-sticky:not(.layout--has-topbar) .layout__shell > .layout__aside-left {
+  top: 0;
+  height: 100vh;
+}
+.layout--aside-sticky .layout__shell > .layout__aside-left .sidebar__nav {
+  flex: 1 1 0%;
+  overflow-y: auto;
+}
+
+/* ════════════════════════════════════════
+   11. BLOG MODE — centered, reading-optimized (merged from blog.css)
+   Use with the shared classes: layout--has-topbar + layout--has-hero.
+   ════════════════════════════════════════ */
+.blog__content {
+  max-width: var(--layout-content-w);
+  margin: 0 auto;
+  padding: var(--gap-2xl) var(--gap);
+}
+
+/* Wider variant for docs/guides */
+.blog--wide .blog__content {
+  max-width: calc(var(--layout-content-w) + 260px);
+}
+
+/* Full-width content sections (for code blocks, tables) */
+.blog--fullwidth .blog__content {
+  max-width: none;
+  padding: var(--gap-2xl) var(--gap);
+}
+
+/* Sticky table of contents */
+.blog--has-toc .blog__shell {
+  display: flex;
+  justify-content: center;
+  gap: var(--gap-xl);
+  max-width: calc(var(--layout-content-w) + 260px + var(--gap-xl));
+  margin: 0 auto;
+  padding: var(--gap-2xl) var(--gap);
+}
+.blog--has-toc .blog__content {
+  flex: 1;
+  min-width: 0;
+  max-width: var(--layout-content-w);
+  margin: 0;
+  padding: 0;
+}
+.blog--has-toc .blog__toc {
+  width: 200px;
+  flex-shrink: 0;
+  position: sticky;
+  top: calc(var(--topbar-height, 56px) + var(--gap));
+  align-self: flex-start;
+  max-height: calc(100vh - var(--topbar-height, 56px) - var(--gap-2xl));
+  overflow-y: auto;
+  font-size: 0.82rem;
+}
+.blog--has-toc .blog__toc a {
+  display: block;
+  padding: calc(4px * var(--space-factor, 1)) 0;
+  color: var(--color-text-secondary);
+  text-decoration: none;
+  border-inline-start: 2px solid transparent;
+  padding-inline-start: calc(12px * var(--space-factor, 1));
+  transition: color 0.15s, border-inline-start-color 0.15s;
+}
+.blog--has-toc .blog__toc a:hover,
+.blog--has-toc .blog__toc a.active {
+  color: var(--color-link);
+  border-inline-start-color: var(--color-link);
+}
+
+/* Prose — optional typography boost */
+.blog--prose .blog__content {
+  font-size: 1.05rem;
+  line-height: 1.8;
+}
+.blog--prose .blog__content h2 { margin-top: calc(2.5rem * var(--space-factor, 1)); }
+.blog--prose .blog__content h3 { margin-top: calc(2rem * var(--space-factor, 1)); }
+.blog--prose .blog__content p  { margin-bottom: calc(1.5rem * var(--space-factor, 1)); }
+.blog--prose .blog__content img {
+  border-radius: var(--border-radius);
+  margin: calc(2rem * var(--space-factor, 1)) auto;
+  display: block;
+}
+
+}

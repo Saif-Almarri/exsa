@@ -1,0 +1,158 @@
+[
+  {
+    "id": "token --color-bg (light)",
+    "pass": true,
+    "expect": "rgb(255, 255, 255)",
+    "actual": "rgb(255, 255, 255)"
+  },
+  {
+    "id": "token --color-link (breeze)",
+    "pass": true,
+    "expect": "rgb(26, 115, 232)",
+    "actual": "rgb(26, 115, 232)"
+  },
+  {
+    "id": "token --border-radius (via element)",
+    "pass": true,
+    "expect": "4px",
+    "actual": "4px"
+  },
+  {
+    "id": "token --bp-md",
+    "pass": true,
+    "expect": "768px",
+    "actual": "768px"
+  },
+  {
+    "id": "token --space-factor",
+    "pass": true,
+    "expect": "1",
+    "actual": "1"
+  },
+  {
+    "id": "token --z-modal",
+    "pass": true,
+    "expect": "1050",
+    "actual": "1050"
+  },
+  {
+    "id": "cascade u-* beats component",
+    "pass": true,
+    "expect": "0px",
+    "actual": "0px"
+  },
+  {
+    "id": "cascade user CSS beats u-*",
+    "pass": true,
+    "expect": "9px",
+    "actual": "9px"
+  },
+  {
+    "id": "cascade component beats utility",
+    "pass": true,
+    "expect": "flex",
+    "actual": "flex"
+  },
+  {
+    "id": "cascade theme dark flips token",
+    "pass": true,
+    "expect": "rgb(15, 23, 42)",
+    "actual": "rgb(15, 23, 42)"
+  },
+  {
+    "id": "elements p margin (fluid 1280px)",
+    "pass": true,
+    "expect": "11.52px",
+    "actual": "11.52px"
+  },
+  {
+    "id": "elements a color",
+    "pass": true,
+    "expect": "rgb(26, 115, 232)",
+    "actual": "rgb(26, 115, 232)"
+  },
+  {
+    "id": "elements guarded table steps aside",
+    "pass": true,
+    "expect": "0px",
+    "actual": "0px"
+  },
+  {
+    "id": "elements guarded section steps aside",
+    "pass": true,
+    "expect": "block",
+    "actual": "block"
+  },
+  {
+    "id": "component btn--primary bg",
+    "pass": true,
+    "expect": "rgb(26, 115, 232)",
+    "actual": "rgb(26, 115, 232)"
+  },
+  {
+    "id": "component spinner border-top",
+    "pass": true,
+    "expect": "rgb(26, 115, 232)",
+    "actual": "rgb(26, 115, 232)"
+  },
+  {
+    "id": "component checkbox fills on check",
+    "pass": true,
+    "expect": "rgb(26, 115, 232)",
+    "actual": "rgb(26, 115, 232)"
+  },
+  {
+    "id": "component dropdown opens",
+    "pass": true,
+    "expect": "true",
+    "actual": "true"
+  },
+  {
+    "id": "component tabs switch panels",
+    "pass": true,
+    "expect": "true",
+    "actual": "true"
+  },
+  {
+    "id": "component toast appears",
+    "pass": true,
+    "expect": "true",
+    "actual": "true"
+  },
+  {
+    "id": "density default card padding",
+    "pass": true,
+    "expect": "20px",
+    "actual": "20px"
+  },
+  {
+    "id": "density compact 0.8x",
+    "pass": true,
+    "expect": "16px",
+    "actual": "16px"
+  },
+  {
+    "id": "density spacious 1.3x",
+    "pass": true,
+    "expect": "26px",
+    "actual": "26px"
+  },
+  {
+    "id": "EXSA.bp.val(lg)",
+    "pass": true,
+    "expect": "1024px",
+    "actual": "1024px"
+  },
+  {
+    "id": "rtl zone direction",
+    "pass": true,
+    "expect": "rtl",
+    "actual": "rtl"
+  },
+  {
+    "id": "focus :focus-visible outline (Tab)",
+    "pass": true,
+    "expect": "skip-link 2px solid",
+    "actual": "skip-link 2px solid"
+  }
+]

@@ -1,0 +1,274 @@
+@layer exsa.layouts {
+
+/* ============================================================
+   EXSA Store Layout — ecommerce / shop / marketplace
+
+   Link AFTER exsa.css + topbar.css + your theme.
+   Add to <body> for product catalogs, stores, and marketplaces.
+
+   Zones:
+     shop--topbar       = fixed topbar with cart/search/account
+     shop--hero         = promo banner / hero
+     shop--sidebar      = left filter/category sidebar
+     shop--sidebar-right= right sidebar (cart summary, filters)
+     shop--announce     = announcement bar above topbar
+
+   Tokens:
+     --topbar-height     inherited from topbar.css (56/48/64/72px)
+     --shop-sidebar-w   260px
+     --shop-announce-h   40px
+     --shop-hero-min-h   40vh
+   ============================================================ */
+
+:root {
+  --shop-sidebar-w: 260px;
+  --shop-announce-h: 40px;
+  --shop-hero-min-h: 40vh;
+}
+
+/* ════════════════════════════════════════
+   1. TOPBAR — body padding syncs with topbar.css
+   ════════════════════════════════════════ */
+
+/* Default topbar height when used standalone — size-variant sync lives in topbar.css */
+.shop--topbar {
+  --topbar-height: 56px;
+  padding-top: var(--topbar-height);
+}
+
+/* ════════════════════════════════════════
+   2. ANNOUNCEMENT BAR
+   ════════════════════════════════════════ */
+.shop--announce .shop__announce {
+  position: fixed; top: 0; inset-inline-start: 0; inset-inline-end: 0; z-index: var(--z-announce);
+  height: var(--shop-announce-h);
+  display: flex; align-items: center; justify-content: center;
+  background: var(--color-link);
+  color: #fff;
+  font-size: 0.82rem;
+  font-weight: 600;
+  padding: 0 var(--gap);
+  text-align: center;
+  gap: calc(8px * var(--space-factor, 1));
+}
+.shop--announce .shop__announce a {
+  color: #fff;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+/* Body padding: announce + topbar */
+.shop--announce.shop--topbar {
+  padding-top: calc(var(--topbar-height) + var(--shop-announce-h));
+}
+/* Push topbar below announce */
+.shop--announce.shop--topbar .topbar {
+  top: var(--shop-announce-h);
+}
+/* Announce only, no topbar */
+.shop--announce:not(.shop--topbar) {
+  padding-top: var(--shop-announce-h);
+}
+
+/* Topbar sections */
+.shop__cart-count {
+  background: var(--color-link);
+  color: #fff;
+  font-size: 0.68rem;
+  font-weight: 700;
+  min-width: 18px; height: 18px;
+  border-radius: 99px;
+  display: inline-flex; align-items: center; justify-content: center;
+  padding: 0 calc(5px * var(--space-factor, 1));
+  margin-inline-start: calc(4px * var(--space-factor, 1));
+}
+.shop__search {
+  display: flex; align-items: center;
+  background: var(--color-bg-secondary);
+  border-radius: var(--border-radius);
+  padding: calc(6px * var(--space-factor, 1)) calc(12px * var(--space-factor, 1));
+  gap: calc(6px * var(--space-factor, 1));
+  font-size: 0.84rem;
+  color: var(--color-text-secondary);
+  cursor: text;
+  min-width: 240px;
+}
+.shop__search input {
+  border: none; background: none; outline: none;
+  font-family: inherit; font-size: inherit; color: var(--color-text);
+  width: 100%;
+}
+
+/* ════════════════════════════════════════
+   3. HERO / PROMO BANNER
+   ════════════════════════════════════════ */
+.shop--hero > header:not([class]) {
+  min-height: var(--shop-hero-min-h);
+}
+.shop--topbar.shop--hero > header:not([class]) {
+  margin-top: calc(-1 * var(--topbar-height));
+  padding-top: var(--topbar-height);
+}
+
+/* ════════════════════════════════════════
+   4. SHELL — sidebar + product grid
+   ════════════════════════════════════════ */
+.shop--sidebar .shop__shell {
+  display: flex;
+  min-height: 60vh;
+}
+
+/* ── Filter / category sidebar ── */
+.shop--sidebar .shop__aside {
+  width: var(--shop-sidebar-w);
+  flex-shrink: 0;
+  padding: calc(24px * var(--space-factor, 1));
+  border-inline-end: 1px solid var(--color-bg-secondary);
+  background: var(--color-bg);
+  overflow-y: auto;
+  position: sticky;
+  top: var(--topbar-height);
+  height: calc(100vh - var(--topbar-height));
+}
+/* Announce bar pushes sidebar down further */
+.shop--announce.shop--sidebar .shop__aside {
+  top: calc(var(--topbar-height) + var(--shop-announce-h));
+  height: calc(100vh - var(--topbar-height) - var(--shop-announce-h));
+}
+.shop--sidebar .shop__aside-title {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-text-secondary);
+  margin-bottom: calc(12px * var(--space-factor, 1));
+}
+.shop--sidebar .shop__aside-group {
+  margin-bottom: calc(20px * var(--space-factor, 1));
+}
+.shop--sidebar .shop__aside-group a {
+  display: block;
+  padding: calc(4px * var(--space-factor, 1)) 0;
+  font-size: 0.84rem;
+  color: var(--color-text);
+  text-decoration: none;
+}
+.shop--sidebar .shop__aside-group a:hover,
+.shop--sidebar .shop__aside-group a.active {
+  color: var(--color-link);
+}
+
+/* ── Product grid ── */
+.shop__content {
+  flex: 1;
+  min-width: 0;
+  padding: calc(28px * var(--space-factor, 1));
+  background: var(--color-bg-secondary);
+}
+
+/* ════════════════════════════════════════
+   5. PRODUCT GRID
+   ════════════════════════════════════════ */
+.shop__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: calc(20px * var(--space-factor, 1));
+}
+.shop__grid--compact {
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: calc(14px * var(--space-factor, 1));
+}
+
+/* Product card */
+.shop__card {
+  position: relative;
+  background: var(--color-bg);
+  border: 1px solid var(--color-bg-secondary);
+  border-radius: var(--border-radius);
+  overflow: hidden;
+  transition: box-shadow 0.2s, transform 0.15s;
+}
+.shop__card:hover {
+  box-shadow: 0 4px 16px rgba(0,0,0,.08);
+  transform: translateY(-2px);
+}
+.shop__card-image {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  display: block;
+  background: var(--color-bg-secondary);
+}
+.shop__card-badge {
+  position: absolute;
+  top: 10px; inset-inline-start: 10px;
+  padding: calc(2px * var(--space-factor, 1)) calc(8px * var(--space-factor, 1));
+  border-radius: 4px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  z-index: 1;
+}
+.shop__card-body {
+  padding: calc(14px * var(--space-factor, 1));
+}
+.shop__card-title {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--color-text);
+  margin-bottom: calc(4px * var(--space-factor, 1));
+  line-height: 1.3;
+}
+.shop__card-price {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--color-text);
+}
+.shop__card-price--old {
+  font-size: 0.8rem;
+  font-weight: 400;
+  color: var(--color-text-secondary);
+  text-decoration: line-through;
+  margin-inline-start: calc(6px * var(--space-factor, 1));
+}
+.shop__card-rating {
+  font-size: 0.78rem;
+  color: var(--color-warning, #f59e0b);
+  margin-top: calc(4px * var(--space-factor, 1));
+}
+
+/* ════════════════════════════════════════
+   6. NO SIDEBAR — full-width grid (default)
+   ════════════════════════════════════════ */
+
+/* ════════════════════════════════════════
+   7. RIGHT SIDEBAR — cart / order summary
+   ════════════════════════════════════════ */
+.shop--sidebar-right .shop__shell {
+  display: flex;
+}
+.shop--sidebar-right .shop__aside-right {
+  width: 320px;
+  flex-shrink: 0;
+  padding: calc(24px * var(--space-factor, 1));
+  background: var(--color-bg);
+  border-inline-start: 1px solid var(--color-bg-secondary);
+  position: sticky;
+  top: var(--topbar-height);
+  height: calc(100vh - var(--topbar-height));
+  overflow-y: auto;
+}
+
+/* ════════════════════════════════════════
+   8. STICKY FOOTER
+   ════════════════════════════════════════ */
+.shop--sticky-footer {
+  display: flex; flex-direction: column; min-height: 100vh;
+}
+.shop--sticky-footer .shop__shell { flex: 1; }
+.shop--sticky-footer .shop__content { flex: 1; }
+.shop--sticky-footer.shop--topbar {
+  min-height: calc(100vh - var(--topbar-height));
+}
+
+}

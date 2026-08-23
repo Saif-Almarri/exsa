@@ -1,0 +1,14 @@
+@layer exsa.components {
+
+/* ============================================================
+   ARIA: role=radiogroup on .rating, role=radio on stars, aria-checked toggled by JS
+   Component: Rating
+   ============================================================ */
+   
+/* --- C29: RATING STARS --- */
+.rating{display:inline-flex;gap: calc(4px * var(--space-factor, 1));direction:rtl}.rating input{display:none}.rating__star{font-size:1.5rem;color:var(--color-bg-secondary);cursor:pointer;transition:color .15s,transform .12s;user-select:none;line-height:1}.rating__star:hover{transform:scale(1.15)}.rating__star:hover,.rating__star:hover~.rating__star{color:var(--color-warning)}.rating__star--active{color:var(--color-warning)}.rating--readonly .rating__star{cursor:default;pointer-events:none}.rating__value{font-size:.82rem;color:var(--color-text-secondary);margin-inline-start: calc(8px * var(--space-factor, 1));font-family:var(--font-family-mono)}
+
+/* RTL: undo the direction:rtl star-rating hack so it doesn't double-flip */
+[dir=rtl] .rating{direction:ltr}
+
+}

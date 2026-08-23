@@ -1,0 +1,41 @@
+@layer exsa.themes {
+
+/* ============================================================
+   LAYER 4 � THEME: CLINIC
+   Calming teal-white by default, deep teal in dark mode.
+   Auto-switches via prefers-color-scheme.
+   Force mode: <html data-theme-mode="light|dark">
+   ============================================================ */
+
+:root {
+  color-scheme: light dark;
+  --color-bg: light-dark(#ffffff, #0f1a18);
+  --color-bg-secondary: light-dark(#eaf5f0, #1a2f28);
+  --color-text: light-dark(#1a2f28, #d4ece4);
+  --color-text-secondary: light-dark(#5c7a6e, #7ab8a4);
+  --color-link: light-dark(#0b7a70, #2dd4bf);
+  --color-secondary: light-dark(#e57373, #f87171);
+  --color-secondary-accent: light-dark(#e573730d, #f8717118);
+  --color-accent: light-dark(#0d948810, #2dd4bf14);
+  --color-overlay: rgba(0,0,0,.5);
+  --color-shadow: light-dark(#c5ddd2, #00000033);
+  --color-scrollbar: light-dark(#a0c8b8, #1e4a3e);
+  --color-success: light-dark(#16a34a, #22c55e);
+  --color-success-hover: light-dark(#15803d, #16a34a);
+  --color-danger: light-dark(#dc2626, #ef4444);
+  --color-danger-hover: light-dark(#b91c1c, #dc2626);
+  --color-warning: light-dark(#d97706, #f59e0b);
+  --color-warning-hover: light-dark(#b45309, #d97706);
+  --color-border: light-dark(#c5ddd2, #1e4a3e);
+  --color-button-text: light-dark(var(--color-bg), #ffffff);
+  --color-button-text-inverse: light-dark(#eeeeee, #e4e1e1);
+  --border-radius: 8px;
+}
+
+/* Forced dark — <html data-theme-mode="dark">, ignores OS preference */
+:root[data-theme-mode="dark"] { color-scheme: dark; }
+
+/* Forced light — <html data-theme-mode="light">, ignores OS preference */
+:root[data-theme-mode="light"] { color-scheme: light; }
+
+}

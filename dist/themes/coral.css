@@ -1,0 +1,41 @@
+@layer exsa.themes {
+
+/* ============================================================
+   LAYER 4 � THEME: CORAL
+   Warm pink-orange by default, deep plum in dark mode.
+   Auto-switches via prefers-color-scheme.
+   Force mode: <html data-theme-mode="light|dark">
+   ============================================================ */
+
+:root {
+  color-scheme: light dark;
+  --color-bg: light-dark(#fff8f6, #1a1018);
+  --color-bg-secondary: light-dark(#ffe0d8, #2a1a24);
+  --color-text: light-dark(#2d1810, #f0d8d8);
+  --color-text-secondary: light-dark(#7a5548, #c09898);
+  --color-link: light-dark(#c42d0a, #f87171);
+  --color-secondary: light-dark(#c2185b, #f472b6);
+  --color-secondary-accent: light-dark(#c2185b0f, #f472b618);
+  --color-accent: light-dark(#dc391212, #f8717114);
+  --color-overlay: rgba(0,0,0,.5);
+  --color-shadow: light-dark(#f5b8a8, #00000033);
+  --color-scrollbar: light-dark(#f08070, #4a2a38);
+  --color-success: light-dark(#16a34a, #22c55e);
+  --color-success-hover: light-dark(#15803d, #16a34a);
+  --color-danger: light-dark(#dc2626, #ef4444);
+  --color-danger-hover: light-dark(#b91c1c, #dc2626);
+  --color-warning: light-dark(#d97706, #f59e0b);
+  --color-warning-hover: light-dark(#b45309, #d97706);
+  --color-border: light-dark(#f5c8bc, #2a1a24);
+  --color-button-text: light-dark(var(--color-bg), #ffffff);
+  --color-button-text-inverse: light-dark(#eeeeee, #e4e1e1);
+  --border-radius: 12px;
+}
+
+/* Forced dark — <html data-theme-mode="dark">, ignores OS preference */
+:root[data-theme-mode="dark"] { color-scheme: dark; }
+
+/* Forced light — <html data-theme-mode="light">, ignores OS preference */
+:root[data-theme-mode="light"] { color-scheme: light; }
+
+}

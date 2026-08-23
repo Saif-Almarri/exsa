@@ -1,0 +1,42 @@
+@layer exsa.themes {
+
+/* ============================================================
+   LAYER 4 — THEME: CUSTOM
+   Blank canvas — all tokens set to 0 / transparent.
+   Fill in your own palette: one definition per token via
+   light-dark(light, dark) — swap for a plain value if you
+   only need one mode. Forced mode: <html data-theme-mode="light|dark">.
+   ============================================================ */
+
+:root {
+  color-scheme: light dark;
+  --color-bg: transparent;
+  --color-bg-secondary: transparent;
+  --color-text: transparent;
+  --color-text-secondary: transparent;
+  --color-link: transparent;
+  --color-secondary: transparent;
+  --color-secondary-accent: transparent;
+  --color-accent: transparent;
+  --color-overlay: rgba(0,0,0,.5);
+  --color-shadow: transparent;
+  --color-scrollbar: transparent;
+  --color-success: light-dark(#16a34a, #22c55e);
+  --color-success-hover: light-dark(#15803d, #16a34a);
+  --color-danger: light-dark(#dc2626, #ef4444);
+  --color-danger-hover: light-dark(#b91c1c, #dc2626);
+  --color-warning: light-dark(#d97706, #f59e0b);
+  --color-warning-hover: light-dark(#b45309, #d97706);
+  --color-border: transparent;
+  --color-button-text: light-dark(var(--color-bg), #ffffff);
+  --color-button-text-inverse: light-dark(#000000, #e4e1e1);
+  --border-radius: 0;
+}
+
+/* Forced dark — <html data-theme-mode="dark">, ignores OS preference */
+:root[data-theme-mode="dark"] { color-scheme: dark; }
+
+/* Forced light — <html data-theme-mode="light">, ignores OS preference */
+:root[data-theme-mode="light"] { color-scheme: light; }
+
+}

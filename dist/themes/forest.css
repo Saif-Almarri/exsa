@@ -1,0 +1,41 @@
+@layer exsa.themes {
+
+/* ============================================================
+   LAYER 4 � THEME: FOREST
+   Earthy greens by default, deep pine in dark mode.
+   Auto-switches via prefers-color-scheme.
+   Force mode: <html data-theme-mode="light|dark">
+   ============================================================ */
+
+:root {
+  color-scheme: light dark;
+  --color-bg: light-dark(#f0faf4, #0f1a13);
+  --color-bg-secondary: light-dark(#cce8d8, #1a2f20);
+  --color-text: light-dark(#1a2e22, #d4e8d8);
+  --color-text-secondary: light-dark(#4a7a5a, #7aaa88);
+  --color-link: light-dark(#15803d, #4ade80);
+  --color-secondary: light-dark(#0d7a5f, #34d399);
+  --color-secondary-accent: light-dark(#0d7a5f0f, #34d39915);
+  --color-accent: light-dark(#15803d12, #4ade8014);
+  --color-overlay: rgba(0,0,0,.5);
+  --color-shadow: light-dark(#a8d4b8, #00000033);
+  --color-scrollbar: light-dark(#6db88a, #2a4a32);
+  --color-success: light-dark(#16a34a, #22c55e);
+  --color-success-hover: light-dark(#15803d, #16a34a);
+  --color-danger: light-dark(#dc2626, #ef4444);
+  --color-danger-hover: light-dark(#b91c1c, #dc2626);
+  --color-warning: light-dark(#d97706, #f59e0b);
+  --color-warning-hover: light-dark(#b45309, #d97706);
+  --color-border: light-dark(#a8d4b8, #1a2f20);
+  --color-button-text: light-dark(var(--color-bg), #ffffff);
+  --color-button-text-inverse: light-dark(#eeeeee, #e4e1e1);
+  --border-radius: 8px;
+}
+
+/* Forced dark — <html data-theme-mode="dark">, ignores OS preference */
+:root[data-theme-mode="dark"] { color-scheme: dark; }
+
+/* Forced light — <html data-theme-mode="light">, ignores OS preference */
+:root[data-theme-mode="light"] { color-scheme: light; }
+
+}

@@ -1,0 +1,42 @@
+@layer exsa.themes {
+
+/* ============================================================
+   LAYER 4 � THEME: ABYSS
+   Cool white + teal by default. Deep ocean blue-black +
+   cyan in dark mode. Immersive, high contrast.
+   Auto-switches via prefers-color-scheme.
+   Force mode: <html data-theme-mode="light|dark">
+   ============================================================ */
+
+:root {
+  color-scheme: light dark;
+  --color-bg: light-dark(#f0f6fa, #0a0e14);
+  --color-bg-secondary: light-dark(#dce8f0, #121a24);
+  --color-text: light-dark(#0e1a28, #c8d8e8);
+  --color-text-secondary: light-dark(#5a7a90, #6a8aa8);
+  --color-link: light-dark(#2a8a84, #38b2ac);
+  --color-secondary: light-dark(#4a7a9a, #5a8aac);
+  --color-secondary-accent: light-dark(#4a7a9a0d, #5a8aac18);
+  --color-accent: light-dark(#2a8a8410, #38b2ac14);
+  --color-overlay: rgba(0,0,0,.5);
+  --color-shadow: light-dark(#c4d4e4, #00000066);
+  --color-scrollbar: light-dark(#a0b8c8, #1a2a3a);
+  --color-success: light-dark(#16a34a, #4ade80);
+  --color-success-hover: light-dark(#15803d, #22c55e);
+  --color-danger: light-dark(#dc2626, #f87171);
+  --color-danger-hover: light-dark(#b91c1c, #ef4444);
+  --color-warning: light-dark(#d97706, #fbbf24);
+  --color-warning-hover: light-dark(#b45309, #f59e0b);
+  --color-border: light-dark(#c4d4e4, #1a2a3a);
+  --color-button-text: light-dark(#ffffff, #0a0e14);
+  --color-button-text-inverse: light-dark(#eeeeee, #e4e1e1);
+  --border-radius: 4px;
+}
+
+/* Forced dark — <html data-theme-mode="dark">, ignores OS preference */
+:root[data-theme-mode="dark"] { color-scheme: dark; }
+
+/* Forced light — <html data-theme-mode="light">, ignores OS preference */
+:root[data-theme-mode="light"] { color-scheme: light; }
+
+}

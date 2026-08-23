@@ -16,6 +16,9 @@ Thumbs.db
 *.html
 *.php
 
+# Exception: the QA layer-probe page ships with the release tooling
+!site/qa/layer-probe.html
+
 # Website-specific CSS
 demo.css
 landing.css
@@ -23,6 +26,9 @@ landing.css
 # Server config
 .htaccess
 nginx.conf
+
+# Node
+node_modules/
 
 
 

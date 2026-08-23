@@ -1,0 +1,42 @@
+@layer exsa.themes {
+
+/* ============================================================
+   LAYER 4 � THEME: MONO
+   Pure black and white. Zero color, maximum contrast.
+   Light: white surface, black text. Dark: inverted.
+   Auto-switches via prefers-color-scheme.
+   Force mode: <html data-theme-mode="light|dark">
+   ============================================================ */
+
+:root {
+  color-scheme: light dark;
+  --color-bg: light-dark(#ffffff, #000000);
+  --color-bg-secondary: light-dark(#f0f0f0, #1a1a1a);
+  --color-text: light-dark(#000000, #ffffff);
+  --color-text-secondary: light-dark(#666666, #999999);
+  --color-link: light-dark(#000000, #ffffff);
+  --color-secondary: light-dark(#333333, #cccccc);
+  --color-secondary-accent: light-dark(#3333330d, #cccccc15);
+  --color-accent: light-dark(#0000000a, #ffffff12);
+  --color-overlay: rgba(0,0,0,.5);
+  --color-shadow: light-dark(#cccccc, #00000088);
+  --color-scrollbar: light-dark(#aaaaaa, #333333);
+  --color-success: light-dark(#16a34a, #22c55e);
+  --color-success-hover: light-dark(#15803d, #16a34a);
+  --color-danger: light-dark(#dc2626, #ef4444);
+  --color-danger-hover: light-dark(#b91c1c, #dc2626);
+  --color-warning: light-dark(#d97706, #f59e0b);
+  --color-warning-hover: light-dark(#b45309, #d97706);
+  --color-border: light-dark(#cccccc, #333333);
+  --color-button-text: light-dark(#ffffff, #000000);
+  --color-button-text-inverse: light-dark(#eeeeee, #e4e1e1);
+  --border-radius: 4px;
+}
+
+/* Forced dark — <html data-theme-mode="dark">, ignores OS preference */
+:root[data-theme-mode="dark"] { color-scheme: dark; }
+
+/* Forced light — <html data-theme-mode="light">, ignores OS preference */
+:root[data-theme-mode="light"] { color-scheme: light; }
+
+}

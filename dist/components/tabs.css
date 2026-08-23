@@ -1,0 +1,11 @@
+@layer exsa.components {
+
+/* ============================================================
+   ARIA: role=tablist on .tabs, role=tab + aria-selected on tabs, role=tabpanel on panels
+   Component: Tabs
+   ============================================================ */
+   
+/* --- C30: TABS --- */
+.tabs{display:flex;border-bottom:2px solid var(--color-bg-secondary)}.tabs__tab{padding: calc(10px * var(--space-factor, 1)) calc(18px * var(--space-factor, 1));font-size:.82rem;font-weight:600;color:var(--color-text-secondary);cursor:pointer;border:none;background:none;font-family:inherit;border-bottom:2px solid transparent;margin-bottom: calc(-2px * var(--space-factor, 1));transition:color .15s,border-color .15s;white-space:nowrap;box-shadow:none;filter:none}.tabs__tab:hover{color:var(--color-text);filter:none}.tabs__tab--active{color:var(--color-link);border-bottom-color:var(--color-link)}.tabs__panel{display:none;padding: calc(16px * var(--space-factor, 1)) 0 calc(4px * var(--space-factor, 1))}.tabs__panel--active{display:block}
+
+}

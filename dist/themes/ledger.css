@@ -1,0 +1,41 @@
+@layer exsa.themes {
+
+/* ============================================================
+   LAYER 4 � THEME: LEDGER
+   Crisp navy-gold by default, dark slate in dark mode.
+   Auto-switches via prefers-color-scheme.
+   Force mode: <html data-theme-mode="light|dark">
+   ============================================================ */
+
+:root {
+  color-scheme: light dark;
+  --color-bg: light-dark(#ffffff, #0d1520);
+  --color-bg-secondary: light-dark(#eef1f7, #182333);
+  --color-text: light-dark(#0f1a2e, #e2e8f0);
+  --color-text-secondary: light-dark(#5a6478, #8899b0);
+  --color-link: light-dark(#8b6914, #eab308);
+  --color-secondary: light-dark(#1e3a5f, #60a5fa);
+  --color-secondary-accent: light-dark(#1e3a5f0b, #60a5fa15);
+  --color-accent: light-dark(#b68b2410, #eab30812);
+  --color-overlay: rgba(0,0,0,.5);
+  --color-shadow: light-dark(#d5dae4, #00000044);
+  --color-scrollbar: light-dark(#b0bdd0, #1e3050);
+  --color-success: light-dark(#16a34a, #22c55e);
+  --color-success-hover: light-dark(#15803d, #16a34a);
+  --color-danger: light-dark(#dc2626, #ef4444);
+  --color-danger-hover: light-dark(#b91c1c, #dc2626);
+  --color-warning: light-dark(#d97706, #f59e0b);
+  --color-warning-hover: light-dark(#b45309, #d97706);
+  --color-border: light-dark(#d5dae4, #182333);
+  --color-button-text: light-dark(#ffffff, #0d1520);
+  --color-button-text-inverse: light-dark(#eeeeee, #e4e1e1);
+  --border-radius: 4px;
+}
+
+/* Forced dark — <html data-theme-mode="dark">, ignores OS preference */
+:root[data-theme-mode="dark"] { color-scheme: dark; }
+
+/* Forced light — <html data-theme-mode="light">, ignores OS preference */
+:root[data-theme-mode="light"] { color-scheme: light; }
+
+}

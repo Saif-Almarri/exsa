@@ -1,0 +1,90 @@
+@layer exsa.components {
+
+/* ============================================================
+   EXSA Hero — video background overlay for full-width headers
+
+   Link AFTER exsa.css + your theme:
+   <link rel="stylesheet" href="components/hero.css">
+
+   Detects: <header> outside <main> with <figure> containing
+   <img>/<video>/<svg>. Positions media as a full-bleed
+   background layer with text centered on top.
+
+   To customize: override --hero-height (default: 60vh),
+   --hero-overlay (default: brand-color gradient), or
+   add your own gradient/color in your theme.
+   ============================================================ */
+
+:root {
+  --hero-height: 60vh;
+  --hero-overlay: linear-gradient(135deg, rgba(17,139,238,0.5) 0%, rgba(146,13,233,0.45) 100%);
+}
+
+/* Video/image background: figure fills entire hero */
+:where(body.exsa > header:not([class]):has(> figure)) {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: var(--hero-height);
+  max-width: none;
+  padding: 0;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Figure: absolute fill, behind text */
+:where(body.exsa > header:not([class]) > figure) {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  border-radius: 0;
+  margin: 0;
+}
+
+/* Media fills figure, crops to fit */
+:where(body.exsa > header:not([class]) > figure) > img,
+:where(body.exsa > header:not([class]) > figure) > video,
+:where(body.exsa > header:not([class]) > figure) > svg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Gradient overlay for text readability — override --hero-overlay to customize */
+:where(body.exsa > header:not([class]) > figure)::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--hero-overlay);
+  z-index: 1;
+}
+
+/* Text content: above video, centered */
+:where(body.exsa > header:not([class]) > div),
+:where(body.exsa > header:not([class]) > :not(figure):not(div)) {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  padding: 0 var(--gap);
+}
+
+/* Light text on dark background */
+:where(body.exsa > header:not([class])) {
+  color: #fff;
+}
+:where(body.exsa > header:not([class])) h1,
+:where(body.exsa > header:not([class])) h2,
+:where(body.exsa > header:not([class])) h3,
+:where(body.exsa > header:not([class])) p {
+  color: #fff;
+}
+
+/* Inverted button for visibility */
+:where(body.exsa > header:not([class]) button:not([class])) {
+  background: #fff;
+  color: var(--color-link);
+  border-color: #fff;
+}
+
+}

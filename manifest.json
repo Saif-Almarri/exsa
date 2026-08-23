@@ -1,7 +1,8 @@
 {
   "name": "EXSA",
-  "version": "1.0.0-beta.2",
-  "description": "5-layer CSS framework. Token cascade → reset → layout → elements → components. Zero build, zero CLI, pure plug & play.",
+  "version": "1.0.0-rc.1",
+  "schemaVersion": "1.0",
+  "description": "9-layer cascade CSS framework. Tokens → themes → fluid → reset → utilities → elements → components → layouts → overrides. Zero build, zero CLI, pure plug & play.",
   "tiers": {
     "free": {
       "label": "Free",
@@ -17,7 +18,7 @@
   "layers": {
     "1_tokens": {
       "label": "Layer 1 — Tokens (CSS custom properties)",
-      "desc": "52 design tokens. Colors, spacing, shadows, type, fonts."
+      "desc": "82 design tokens. Colors, spacing, shadows, type, fonts, breakpoints, behavioral factors."
     },
     "2_reset": {
       "label": "Layer 2 — Reset",
@@ -33,159 +34,198 @@
     },
     "5_components": {
       "label": "Layer 5 — Components",
-      "desc": "50 plug-and-play components. Single CSS files."
+      "desc": "53 plug-and-play components. Single CSS files."
     }
   },
   "core": {
     "css": [
-      "style.css?v=24"
+      "dist/exsa.css?v=1"
     ],
-    "description": "Complete core (24 KB, ~5.6 KB gzipped): tokens, reset, layout utilities, classless element styles for nav, table, form, button, blockquote, dialog, and more. One file, one link."
+    "description": "Complete core: tokens, reset, layout utilities, classless element styles for 47 HTML elements (nav, table, form, fieldset, button, blockquote, dialog, kbd, progress, meter + structural detection). One file, one link."
   },
   "layout": {
-    "css": "style.css",
-    "description": "Layout utilities are built into style.css. Flex, grid, gaps, containers, responsive columns — no .exsa prefix needed."
+    "css": "dist/exsa.css",
+    "description": "Layout utilities are built into exsa.css. Flex, grid, gaps, containers, responsive columns — no .exsa prefix needed."
   },
   "themes": [
     {
       "id": "breeze",
       "name": "Breeze",
       "icon": "🌊",
-      "file": "themes/breeze.css",
+      "file": "dist/themes/breeze.css",
       "color": "#e8f0fe"
     },
     {
       "id": "night",
       "name": "Night",
       "icon": "🌙",
-      "file": "themes/night.css",
+      "file": "dist/themes/night.css",
       "color": "#1c1f2e"
     },
     {
       "id": "sepia",
       "name": "Sepia",
       "icon": "📜",
-      "file": "themes/sepia.css",
+      "file": "dist/themes/sepia.css",
       "color": "#ede4cc"
     },
     {
       "id": "forest",
       "name": "Forest",
       "icon": "🌿",
-      "file": "themes/forest.css",
+      "file": "dist/themes/forest.css",
       "color": "#cce8d8"
     },
     {
       "id": "coral",
       "name": "Coral",
       "icon": "🪸",
-      "file": "themes/coral.css",
+      "file": "dist/themes/coral.css",
       "color": "#ffe0d8"
     },
     {
       "id": "steel",
       "name": "Steel",
       "icon": "",
-      "file": "themes/steel.css",
+      "file": "dist/themes/steel.css",
       "color": "#c44a08"
     },
     {
       "id": "ledger",
       "name": "Ledger",
       "icon": "",
-      "file": "themes/ledger.css",
+      "file": "dist/themes/ledger.css",
       "color": "#b68b24"
     },
     {
       "id": "clinic",
       "name": "Clinic",
       "icon": "",
-      "file": "themes/clinic.css",
+      "file": "dist/themes/clinic.css",
       "color": "#0d9488"
     },
     {
       "id": "prism",
       "name": "Prism",
       "icon": "",
-      "file": "themes/prism.css",
+      "file": "dist/themes/prism.css",
       "color": "#7c3aed"
     },
     {
       "id": "mono",
       "name": "Mono",
       "icon": "",
-      "file": "themes/mono.css",
+      "file": "dist/themes/mono.css",
       "color": "#000000"
     },
     {
       "id": "console",
       "name": "Console",
       "icon": "",
-      "file": "themes/console.css",
+      "file": "dist/themes/console.css",
       "color": "#33ff33"
     },
     {
       "id": "nova",
       "name": "Nova",
       "icon": "",
-      "file": "themes/nova.css",
+      "file": "dist/themes/nova.css",
       "color": "#3291ff"
     },
     {
       "id": "volt",
       "name": "Volt",
       "icon": "",
-      "file": "themes/volt.css",
+      "file": "dist/themes/volt.css",
       "color": "#ceff00"
     },
     {
       "id": "ember",
       "name": "Ember",
       "icon": "",
-      "file": "themes/ember.css",
+      "file": "dist/themes/ember.css",
       "color": "#181410"
     },
     {
       "id": "abyss",
       "name": "Abyss",
       "icon": "",
-      "file": "themes/abyss.css",
+      "file": "dist/themes/abyss.css",
       "color": "#0a0e14"
     },
     {
       "id": "shadow",
       "name": "Shadow",
       "icon": "",
-      "file": "themes/shadow.css",
+      "file": "dist/themes/shadow.css",
       "color": "#121212"
     },
     {
       "id": "ink",
       "name": "Ink",
       "icon": "",
-      "file": "themes/ink.css",
+      "file": "dist/themes/ink.css",
       "color": "#0f0f0c"
     },
     {
       "id": "sojourn",
       "name": "Sojourn",
       "icon": "",
-      "file": "themes/sojourn.css",
+      "file": "dist/themes/sojourn.css",
       "color": "#0a0300"
     },
     {
       "id": "tropic",
       "name": "Tropic",
       "icon": "",
-      "file": "themes/tropic.css",
+      "file": "dist/themes/tropic.css",
       "color": "#e5fbc7"
     },
     {
       "id": "travei",
       "name": "Travei",
       "icon": "",
-      "file": "themes/travei.css",
+      "file": "dist/themes/travei.css",
       "color": "#003b95"
+    }
+  ],
+  "layouts": [
+    {
+      "id": "general",
+      "name": "General",
+      "file": "dist/layouts/general.css",
+      "desc": "Compositional page shell — topbar, hero, aside, content, footer toggles, plus merged blog mode (blog--prose, blog--has-toc).",
+      "tier": "free"
+    },
+    {
+      "id": "dashboard",
+      "name": "Dashboard",
+      "file": "dist/layouts/dashboard.css",
+      "desc": "Full-viewport admin shell with fixed sidebar and scrollable content.",
+      "tier": "free"
+    },
+    {
+      "id": "store",
+      "name": "Store",
+      "file": "dist/layouts/store.css",
+      "desc": "Product catalog — announce bar, cart topbar, filter sidebar, product grid.",
+      "tier": "free"
+    },
+    {
+      "id": "fullpage",
+      "name": "Fullpage",
+      "file": "dist/templates/fullpage/fullpage.css",
+      "html": "dist/templates/fullpage/index.html",
+      "desc": "Starter template: single-viewport landing — backdrop, centered brand, social rings, :target panels. Copy the folder, open index.html.",
+      "tier": "free"
+    },
+    {
+      "id": "onepage",
+      "name": "Onepage",
+      "file": "dist/templates/onepage/onepage.css",
+      "html": "dist/templates/onepage/index.html",
+      "desc": "Starter template: multi-section marketing page — photo hero, nav dropdowns, banner, carousel, features, footer. Copy the folder, open index.html.",
+      "tier": "free"
     }
   ],
   "categories": [
@@ -196,9 +236,11 @@
         "accordion",
         "drawer",
         "footer",
+        "hero",
         "modal",
         "pricing-table",
-        "sidebar"
+        "sidebar",
+        "dashboard"
       ]
     },
     {
@@ -232,6 +274,7 @@
       "id": "media",
       "name": "Media",
       "components": [
+        "carousel",
         "lightbox",
         "music",
         "slideshow",
@@ -242,7 +285,6 @@
       "id": "data",
       "name": "Data",
       "components": [
-        "dashboard",
         "donut",
         "progress",
         "range-slider"
@@ -252,6 +294,7 @@
       "id": "actions",
       "name": "Actions",
       "components": [
+        "advanced-color-picker",
         "checkbox",
         "color-picker",
         "date-picker",
@@ -280,6 +323,14 @@
         "toast",
         "form-required"
       ]
+    },
+    {
+      "id": "effects",
+      "name": "Effects",
+      "components": [
+        "background",
+        "transitions"
+      ]
     }
   ],
   "components": [
@@ -287,7 +338,7 @@
       "id": "accordion",
       "name": "Accordion",
       "category": "layout",
-      "css": "components/accordion.css",
+      "css": "dist/components/accordion.css",
       "js": null,
       "pureCss": true,
       "icons": [
@@ -301,7 +352,7 @@
       "id": "drawer",
       "name": "Drawer",
       "category": "layout",
-      "css": "components/drawer.css",
+      "css": "dist/components/drawer.css",
       "js": null,
       "pureCss": true,
       "desc": "Slide-in panel from screen edge. Toggle with checkbox or JS.",
@@ -311,7 +362,7 @@
       "id": "footer",
       "name": "Footer",
       "category": "layout",
-      "css": "components/footer.css",
+      "css": "dist/components/footer.css",
       "js": null,
       "pureCss": true,
       "desc": "Multi-column site footer with brand, link groups, tagline, and copyright bar.",
@@ -321,8 +372,8 @@
       "id": "modal",
       "name": "Modal Window",
       "category": "layout",
-      "css": "components/modal.css",
-      "js": "modal",
+      "css": "dist/components/modal.css",
+      "js": "dist/js/modal.js",
       "pureCss": false,
       "icons": [
         "x-circle.svg"
@@ -334,7 +385,7 @@
       "id": "pricing-table",
       "name": "Pricing Table",
       "category": "layout",
-      "css": "components/pricing-table.css",
+      "css": "dist/components/pricing-table.css",
       "js": null,
       "pureCss": true,
       "icons": [
@@ -345,11 +396,21 @@
       "tier": "free"
     },
     {
+      "id": "hero",
+      "name": "Hero Header",
+      "category": "layout",
+      "css": "dist/components/hero.css",
+      "js": null,
+      "pureCss": true,
+      "desc": "Full-width header with video/image background overlay. Auto-detects figure for absolute fill. Gradient overlay via --hero-overlay token. Height via --hero-height (default 60vh).",
+      "tier": "free"
+    },
+    {
       "id": "sidebar",
       "name": "Sidebar Navigation",
       "category": "layout",
-      "css": "components/sidebar.css",
-      "js": "sidebar",
+      "css": "dist/components/sidebar.css",
+      "js": "dist/js/sidebar.js",
       "pureCss": false,
       "icons": [
         "chevron-right.svg",
@@ -367,8 +428,8 @@
       "id": "topbar",
       "name": "Topbar / Navbar",
       "category": "navigation",
-      "css": "components/topbar.css",
-      "js": "topbar",
+      "css": "dist/components/topbar.css",
+      "js": "dist/js/topbar.js",
       "pureCss": false,
       "icons": [
         "menu.svg"
@@ -380,8 +441,8 @@
       "id": "back-top",
       "name": "Back to Top",
       "category": "navigation",
-      "css": "components/back-top.css",
-      "js": "back-top",
+      "css": "dist/components/back-top.css",
+      "js": "dist/js/back-top.js",
       "pureCss": false,
       "icons": [
         "arrow-up.svg",
@@ -394,7 +455,7 @@
       "id": "breadcrumbs",
       "name": "Breadcrumbs",
       "category": "navigation",
-      "css": "components/breadcrumbs.css",
+      "css": "dist/components/breadcrumbs.css",
       "js": null,
       "pureCss": true,
       "desc": "Path navigation trail with separators. Pure CSS.",
@@ -404,7 +465,7 @@
       "id": "pagination",
       "name": "Pagination",
       "category": "navigation",
-      "css": "components/pagination.css",
+      "css": "dist/components/pagination.css",
       "js": null,
       "pureCss": true,
       "desc": "Page navigation with prev/next and numbered links.",
@@ -414,7 +475,7 @@
       "id": "stepper",
       "name": "Stepper",
       "category": "navigation",
-      "css": "components/stepper.css",
+      "css": "dist/components/stepper.css",
       "js": null,
       "pureCss": true,
       "icons": [
@@ -427,7 +488,7 @@
       "id": "timeline",
       "name": "Timeline",
       "category": "navigation",
-      "css": "components/timeline.css",
+      "css": "dist/components/timeline.css",
       "js": null,
       "pureCss": true,
       "desc": "Vertical event timeline with alternating sides and connector line.",
@@ -437,7 +498,7 @@
       "id": "tooltip",
       "name": "Tooltip",
       "category": "navigation",
-      "css": "components/tooltip.css",
+      "css": "dist/components/tooltip.css",
       "js": null,
       "pureCss": true,
       "desc": "Hover tooltip using data-tooltip attribute. Positions: top, bottom, left, right.",
@@ -447,8 +508,8 @@
       "id": "context-menu",
       "name": "Context Menu",
       "category": "navigation",
-      "css": "components/context-menu.css",
-      "js": "context-menu",
+      "css": "dist/components/context-menu.css",
+      "js": "dist/js/context-menu.js",
       "pureCss": false,
       "desc": "Right-click popup menu with items, separators, shortcuts, danger actions, and soft/solid variants. Closes on outside click or Escape.",
       "tier": "free"
@@ -457,7 +518,7 @@
       "id": "avatar",
       "name": "Avatar",
       "category": "content",
-      "css": "components/avatar.css",
+      "css": "dist/components/avatar.css",
       "js": null,
       "pureCss": true,
       "icons": [
@@ -470,7 +531,7 @@
       "id": "badge",
       "name": "Badge",
       "category": "content",
-      "css": "components/badge.css",
+      "css": "dist/components/badge.css",
       "js": null,
       "pureCss": true,
       "desc": "Inline badge/tag with color variants and rounded pill style.",
@@ -480,7 +541,7 @@
       "id": "card",
       "name": "Card",
       "category": "content",
-      "css": "components/card.css",
+      "css": "dist/components/card.css",
       "js": null,
       "pureCss": true,
       "desc": "Content container with header, body, footer sections and hover lift effect.",
@@ -490,7 +551,7 @@
       "id": "table",
       "name": "Table",
       "category": "content",
-      "css": "components/table.css",
+      "css": "dist/components/table.css",
       "js": null,
       "pureCss": true,
       "desc": "Responsive data table with striped rows, hover highlight, and compact variant.",
@@ -500,7 +561,7 @@
       "id": "data-list",
       "name": "Data List",
       "category": "content",
-      "css": "components/data-list.css",
+      "css": "dist/components/data-list.css",
       "js": null,
       "pureCss": true,
       "desc": "Key-value metadata display using <dl>/<dt>/<dd>. Horizontal or vertical orientation. Bordered, striped, and size variants.",
@@ -510,7 +571,7 @@
       "id": "separator",
       "name": "Separator",
       "category": "content",
-      "css": "components/separator.css",
+      "css": "dist/components/separator.css",
       "js": null,
       "pureCss": true,
       "desc": "Horizontal or vertical divider. Three sizes: sm, default, lg. Uses --color-bg-secondary.",
@@ -520,22 +581,22 @@
       "id": "code-block",
       "name": "Code Block",
       "category": "content",
-      "css": "components/code-block.css",
-      "js": "code-block",
+      "css": "dist/components/code-block.css",
+      "js": "dist/js/code-block.js",
       "pureCss": false,
       "icons": [
         "copy.svg",
         "check.svg"
       ],
-      "desc": "Syntax-highlighted code block with header bar, language label, and copy-to-clipboard button with Copied! feedback. No-header and compact variants.",
+      "desc": "Syntax-highlighted code block with header bar, language label, and copy-to-clipboard button with Copied! feedback. Copy + auto highlighting come from js/code-block.js. No-header and compact variants.",
       "tier": "free"
     },
     {
       "id": "lightbox",
       "name": "Lightbox",
       "category": "media",
-      "css": "components/lightbox.css",
-      "js": "lightbox",
+      "css": "dist/components/lightbox.css",
+      "js": "dist/js/lightbox.js",
       "pureCss": false,
       "desc": "Fullscreen image gallery overlay with thumbnail grid, prev/next, and keyboard nav.",
       "tier": "free"
@@ -544,8 +605,8 @@
       "id": "music",
       "name": "Music Player",
       "category": "media",
-      "css": "components/music.css",
-      "js": "music",
+      "css": "dist/components/music.css",
+      "js": "dist/js/music.js",
       "pureCss": false,
       "icons": [
         "play.svg",
@@ -558,8 +619,8 @@
       "id": "video-gallery",
       "name": "Video Gallery",
       "category": "media",
-      "css": "components/video-gallery.css",
-      "js": "video-gallery",
+      "css": "dist/components/video-gallery.css",
+      "js": "dist/js/video-gallery.js",
       "pureCss": false,
       "desc": "Responsive video card grid. Click opens iframe modal with autoplay.",
       "tier": "free"
@@ -568,8 +629,8 @@
       "id": "slideshow",
       "name": "Slideshow",
       "category": "media",
-      "css": "components/slideshow.css",
-      "js": "slideshow",
+      "css": "dist/components/slideshow.css",
+      "js": "dist/js/slideshow.js",
       "pureCss": false,
       "icons": [
         "chevron-left.svg",
@@ -579,30 +640,40 @@
       "tier": "free"
     },
     {
+      "id": "carousel",
+      "name": "Carousel",
+      "category": "media",
+      "css": "dist/components/carousel.css",
+      "js": "dist/js/carousel.js",
+      "pureCss": false,
+      "desc": "Web Component carousel. Scroll-snap + IntersectionObserver. Attributes: pagination, navigation, autoplay, loop, mouse-dragging, slides-per-page, orientation=vertical. Tokens: --aspect-ratio, --slide-gap, --scroll-hint.",
+      "tier": "free"
+    },
+    {
       "id": "donut",
       "name": "Donut Chart",
       "category": "data",
-      "css": "components/donut.css",
+      "css": "dist/components/donut.css",
       "js": null,
       "pureCss": true,
-      "desc": "SVG/CSS donut/ring chart with conic-gradient and center label.",
+      "desc": "Donut + bar charts — clip-rect donut slices (--s1…--s4 in degrees) and flexbox bar rows (.bar-row) with labels, values, and color variants.",
       "tier": "free"
     },
     {
       "id": "dashboard",
-      "name": "Bar Chart",
-      "category": "data",
-      "css": "components/dashboard.css",
+      "name": "Dashboard Primitives",
+      "category": "layout",
+      "css": "dist/components/dashboard.css",
       "js": null,
       "pureCss": true,
-      "desc": "CSS bar chart using flexbox bars with labels, values, and color variants.",
+      "desc": "Dashboard shell primitives — dash cards, grids, stats, and toolbar with standalone token fallbacks (--dash-gap, --dash-col-min) that work inside any layout.",
       "tier": "free"
     },
     {
       "id": "progress",
       "name": "Progress Bars",
       "category": "data",
-      "css": "components/progress.css",
+      "css": "dist/components/progress.css",
       "js": null,
       "pureCss": true,
       "desc": "Horizontal progress bar with percentage, color states, and striped animated variant.",
@@ -612,8 +683,8 @@
       "id": "range-slider",
       "name": "Range Slider",
       "category": "data",
-      "css": "components/range-slider.css",
-      "js": "range-slider",
+      "css": "dist/components/range-slider.css",
+      "js": "dist/js/range-slider.js",
       "pureCss": false,
       "desc": "Styled range input with custom track/thumb. JS shows live value.",
       "tier": "free"
@@ -622,7 +693,7 @@
       "id": "checkbox",
       "name": "Checkbox",
       "category": "actions",
-      "css": "components/checkbox.css",
+      "css": "dist/components/checkbox.css",
       "js": null,
       "pureCss": true,
       "icons": [
@@ -635,18 +706,28 @@
       "id": "color-picker",
       "name": "Color Picker",
       "category": "actions",
-      "css": "components/color-picker.css",
-      "js": "color-picker",
+      "css": "dist/components/color-picker.css",
+      "js": "dist/js/color-picker.js",
       "pureCss": false,
       "desc": "Styled native color input with swatch preview, hex value display, and sm/default/lg sizes.",
+      "tier": "free"
+    },
+    {
+      "id": "advanced-color-picker",
+      "name": "Advanced Color Picker",
+      "category": "actions",
+      "css": "dist/components/advanced-color-picker.css",
+      "js": "dist/js/advanced-color-picker.js",
+      "pureCss": false,
+      "desc": "Custom HSL+Alpha canvas picker. Hue-saturation grid, alpha slider with checkerboard transparency, hex input. Open/close on trigger click.",
       "tier": "free"
     },
     {
       "id": "date-picker",
       "name": "Date Picker",
       "category": "actions",
-      "css": "components/date-picker.css",
-      "js": "date-picker",
+      "css": "dist/components/date-picker.css",
+      "js": "dist/js/date-picker.js",
       "pureCss": false,
       "icons": [
         "calendar.svg",
@@ -660,8 +741,8 @@
       "id": "dropdown",
       "name": "Dropdown Menu",
       "category": "actions",
-      "css": "components/dropdown.css",
-      "js": "dropdown",
+      "css": "dist/components/dropdown.css",
+      "js": "dist/js/dropdown.js",
       "pureCss": false,
       "icons": [
         "chevron-down.svg",
@@ -677,7 +758,7 @@
       "id": "form-validation",
       "name": "Form Validation",
       "category": "actions",
-      "css": "components/form-validation.css",
+      "css": "dist/components/form-validation.css",
       "js": null,
       "pureCss": true,
       "icons": [
@@ -692,7 +773,7 @@
       "id": "input-group",
       "name": "Input Group",
       "category": "actions",
-      "css": "components/input-group.css",
+      "css": "dist/components/input-group.css",
       "js": null,
       "pureCss": true,
       "icons": [
@@ -706,8 +787,8 @@
       "id": "password-input",
       "name": "Password Input",
       "category": "actions",
-      "css": "components/password-input.css",
-      "js": "password",
+      "css": "dist/components/password-input.css",
+      "js": "dist/js/password-input.js",
       "pureCss": false,
       "icons": [
         "eye.svg",
@@ -720,8 +801,8 @@
       "id": "popover",
       "name": "Popover",
       "category": "actions",
-      "css": "components/popover.css",
-      "js": "popover",
+      "css": "dist/components/popover.css",
+      "js": "dist/js/popover.js",
       "pureCss": false,
       "desc": "Click-triggered floating card for rich content (forms, text, media). Arrow, 4 sizes, start/end alignment. Closes on outside click or Escape.",
       "tier": "free"
@@ -730,7 +811,7 @@
       "id": "radio",
       "name": "Radio Button",
       "category": "actions",
-      "css": "components/radio.css",
+      "css": "dist/components/radio.css",
       "js": null,
       "pureCss": true,
       "desc": "Custom styled radio buttons with selected state. Pure CSS.",
@@ -740,8 +821,8 @@
       "id": "rating",
       "name": "Rating Stars",
       "category": "actions",
-      "css": "components/rating.css",
-      "js": "rating",
+      "css": "dist/components/rating.css",
+      "js": "dist/js/rating.js",
       "pureCss": false,
       "icons": [
         "star.svg",
@@ -754,7 +835,7 @@
       "id": "select",
       "name": "Styled Select",
       "category": "actions",
-      "css": "components/select.css",
+      "css": "dist/components/select.css",
       "js": null,
       "pureCss": true,
       "icons": [
@@ -767,8 +848,8 @@
       "id": "tabs",
       "name": "Tabs",
       "category": "actions",
-      "css": "components/tabs.css",
-      "js": "tabs",
+      "css": "dist/components/tabs.css",
+      "js": "dist/js/tabs.js",
       "pureCss": false,
       "desc": "Tabbed interface with active tab underline. JS switches panels.",
       "tier": "free"
@@ -777,7 +858,7 @@
       "id": "toggle",
       "name": "Toggle Switch",
       "category": "actions",
-      "css": "components/toggle.css",
+      "css": "dist/components/toggle.css",
       "js": null,
       "pureCss": true,
       "desc": "iOS-style toggle switch using checkbox hack. Pure CSS, no JS needed.",
@@ -787,7 +868,7 @@
       "id": "alert",
       "name": "Alert / Callout",
       "category": "feedback",
-      "css": "components/alert.css",
+      "css": "dist/components/alert.css",
       "js": null,
       "pureCss": true,
       "icons": [
@@ -803,8 +884,8 @@
       "id": "cookie-bar",
       "name": "Cookie Bar",
       "category": "feedback",
-      "css": "components/cookie-bar.css",
-      "js": "cookie-bar",
+      "css": "dist/components/cookie-bar.css",
+      "js": "dist/js/cookie-bar.js",
       "pureCss": false,
       "desc": "Fixed bottom cookie consent banner with accept button. JS handles dismiss.",
       "tier": "free"
@@ -813,7 +894,7 @@
       "id": "skeleton",
       "name": "Skeleton Loader",
       "category": "feedback",
-      "css": "components/skeleton.css",
+      "css": "dist/components/skeleton.css",
       "js": null,
       "pureCss": true,
       "desc": "Content placeholder shimmer animation for loading states. Pure CSS.",
@@ -823,7 +904,7 @@
       "id": "spinner",
       "name": "Spinner",
       "category": "feedback",
-      "css": "components/spinner.css",
+      "css": "dist/components/spinner.css",
       "js": null,
       "pureCss": true,
       "desc": "CSS-only loading spinner with size and color variants.",
@@ -833,8 +914,8 @@
       "id": "toast",
       "name": "Toast Notifications",
       "category": "feedback",
-      "css": "components/toast.css",
-      "js": "toast",
+      "css": "dist/components/toast.css",
+      "js": "dist/js/toast.js",
       "pureCss": false,
       "icons": [
         "check.svg",
@@ -848,17 +929,17 @@
       "id": "form-required",
       "name": "Form Required Helpers",
       "category": "feedback",
-      "css": "components/form-required.css",
+      "css": "dist/components/form-required.css",
       "js": null,
       "pureCss": true,
-      "desc": "Auto-detects :user-invalid forms and adds required-field asterisks. Classless form/table/blockquote/dialog baselines are now in style.css.",
+      "desc": "Auto-detects :user-invalid forms and adds required-field asterisks. Classless form/table/blockquote/dialog baselines are now in exsa.css.",
       "tier": "free"
     },
     {
       "id": "buttons",
       "name": "Buttons",
       "category": "actions",
-      "css": "components/buttons.css",
+      "css": "dist/components/buttons.css",
       "js": null,
       "pureCss": true,
       "desc": "Button system with 9 variants (primary, success, danger, warning, neutral, outline, ghost, soft, surface), 4 sizes (xs, sm, default, lg), built-in loading spinner, high-contrast mode, pill/square radius, icon-only, and block.",
@@ -868,214 +949,371 @@
       "id": "resizer",
       "name": "Panel Resizer",
       "category": "actions",
-      "css": "components/resizer.css",
-      "js": "resizer",
+      "css": "dist/components/resizer.css",
+      "js": "dist/js/resizer.js",
       "pureCss": false,
       "icons": [
         "grip.svg"
       ],
       "desc": "Drag handle for resizable panels. Horizontal and vertical variants. Requires JS.",
       "tier": "free"
+    },
+    {
+      "id": "background",
+      "name": "Background",
+      "category": "effects",
+      "css": "dist/components/background.css",
+      "js": null,
+      "pureCss": true,
+      "desc": "Token-driven image backgrounds for pages and sections — cover/contain, position, repeat, fixed parallax, readability veils, blend modes, filters, and SVG dot-grid patterns.",
+      "tier": "free"
+    },
+    {
+      "id": "transitions",
+      "name": "Page Transitions",
+      "category": "effects",
+      "css": "dist/components/transitions.css",
+      "js": null,
+      "pureCss": true,
+      "desc": "One-click animated page navigation via the cross-document View Transitions API. Link once, morph elements with .vt-brand/.vt-title/.vt-card/.vt-panel/.vt-hero.",
+      "tier": "free"
     }
   ],
   "behaviors": [
     {
       "id": "dropdown",
-      "name": "Dropdown Menu",
-      "source": "components.js",
-      "marker": "Dropdown Menu",
+      "name": "dropdown",
+      "source": "dist/js/dropdown.js",
       "desc": "Click toggle + outside click dismiss"
     },
     {
       "id": "slideshow",
-      "name": "Slideshow",
-      "source": "components.js",
-      "marker": "Slideshow",
+      "name": "slideshow",
+      "source": "dist/js/slideshow.js",
       "desc": "Auto-play carousel with dots, arrows, and keyboard navigation"
     },
     {
+      "id": "carousel",
+      "name": "Carousel",
+      "source": "dist/js/carousel.js",
+      "marker": "Carousel",
+      "desc": "Web Component. Scroll-snap + IntersectionObserver. <exsa-carousel> with pagination/navigation/autoplay/loop/mouse-dragging."
+    },
+    {
       "id": "music",
-      "name": "Music Player",
-      "source": "components.js",
-      "marker": "Music Player",
+      "name": "music",
+      "source": "dist/js/music.js",
       "desc": "Play/pause toggle with elapsed time display"
     },
     {
       "id": "tabs",
-      "name": "Tabs",
-      "source": "components.js",
-      "marker": "Tabs",
+      "name": "tabs",
+      "source": "dist/js/tabs.js",
       "desc": "Tab panel switching with active state management"
     },
     {
       "id": "rating",
-      "name": "Rating Stars",
-      "source": "components.js",
-      "marker": "Rating",
+      "name": "rating",
+      "source": "dist/js/rating.js",
       "desc": "Interactive 5-star rating with hover preview"
     },
     {
       "id": "toast",
-      "name": "Toast Notifications",
-      "source": "components.js",
-      "marker": "Toast",
+      "name": "toast",
+      "source": "dist/js/toast.js",
       "desc": "Auto-dismiss notification popups with slide-out animation"
     },
     {
       "id": "video-gallery",
-      "name": "Video Gallery",
-      "source": "components.js",
-      "marker": "Video Gallery Modal",
+      "name": "video-gallery",
+      "source": "dist/js/video-gallery.js",
+      "requires": [
+        "dist/js/exsa-core.js"
+      ],
       "desc": "Click-to-play video modal with iframe embed"
     },
     {
       "id": "modal",
-      "name": "Modal Window",
-      "source": "components.js",
-      "marker": "Modal Window",
+      "name": "modal",
+      "source": "dist/js/modal.js",
+      "requires": [
+        "dist/js/exsa-core.js"
+      ],
       "desc": "Open/close with overlay click, Escape key, and button triggers"
     },
     {
       "id": "lightbox",
-      "name": "Lightbox Gallery",
-      "source": "components.js",
-      "marker": "Lightbox Gallery",
+      "name": "lightbox",
+      "source": "dist/js/lightbox.js",
+      "requires": [
+        "dist/js/exsa-core.js"
+      ],
       "desc": "Fullscreen image viewer with thumbnail grid and keyboard arrows"
     },
     {
       "id": "cookie-bar",
-      "name": "Cookie Consent Bar",
-      "source": "components.js",
-      "marker": "Cookie Consent Bar",
+      "name": "cookie-bar",
+      "source": "dist/js/cookie-bar.js",
       "desc": "Show/hide fixed cookie consent banner with localStorage"
     },
     {
       "id": "back-top",
-      "name": "Back to Top",
-      "source": "components.js",
-      "marker": "Back to Top",
+      "name": "back-top",
+      "source": "dist/js/back-top.js",
       "desc": "Show button on scroll, smooth scroll-to-top on click"
     },
     {
       "id": "range-slider",
-      "name": "Range Slider Value",
-      "source": "components.js",
-      "marker": "Range Slider Value Display",
+      "name": "range-slider",
+      "source": "dist/js/range-slider.js",
       "desc": "Live numeric value display next to range slider"
     },
     {
-      "id": "password",
+      "id": "password-input",
       "name": "Password Toggle",
-      "source": "components.js",
-      "marker": "Password Input Toggle",
+      "source": "dist/js/password-input.js",
       "desc": "Show/hide password field text on button click"
     },
     {
       "id": "topbar",
-      "name": "Topbar",
-      "source": "components.js",
-      "marker": "Topbar (scroll transparency + mobile menu + dropdowns)",
+      "name": "topbar",
+      "source": "dist/js/topbar.js",
       "desc": "Scroll transparency + mobile hamburger menu + dropdown toggles"
     },
     {
       "id": "date-picker",
-      "name": "Date Picker",
-      "source": "components.js",
-      "marker": "Date Picker",
+      "name": "date-picker",
+      "source": "dist/js/date-picker.js",
       "desc": "Calendar popup with month navigation, date selection, and outside-click dismiss"
     },
     {
       "id": "color-picker",
-      "name": "Color Picker",
-      "source": "components.js",
-      "marker": "Color Picker",
+      "name": "color-picker",
+      "source": "dist/js/color-picker.js",
       "desc": "Native color input with swatch preview and hex value display"
     },
     {
+      "id": "advanced-color-picker",
+      "name": "advanced-color-picker",
+      "source": "dist/js/advanced-color-picker.js",
+      "desc": "Custom HSL+Alpha canvas picker with checkerboard transparency"
+    },
+    {
       "id": "theme-switcher",
-      "name": "Theme Switcher",
-      "source": "components.js",
-      "marker": "Theme Switcher",
+      "name": "theme-switcher",
+      "source": "dist/js/theme-switcher.js",
       "desc": "Dynamic theme CSS swap with localStorage persistence"
     },
     {
       "id": "resizer",
-      "name": "Panel Resizer",
-      "source": "components.js",
-      "marker": "Resizer (drag handle for panels)",
+      "name": "resizer",
+      "source": "dist/js/resizer.js",
       "desc": "Drag-to-resize panel handle (horizontal and vertical)"
     },
     {
       "id": "sidebar",
-      "name": "Sidebar Navigation",
-      "source": "components.js",
-      "marker": "Sidebar Navigation",
+      "name": "sidebar",
+      "source": "dist/js/sidebar.js",
       "desc": "Collapsible sub-menu accordion toggle on sidebar links"
     },
     {
       "id": "scroll-spy",
-      "name": "Scroll Spy",
-      "source": "components.js",
-      "marker": "Scroll Spy",
+      "name": "scroll-spy",
+      "source": "dist/js/scroll-spy.js",
       "desc": "Highlights nav links based on scroll position. Add data-scroll-spy to the nav."
     },
     {
-      "id": "accordion-aria",
+      "id": "accordion",
       "name": "Accordion ARIA",
-      "source": "components.js",
-      "marker": "Accordion ARIA",
+      "source": "dist/js/accordion.js",
       "desc": "Syncs aria-expanded on accordion labels with checkbox state for screen readers"
     },
     {
-      "id": "toggle-aria",
+      "id": "toggle",
       "name": "Toggle Switch ARIA",
-      "source": "components.js",
-      "marker": "Toggle Switch ARIA",
+      "source": "dist/js/toggle.js",
       "desc": "Adds role=switch and aria-checked to toggle inputs for proper screen reader announcement"
     },
     {
-      "id": "drawer-aria",
+      "id": "drawer",
       "name": "Drawer ARIA",
-      "source": "components.js",
-      "marker": "Drawer ARIA + Focus Trap",
+      "source": "dist/js/drawer.js",
+      "requires": [
+        "dist/js/exsa-core.js"
+      ],
       "desc": "Syncs aria-expanded on drawer trigger labels with checkbox open/close state"
     },
     {
-      "id": "focus-trap",
-      "name": "Focus Trap Utility",
-      "source": "components.js",
-      "marker": "Focus Trap Utility",
-      "desc": "Trap keyboard focus inside a container (modal, drawer, lightbox). Required by modal/drawer/lightbox/video-gallery."
-    },
-    {
       "id": "rtl-toggle",
-      "name": "RTL Toggle",
-      "source": "components.js",
-      "marker": "Topbar Toggles (RTL)",
+      "name": "rtl-toggle",
+      "source": "dist/js/rtl-toggle.js",
       "desc": "Toggle html[dir] between ltr/rtl with localStorage persistence"
     },
     {
       "id": "context-menu",
-      "name": "Context Menu",
-      "source": "components.js",
-      "marker": "Context Menu",
+      "name": "context-menu",
+      "source": "dist/js/context-menu.js",
       "desc": "Right-click popup with viewport clamping, backdrop dismiss, and Escape key"
     },
     {
       "id": "popover",
-      "name": "Popover",
-      "source": "components.js",
-      "marker": "Popover",
+      "name": "popover",
+      "source": "dist/js/popover.js",
       "desc": "Click-triggered floating card with backdrop dismiss, Escape key, and single-open enforcement"
     },
     {
       "id": "code-block",
-      "name": "Code Block Copy",
-      "source": "components.js",
-      "marker": "Code Block",
-      "desc": "Copy code content to clipboard with 'Copied!' feedback state"
+      "name": "code-block",
+      "source": "dist/js/code-block.js",
+      "desc": "Copy-to-clipboard button with Copied! feedback + auto syntax highlighting (hl-tag/attr/val/cmt)"
     }
   ],
+  "tokens": {
+    "note": "Canonical token catalog. Metadata lives here; VALUES are parsed from the CSS files listed below by tools/build-tokens.mjs, which writes tokens.json. Edit metadata here, then run `node tools/build-tokens.mjs` and commit both files.",
+    "core": {
+      "color": [
+        { "css": "--color-bg", "name": "Page background", "type": "color" },
+        { "css": "--color-bg-secondary", "name": "Card / stripe / border background", "type": "color" },
+        { "css": "--color-text", "name": "Body text", "type": "color" },
+        { "css": "--color-text-secondary", "name": "Muted / helper text", "type": "color" },
+        { "css": "--color-link", "name": "Links, primary actions, focus rings", "type": "color" },
+        { "css": "--color-secondary", "name": "Accent color, visited links", "type": "color" },
+        { "css": "--color-secondary-accent", "name": "Subtle secondary tint (background)", "type": "color", "note": "8-digit hex — last 2 chars are alpha" },
+        { "css": "--color-accent", "name": "Subtle link tint (background)", "type": "color", "note": "8-digit hex — last 2 chars are alpha" },
+        { "css": "--color-shadow", "name": "Box shadow color", "type": "color" },
+        { "css": "--color-scrollbar", "name": "Scrollbar thumb color", "type": "color", "light": "#cacae8", "dark": "#555555", "note": "Defined as color-mix(in srgb, var(--color-text) 25%, transparent) — resolved values shown." },
+        { "css": "--color-success", "name": "Success / green states", "type": "color" },
+        { "css": "--color-success-hover", "name": "Success hover state", "type": "color" },
+        { "css": "--color-danger", "name": "Error / destructive actions", "type": "color" },
+        { "css": "--color-danger-hover", "name": "Danger hover state", "type": "color" },
+        { "css": "--color-warning", "name": "Warning / amber states", "type": "color" },
+        { "css": "--color-warning-hover", "name": "Warning hover state", "type": "color" },
+        { "css": "--color-button-text", "name": "Button text color", "type": "color" },
+        { "css": "--color-border", "name": "Default border color", "type": "color" },
+        { "css": "--color-overlay", "name": "Modal / overlay backdrop", "type": "color" },
+        { "css": "--color-button-text-inverse", "name": "Button text on dark backgrounds", "type": "color" }
+      ],
+      "typography": [
+        { "css": "--font-family", "name": "System font stack", "type": "fontFamily" },
+        { "css": "--font-family-mono", "name": "Monospace font stack", "type": "fontFamily" },
+        { "css": "--font-family-heading", "name": "Heading font family (premium: custom font; free: same as body)", "type": "fontFamily", "note": "Falls back to --font-family in free tier. Premium fonts override this token." },
+        { "css": "--font-weight-normal", "name": "Normal font weight", "type": "number" },
+        { "css": "--font-weight-bold", "name": "Bold font weight", "type": "number" },
+        { "css": "--font-weight-heavy", "name": "Heavy font weight", "type": "number" },
+        { "css": "--font-size-xs", "name": "Extra small font size", "type": "dimension" },
+        { "css": "--font-size-sm", "name": "Small font size", "type": "dimension" },
+        { "css": "--font-size-base", "name": "Base font size", "type": "dimension" },
+        { "css": "--font-size-md", "name": "Medium font size", "type": "dimension" },
+        { "css": "--font-size-lg", "name": "Large font size", "type": "dimension" },
+        { "css": "--font-size-xl", "name": "Extra large font size", "type": "dimension" },
+        { "css": "--font-size-2xl", "name": "2XL font size", "type": "dimension" },
+        { "css": "--line-height", "name": "Base line height", "type": "number", "unit": "unitless" }
+      ],
+      "breakpoints": [
+        { "css": "--bp-sm", "name": "Small breakpoint (max-width)", "type": "dimension", "note": "CSS @media queries can't use custom properties yet. Use EXSA.bp.up('sm') / EXSA.bp.down('sm') from js/exsa-core.js for JS-driven responsive logic." },
+        { "css": "--bp-md", "name": "Medium breakpoint (min-width)", "type": "dimension" },
+        { "css": "--bp-lg", "name": "Large breakpoint (min-width)", "type": "dimension" },
+        { "css": "--bp-xl", "name": "Extra large breakpoint (min-width)", "type": "dimension" },
+        { "css": "--bp-xxl", "name": "2XL breakpoint (min-width)", "type": "dimension" }
+      ],
+      "spacing": [
+        { "css": "--gap-xs", "name": "Extra small gap", "type": "dimension" },
+        { "css": "--gap-sm", "name": "Small gap", "type": "dimension" },
+        { "css": "--gap-md", "name": "Medium gap", "type": "dimension" },
+        { "css": "--gap", "name": "Default gap", "type": "dimension" },
+        { "css": "--gap-lg", "name": "Large gap", "type": "dimension" },
+        { "css": "--gap-xl", "name": "Extra large gap", "type": "dimension" },
+        { "css": "--gap-2xl", "name": "2XL gap", "type": "dimension" }
+      ],
+      "layout": [
+        { "css": "--width-card", "name": "Card width", "type": "dimension" },
+        { "css": "--width-card-medium", "name": "Medium card width", "type": "dimension" },
+        { "css": "--width-card-wide", "name": "Wide card / pre width", "type": "dimension" },
+        { "css": "--width-content", "name": "Content max-width", "type": "dimension" },
+        { "css": "--border-radius", "name": "Border radius", "type": "dimension" },
+        { "css": "--box-shadow", "name": "Box shadow offset+blur", "type": "shadow" },
+        { "css": "--scroll-margin-top", "name": "Anchor scroll margin for fixed topbars", "type": "dimension" },
+        { "css": "--card-padding", "name": "Card inner padding (full-bleed sync)", "type": "dimension", "note": "Scoped to cards. Change this and full-bleed image margins follow automatically." }
+      ],
+      "factors": [
+        { "css": "--space-factor", "name": "Spacing multiplier for profiles", "type": "number", "note": "Compact=0.8, Default=1, Spacious=1.3. Multiply with clamp() tokens for responsive density." },
+        { "css": "--radius-factor", "name": "Radius multiplier for profiles", "type": "number", "note": "Compact=0.85, Default=1, Spacious=1.2" },
+        { "css": "--font-factor", "name": "Font size multiplier for profiles", "type": "number", "note": "Compact=0.95, Default=1, Spacious=1.1" },
+        { "css": "--motion-factor", "name": "Animation intensity multiplier", "type": "number", "note": "Compact=0.6, Default=1, Spacious=1.4. prefers-reduced-motion sets to 0." }
+      ],
+      "interaction": [
+        { "css": "--hover-brightness", "name": "Hover brightness multiplier", "type": "number" },
+        { "css": "--active-brightness", "name": "Active brightness multiplier", "type": "number" },
+        { "css": "--justify-heading", "name": "Heading/content alignment", "type": "string" },
+        { "css": "--justify-body", "name": "Body/form alignment", "type": "string" },
+        { "css": "--justify-nav", "name": "Nav alignment", "type": "string", "note": "Configurable via var() fallback. Set to center, start, etc." },
+        { "css": "--blockquote-border", "name": "Blockquote left border pipe", "type": "string", "note": "Set to none to remove the pipe." }
+      ],
+      "zIndex": [
+        { "css": "--z-floating", "name": "In-component floating controls (carousel arrows)", "type": "number" },
+        { "css": "--z-dropdown", "name": "Dropdowns, tooltips, date/color picker popups", "type": "number" },
+        { "css": "--z-back-top", "name": "Back-to-top button", "type": "number" },
+        { "css": "--z-drawer", "name": "Drawer backdrop", "type": "number" },
+        { "css": "--z-drawer-panel", "name": "Drawer panel", "type": "number" },
+        { "css": "--z-cookiebar", "name": "Cookie consent bar", "type": "number" },
+        { "css": "--z-topbar", "name": "Fixed topbar", "type": "number" },
+        { "css": "--z-topbar-dropdown", "name": "Topbar dropdown menus", "type": "number" },
+        { "css": "--z-announce", "name": "Store announcement bar (above topbar)", "type": "number" },
+        { "css": "--z-modal", "name": "Modal dialogs + video modals (above topbar)", "type": "number" },
+        { "css": "--z-lightbox", "name": "Fullscreen lightbox", "type": "number" },
+        { "css": "--z-popover-backdrop", "name": "Popover backdrop", "type": "number" },
+        { "css": "--z-popover", "name": "Popover content", "type": "number" },
+        { "css": "--z-context-backdrop", "name": "Context menu backdrop", "type": "number" },
+        { "css": "--z-context-menu", "name": "Context menu", "type": "number" },
+        { "css": "--z-toast", "name": "Toast notifications", "type": "number" },
+        { "css": "--z-skip", "name": "Skip link", "type": "number" },
+        { "css": "--z-layout-aside", "name": "Fixed sidebars in layout shells", "type": "number" },
+        { "css": "--z-layout-footer", "name": "Footer above aside (aside-full mode)", "type": "number" }
+      ]
+    },
+    "components": {
+      "hero": {
+        "file": "dist/components/hero.css",
+        "tokens": [
+          { "css": "--hero-height", "name": "Hero minimum height", "type": "dimension" },
+          { "css": "--hero-overlay", "name": "Hero video overlay gradient", "type": "gradient" }
+        ]
+      },
+      "carousel": {
+        "file": "dist/components/carousel.css",
+        "tokens": [
+          { "css": "--aspect-ratio", "name": "Slide aspect ratio", "type": "ratio" },
+          { "css": "--slide-gap", "name": "Gap between slides", "type": "dimension" },
+          { "css": "--scroll-hint", "name": "Peek hint padding (shows next/prev slide edge)", "type": "dimension" },
+          { "css": "--slide-size", "name": "Slide width (one slide per page default)", "type": "dimension", "note": "Default 100% — carousel.js overwrites it inline with calc((100% - gap × (perPage − 1)) / perPage)." },
+          { "css": "--slides-per-page", "name": "Slides per page (set by JS)", "type": "number", "fallback": "1", "note": "Set by carousel.js on the host element; CSS consumes it with a fallback of 1." }
+        ]
+      },
+      "topbar": {
+        "file": "dist/components/topbar.css",
+        "tokens": [
+          { "css": "--topbar-height", "name": "Topbar height (body padding syncs via :has())", "type": "dimension", "note": "Size variants: 48px (sm), 56px (default), 64px (lg), 72px (xl). Body padding-top auto-syncs." }
+        ]
+      },
+      "progress": {
+        "file": "dist/components/progress.css",
+        "tokens": [
+          { "css": "--fill-pct", "name": "Progress fill percentage", "type": "percentage", "fallback": "50%", "note": "Not a :root token — set inline on .progress-item__fill." },
+          { "css": "--fill-clr", "name": "Progress fill color", "type": "color", "fallback": "var(--color-link)", "note": "Not a :root token — set inline on .progress-item__fill." }
+        ]
+      }
+    },
+    "layouts": {
+      "dashboard": {
+        "file": "dist/layouts/dashboard.css",
+        "tokens": [
+          { "css": "--dash-gap", "name": "Dashboard shell gap", "type": "dimension" },
+          { "css": "--dash-col-min", "name": "Dashboard grid column minimum", "type": "dimension" },
+          { "css": "--dash-toolbar-z", "name": "Dashboard toolbar z-index", "type": "number" }
+        ]
+      }
+    }
+  },
   "icons": {
     "footer": [],
     "form-validation": [
@@ -1173,8 +1411,8 @@
     ]
   },
   "output": {
-    "cssBundle": "bundle.css",
-    "jsBundle": "bundle.js",
+    "cssBundle": "dist/exsa.bundle.css",
+    "jsBundle": "dist/exsa.js",
     "headerComment": "EXSA Bundle"
   }
 }

@@ -1,0 +1,3 @@
+/* Deprecated alias — EXSA core is now exsa.css.
+   Update your <link> tag. This file will be removed in v1.0.0. */
+@import url('exsa.css?v=1');

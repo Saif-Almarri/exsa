@@ -1,0 +1,54 @@
+@layer exsa.components {
+
+/* ============================================================
+   Component: Accordion
+   Two APIs — use either, both work:
+
+   1. <details>/<summary> (RECOMMENDED — native a11y, zero JS)
+      <details class="accordion__item">
+        <summary class="accordion__label">Title</summary>
+        <div class="accordion__panel"><div class="accordion__panel-inner">...</div></div>
+      </details>
+
+   2. Checkbox hack (legacy — needs JS for aria-expanded sync)
+      <div class="accordion__item">
+        <input type="checkbox" id="a1" class="accordion__trigger">
+        <label for="a1" class="accordion__label">Title</label>
+        <div class="accordion__panel"><div class="accordion__panel-inner">...</div></div>
+      </div>
+
+   ARIA: <details> handles aria-expanded natively. For checkbox hack,
+   js/accordion.js syncs aria-expanded on checkbox change.
+   ============================================================ */
+
+.accordion{border:1px solid var(--color-bg-secondary);border-radius:var(--border-radius);overflow:hidden}
+.accordion__item{border-bottom:1px solid var(--color-bg-secondary)}
+.accordion__item:last-child{border-bottom:none}
+
+/* ── <details>/<summary> — recommended ── */
+.accordion details.accordion__item summary::-webkit-details-marker{display:none}
+.accordion details.accordion__item summary{list-style:none}
+.accordion details.accordion__item[open] > .accordion__label{color:var(--color-link)}
+.accordion details.accordion__item[open] > .accordion__label::after{transform:rotate(45deg)}
+.accordion details.accordion__item > .accordion__panel{max-height:0;overflow:hidden;transition:max-height .35s ease,padding .35s ease}
+.accordion details.accordion__item[open] > .accordion__panel{max-height:2000px}
+
+/* ── Checkbox hack — legacy ── */
+.accordion__trigger{display:none}
+.accordion__label{display:flex;align-items:center;justify-content:space-between;padding: calc(14px * var(--space-factor, 1)) calc(18px * var(--space-factor, 1));font-size:.9rem;font-weight:600;color:var(--color-text);cursor:pointer;user-select:none;transition:background .15s,color .15s;gap: calc(12px * var(--space-factor, 1))}
+.accordion__label:hover{background:var(--color-bg-secondary)}
+.accordion__label::after{content:'+';font-size:1.2rem;font-weight:400;color:var(--color-text-secondary);transition:transform .25s;flex-shrink:0}
+.accordion__trigger:checked + .accordion__label,
+.accordion__label[aria-expanded="true"]{color:var(--color-link)}
+.accordion__trigger:checked + .accordion__label::after,
+.accordion__label[aria-expanded="true"]::after{transform:rotate(45deg)}
+.accordion__panel{max-height:0;overflow:hidden;transition:max-height .35s ease,padding .35s ease}
+.accordion__panel-inner{padding: 0 calc(18px * var(--space-factor, 1)) calc(16px * var(--space-factor, 1));font-size:.84rem;color:var(--color-text-secondary);line-height:1.7}
+.accordion__trigger:checked ~ .accordion__panel,
+.accordion__label[aria-expanded="true"] ~ .accordion__panel{max-height:2000px}
+
+/* Compact variant */
+.accordion--sm .accordion__label{padding: calc(10px * var(--space-factor, 1)) calc(14px * var(--space-factor, 1));font-size:.82rem}
+.accordion--sm .accordion__panel-inner{padding: 0 calc(14px * var(--space-factor, 1)) calc(12px * var(--space-factor, 1));font-size:.78rem}
+
+}

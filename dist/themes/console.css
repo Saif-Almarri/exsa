@@ -1,0 +1,43 @@
+@layer exsa.themes {
+
+/* ============================================================
+   LAYER 4 � THEME: CONSOLE
+   Terminal phosphor-green on black. Monospace energy,
+   sharp corners, high contrast. For the command-line soul.
+   Auto-switches via prefers-color-scheme.
+   Force mode: <html data-theme-mode="light|dark">
+   ============================================================ */
+
+:root {
+  color-scheme: light dark;
+  --color-bg: light-dark(#f8faf8, #0c0d0c);
+  --color-bg-secondary: light-dark(#e8efe8, #141714);
+  --color-text: light-dark(#1a2a1a, #b8d8a8);
+  --color-text-secondary: light-dark(#5a6a5a, #7aaa5a);
+  --color-link: light-dark(#147a14, #33ff33);
+  --color-secondary: light-dark(#2d6a2d, #66cc66);
+  --color-secondary-accent: light-dark(#2d6a2d0d, #66cc6618);
+  --color-accent: light-dark(#1a8a1a10, #33ff3312);
+  --color-overlay: rgba(0,0,0,.5);
+  --color-shadow: light-dark(#c0d0c0, #00000088);
+  --color-scrollbar: light-dark(#90b090, #1a2a1a);
+  --color-success: light-dark(#16a34a, #22c55e);
+  --color-success-hover: light-dark(#15803d, #16a34a);
+  --color-danger: light-dark(#dc2626, #ef4444);
+  --color-danger-hover: light-dark(#b91c1c, #dc2626);
+  --color-warning: light-dark(#d97706, #f59e0b);
+  --color-warning-hover: light-dark(#b45309, #d97706);
+  --color-border: light-dark(#c0d0c0, #1a2a1a);
+  --color-button-text: light-dark(#ffffff, #0c0d0c);
+  --color-button-text-inverse: light-dark(#e4e1e1, #eeeeee);
+  --border-radius: 0px;
+  --font-family: 'SF Mono','Cascadia Code','Fira Code',Consolas,monospace;
+}
+
+/* Forced dark — <html data-theme-mode="dark">, ignores OS preference */
+:root[data-theme-mode="dark"] { color-scheme: dark; }
+
+/* Forced light — <html data-theme-mode="light">, ignores OS preference */
+:root[data-theme-mode="light"] { color-scheme: light; }
+
+}

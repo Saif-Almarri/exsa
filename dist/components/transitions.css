@@ -1,0 +1,77 @@
+@layer exsa.components {
+
+/* ============================================================
+   EXSA Page Transitions — one-click animated page navigation
+   Link once per site (after exsa.css). Uses the cross-document
+   View Transitions API — no JS, no fallback markup. Browsers
+   without support simply navigate instantly.
+
+   Tokens:
+     --vt-duration  .35s
+     --vt-ease      cubic-bezier(.22, .9, .28, 1)
+
+   Chrome defaults (applied automatically when the elements exist
+   on both pages):
+     .topbar__brand / .topbar__logo — crossfade between pages
+
+   Opt-in morph utilities — put the SAME class on the matching
+   element of each page (one element per name per page):
+     .vt-brand   brand crossfade
+     .vt-title   heading rises in
+     .vt-card    card slides in
+     .vt-panel   generic panel slides in
+     .vt-hero    hero media crossfades
+
+   Custom art direction: override the ::view-transition-*()
+   animations and @keyframes in your own CSS.
+   ============================================================ */
+
+:root {
+  --vt-duration: .35s;
+  --vt-ease: cubic-bezier(.22, .9, .28, 1);
+}
+
+/* Site-wide switch — linking this file enables transitions */
+@view-transition { navigation: auto; }
+
+/* ── EXSA chrome (same elements on every page) ── */
+.topbar__brand { view-transition-name: exsa-brand; }
+.topbar__logo { view-transition-name: exsa-brand-logo; }
+
+/* ── Opt-in morph utilities ── */
+.vt-brand { view-transition-name: vt-brand; }
+.vt-title { view-transition-name: vt-title; }
+.vt-card  { view-transition-name: vt-card; }
+.vt-panel { view-transition-name: vt-panel; }
+.vt-hero  { view-transition-name: vt-hero; }
+
+/* ── Default animations ── */
+::view-transition-old(exsa-brand),
+::view-transition-new(exsa-brand),
+::view-transition-old(exsa-brand-logo),
+::view-transition-new(exsa-brand-logo) {
+  animation: exsa-vt-fade calc(var(--vt-duration) * .8) ease both;
+}
+::view-transition-old(vt-brand) { animation: exsa-vt-fade calc(var(--vt-duration) * .8) ease both; }
+::view-transition-new(vt-brand) { animation: exsa-vt-fade var(--vt-duration) var(--vt-ease) both; }
+::view-transition-old(vt-title) { animation: exsa-vt-up-out var(--vt-duration) ease both; }
+::view-transition-new(vt-title) { animation: exsa-vt-up-in var(--vt-duration) var(--vt-ease) both; }
+::view-transition-old(vt-card),
+::view-transition-old(vt-panel) { animation: exsa-vt-side-out calc(var(--vt-duration) * .8) ease both; }
+::view-transition-new(vt-card),
+::view-transition-new(vt-panel) { animation: exsa-vt-side-in var(--vt-duration) var(--vt-ease) both; }
+::view-transition-old(vt-hero)  { animation: exsa-vt-fade calc(var(--vt-duration) * 1.2) ease both; }
+::view-transition-new(vt-hero)  { animation: exsa-vt-fade calc(var(--vt-duration) * 1.6) var(--vt-ease) both; }
+
+@keyframes exsa-vt-fade     { to { opacity: 0; } }
+@keyframes exsa-vt-up-out   { to { opacity: 0; transform: translateY(-20px); } }
+@keyframes exsa-vt-up-in    { from { opacity: 0; transform: translateY(28px); } }
+@keyframes exsa-vt-side-out { to { opacity: 0; transform: translateX(-36px); } }
+@keyframes exsa-vt-side-in  { from { opacity: 0; transform: translateX(44px); } }
+
+/* A11y — instant navigation for reduced-motion users */
+@media (prefers-reduced-motion: reduce) {
+  @view-transition { navigation: none; }
+}
+
+}
