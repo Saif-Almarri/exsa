@@ -18,6 +18,7 @@ Thumbs.db
 
 # Exception: the QA layer-probe page ships with the release tooling
 !site/qa/layer-probe.html
+!site/qa/contract-probe.html
 
 # Website-specific CSS
 demo.css

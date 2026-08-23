@@ -5,12 +5,13 @@
   "description": "EXSA CSS Framework — validation and tooling (the framework itself has no build step).",
   "type": "module",
   "scripts": {
-    "test": "node tools/validate.mjs --layers --no-legacy --check-tokens --check-bundles",
+    "test": "node tools/validate.mjs --layers --no-legacy --check-tokens --check-bundles --check-debug",
     "audit": "node tools/validate.mjs --layers --no-legacy --check-tokens --check-bundles --token-audit",
-    "build": "node tools/build-bundle.mjs && node tools/build-tokens.mjs",
+    "build": "node tools/build-bundle.mjs && node tools/build-tokens.mjs && node tools/build-debug.mjs",
     "baseline": "node tools/validate.mjs --baseline",
     "probe": "node tools/layer-probe.mjs",
-    "probe:baseline": "node tools/layer-probe.mjs --baseline"
+    "probe:baseline": "node tools/layer-probe.mjs --baseline",
+    "probe:contract": "node tools/contract-probe.mjs"
   },
   "license": "MIT",
   "devDependencies": {

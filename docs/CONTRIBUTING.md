@@ -109,6 +109,14 @@ Every EXSA component ships a small contract, and `npm test` enforces it:
    Chromium (see CHANGELOG) — the validator rejects anything else.
 3. **BEM naming** — `.block__element--modifier`. No bare element selectors, no
    cross-block styling, no `!important` (build fails on any of these).
+4. **Declare the markup contract** — if the component has a required skeleton,
+   add a `structure` field to its manifest entry:
+   `{ "root": ".block", "required": [".block__part"], "optional": ["…"] }`.
+   The validator cross-checks it against your CSS (every `__` part must be listed,
+   every listed part must exist), `tools/build-debug.mjs` turns `required` into
+   `dist/exsa.debug.css` contract-linter rules (enable with `<html data-debug>`),
+   and `npm run probe:contract` renders reference snippets + deliberately broken
+   markup in a real browser. Never let percent-sized children collapse silently.
 4. **Token-driven** — `var(--token)` for every color, spacing, and shadow. New public
    tokens get a `manifest.json → tokens.core` entry; component-scoped tokens get a
    `manifest.json → tokens.components` entry. Never hardcode values.
@@ -117,17 +125,18 @@ Every EXSA component ships a small contract, and `npm test` enforces it:
    under `manifest.json → behaviors` with `requires` edges if it uses `EXSA.*`.
 6. **State classes stay on `<body>`** — `has-*` and `layout--*` are page-level state
    only; components never read them.
-7. **Run the gate** — `npm test` (manifest refs, layers, tokens, bundles) and `npm run audit`
-   (zero actionable spacing literals). If you touched tokens or JS, regenerate:
-   `node tools/build-tokens.mjs && node tools/build-bundle.mjs`.
-   Add a demo section to `site/showcase.php` so every component is visibly dogfooded.
+7. **Run the gate** — `npm test` (manifest refs, layers, tokens, bundles, structure,
+   debug css) and `npm run audit` (zero actionable spacing literals). If you touched
+   tokens, JS, or structure, regenerate: `npm run build`. Add a demo section to
+   `site/showcase.php` so every component is visibly dogfooded.
 
 #### Add a component in six steps
 
 1. Copy a small component as a template (`dist/components/spinner.css`), rename to your
    block, keep the `@layer exsa.components { … }` wrapper and the header comment.
 2. Write the BEM classes referencing existing tokens only.
-3. Add a `manifest.json → components` entry (id, name, category, css, js?, icons?).
+3. Add a `manifest.json → components` entry (id, name, category, css, js?, icons?)
+   and a `structure` contract when the component has a required skeleton.
 4. If it introduces tokens, catalog them (`manifest.json → tokens`) and run
    `node tools/build-tokens.mjs`.
 5. Add a demo section to `site/showcase.php` plus a sidebar link.

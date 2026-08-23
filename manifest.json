@@ -459,6 +459,7 @@
       "js": null,
       "pureCss": true,
       "desc": "Path navigation trail with separators. Pure CSS.",
+      "structure": { "root": ".breadcrumbs", "required": [], "optional": [".breadcrumbs__sep", ".breadcrumbs__current"] },
       "tier": "free"
     },
     {
@@ -469,6 +470,7 @@
       "js": null,
       "pureCss": true,
       "desc": "Page navigation with prev/next and numbered links.",
+      "structure": { "root": ".pagination", "required": [".pagination__item"], "optional": [".pagination__link", ".pagination__ellipsis"] },
       "tier": "free"
     },
     {
@@ -482,6 +484,7 @@
         "check.svg"
       ],
       "desc": "Multi-step progress indicator with active/completed/done states.",
+      "structure": { "root": ".stepper", "required": [".stepper__step"], "optional": [".stepper__dot", ".stepper__label"] },
       "tier": "free"
     },
     {
@@ -524,7 +527,8 @@
       "icons": [
         "user.svg"
       ],
-      "desc": "Circular user avatar with sizes (sm/md/lg/xl) and status dot colors.",
+      "desc": "Squircle-masked user avatar with fluid sizes (xs–xl, vw-clamped) and a status dot that keeps a minimum size with a background ring on any photo.",
+      "structure": { "root": ".avatar", "required": [], "optional": [".avatar__fallback", ".avatar__status"] },
       "tier": "free"
     },
     {
@@ -657,6 +661,7 @@
       "js": null,
       "pureCss": true,
       "desc": "Donut + bar charts — clip-rect donut slices (--s1…--s4 in degrees) and flexbox bar rows (.bar-row) with labels, values, and color variants.",
+      "structure": { "root": ".donut", "required": [".donut__slice"], "optional": [".donut__center", ".donut__center-val", ".donut__center-label"] },
       "tier": "free"
     },
     {
@@ -677,6 +682,7 @@
       "js": null,
       "pureCss": true,
       "desc": "Horizontal progress bar with percentage, color states, and striped animated variant.",
+      "structure": { "root": ".progress-item", "required": [".progress-item__track"], "optional": [".progress-item__fill", ".progress-item__head", ".progress-item__icon", ".progress-item__label", ".progress-item__pct"] },
       "tier": "free"
     },
     {
@@ -700,6 +706,7 @@
         "check.svg"
       ],
       "desc": "Custom styled checkbox with checked state animation. Pure CSS.",
+      "structure": { "root": ".checkbox", "required": [".checkbox__box"], "optional": [".checkbox__label"] },
       "tier": "free"
     },
     {
@@ -781,6 +788,7 @@
         "mail.svg"
       ],
       "desc": "Input with appended/prepended text or icon. Button addon support.",
+      "structure": { "root": ".input-group", "required": [".input-group__input"], "optional": [".input-group__wrap", ".input-group__icon", ".input-group__addon", ".input-group__label"] },
       "tier": "free"
     },
     {
@@ -795,6 +803,7 @@
         "eye-off.svg"
       ],
       "desc": "Password field with show/hide toggle button.",
+      "structure": { "root": ".password-input", "required": [".password-input__field"], "optional": [".password-input__toggle"] },
       "tier": "free"
     },
     {
@@ -815,6 +824,7 @@
       "js": null,
       "pureCss": true,
       "desc": "Custom styled radio buttons with selected state. Pure CSS.",
+      "structure": { "root": ".radio", "required": [".radio__circle"], "optional": [".radio__label"] },
       "tier": "free"
     },
     {
@@ -829,6 +839,7 @@
         "star-filled.svg"
       ],
       "desc": "Interactive 5-star rating widget. Click to set, hover to preview.",
+      "structure": { "root": ".rating", "required": [".rating__star"], "optional": [".rating__value"] },
       "tier": "free"
     },
     {
@@ -852,6 +863,7 @@
       "js": "dist/js/tabs.js",
       "pureCss": false,
       "desc": "Tabbed interface with active tab underline. JS switches panels.",
+      "structure": { "root": ".tabs", "required": [".tabs__tab"], "optional": [".tabs__panel"] },
       "tier": "free"
     },
     {
@@ -862,6 +874,7 @@
       "js": null,
       "pureCss": true,
       "desc": "iOS-style toggle switch using checkbox hack. Pure CSS, no JS needed.",
+      "structure": { "root": ".toggle", "required": [".toggle__track"], "optional": [".toggle__label"] },
       "tier": "free"
     },
     {
@@ -878,6 +891,7 @@
         "x.svg"
       ],
       "desc": "Notification banners with 4 colors, 3 styles (soft/outline/surface), 3 sizes (sm/default/lg), icon, title, message, and dismiss button.",
+      "structure": { "root": ".alert", "required": [".alert__body"], "optional": [".alert__icon", ".alert__title", ".alert__msg", ".alert__close"] },
       "tier": "free"
     },
     {

@@ -112,7 +112,31 @@
    ════════════════════════════════════════ */
 
 /* ════════════════════════════════════════
-   6. TOPBAR / FOOTER WIDTH TOGGLES
+   7. MOBILE (≤860px) — stack the shell:
+   sidebar(s) flow above/below content, full width.
+   ════════════════════════════════════ */
+@media (max-width: 860px) {
+  .layout__shell { flex-direction: column; }
+  .layout--aside-left.layout--aside-right .layout__shell { display: flex; }
+  .layout--aside-left .layout__shell > .layout__aside-left,
+  .layout--has-sidebar .layout__shell > .layout__aside-left,
+  .layout--aside-right .layout__shell > .layout__aside-right {
+    width: 100%; flex-shrink: 0; height: auto; overflow: visible;
+  }
+  .layout--aside-left .layout__shell > .layout__aside-left .sidebar__nav,
+  .layout--has-sidebar .layout__shell > .layout__aside-left .sidebar__nav,
+  .layout--aside-right .layout__shell > .layout__aside-right .sidebar__nav {
+    flex: 0 0 auto; max-height: 45vh;
+  }
+  .layout--aside-right .layout__shell > .layout__aside-right { order: 0; }
+  .layout--aside-right .layout__content { order: 0; }
+  .layout--topbar-content.layout--has-topbar .topbar {
+    inset-inline-start: 0; inset-inline-end: 0;
+  }
+}
+
+/* ════════════════════════════════════
+   8. TOPBAR / FOOTER WIDTH TOGGLES
    Default: full-width. --content aligns to the content column.
    ════════════════════════════════════════ */
 

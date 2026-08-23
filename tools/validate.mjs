@@ -32,7 +32,7 @@ const warn = (m) => warnings.push(m);
 
 /* ---------- collect CSS files ---------- */
 const cssRoots = ['dist/components', 'dist/themes', 'dist/layouts', 'dist/templates'];
-const cssFiles = ['dist/exsa.css', 'dist/style.css', 'dist/exsa.fluid.css'];
+const cssFiles = ['dist/exsa.css', 'dist/style.css', 'dist/exsa.fluid.css', 'dist/exsa.debug.css'];
 const walkDir = (rel) => {
   for (const ent of readdirSync(join(root, rel), { withFileTypes: true })) {
     const p = `${rel}/${ent.name}`;
@@ -246,6 +246,39 @@ if (process.argv.includes('--baseline')) {
   console.log(`tokens in tokens.json: ${tokenNames.size}, custom props defined in dist/exsa.css: ${tokensInCore.size}`);
   console.log('largest files:', sizes.slice(0, 5).map((s) => `${s.f} ${kb(s.n)}`).join(', '));
   process.exit(0);
+}
+
+/* ---------- rule 12: manifest structure contracts ---------- */
+const stripMod = (s) => s.replace(/--[a-z0-9-]+$/i, '');
+for (const c of manifest.components) {
+  const s = c.structure;
+  if (!s) continue;
+  const cssPath = c.css;
+  if (!existsSync(join(root, cssPath))) { fail(`component ${c.id}: structure declared but CSS missing (${cssPath})`); continue; }
+  const css = readFileSync(join(root, cssPath), 'utf8');
+  const rootName = s.root.replace('.', '');
+  if (!css.includes(s.root + '{') && !css.includes(s.root + ' ') && !css.includes(s.root + ',')) {
+    fail(`component ${c.id}: structure root ${s.root} not defined in ${cssPath}`);
+  }
+  const listed = new Set([...(s.required || []), ...(s.optional || [])].map(stripMod));
+  for (const part of [...s.required || [], ...s.optional || []]) {
+    const base = stripMod(part);
+    if (!css.includes(base + '{') && !css.includes(base + ' ') && !css.includes(base + ',') && !css.includes(base + ':')) {
+      fail(`component ${c.id}: structure part ${part} not defined in ${cssPath}`);
+    }
+  }
+  for (const m of css.matchAll(new RegExp('\\.' + rootName + '__[a-z0-9-]+', 'g'))) {
+    const part = stripMod(m[0]);
+    if (!listed.has(part)) fail(`component ${c.id}: CSS defines ${m[0]} but it is not in manifest structure`);
+  }
+}
+
+/* ---------- rule 13: --check-debug : debug css is generated output ---------- */
+if (process.argv.includes('--check-debug')) {
+  const { generateDebugCss } = await import('./build-debug.mjs');
+  const expected = generateDebugCss();
+  const actual = readFileSync(join(root, 'dist/exsa.debug.css'), 'utf8');
+  if (expected !== actual) fail('dist/exsa.debug.css is stale — run tools/build-debug.mjs (npm run build)');
 }
 
 /* ---------- report ---------- */

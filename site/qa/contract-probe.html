@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en" data-debug>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <title>EXSA Contract Probe — QA</title>
+  <link rel="stylesheet" href="../../dist/exsa.bundle.css?v=35">
+  <link id="theme-stylesheet" rel="stylesheet" href="../../dist/themes/breeze.css?v=35">
+  <link rel="stylesheet" href="../../dist/exsa.fluid.css?v=35">
+  <link rel="stylesheet" href="../../dist/exsa.debug.css?v=35">
+  <style>
+    body { padding: 24px; font-family: var(--font-family); }
+    .zone { border: 1px dashed #ccc; padding: 16px; margin: 14px 0; }
+    .zone h2 { margin: 0 0 10px; font-size: 1rem; }
+    .row { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; }
+    #probe-results { width: 100%; border-collapse: collapse; margin-top: 16px; }
+    #probe-results td, #probe-results th { border: 1px solid #ddd; padding: 4px 8px; text-align: left; }
+    .p-pass { color: #16a34a; } .p-fail { color: #dc2626; }
+  </style>
+</head>
+<body>
+  <h1>Markup Contract Probe</h1>
+  <p>GOOD snippets must render with non-zero required parts and no debug outline. BAD snippets must be caught by <code>exsa.debug.css</code> (dashed outline + label).</p>
+
+  <div class="zone" id="good">
+    <h2>Good — full contracts</h2>
+    <div class="row">
+      <div class="progress-item" data-good="progress">
+        <div class="progress-item__track"><div class="progress-item__fill" style="--fill-pct:60%"></div></div>
+      </div>
+
+      <div data-good="tabs">
+        <div class="tabs"><button class="tabs__tab tabs__tab--active" data-panel="1" type="button">A</button><button class="tabs__tab" data-panel="2" type="button">B</button></div>
+        <div><div id="panel-1" class="tabs__panel tabs__panel--active">Panel A</div><div id="panel-2" class="tabs__panel">Panel B</div></div>
+      </div>
+
+      <label class="checkbox" data-good="checkbox"><input type="checkbox" checked><span class="checkbox__box"></span><span class="checkbox__label">Box present</span></label>
+
+      <label class="radio" data-good="radio"><input type="radio" name="q" checked><span class="radio__circle"></span><span class="radio__label">Circle present</span></label>
+
+      <label class="toggle" data-good="toggle"><input type="checkbox" checked><span class="toggle__track"></span></label>
+
+      <span class="avatar avatar--primary" data-good="avatar"><span class="avatar__fallback">OK</span><span class="avatar__status avatar__status--online"></span></span>
+
+      <div class="donut" data-good="donut" style="--s1:90deg;--s2:70deg">
+        <div class="donut__slice donut__slice--1"><div class="fill"></div></div>
+        <div class="donut__slice donut__slice--2"><div class="fill"></div></div>
+        <div class="donut__center"><span class="donut__center-val">75</span><span class="donut__center-label">score</span></div>
+      </div>
+
+      <div class="alert alert--info" data-good="alert" style="margin:0">
+        <span class="alert__icon"><span class="ic ic-info"></span></span>
+        <div class="alert__body"><div class="alert__title">Title</div><p class="alert__msg" style="margin:0">Message</p></div>
+      </div>
+
+      <div class="stepper" data-good="stepper">
+        <div class="stepper__step stepper__step--done"><span class="stepper__dot">1</span><span class="stepper__label">Done</span></div>
+        <div class="stepper__step stepper__step--active"><span class="stepper__dot">2</span><span class="stepper__label">Active</span></div>
+      </div>
+
+      <div class="rating" data-good="rating">
+        <span class="rating__star rating__star--active"></span><span class="rating__star rating__star--active"></span><span class="rating__star"></span><span class="rating__star"></span><span class="rating__star"></span>
+        <span class="rating__value">2/5</span>
+      </div>
+
+      <div class="password-input" data-good="password-input">
+        <input type="password" class="password-input__field" value="secret">
+        <button type="button" class="password-input__toggle">👁</button>
+      </div>
+
+      <div class="input-group" data-good="input-group">
+        <span class="input-group__icon"><span class="ic ic-search"></span></span>
+        <input type="text" class="input-group__input" placeholder="Search">
+      </div>
+
+      <nav class="breadcrumbs" data-good="breadcrumbs"><a href="#">Home</a><span class="breadcrumbs__sep">/</span><span class="breadcrumbs__current">Docs</span></nav>
+
+      <nav class="pagination" data-good="pagination">
+        <span class="pagination__item"><a class="pagination__link" href="#">1</a></span>
+        <span class="pagination__item"><a class="pagination__link pagination__link--active" href="#">2</a></span>
+        <span class="pagination__item"><a class="pagination__link" href="#">3</a></span>
+      </nav>
+    </div>
+  </div>
+
+  <div class="zone" id="bad">
+    <h2>Bad — broken contracts (must be flagged)</h2>
+    <div class="row">
+      <div class="progress-item" data-bad="progress-missing-track">
+        <div class="progress-item__fill" style="--fill-pct:60%"></div>
+      </div>
+      <label class="checkbox" data-bad="checkbox-missing-box"><input type="checkbox"><span class="checkbox__label">No box</span></label>
+      <div class="tabs" data-bad="tabs-missing-tab"><div class="tabs__panel tabs__panel--active">Orphan panel</div></div>
+    </div>
+  </div>
+
+  <table id="probe-results">
+    <thead><tr><th>Probe</th><th>Result</th><th>Expected</th><th>Actual</th></tr></thead>
+    <tbody></tbody>
+  </table>
+
+  <script src="../../dist/exsa.js?v=35"></script>
+  <script>
+  (function () {
+    const results = [];
+    const $ = (s) => document.querySelector(s);
+    const add = (r) => {
+      results.push(r);
+      const tr = document.createElement('tr');
+      tr.innerHTML = '<td>' + r.id + '</td><td class="' + (r.pass ? 'p-pass' : 'p-fail') + '">' + (r.pass ? 'PASS' : 'FAIL') +
+        '</td><td>' + String(r.expect) + '</td><td>' + String(r.actual) + '</td>';
+      document.querySelector('#probe-results tbody').appendChild(tr);
+    };
+    const probes = () => {
+      // GOOD snippets: required parts non-zero, no debug outline
+      document.querySelectorAll('[data-good]').forEach((el) => {
+        const id = el.dataset.good;
+        const required = {
+          progress: ['.progress-item__track'],
+          tabs: ['.tabs__tab', '#panel-1'],
+          checkbox: ['.checkbox__box'],
+          radio: ['.radio__circle'],
+          toggle: ['.toggle__track'],
+          avatar: [],
+          donut: ['.donut__slice'],
+          alert: ['.alert__body'],
+          stepper: ['.stepper__step'],
+          rating: ['.rating__star'],
+          'password-input': ['.password-input__field'],
+          'input-group': ['.input-group__input'],
+          breadcrumbs: [],
+          pagination: ['.pagination__item'],
+        }[id] || [];
+        const scope = [...el.classList].some((c) => /^(progress-item|tabs|checkbox|radio|toggle|avatar|donut|alert|stepper|rating|password-input|input-group|breadcrumbs|pagination)$/.test(c))
+          ? el
+          : (el.querySelector('.tabs,.progress-item,.checkbox,.radio,.toggle,.avatar,.donut,.alert,.stepper,.rating,.password-input,.input-group,.breadcrumbs,.pagination') || el);
+        const missing = required.filter((sel) => {
+          const node = scope.querySelector(sel) || document.querySelector(sel);
+          if (!node) return true;
+          const r = node.getBoundingClientRect();
+          return r.width === 0 && r.height === 0;
+        });
+        const outlined = getComputedStyle(scope).outlineStyle === 'dashed';
+        add({ id: 'good ' + id, pass: missing.length === 0 && !outlined, expect: 'parts render, no outline', actual: missing.length ? 'zero-size/missing: ' + missing.join(',') : outlined ? 'outlined' : 'ok' });
+      });
+      // BAD snippets: debug linter must flag them
+      document.querySelectorAll('[data-bad]').forEach((el) => {
+        const cs = getComputedStyle(el);
+        const after = getComputedStyle(el, '::after');
+        const flagged = cs.outlineStyle === 'dashed' && after.content !== 'none';
+        add({ id: 'bad ' + el.dataset.bad, pass: flagged, expect: 'dashed outline + label', actual: flagged ? 'flagged (' + after.content + ')' : cs.outlineStyle + ' / ' + after.content });
+      });
+      window.__CONTRACT_PROBES = results;
+      window.__CONTRACT_PROBES_DONE = true;
+    };
+    window.addEventListener('load', () => setTimeout(probes, 350));
+  })();
+  </script>
+</body>
+</html>
