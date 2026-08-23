@@ -46,15 +46,53 @@ function diffPng(aBuf, bBuf) {
 }
 
 const browser = await chromium.launch({ executablePath: BROWSER, headless: true });
-const context = await browser.newContext({ viewport: { width: 1280, height: 900 }, colorScheme: 'light' });
-const page = await context.newPage();
-const cdp = await context.newCDPSession(page);
-await cdp.send('Network.setCacheDisabled', { cacheDisabled: true });
 
-// unique query defeats same-URL same-document navigation caching
-await page.goto(URL_BASE + '?run=' + Date.now(), { waitUntil: 'load' });
-await page.waitForFunction('window.__EXSA_PROBES_DONE === true', { timeout: 30000 });
-const probes = await page.evaluate(() => window.__EXSA_PROBES);
+const openPage = async (width) => {
+  const context = await browser.newContext({ viewport: { width, height: 900 }, colorScheme: 'light' });
+  const page = await context.newPage();
+  const cdp = await context.newCDPSession(page);
+  await cdp.send('Network.setCacheDisabled', { cacheDisabled: true });
+  return { context, page };
+};
+const loadProbes = async (page) => {
+  // unique query defeats same-URL same-document navigation caching
+  await page.goto(URL_BASE + '?run=' + Date.now(), { waitUntil: 'load' });
+  await page.waitForFunction('window.__EXSA_PROBES_DONE === true', { timeout: 30000 });
+  return page.evaluate(() => window.__EXSA_PROBES);
+};
+const overflowReport = (page) => page.evaluate(() => {
+  const de = document.documentElement;
+  const offenders = [];
+  for (const el of document.querySelectorAll('body *')) {
+    const r = el.getBoundingClientRect();
+    if (r.width > 0 && (r.right > de.clientWidth + 1 || r.left < -1)) {
+      if (offenders.length < 5) {
+        offenders.push(el.tagName.toLowerCase() + '.' + (el.getAttribute('class') || '').trim().replace(/\s+/g, '.'));
+      }
+    }
+  }
+  return { scrollW: de.scrollWidth, clientW: de.clientWidth, offenders };
+});
+const checkShot = async (locator, baseName, label, fails) => {
+  const buf = await locator.screenshot();
+  const file = join(baselineDir, baseName + '.png');
+  if (isBaseline) {
+    writeFileSync(file, buf);
+    console.log('baseline saved: ' + baseName);
+  } else if (!existsSync(file)) {
+    console.log('MISSING baseline for ' + baseName + ' (run --baseline first)');
+    fails.push({ id: label, pass: false, expect: 'baseline exists', actual: 'missing' });
+  } else {
+    const ratio = diffPng(buf, readFileSync(file));
+    const ok = ratio <= DIFF_TOLERANCE;
+    console.log((ok ? 'PASS' : 'FAIL') + '  ' + label + ' — diff ' + (ratio * 100).toFixed(2) + '% (limit ' + (DIFF_TOLERANCE * 100) + '%)');
+    if (!ok) fails.push({ id: label, pass: false, expect: '<=' + DIFF_TOLERANCE, actual: ratio.toFixed(4) });
+  }
+};
+
+const main = await openPage(1280);
+const page = main.page;
+const probes = await loadProbes(page);
 
 // Focus probe (keyboard-only :focus-visible)
 // Click a non-focusable spot to reset the sequential-focus starting point, then Tab.
@@ -73,28 +111,37 @@ probes.push({
 });
 
 const fails = probes.filter(p => !p.pass);
+
+/* ---------- horizontal-overflow sweep (all viewports) ---------- */
+const o1280 = await overflowReport(page);
+if (o1280.scrollW > o1280.clientW + 1 || o1280.offenders.length) {
+  console.log('FAIL  layout sweep @1280px — ' + JSON.stringify(o1280));
+  fails.push({ id: 'layout @1280px', pass: false, expect: 'no horizontal overflow', actual: JSON.stringify(o1280) });
+} else {
+  console.log('PASS  layout sweep @1280px — scrollWidth ' + o1280.scrollW + ' of ' + o1280.clientW);
+}
+
 console.log('=== Layer probes (' + probes.length + ' checks) ===');
 for (const p of probes) console.log((p.pass ? 'PASS' : 'FAIL') + '  ' + p.id + (p.pass ? '' : '\n      expected: ' + p.expect + '\n      actual:   ' + p.actual));
 
 mkdirSync(baselineDir, { recursive: true });
 for (const s of SHOTS) {
-  const el = page.locator(s.selector).first();
-  const buf = await el.screenshot();
-  const file = join(baselineDir, s.name + '.png');
-  if (isBaseline) {
-    writeFileSync(file, buf);
-    console.log('baseline saved: ' + s.name);
-  } else {
-    if (!existsSync(file)) {
-      console.log('MISSING baseline for ' + s.name + ' (run --baseline first)');
-      fails.push({ id: 'screenshot ' + s.name, pass: false, expect: 'baseline exists', actual: 'missing' });
-    } else {
-      const ratio = diffPng(buf, readFileSync(file));
-      const ok = ratio <= DIFF_TOLERANCE;
-      console.log((ok ? 'PASS' : 'FAIL') + '  screenshot ' + s.name + ' — diff ' + (ratio * 100).toFixed(2) + '% (limit ' + (DIFF_TOLERANCE * 100) + '%)');
-      if (!ok) fails.push({ id: 'screenshot ' + s.name, pass: false, expect: '<=' + DIFF_TOLERANCE, actual: ratio.toFixed(4) });
-    }
+  await checkShot(page.locator(s.selector).first(), s.name, 'screenshot ' + s.name, fails);
+}
+
+/* ---------- multi-viewport layout sweep (768 / 390) ---------- */
+for (const w of [768, 390]) {
+  const vp = await openPage(w);
+  await loadProbes(vp.page);
+  const o = await overflowReport(vp.page);
+  const ok = o.scrollW <= o.clientW + 1 && !o.offenders.length;
+  console.log((ok ? 'PASS' : 'FAIL') + '  layout sweep @' + w + 'px — scrollWidth ' + o.scrollW + ' of ' + o.clientW +
+    (o.offenders.length ? ' · offenders: ' + o.offenders.join(', ') : ''));
+  if (!ok) fails.push({ id: 'layout @' + w + 'px', pass: false, expect: 'no horizontal overflow', actual: JSON.stringify(o) });
+  for (const s of SHOTS) {
+    await checkShot(vp.page.locator(s.selector).first(), s.name + '-' + w, 'screenshot ' + s.name + ' @' + w + 'px', fails);
   }
+  await vp.context.close();
 }
 
 if (isBaseline) {
@@ -108,6 +155,7 @@ if (isBaseline) {
   }
 }
 
+await main.context.close();
 await browser.close();
 if (fails.length) {
   console.log('\nRESULT: ' + fails.length + ' failure(s)');

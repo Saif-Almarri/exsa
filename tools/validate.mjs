@@ -16,6 +16,10 @@
    9. every components[].js is null or an existing file
   10. --check-tokens : tokens.json must equal the tools/build-tokens.mjs output
   11. --check-bundles : dist/exsa.js + dist/exsa.bundle.css must be generated output
+  12. every manifest structure contract cross-checks its CSS file
+  13. --check-debug : dist/exsa.debug.css must be generated output
+  14. no `.calc(` corruption signature (dot-form tokenizer bug) in any CSS file
+  15. site pages reference only defined EXSA tokens (or file-local custom props)
 
    --token-audit prints a spacing-discipline report (hardcoded margin/padding/gap
    that should reference tokens) and exits with the normal rule result.
@@ -281,6 +285,55 @@ if (process.argv.includes('--check-debug')) {
   if (expected !== actual) fail('dist/exsa.debug.css is stale — run tools/build-debug.mjs (npm run build)');
 }
 
+/* ---------- rule 14: tokenizer corruption signature `.calc(` ----------
+   The dot-form tokenizer bug rewrote `.1rem`-style values into `.calc(...)`
+   (10× too big). Valid CSS can never contain the literal `.calc(`. */
+for (const f of cssFiles2) {
+  const content = readFileSync(join(root, f), 'utf8');
+  if (content.includes('.calc(')) {
+    fail(`${f}: contains \`.calc(\` — corrupted spacing value (dot-form tokenizer bug)`);
+  }
+}
+
+/* ---------- rule 15: site pages reference only defined tokens ----------
+   Catches doc drift like the old `--color-error` (a token that never existed).
+   Known = tokens.json + manifest catalog + everything defined in dist CSS.
+   References to custom props defined locally in the same file are allowed. */
+const knownTokens = new Set(tokenNames);
+for (const t of catalogVars) knownTokens.add(t);
+for (const m of allCss.matchAll(/--[a-z0-9-]+\s*:/g)) knownTokens.add(m[0].replace(/\s*:$/, ''));
+const siteFiles = [];
+(function walkSite(rel) {
+  for (const ent of readdirSync(join(root, rel), { withFileTypes: true })) {
+    const p = `${rel}/${ent.name}`;
+    if (ent.isDirectory()) walkSite(p);
+    else if (/\.(php|html)$/.test(ent.name)) siteFiles.push(p);
+  }
+})('site');
+const siteTokenIgnore = new Set(['--exsa-version', '--token']); // intentional placeholders in docs prose
+for (const f of siteFiles) {
+  const content = readFileSync(join(root, f), 'utf8');
+  const localDefs = new Set([...content.matchAll(/--[a-z0-9-]+(?=\s*:)/g)].map((m) => m[0]));
+  const refs = new Set();
+  // strong signal: an actual var(--x) reference (any shape)
+  for (const m of content.matchAll(/var\(\s*(--[a-z0-9-]+)\s*\)/g)) refs.add(m[1]);
+  // weaker signal: bare --x mentions — only multi-part names, since BEM
+  // modifiers (avatar--xs, --online, --s1) are single-part and legitimate prose
+  for (const m of content.matchAll(/(?<![\w-])--[a-z0-9-]+/g)) {
+    const t = m[0];
+    if (!/[a-z0-9]/i.test(t)) continue;                    // ---- separators
+    if (t.endsWith('-')) continue;                         // --font-size- placeholders
+    if (!/^--[a-z]+(-[a-z0-9]+)+$/.test(t)) continue;      // BEM modifier suffixes
+    refs.add(t);
+  }
+  for (const t of refs) {
+    if (t.length < 4 || siteTokenIgnore.has(t)) continue;
+    if (!knownTokens.has(t) && !localDefs.has(t)) {
+      fail(`${f}: references ${t}, which is not a defined EXSA token (or file-local custom property)`);
+    }
+  }
+}
+
 /* ---------- report ---------- */
 if (errors.length) {
   console.error(`EXSA validator: ${errors.length} error(s), ${warnings.length} warning(s)`);
@@ -288,5 +341,5 @@ if (errors.length) {
   for (const w of warnings) console.error('  ⚠ ' + w);
   process.exit(1);
 }
-console.log(`EXSA validator: OK — ${refs.size} manifest refs, ${tokenNames.size} tokens, ${cssFiles2.length} CSS files`);
+console.log(`EXSA validator: OK — ${refs.size} manifest refs, ${tokenNames.size} tokens, ${cssFiles2.length} CSS files, ${siteFiles.length} site pages token-checked`);
 if (warnings.length) for (const w of warnings) console.log('  ⚠ ' + w);

@@ -1315,6 +1315,16 @@
           { "css": "--fill-pct", "name": "Progress fill percentage", "type": "percentage", "fallback": "50%", "note": "Not a :root token — set inline on .progress-item__fill." },
           { "css": "--fill-clr", "name": "Progress fill color", "type": "color", "fallback": "var(--color-link)", "note": "Not a :root token — set inline on .progress-item__fill." }
         ]
+      },
+      "donut": {
+        "file": "dist/components/donut.css",
+        "tokens": [
+          { "css": "--s1", "name": "Slice 1 sweep (degrees)", "type": "number", "fallback": "76" },
+          { "css": "--s2", "name": "Slice 2 sweep (degrees)", "type": "number", "fallback": "96" },
+          { "css": "--s3", "name": "Slice 3 sweep (degrees)", "type": "number", "fallback": "120" },
+          { "css": "--s4", "name": "Slice 4 sweep (degrees)", "type": "number", "fallback": "68" },
+          { "css": "--bar-w", "name": "Bar row fill width", "type": "percentage", "fallback": "50%", "note": "Set inline on .bar-row__fill (donut bar chart)." }
+        ]
       }
     },
     "layouts": {
@@ -1324,6 +1334,13 @@
           { "css": "--dash-gap", "name": "Dashboard shell gap", "type": "dimension" },
           { "css": "--dash-col-min", "name": "Dashboard grid column minimum", "type": "dimension" },
           { "css": "--dash-toolbar-z", "name": "Dashboard toolbar z-index", "type": "number" }
+        ]
+      },
+      "fullpage": {
+        "file": "dist/templates/fullpage/fullpage.css",
+        "tokens": [
+          { "css": "--fullpage-pan-image", "name": "Seamless pan tile image", "type": "image", "fallback": "none", "note": "Required for --pan mode." },
+          { "css": "--fullpage-pattern", "name": "Optional texture over the backdrop", "type": "image", "fallback": "none" }
         ]
       }
     }
