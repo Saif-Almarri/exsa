@@ -422,6 +422,7 @@
         "user.svg"
       ],
       "desc": "Vertical navigation sidebar with icons, collapsible sub-menus, and active states.",
+      "structure": { "root": ".sidebar", "required": [".sidebar__nav", ".sidebar__link"], "optional": [".sidebar__head", ".sidebar__icon", ".sidebar__label", ".sidebar__arrow", ".sidebar__sub", ".sidebar__sub-menu", ".sidebar__badge"] },
       "tier": "free"
     },
     {
@@ -641,6 +642,7 @@
         "chevron-right.svg"
       ],
       "desc": "Auto-playing image carousel with navigation dots, prev/next arrows, and keyboard.",
+      "structure": { "root": ".slideshow", "required": [".slideshow__track", ".slideshow__slide"], "optional": [".slideshow__arrow", ".slideshow__dots", ".slideshow__dot"] },
       "tier": "free"
     },
     {
@@ -814,6 +816,7 @@
       "js": "dist/js/popover.js",
       "pureCss": false,
       "desc": "Click-triggered floating card for rich content (forms, text, media). Arrow, 4 sizes, start/end alignment. Closes on outside click or Escape.",
+      "structure": { "root": ".popover", "required": [".popover__content"], "optional": [".popover__arrow", ".popover__backdrop"] },
       "tier": "free"
     },
     {

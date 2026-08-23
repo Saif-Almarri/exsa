@@ -30,17 +30,16 @@ export function generateDebugCss(manifestPath = join(root, 'manifest.json')) {
     const s = c.structure;
     if (!s || !s.required || !s.required.length) continue;
     const root = s.root;
-    const missing = s.required.map((r) => `:not(:has(${r}))`).join('');
-    rules.push(`[data-debug] ${root}${missing}{
+    // one rule per required part — a root missing ANY required part is flagged
+    for (const r of s.required) {
+      const sel = `[data-debug] ${root}:not(:has(${r}))`;
+      rules.push(`${sel}{
   outline: 2px dashed var(--dbg-danger);
   outline-offset: 2px;
   position: relative;
 }`);
-    const label = s.required.length === 1
-      ? `missing ${s.required[0]}`
-      : 'missing required part(s)';
-    rules.push(`[data-debug] ${root}${missing}::after{
-  content: "${label}";
+      rules.push(`${sel}::after{
+  content: "missing ${r}";
   position: absolute;
   top: -1.6em;
   inset-inline-start: 0;
@@ -55,6 +54,7 @@ export function generateDebugCss(manifestPath = join(root, 'manifest.json')) {
   white-space: nowrap;
   pointer-events: none;
 }`);
+    }
   }
   return head + rules.join('\n') + '\n';
 }

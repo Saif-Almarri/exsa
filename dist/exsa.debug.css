@@ -10,6 +10,48 @@
   --dbg-danger: var(--color-danger, #dc2626);
 }
 
+[data-debug] .sidebar:not(:has(.sidebar__nav)){
+  outline: 2px dashed var(--dbg-danger);
+  outline-offset: 2px;
+  position: relative;
+}
+[data-debug] .sidebar:not(:has(.sidebar__nav))::after{
+  content: "missing .sidebar__nav";
+  position: absolute;
+  top: -1.6em;
+  inset-inline-start: 0;
+  z-index: 9999;
+  background: var(--dbg-danger);
+  color: #fff;
+  font-family: var(--font-family-mono, monospace);
+  font-size: 11px;
+  line-height: 1;
+  padding: 4px 8px;
+  border-radius: 4px;
+  white-space: nowrap;
+  pointer-events: none;
+}
+[data-debug] .sidebar:not(:has(.sidebar__link)){
+  outline: 2px dashed var(--dbg-danger);
+  outline-offset: 2px;
+  position: relative;
+}
+[data-debug] .sidebar:not(:has(.sidebar__link))::after{
+  content: "missing .sidebar__link";
+  position: absolute;
+  top: -1.6em;
+  inset-inline-start: 0;
+  z-index: 9999;
+  background: var(--dbg-danger);
+  color: #fff;
+  font-family: var(--font-family-mono, monospace);
+  font-size: 11px;
+  line-height: 1;
+  padding: 4px 8px;
+  border-radius: 4px;
+  white-space: nowrap;
+  pointer-events: none;
+}
 [data-debug] .pagination:not(:has(.pagination__item)){
   outline: 2px dashed var(--dbg-danger);
   outline-offset: 2px;
@@ -38,6 +80,48 @@
 }
 [data-debug] .stepper:not(:has(.stepper__step))::after{
   content: "missing .stepper__step";
+  position: absolute;
+  top: -1.6em;
+  inset-inline-start: 0;
+  z-index: 9999;
+  background: var(--dbg-danger);
+  color: #fff;
+  font-family: var(--font-family-mono, monospace);
+  font-size: 11px;
+  line-height: 1;
+  padding: 4px 8px;
+  border-radius: 4px;
+  white-space: nowrap;
+  pointer-events: none;
+}
+[data-debug] .slideshow:not(:has(.slideshow__track)){
+  outline: 2px dashed var(--dbg-danger);
+  outline-offset: 2px;
+  position: relative;
+}
+[data-debug] .slideshow:not(:has(.slideshow__track))::after{
+  content: "missing .slideshow__track";
+  position: absolute;
+  top: -1.6em;
+  inset-inline-start: 0;
+  z-index: 9999;
+  background: var(--dbg-danger);
+  color: #fff;
+  font-family: var(--font-family-mono, monospace);
+  font-size: 11px;
+  line-height: 1;
+  padding: 4px 8px;
+  border-radius: 4px;
+  white-space: nowrap;
+  pointer-events: none;
+}
+[data-debug] .slideshow:not(:has(.slideshow__slide)){
+  outline: 2px dashed var(--dbg-danger);
+  outline-offset: 2px;
+  position: relative;
+}
+[data-debug] .slideshow:not(:has(.slideshow__slide))::after{
+  content: "missing .slideshow__slide";
   position: absolute;
   top: -1.6em;
   inset-inline-start: 0;
@@ -143,6 +227,27 @@
 }
 [data-debug] .password-input:not(:has(.password-input__field))::after{
   content: "missing .password-input__field";
+  position: absolute;
+  top: -1.6em;
+  inset-inline-start: 0;
+  z-index: 9999;
+  background: var(--dbg-danger);
+  color: #fff;
+  font-family: var(--font-family-mono, monospace);
+  font-size: 11px;
+  line-height: 1;
+  padding: 4px 8px;
+  border-radius: 4px;
+  white-space: nowrap;
+  pointer-events: none;
+}
+[data-debug] .popover:not(:has(.popover__content)){
+  outline: 2px dashed var(--dbg-danger);
+  outline-offset: 2px;
+  position: relative;
+}
+[data-debug] .popover:not(:has(.popover__content))::after{
+  content: "missing .popover__content";
   position: absolute;
   top: -1.6em;
   inset-inline-start: 0;

@@ -81,6 +81,31 @@
         <span class="pagination__item"><a class="pagination__link pagination__link--active" href="#">2</a></span>
         <span class="pagination__item"><a class="pagination__link" href="#">3</a></span>
       </nav>
+
+      <div class="slideshow" data-good="slideshow" style="width:280px">
+        <div class="slideshow__track">
+          <figure class="slideshow__slide">Slide A</figure>
+          <figure class="slideshow__slide">Slide B</figure>
+        </div>
+        <button class="slideshow__arrow slideshow__arrow--prev" type="button">&#8249;</button>
+        <button class="slideshow__arrow slideshow__arrow--next" type="button">&#8250;</button>
+        <div class="slideshow__dots"><button class="slideshow__dot slideshow__dot--active" type="button"></button><button class="slideshow__dot" type="button"></button></div>
+      </div>
+
+      <div class="popover" data-good="popover">
+        <button type="button" class="btn btn--primary">Open</button>
+        <div class="popover__content">Rich content</div>
+        <span class="popover__arrow"></span>
+      </div>
+
+      <nav class="sidebar" data-good="sidebar" style="width:220px;height:auto">
+        <ul class="sidebar__nav">
+          <li><a class="sidebar__link sidebar__link--active" href="#"><span class="sidebar__icon"><span class="ic ic-star"></span></span><span class="sidebar__label">Home</span></a></li>
+          <li class="sidebar__sub sidebar__sub--open"><a class="sidebar__link" href="#"><span class="sidebar__label">Menu</span><span class="sidebar__arrow">&#8250;</span></a>
+            <ul class="sidebar__sub-menu"><li><a class="sidebar__link" href="#">Item</a></li></ul>
+          </li>
+        </ul>
+      </nav>
     </div>
   </div>
 
@@ -92,6 +117,9 @@
       </div>
       <label class="checkbox" data-bad="checkbox-missing-box"><input type="checkbox"><span class="checkbox__label">No box</span></label>
       <div class="tabs" data-bad="tabs-missing-tab"><div class="tabs__panel tabs__panel--active">Orphan panel</div></div>
+      <div class="slideshow" data-bad="slideshow-missing-track"><div class="slideshow__slide">Orphan slide</div></div>
+      <div class="popover" data-bad="popover-missing-content"><button type="button">Open</button></div>
+      <nav class="sidebar" data-bad="sidebar-missing-link"><ul class="sidebar__nav"><li>No links</li></ul></nav>
     </div>
   </div>
 
@@ -131,10 +159,13 @@
           'input-group': ['.input-group__input'],
           breadcrumbs: [],
           pagination: ['.pagination__item'],
+          slideshow: ['.slideshow__track', '.slideshow__slide'],
+          popover: ['.popover__content'],
+          sidebar: ['.sidebar__nav', '.sidebar__link'],
         }[id] || [];
-        const scope = [...el.classList].some((c) => /^(progress-item|tabs|checkbox|radio|toggle|avatar|donut|alert|stepper|rating|password-input|input-group|breadcrumbs|pagination)$/.test(c))
+        const scope = [...el.classList].some((c) => /^(progress-item|tabs|checkbox|radio|toggle|avatar|donut|alert|stepper|rating|password-input|input-group|breadcrumbs|pagination|slideshow|popover|sidebar)$/.test(c))
           ? el
-          : (el.querySelector('.tabs,.progress-item,.checkbox,.radio,.toggle,.avatar,.donut,.alert,.stepper,.rating,.password-input,.input-group,.breadcrumbs,.pagination') || el);
+          : (el.querySelector('.tabs,.progress-item,.checkbox,.radio,.toggle,.avatar,.donut,.alert,.stepper,.rating,.password-input,.input-group,.breadcrumbs,.pagination,.slideshow,.popover,.sidebar') || el);
         const missing = required.filter((sel) => {
           const node = scope.querySelector(sel) || document.querySelector(sel);
           if (!node) return true;
