@@ -12,7 +12,8 @@
     "probe": "node tools/layer-probe.mjs",
     "probe:baseline": "node tools/layer-probe.mjs --baseline",
     "probe:contract": "node tools/contract-probe.mjs",
-    "probe:layout": "node tools/layout-contract-probe.mjs"
+    "probe:layout": "node tools/layout-contract-probe.mjs",
+    "probe:spell": "node tools/spell-probe.mjs"
   },
   "license": "MIT",
   "devDependencies": {

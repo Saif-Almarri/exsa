@@ -21,6 +21,7 @@ Thumbs.db
 !site/qa/contract-probe.html
 !site/qa/layout-probe.html
 !site/qa/layout-fixtures/*.html
+!site/qa/spell-probe.html
 
 # Website-specific CSS
 demo.css

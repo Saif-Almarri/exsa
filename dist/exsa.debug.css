@@ -8,6 +8,30 @@
 
 [data-debug] {
   --dbg-danger: var(--color-danger, #dc2626);
+  --dbg-warn: var(--color-warning, #f59e0b);
+}
+
+[data-debug] [data-dbg-suggest]{
+  outline: 2px dashed var(--dbg-warn);
+  outline-offset: 2px;
+  position: relative;
+}
+
+[data-debug] [data-dbg-suggest]::after{
+  content: attr(data-dbg-suggest);
+  position: absolute;
+  top: -1.6em;
+  inset-inline-start: 0;
+  z-index: 9999;
+  background: var(--dbg-warn);
+  color: #111827;
+  font-family: var(--font-family-mono, monospace);
+  font-size: 11px;
+  line-height: 1;
+  padding: 4px 8px;
+  border-radius: 4px;
+  white-space: nowrap;
+  pointer-events: none;
 }
 
 [data-debug] .accordion:not(:has(.accordion__item)){

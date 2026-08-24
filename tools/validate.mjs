@@ -17,7 +17,7 @@
   10. --check-tokens : tokens.json must equal the tools/build-tokens.mjs output
   11. --check-bundles : dist/exsa.js + dist/exsa.bundle.css must be generated output
   12. every manifest structure contract cross-checks its CSS file
-  13. --check-debug : dist/exsa.debug.css must be generated output
+  13. --check-debug : dist/exsa.debug.css + dist/exsa.debug.js must be generated output
   14. no `.calc(` corruption signature (dot-form tokenizer bug) in any CSS file
   15. site pages reference only defined EXSA tokens (or file-local custom props)
   16. every layout structure contract cross-checks its CSS (when-class + parts)
@@ -279,12 +279,15 @@ for (const c of manifest.components) {
   }
 }
 
-/* ---------- rule 13: --check-debug : debug css is generated output ---------- */
+/* ---------- rule 13: --check-debug : debug css/js are generated output ---------- */
 if (process.argv.includes('--check-debug')) {
-  const { generateDebugCss } = await import('./build-debug.mjs');
+  const { generateDebugCss, generateDebugJs } = await import('./build-debug.mjs');
   const expected = generateDebugCss();
   const actual = readFileSync(join(root, 'dist/exsa.debug.css'), 'utf8');
   if (expected !== actual) fail('dist/exsa.debug.css is stale — run tools/build-debug.mjs (npm run build)');
+  const expectedJs = generateDebugJs();
+  const actualJs = readFileSync(join(root, 'dist/exsa.debug.js'), 'utf8');
+  if (expectedJs !== actualJs) fail('dist/exsa.debug.js is stale — run tools/build-debug.mjs (npm run build)');
 }
 
 /* ---------- rule 14: tokenizer corruption signature `.calc(` ----------
