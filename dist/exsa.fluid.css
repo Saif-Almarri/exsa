@@ -13,6 +13,10 @@
 
    To customize: edit the clamp() ranges. Smaller min = more
    compact on mobile. Larger max = more spacious on desktop.
+
+   Optional per-project — link only for viewport-fluid scaling (large screens)
+   and/or the data-profile density attributes. Without this file, tokens stay
+   static and data-profile has no effect.
    ============================================================ */
 
 :root {

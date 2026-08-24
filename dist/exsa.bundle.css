@@ -3,11 +3,13 @@
 */
 
 /* Copyright © 2026 Saif Almarri. MIT License. See LICENSE.
-   Cascade: tokens → themes → fluid → reset → utilities → elements → components → layouts → overrides.
+   Cascade: tokens → themes → (fluid — optional) → reset → utilities → elements → components → layouts → overrides.
 */
 
 /* ── Layer order ──
-   Token sources first (tokens → themes → fluid): themes recolor, fluid rescales.
+   Token sources first (tokens → themes → fluid*): themes recolor, fluid rescales.
+   * exsa.fluid is optional — link dist/exsa.fluid.css only for viewport-fluid
+     scaling and the data-profile density attributes.
    Structural layers follow; components beat elements, layouts beat components.
    overrides (u-* escape hatch) beats everything layered. User CSS stays
    unlayered and always wins. */
