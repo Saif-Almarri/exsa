@@ -30,6 +30,9 @@
      --layout-aside-left-w    260px
      --layout-aside-right-w   260px
      --layout-hero-min-h       55vh
+
+   Semantics: <aside> for .layout__aside-left / --right · <main> for
+              .layout__content · classless <header> for layout--has-hero
    ============================================================ */
 
 

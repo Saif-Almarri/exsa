@@ -36,6 +36,10 @@
      --dash-gap             16px (grid/gutter spacing)
      --dash-col-min        180px (dash-grid min column width)
      --dash-toolbar-z       89 (sticky toolbar layer)
+
+   Semantics: <aside class="dash__sidebar"> · <main class="dash__content">
+              · <aside class="dash__panel"> · .dash__backdrop is a <button
+              aria-label="Close menu">
    ============================================================ */
 
 /* Tokens live on <body> (not :root) so --space-factor / --font-factor

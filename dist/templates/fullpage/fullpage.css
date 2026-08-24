@@ -38,6 +38,8 @@
    --fullpage-panel-width     panel content width (default: 620px)
 
    Pure CSS. Staggered entrance, reduced-motion safe, RTL-safe.
+   Semantics: <header> for .fullpage__content · <footer> for .fullpage__copyright
+              · role="dialog" + aria-label on each .fullpage__panel
    Serve over HTTP — CSS mask icons don't load from file:// pages.
 
    NOTE: browsers resolve url() inside custom properties relative to

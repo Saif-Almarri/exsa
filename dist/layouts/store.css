@@ -18,6 +18,10 @@
      --shop-sidebar-w   260px
      --shop-announce-h   40px
      --shop-hero-min-h   40vh
+
+   Semantics: <aside role="region" aria-label="Announcements"> for .shop__announce
+              · <aside> for .shop__aside / --right · <main> for .shop__content
+              · classless <header> for shop--hero
    ============================================================ */
 
 :root {

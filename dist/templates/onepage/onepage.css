@@ -36,6 +36,10 @@
      --onepage-header-bg    hero backdrop          (photo + veil)
      --onepage-footer-bg    footer bg              (default #2b252c)
      --onepage-icon-size    circled icon diameter
+
+   Semantics: <header> for .onepage__header · <nav> for .onepage__nav ·
+              <main> around the .onepage__section bands · <footer> for
+              .onepage__footer
    ============================================================ */
 
 :root {
