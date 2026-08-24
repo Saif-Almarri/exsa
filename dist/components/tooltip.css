@@ -2,6 +2,9 @@
 
 /* ============================================================
    Component: Tooltip
+   ARIA: role="tooltip" on .tooltip; for hover/focus-only content also
+         expose the tip as aria-label/aria-describedby (::after text
+         is not reliably announced by screen readers)
    ============================================================ */
    
 /* --- C10: TOOLTIP --- */

@@ -5,6 +5,10 @@
    ── CSS Grid layout (Shoelace-inspired). Scroll-snap engine.
    Link with exsa.css + a theme. Requires carousel.js.
 
+   ARIA: aria-roledescription="carousel" + aria-live="polite" on the slides
+         region; carousel.js manages aria-disabled on nav buttons and
+         aria-hidden on off-screen items.
+
    Usage:
      <exsa-carousel pagination navigation autoplay loop>
        <exsa-carousel-item><img src="..." alt=""></exsa-carousel-item>

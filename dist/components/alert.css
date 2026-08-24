@@ -5,6 +5,7 @@
    Variants: info, success, warning, danger
    Styles: soft (default), outline, surface
    Sizes: sm, default, lg
+   ARIA: role="alert" on dynamically inserted alerts (static banners need none)
    ============================================================ */
 
 /* ── Base ── */

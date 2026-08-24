@@ -2,6 +2,8 @@
 
 /* ============================================================
    Component: Breadcrumbs
+   ARIA: <nav aria-label="Breadcrumb"> wrapper;
+         aria-current="page" on .breadcrumbs__current
    ============================================================ */
    
 /* --- C6: BREADCRUMBS --- */

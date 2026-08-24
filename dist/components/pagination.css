@@ -2,6 +2,8 @@
 
 /* ============================================================
    Component: Pagination
+   ARIA: <nav aria-label="Pagination"> wrapper;
+         aria-current="page" on the current .pagination__link
    ============================================================ */
 
 /* --- C7: PAGINATION --- */

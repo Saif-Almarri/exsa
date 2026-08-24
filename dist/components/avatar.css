@@ -10,6 +10,7 @@
      --lg clamp(64px,20vw,160px) · --xl clamp(96px,34vw,320px)
    Status: --online · --away · --busy · --offline (20% of size, min 8px, bg-colored ring)
    Colors: --primary · --success · --danger · --warning (fallback)
+   ARIA: role="img" + aria-label on the avatar; the status dot is decorative (aria-hidden)
    Group:  .avatar-group overlaps with a background ring
    ============================================================ */
 

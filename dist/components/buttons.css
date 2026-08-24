@@ -7,6 +7,8 @@
    Sizes: xs, sm, default, lg
    Mods: high-contrast, radius-full, radius-none, loading, block
    Theme-ready: uses --color-link, --color-bg, etc.
+   ARIA: aria-pressed on toggle buttons; aria-label on icon-only buttons;
+         aria-busy="true" on the button while a loading state is active
    ============================================================ */
 
 /* ── Base button reset ── */

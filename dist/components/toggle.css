@@ -2,6 +2,7 @@
 
 /* ============================================================
    Component: Toggle
+   ARIA: js/toggle.js adds role="switch" + aria-checked on the hidden input
    ============================================================ */
    
 /* --- C31: TOGGLE SWITCH --- */

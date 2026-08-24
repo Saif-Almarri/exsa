@@ -2,6 +2,7 @@
 
 /* ============================================================
    Component: Skeleton
+   ARIA: aria-busy="true" on the loading region; the skeleton itself is aria-hidden
    ============================================================ */
    
 /* --- C34: SKELETON LOADER --- */

@@ -1740,6 +1740,8 @@ body:has(.topbar--xl) { --topbar-height: 72px; }
 
 /* ============================================================
    Component: Breadcrumbs
+   ARIA: <nav aria-label="Breadcrumb"> wrapper;
+         aria-current="page" on .breadcrumbs__current
    ============================================================ */
    
 /* --- C6: BREADCRUMBS --- */
@@ -1752,6 +1754,8 @@ body:has(.topbar--xl) { --topbar-height: 72px; }
 
 /* ============================================================
    Component: Pagination
+   ARIA: <nav aria-label="Pagination"> wrapper;
+         aria-current="page" on the current .pagination__link
    ============================================================ */
 
 /* --- C7: PAGINATION --- */
@@ -1776,6 +1780,7 @@ body:has(.topbar--xl) { --topbar-height: 72px; }
 
 /* ============================================================
    Component: Stepper
+   ARIA: aria-current="step" on the active .stepper__step
    ============================================================ */
 
 /* --- C8: STEPPER --- */
@@ -1833,6 +1838,9 @@ body:has(.topbar--xl) { --topbar-height: 72px; }
 
 /* ============================================================
    Component: Tooltip
+   ARIA: role="tooltip" on .tooltip; for hover/focus-only content also
+         expose the tip as aria-label/aria-describedby (::after text
+         is not reliably announced by screen readers)
    ============================================================ */
    
 /* --- C10: TOOLTIP --- */
@@ -1934,6 +1942,7 @@ body:has(.topbar--xl) { --topbar-height: 72px; }
      --lg clamp(64px,20vw,160px) · --xl clamp(96px,34vw,320px)
    Status: --online · --away · --busy · --offline (20% of size, min 8px, bg-colored ring)
    Colors: --primary · --success · --danger · --warning (fallback)
+   ARIA: role="img" + aria-label on the avatar; the status dot is decorative (aria-hidden)
    Group:  .avatar-group overlaps with a background ring
    ============================================================ */
 
@@ -2601,6 +2610,10 @@ body:has(.topbar--xl) { --topbar-height: 72px; }
    ── CSS Grid layout (Shoelace-inspired). Scroll-snap engine.
    Link with exsa.css + a theme. Requires carousel.js.
 
+   ARIA: aria-roledescription="carousel" + aria-live="polite" on the slides
+         region; carousel.js manages aria-disabled on nav buttons and
+         aria-hidden on off-screen items.
+
    Usage:
      <exsa-carousel pagination navigation autoplay loop>
        <exsa-carousel-item><img src="..." alt=""></exsa-carousel-item>
@@ -2864,6 +2877,8 @@ exsa-carousel[orientation="vertical"] .carousel__nav-btn {
 
 /* ============================================================
    Component: Progress Bar
+   ARIA: role="progressbar" + aria-valuenow/min/max on .progress-item__fill
+         (or use the native <progress> element — styled by exsa.css)
    ============================================================ */
 
 /* --- C20: PROGRESS BARS --- */
@@ -2984,6 +2999,9 @@ exsa-carousel[orientation="vertical"] .carousel__nav-btn {
 @layer exsa.components {
 
 /* EXSA Color Picker — HSL + Alpha custom picker */
+/* ARIA: role=dialog + aria-label on the drop panel; aria-label +
+   aria-valuetext on the HS canvas and alpha slider; aria-expanded
+   + aria-haspopup on the trigger */
 /* Uses EXSA tokens with fallbacks for standalone use */
 .ex-cp{display:inline-block;position:relative;font-family:var(--font-family,system-ui,sans-serif)}
 .ex-cp__trigger{width:28px;height:28px;border-radius:50%;cursor:pointer;border:1.5px solid #fff;box-shadow:0 0 0 1px rgba(0,0,0,.08),0 1px 6px rgba(0,0,0,.1);background-color:var(--color-link,#3B82F6);background-image:linear-gradient(45deg,#ccc 25%,transparent 25%),linear-gradient(-45deg,#ccc 25%,transparent 25%),linear-gradient(45deg,transparent 75%,#ccc 75%),linear-gradient(-45deg,transparent 75%,#ccc 75%);background-size:6px 6px;background-position:0 0,0 3px,3px -3px,-3px 0}
@@ -3463,6 +3481,7 @@ select.select--success {
 
 /* ============================================================
    Component: Toggle
+   ARIA: js/toggle.js adds role="switch" + aria-checked on the hidden input
    ============================================================ */
    
 /* --- C31: TOGGLE SWITCH --- */
@@ -3478,6 +3497,7 @@ select.select--success {
    Variants: info, success, warning, danger
    Styles: soft (default), outline, surface
    Sizes: sm, default, lg
+   ARIA: role="alert" on dynamically inserted alerts (static banners need none)
    ============================================================ */
 
 /* ── Base ── */
@@ -3540,6 +3560,7 @@ select.select--success {
 
 /* ============================================================
    Component: Skeleton
+   ARIA: aria-busy="true" on the loading region; the skeleton itself is aria-hidden
    ============================================================ */
    
 /* --- C34: SKELETON LOADER --- */
@@ -3552,6 +3573,8 @@ select.select--success {
 
 /* ============================================================
    Component: Spinner
+   ARIA: role="status" + aria-live="polite" on the loading region;
+         the .spinner itself is decorative (aria-hidden)
    ============================================================ */
    
 /* --- C35: SPINNER --- */
@@ -3597,6 +3620,8 @@ select.select--success {
    Sizes: xs, sm, default, lg
    Mods: high-contrast, radius-full, radius-none, loading, block
    Theme-ready: uses --color-link, --color-bg, etc.
+   ARIA: aria-pressed on toggle buttons; aria-label on icon-only buttons;
+         aria-busy="true" on the button while a loading state is active
    ============================================================ */
 
 /* ── Base button reset ── */
@@ -4119,6 +4144,8 @@ select.select--success {
    ── Link this file to use any .ic-* icon class.
    SVG icons live in components/icons/. All icons are
    stroke-based 24×24, color inherited via currentColor.
+   ARIA: decorative icons → aria-hidden="true";
+         meaningful icons → aria-label on the element
 
    ▸ 101 icons adapted from Feather Icons (MIT)
      Copyright (c) 2013-2023 Cole Bemis — github.com/feathericons/feather

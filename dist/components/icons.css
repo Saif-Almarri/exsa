@@ -5,6 +5,8 @@
    ── Link this file to use any .ic-* icon class.
    SVG icons live in components/icons/. All icons are
    stroke-based 24×24, color inherited via currentColor.
+   ARIA: decorative icons → aria-hidden="true";
+         meaningful icons → aria-label on the element
 
    ▸ 101 icons adapted from Feather Icons (MIT)
      Copyright (c) 2013-2023 Cole Bemis — github.com/feathericons/feather

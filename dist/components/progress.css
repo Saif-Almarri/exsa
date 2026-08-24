@@ -2,6 +2,8 @@
 
 /* ============================================================
    Component: Progress Bar
+   ARIA: role="progressbar" + aria-valuenow/min/max on .progress-item__fill
+         (or use the native <progress> element — styled by exsa.css)
    ============================================================ */
 
 /* --- C20: PROGRESS BARS --- */
