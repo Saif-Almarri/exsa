@@ -26,6 +26,7 @@ Thumbs.db
 # Website-specific CSS
 demo.css
 landing.css
+site/splash.css
 
 # Server config
 .htaccess
