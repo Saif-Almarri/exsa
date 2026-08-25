@@ -2,13 +2,6 @@
    Cascade: tokens → themes → (fluid — optional) → reset → utilities → elements → components → layouts → overrides.
 */
 
-/* ── Layer order ──
-   Token sources first (tokens → themes → fluid*): themes recolor, fluid rescales.
-   * exsa.fluid is optional — link dist/exsa.fluid.css only for viewport-fluid
-     scaling and the data-profile density attributes.
-   Structural layers follow; components beat elements, layouts beat components.
-   overrides (u-* escape hatch) beats everything layered. User CSS stays
-   unlayered and always wins. */
 @layer exsa.tokens, exsa.themes, exsa.fluid, exsa.reset, exsa.utilities, exsa.elements, exsa.components, exsa.layouts, exsa.overrides;
 
 @layer exsa.tokens {
@@ -43,7 +36,7 @@
   --z-drawer-panel:901;     /* drawer panel */
   --z-cookiebar:950;        /* cookie consent bar */
   --z-topbar:1000;          /* fixed topbar */
-  --z-topbar-dropdown:1001; /* topbar dropdown menus */
+  --z-topbar-dropdown:1002; /* topbar dropdown menus (above topbar + announce) */
   --z-modal:1050;           /* modal dialogs + video modals (above topbar) */
   --z-lightbox:1100;        /* fullscreen lightbox */
   --z-popover-backdrop:9995;
@@ -64,6 +57,29 @@
 
 /* Forced light — <html data-theme-mode="light">, ignores OS preference */
 :root[data-theme-mode="light"] { color-scheme: light; }
+
+/* Legacy fallback  */
+@supports not (color: light-dark(#000, #fff)) {
+  :root {
+    --color-bg: Canvas;
+    --color-bg-secondary: ButtonFace;
+    --color-text: CanvasText;
+    --color-text-secondary: GrayText;
+    --color-link: LinkText;
+    --color-secondary: VisitedText;
+    --color-secondary-accent: ButtonFace;
+    --color-accent: ButtonFace;
+    --color-border: GrayText;
+    --color-overlay: rgba(0, 0, 0, .55);
+    --color-button-text-inverse: CanvasText;
+    --color-success: #16a34a;
+    --color-success-hover: #15803d;
+    --color-danger: #dc2626;
+    --color-danger-hover: #b91c1c;
+    --color-warning: #d97706;
+    --color-warning-hover: #b45309;
+  }
+}
 
 } /* tokens */
 
@@ -134,8 +150,8 @@ figure{margin:0;padding:0}
 .content-between{align-content:space-between}.content-around{align-content:space-around}
 .gap-0{gap:0}.gap-xs{gap:var(--gap-xs)}.gap-sm{gap:var(--gap-sm)}.gap-md{gap:var(--gap-md)}.gap{gap:var(--gap)}
 .gap-lg{gap:var(--gap-lg)}.gap-xl{gap:var(--gap-xl)}.gap-2xl{gap:var(--gap-2xl)}
-.col-1{flex:0 0 100%}.col-2{flex:0 0 calc(50% - var(--gap-sm))}.col-3{flex:0 0 calc(33.333% - var(--gap))}
-.col-4{flex:0 0 calc(25% - var(--gap))}.col-5{flex:0 0 calc(20% - var(--gap-sm))}.col-6{flex:0 0 calc(16.667% - var(--gap-sm))}
+.col-1{flex:0 0 100%}.col-2{flex:0 0 50%}.col-3{flex:0 0 33.333%}
+.col-4{flex:0 0 25%}.col-5{flex:0 0 20%}.col-6{flex:0 0 16.667%}
 .grid{display:grid}
 .grid-cols-1{grid-template-columns:repeat(1,1fr)}.grid-cols-2{grid-template-columns:repeat(2,1fr)}
 .grid-cols-3{grid-template-columns:repeat(3,1fr)}.grid-cols-4{grid-template-columns:repeat(4,1fr)}
@@ -161,10 +177,10 @@ figure{margin:0;padding:0}
 /* Order (flex/grid children) */
 .order-first{order:-1}.order-last{order:999}
 @media(max-width:575px){.col-2,.col-3,.col-4,.col-5,.col-6{flex:0 0 100%}.sm\:flex-col{flex-direction:column}.sm\:flex-wrap{flex-wrap:wrap}.sm\:grid-cols-1{grid-template-columns:repeat(1,1fr)}.sm\:text-center{text-align:center}}
-@media(min-width:768px){.md\:col-2{flex:0 0 calc(50% - var(--gap-sm))}.md\:col-3{flex:0 0 calc(33.333% - var(--gap))}.md\:col-4{flex:0 0 calc(25% - var(--gap))}.md\:col-5{flex:0 0 calc(20% - var(--gap-sm))}.md\:col-6{flex:0 0 calc(16.667% - var(--gap-sm))}.md\:grid-cols-2{grid-template-columns:repeat(2,1fr)}.md\:grid-cols-3{grid-template-columns:repeat(3,1fr)}.md\:grid-cols-4{grid-template-columns:repeat(4,1fr)}.md\:grid-cols-5{grid-template-columns:repeat(5,1fr)}.md\:grid-cols-6{grid-template-columns:repeat(6,1fr)}}
-@media(min-width:1024px){.lg\:col-2{flex:0 0 calc(50% - var(--gap-sm))}.lg\:col-3{flex:0 0 calc(33.333% - var(--gap))}.lg\:col-4{flex:0 0 calc(25% - var(--gap))}.lg\:col-5{flex:0 0 calc(20% - var(--gap-sm))}.lg\:col-6{flex:0 0 calc(16.667% - var(--gap-sm))}.lg\:grid-cols-3{grid-template-columns:repeat(3,1fr)}.lg\:grid-cols-4{grid-template-columns:repeat(4,1fr)}.lg\:grid-cols-5{grid-template-columns:repeat(5,1fr)}.lg\:grid-cols-6{grid-template-columns:repeat(6,1fr)}}
-@media(min-width:1280px){.xl\:col-2{flex:0 0 calc(50% - var(--gap-sm))}.xl\:col-3{flex:0 0 calc(33.333% - var(--gap))}.xl\:col-4{flex:0 0 calc(25% - var(--gap))}.xl\:col-5{flex:0 0 calc(20% - var(--gap-sm))}.xl\:col-6{flex:0 0 calc(16.667% - var(--gap-sm))}.xl\:grid-cols-3{grid-template-columns:repeat(3,1fr)}.xl\:grid-cols-4{grid-template-columns:repeat(4,1fr)}.xl\:grid-cols-5{grid-template-columns:repeat(5,1fr)}.xl\:grid-cols-6{grid-template-columns:repeat(6,1fr)}}
-@media(min-width:1440px){.xxl\:col-2{flex:0 0 calc(50% - var(--gap-sm))}.xxl\:col-3{flex:0 0 calc(33.333% - var(--gap))}.xxl\:col-4{flex:0 0 calc(25% - var(--gap))}.xxl\:col-5{flex:0 0 calc(20% - var(--gap-sm))}.xxl\:col-6{flex:0 0 calc(16.667% - var(--gap-sm))}.xxl\:grid-cols-3{grid-template-columns:repeat(3,1fr)}.xxl\:grid-cols-4{grid-template-columns:repeat(4,1fr)}.xxl\:grid-cols-5{grid-template-columns:repeat(5,1fr)}.xxl\:grid-cols-6{grid-template-columns:repeat(6,1fr)}}
+@media(min-width:768px){.md\:col-2{flex:0 0 50%}.md\:col-3{flex:0 0 33.333%}.md\:col-4{flex:0 0 25%}.md\:col-5{flex:0 0 20%}.md\:col-6{flex:0 0 16.667%}.md\:grid-cols-2{grid-template-columns:repeat(2,1fr)}.md\:grid-cols-3{grid-template-columns:repeat(3,1fr)}.md\:grid-cols-4{grid-template-columns:repeat(4,1fr)}.md\:grid-cols-5{grid-template-columns:repeat(5,1fr)}.md\:grid-cols-6{grid-template-columns:repeat(6,1fr)}}
+@media(min-width:1024px){.lg\:col-2{flex:0 0 50%}.lg\:col-3{flex:0 0 33.333%}.lg\:col-4{flex:0 0 25%}.lg\:col-5{flex:0 0 20%}.lg\:col-6{flex:0 0 16.667%}.lg\:grid-cols-3{grid-template-columns:repeat(3,1fr)}.lg\:grid-cols-4{grid-template-columns:repeat(4,1fr)}.lg\:grid-cols-5{grid-template-columns:repeat(5,1fr)}.lg\:grid-cols-6{grid-template-columns:repeat(6,1fr)}}
+@media(min-width:1280px){.xl\:col-2{flex:0 0 50%}.xl\:col-3{flex:0 0 33.333%}.xl\:col-4{flex:0 0 25%}.xl\:col-5{flex:0 0 20%}.xl\:col-6{flex:0 0 16.667%}.xl\:grid-cols-3{grid-template-columns:repeat(3,1fr)}.xl\:grid-cols-4{grid-template-columns:repeat(4,1fr)}.xl\:grid-cols-5{grid-template-columns:repeat(5,1fr)}.xl\:grid-cols-6{grid-template-columns:repeat(6,1fr)}}
+@media(min-width:1440px){.xxl\:col-2{flex:0 0 50%}.xxl\:col-3{flex:0 0 33.333%}.xxl\:col-4{flex:0 0 25%}.xxl\:col-5{flex:0 0 20%}.xxl\:col-6{flex:0 0 16.667%}.xxl\:grid-cols-3{grid-template-columns:repeat(3,1fr)}.xxl\:grid-cols-4{grid-template-columns:repeat(4,1fr)}.xxl\:grid-cols-5{grid-template-columns:repeat(5,1fr)}.xxl\:grid-cols-6{grid-template-columns:repeat(6,1fr)}}
 
 } /* utilities */
 
@@ -830,10 +846,7 @@ figure{margin:0;padding:0}
 
 @layer exsa.overrides {
 
-/* ── Override utilities — u-* escape hatch ──
-   Unprefixed utilities (exsa.utilities) are structural and lose to components.
-   u-* classes live in the top layer: they always beat components and layouts.
-   Unlayered user CSS still beats them. */
+/* ── Override utilities — */
 
 .u-text-start{text-align:start}
 .u-text-center{text-align:center}

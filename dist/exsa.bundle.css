@@ -6,13 +6,6 @@
    Cascade: tokens → themes → (fluid — optional) → reset → utilities → elements → components → layouts → overrides.
 */
 
-/* ── Layer order ──
-   Token sources first (tokens → themes → fluid*): themes recolor, fluid rescales.
-   * exsa.fluid is optional — link dist/exsa.fluid.css only for viewport-fluid
-     scaling and the data-profile density attributes.
-   Structural layers follow; components beat elements, layouts beat components.
-   overrides (u-* escape hatch) beats everything layered. User CSS stays
-   unlayered and always wins. */
 @layer exsa.tokens, exsa.themes, exsa.fluid, exsa.reset, exsa.utilities, exsa.elements, exsa.components, exsa.layouts, exsa.overrides;
 
 @layer exsa.tokens {
@@ -47,7 +40,7 @@
   --z-drawer-panel:901;     /* drawer panel */
   --z-cookiebar:950;        /* cookie consent bar */
   --z-topbar:1000;          /* fixed topbar */
-  --z-topbar-dropdown:1001; /* topbar dropdown menus */
+  --z-topbar-dropdown:1002; /* topbar dropdown menus (above topbar + announce) */
   --z-modal:1050;           /* modal dialogs + video modals (above topbar) */
   --z-lightbox:1100;        /* fullscreen lightbox */
   --z-popover-backdrop:9995;
@@ -68,6 +61,29 @@
 
 /* Forced light — <html data-theme-mode="light">, ignores OS preference */
 :root[data-theme-mode="light"] { color-scheme: light; }
+
+/* Legacy fallback  */
+@supports not (color: light-dark(#000, #fff)) {
+  :root {
+    --color-bg: Canvas;
+    --color-bg-secondary: ButtonFace;
+    --color-text: CanvasText;
+    --color-text-secondary: GrayText;
+    --color-link: LinkText;
+    --color-secondary: VisitedText;
+    --color-secondary-accent: ButtonFace;
+    --color-accent: ButtonFace;
+    --color-border: GrayText;
+    --color-overlay: rgba(0, 0, 0, .55);
+    --color-button-text-inverse: CanvasText;
+    --color-success: #16a34a;
+    --color-success-hover: #15803d;
+    --color-danger: #dc2626;
+    --color-danger-hover: #b91c1c;
+    --color-warning: #d97706;
+    --color-warning-hover: #b45309;
+  }
+}
 
 } /* tokens */
 
@@ -138,8 +154,8 @@ figure{margin:0;padding:0}
 .content-between{align-content:space-between}.content-around{align-content:space-around}
 .gap-0{gap:0}.gap-xs{gap:var(--gap-xs)}.gap-sm{gap:var(--gap-sm)}.gap-md{gap:var(--gap-md)}.gap{gap:var(--gap)}
 .gap-lg{gap:var(--gap-lg)}.gap-xl{gap:var(--gap-xl)}.gap-2xl{gap:var(--gap-2xl)}
-.col-1{flex:0 0 100%}.col-2{flex:0 0 calc(50% - var(--gap-sm))}.col-3{flex:0 0 calc(33.333% - var(--gap))}
-.col-4{flex:0 0 calc(25% - var(--gap))}.col-5{flex:0 0 calc(20% - var(--gap-sm))}.col-6{flex:0 0 calc(16.667% - var(--gap-sm))}
+.col-1{flex:0 0 100%}.col-2{flex:0 0 50%}.col-3{flex:0 0 33.333%}
+.col-4{flex:0 0 25%}.col-5{flex:0 0 20%}.col-6{flex:0 0 16.667%}
 .grid{display:grid}
 .grid-cols-1{grid-template-columns:repeat(1,1fr)}.grid-cols-2{grid-template-columns:repeat(2,1fr)}
 .grid-cols-3{grid-template-columns:repeat(3,1fr)}.grid-cols-4{grid-template-columns:repeat(4,1fr)}
@@ -165,10 +181,10 @@ figure{margin:0;padding:0}
 /* Order (flex/grid children) */
 .order-first{order:-1}.order-last{order:999}
 @media(max-width:575px){.col-2,.col-3,.col-4,.col-5,.col-6{flex:0 0 100%}.sm\:flex-col{flex-direction:column}.sm\:flex-wrap{flex-wrap:wrap}.sm\:grid-cols-1{grid-template-columns:repeat(1,1fr)}.sm\:text-center{text-align:center}}
-@media(min-width:768px){.md\:col-2{flex:0 0 calc(50% - var(--gap-sm))}.md\:col-3{flex:0 0 calc(33.333% - var(--gap))}.md\:col-4{flex:0 0 calc(25% - var(--gap))}.md\:col-5{flex:0 0 calc(20% - var(--gap-sm))}.md\:col-6{flex:0 0 calc(16.667% - var(--gap-sm))}.md\:grid-cols-2{grid-template-columns:repeat(2,1fr)}.md\:grid-cols-3{grid-template-columns:repeat(3,1fr)}.md\:grid-cols-4{grid-template-columns:repeat(4,1fr)}.md\:grid-cols-5{grid-template-columns:repeat(5,1fr)}.md\:grid-cols-6{grid-template-columns:repeat(6,1fr)}}
-@media(min-width:1024px){.lg\:col-2{flex:0 0 calc(50% - var(--gap-sm))}.lg\:col-3{flex:0 0 calc(33.333% - var(--gap))}.lg\:col-4{flex:0 0 calc(25% - var(--gap))}.lg\:col-5{flex:0 0 calc(20% - var(--gap-sm))}.lg\:col-6{flex:0 0 calc(16.667% - var(--gap-sm))}.lg\:grid-cols-3{grid-template-columns:repeat(3,1fr)}.lg\:grid-cols-4{grid-template-columns:repeat(4,1fr)}.lg\:grid-cols-5{grid-template-columns:repeat(5,1fr)}.lg\:grid-cols-6{grid-template-columns:repeat(6,1fr)}}
-@media(min-width:1280px){.xl\:col-2{flex:0 0 calc(50% - var(--gap-sm))}.xl\:col-3{flex:0 0 calc(33.333% - var(--gap))}.xl\:col-4{flex:0 0 calc(25% - var(--gap))}.xl\:col-5{flex:0 0 calc(20% - var(--gap-sm))}.xl\:col-6{flex:0 0 calc(16.667% - var(--gap-sm))}.xl\:grid-cols-3{grid-template-columns:repeat(3,1fr)}.xl\:grid-cols-4{grid-template-columns:repeat(4,1fr)}.xl\:grid-cols-5{grid-template-columns:repeat(5,1fr)}.xl\:grid-cols-6{grid-template-columns:repeat(6,1fr)}}
-@media(min-width:1440px){.xxl\:col-2{flex:0 0 calc(50% - var(--gap-sm))}.xxl\:col-3{flex:0 0 calc(33.333% - var(--gap))}.xxl\:col-4{flex:0 0 calc(25% - var(--gap))}.xxl\:col-5{flex:0 0 calc(20% - var(--gap-sm))}.xxl\:col-6{flex:0 0 calc(16.667% - var(--gap-sm))}.xxl\:grid-cols-3{grid-template-columns:repeat(3,1fr)}.xxl\:grid-cols-4{grid-template-columns:repeat(4,1fr)}.xxl\:grid-cols-5{grid-template-columns:repeat(5,1fr)}.xxl\:grid-cols-6{grid-template-columns:repeat(6,1fr)}}
+@media(min-width:768px){.md\:col-2{flex:0 0 50%}.md\:col-3{flex:0 0 33.333%}.md\:col-4{flex:0 0 25%}.md\:col-5{flex:0 0 20%}.md\:col-6{flex:0 0 16.667%}.md\:grid-cols-2{grid-template-columns:repeat(2,1fr)}.md\:grid-cols-3{grid-template-columns:repeat(3,1fr)}.md\:grid-cols-4{grid-template-columns:repeat(4,1fr)}.md\:grid-cols-5{grid-template-columns:repeat(5,1fr)}.md\:grid-cols-6{grid-template-columns:repeat(6,1fr)}}
+@media(min-width:1024px){.lg\:col-2{flex:0 0 50%}.lg\:col-3{flex:0 0 33.333%}.lg\:col-4{flex:0 0 25%}.lg\:col-5{flex:0 0 20%}.lg\:col-6{flex:0 0 16.667%}.lg\:grid-cols-3{grid-template-columns:repeat(3,1fr)}.lg\:grid-cols-4{grid-template-columns:repeat(4,1fr)}.lg\:grid-cols-5{grid-template-columns:repeat(5,1fr)}.lg\:grid-cols-6{grid-template-columns:repeat(6,1fr)}}
+@media(min-width:1280px){.xl\:col-2{flex:0 0 50%}.xl\:col-3{flex:0 0 33.333%}.xl\:col-4{flex:0 0 25%}.xl\:col-5{flex:0 0 20%}.xl\:col-6{flex:0 0 16.667%}.xl\:grid-cols-3{grid-template-columns:repeat(3,1fr)}.xl\:grid-cols-4{grid-template-columns:repeat(4,1fr)}.xl\:grid-cols-5{grid-template-columns:repeat(5,1fr)}.xl\:grid-cols-6{grid-template-columns:repeat(6,1fr)}}
+@media(min-width:1440px){.xxl\:col-2{flex:0 0 50%}.xxl\:col-3{flex:0 0 33.333%}.xxl\:col-4{flex:0 0 25%}.xxl\:col-5{flex:0 0 20%}.xxl\:col-6{flex:0 0 16.667%}.xxl\:grid-cols-3{grid-template-columns:repeat(3,1fr)}.xxl\:grid-cols-4{grid-template-columns:repeat(4,1fr)}.xxl\:grid-cols-5{grid-template-columns:repeat(5,1fr)}.xxl\:grid-cols-6{grid-template-columns:repeat(6,1fr)}}
 
 } /* utilities */
 
@@ -834,10 +850,7 @@ figure{margin:0;padding:0}
 
 @layer exsa.overrides {
 
-/* ── Override utilities — u-* escape hatch ──
-   Unprefixed utilities (exsa.utilities) are structural and lose to components.
-   u-* classes live in the top layer: they always beat components and layouts.
-   Unlayered user CSS still beats them. */
+/* ── Override utilities — */
 
 .u-text-start{text-align:start}
 .u-text-center{text-align:center}
@@ -2292,6 +2305,31 @@ body:has(.topbar--xl) { --topbar-height: 72px; }
   .tbl--responsive td{border:none;padding: calc(6px * var(--space-factor, 1)) calc(16px * var(--space-factor, 1));display:flex;justify-content:space-between;align-items:center;gap: calc(8px * var(--space-factor, 1))}
   .tbl--responsive td::before{content:attr(data-label);font-size:.68rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--color-text-secondary);flex-shrink:0}
 }
+
+/* ── Sortable (js/table.js — .tbl--sortable with th[data-sort]) ── */
+.tbl--sortable th[data-sort]{cursor:pointer;user-select:none}
+.tbl--sortable th[data-sort]::after{
+  content:'';display:inline-block;width:6px;height:6px;margin-inline-start: calc(6px * var(--space-factor, 1));
+  border-inline-end:2px solid var(--color-text-secondary);border-bottom:2px solid var(--color-text-secondary);
+  transform:rotate(45deg) translateY(-2px);vertical-align:middle;opacity:.4;transition:opacity .15s;
+}
+.tbl--sortable th[data-sort]:hover::after{opacity:.9}
+.tbl--sortable th[aria-sort="ascending"]::after{transform:rotate(-135deg) translateY(-2px);border-color:var(--color-link);opacity:1}
+.tbl--sortable th[aria-sort="descending"]::after{transform:rotate(45deg) translateY(-2px);border-color:var(--color-link);opacity:1}
+.tbl--sortable th[data-sort]:focus-visible{outline:2px solid var(--color-link);outline-offset:-2px}
+
+/* ── Filter input (js/table.js — .table-search[data-table]) ── */
+.table-search{padding: calc(7px * var(--space-factor, 1)) calc(12px * var(--space-factor, 1));font-size:.82rem;font-family:inherit;border:1px solid var(--color-bg-secondary);border-radius:var(--border-radius);background:var(--color-bg);color:var(--color-text);min-width:200px;transition:border-color .15s,box-shadow .15s}
+.table-search:focus{outline:none;border-color:var(--color-link);box-shadow:0 0 0 3px color-mix(in srgb,var(--color-link)20%,transparent)}
+
+/* ── Empty row (js/table.js — .table-empty, hidden attr toggled) ── */
+.table-empty td{padding: calc(20px * var(--space-factor, 1));text-align:center;color:var(--color-text-secondary);font-style:italic}
+
+/* ── Selectable rows (js/table.js — .tbl--selectable + .tbl__check) ── */
+.tbl__check,.tbl__check--all{width:14px;height:14px;margin:0;accent-color:var(--color-link);cursor:pointer;vertical-align:middle}
+.tbl--selectable tbody tr.tbl__row--selected{background:color-mix(in srgb,var(--color-link)8%,transparent)}
+.tbl--selectable tbody tr.tbl__row--selected:hover{background:color-mix(in srgb,var(--color-link)14%,transparent)}
+.tbl--selectable th:first-child,.tbl--selectable td:first-child{width: calc(28px * var(--space-factor, 1));text-align:center;padding-inline-end: calc(4px * var(--space-factor, 1))}
 
 }
 
@@ -4138,18 +4176,2021 @@ select.select--success {
 
 }
 
+/* --- activity.css --- */
+@layer exsa.components {
+/* ============================================================
+   EXSA Activity — grouped timeline feed (today / yesterday)
+   Link after exsa.css + your theme. avatar.css optional.
+
+   Markup:
+     <div class="activity">
+       <div class="activity__group">
+         <div class="activity__header">Today</div>
+         <div class="activity__list">
+           <div class="activity__item">
+             <div class="activity__body">
+               <div class="activity__title">Invoice #1042 paid</div>
+               <div class="activity__text">by Acme Corp · $1,240</div>
+             </div>
+             <span class="activity__time">09:41</span>
+           </div>
+           …
+         </div>
+       </div>
+     </div>
+
+   Dot colors: --success (default), --danger, --warning,
+               --muted (no color, just track).
+   ============================================================ */
+
+/* ── Root ── */
+.activity { display: block; }
+
+/* ── Group ── */
+.activity__group { margin-bottom: 22px; }
+.activity__group:last-child { margin-bottom: 0; }
+
+/* ── Day header with connecting rule ── */
+.activity__header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 12px;
+  font-size: .7rem;
+  font-weight: 700;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: var(--color-text-secondary);
+  white-space: nowrap;
+}
+.activity__header::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--color-bg-secondary);
+}
+
+/* ── Track + items ── */
+.activity__list {
+  position: relative;
+  padding-inline-start: 20px;
+  margin-inline-start: 5px;
+}
+.activity__list::before {
+  content: '';
+  position: absolute;
+  inset-inline-start: 0;
+  top: 6px;
+  bottom: 6px;
+  width: 2px;
+  border-radius: 2px;
+  background: var(--color-bg-secondary);
+}
+
+.activity__item {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 14px;
+  padding: 7px 0;
+}
+.activity__item::before {
+  content: '';
+  position: absolute;
+  inset-inline-start: -24px;
+  top: 13px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--activity-dot, var(--color-success));
+  border: 2px solid var(--color-bg);
+}
+
+/* ── Dot color variants ── */
+.activity__item--danger  { --activity-dot: var(--color-danger); }
+.activity__item--warning { --activity-dot: var(--color-warning); }
+.activity__item--muted   { --activity-dot: var(--color-text-secondary); }
+
+/* ── Content ── */
+.activity__body { flex: 1; min-width: 0; }
+.activity__title {
+  font-size: .82rem;
+  font-weight: 600;
+  color: var(--color-text);
+  line-height: 1.4;
+}
+.activity__text {
+  font-size: .76rem;
+  color: var(--color-text-secondary);
+  line-height: 1.5;
+  margin-top: 1px;
+  word-wrap: break-word;
+}
+.activity__time {
+  font-size: .7rem;
+  color: var(--color-text-secondary);
+  font-family: var(--font-family-mono);
+  white-space: nowrap;
+  padding-top: 2px;
+}
+}
+
+/* --- calendar.css --- */
+@layer exsa.components {
+/* ============================================================
+   EXSA Calendar — month grid + event chips
+   Link after exsa.css + your theme. js/calendar.js renders
+   the grid from data attributes; CSS only styles it.
+
+   Markup:
+     <div class="calendar"
+          data-calendar-date="2026-08-21"
+          data-calendar-week-start="0"
+          data-calendar-events='[
+            {"date":"2026-08-21","title":"Release v1.0","type":"primary"},
+            {"date":"2026-08-24","title":"Sprint review","type":"success"}
+          ]'></div>
+
+   Options:
+     data-calendar-date       initial visible month (ISO date, default today)
+     data-calendar-week-start first weekday 0=Sun (default) | 1=Mon
+     data-calendar-events     JSON array {date:"YYYY-MM-DD", title, type}
+                              type: primary (default) | success | warning |
+                              danger | secondary — event chip color
+
+   Events fired (CustomEvent on the .calendar element):
+     exsa:day-select   detail {date:"YYYY-MM-DD", dayEl}
+     exsa:event-click  detail {date, title, type, eventEl}
+     exsa:month-change detail {year, month}  (month is 1-based)
+
+   Tokens (derive from theme tokens → dark mode adapts automatically):
+     --calendar-event-*        chip colors per type
+     --calendar-cell-min-h     minimum day-cell height
+     --calendar-today          today ring color
+     --calendar-outside-op     opacity of days outside the month
+   ============================================================ */
+
+:root {
+  --calendar-event-primary: var(--color-link);
+  --calendar-event-success: var(--color-success);
+  --calendar-event-warning: var(--color-warning);
+  --calendar-event-danger: var(--color-danger);
+  --calendar-event-secondary: var(--color-secondary);
+  --calendar-cell-min-h: 72px;
+  --calendar-today: var(--color-link);
+  --calendar-outside-op: .45;
+}
+
+/* ── Shell ── */
+.calendar {
+  background: var(--color-bg);
+  border: 1px solid var(--color-bg-secondary);
+  border-radius: var(--border-radius);
+  overflow: hidden;
+  font-size: .84rem;
+}
+
+/* ── Head: prev / label / next / today ── */
+.calendar__head {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--color-bg-secondary);
+}
+.calendar__label {
+  flex: 1;
+  font-weight: 700;
+  font-size: .95rem;
+  color: var(--color-text);
+  padding-inline: 4px;
+}
+.calendar__nav {
+  width: 32px;
+  height: 32px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--color-bg-secondary);
+  border-radius: var(--border-radius);
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-size: 1rem;
+  line-height: 1;
+  cursor: pointer;
+  font-family: inherit;
+  transition: background .12s, border-color .12s;
+}
+.calendar__nav:hover { background: var(--color-bg-secondary); }
+.calendar__nav:focus-visible { outline: 2px solid var(--color-link); outline-offset: 2px; }
+/* RTL — prev/next arrows point the other way */
+[dir="rtl"] .calendar__nav { transform: scaleX(-1); }
+.calendar__today {
+  padding: 6px 14px;
+  font-size: .78rem;
+  font-weight: 600;
+  border: 1px solid var(--color-bg-secondary);
+  border-radius: var(--border-radius);
+  background: var(--color-bg);
+  color: var(--color-link);
+  cursor: pointer;
+  font-family: inherit;
+}
+.calendar__today:hover { background: color-mix(in srgb, var(--color-link) 8%, transparent); }
+
+/* ── Weekday header ── */
+.calendar__weekdays {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  border-bottom: 1px solid var(--color-bg-secondary);
+}
+.calendar__weekday {
+  padding: 8px 6px;
+  text-align: center;
+  font-size: .68rem;
+  font-weight: 700;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: var(--color-text-secondary);
+}
+
+/* ── Grid ── */
+.calendar__grid {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+}
+
+/* ── Day cell ── */
+.calendar__day {
+  position: relative;
+  min-height: var(--calendar-cell-min-h);
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+  padding: 8px;
+  border: none;
+  border-inline-end: 1px solid var(--color-bg-secondary);
+  border-bottom: 1px solid var(--color-bg-secondary);
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: inherit;
+  text-align: start;
+  cursor: pointer;
+  transition: background .12s;
+}
+.calendar__day:nth-child(7n) { border-inline-end: none; }
+.calendar__day:hover { background: color-mix(in srgb, var(--color-text-secondary) 7%, transparent); }
+.calendar__day:focus-visible { outline: 2px solid var(--color-link); outline-offset: -2px; }
+
+.calendar__day--outside { opacity: var(--calendar-outside-op); }
+
+.calendar__daynum {
+  width: 24px;
+  height: 24px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  font-size: .8rem;
+  font-weight: 600;
+  font-family: var(--font-family-mono);
+}
+.calendar__day--today .calendar__daynum {
+  background: var(--calendar-today);
+  color: var(--color-button-text);
+}
+.calendar__day--selected { background: color-mix(in srgb, var(--color-link) 8%, transparent); }
+.calendar__day--selected:hover { background: color-mix(in srgb, var(--color-link) 14%, transparent); }
+
+/* ── Event chips ── */
+.calendar__events {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  width: 100%;
+  overflow: hidden;
+}
+.calendar__event {
+  display: block;
+  width: 100%;
+  padding: 2px 7px;
+  border: none;
+  border-radius: 4px;
+  font-size: .68rem;
+  font-weight: 600;
+  line-height: 1.5;
+  text-align: start;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  cursor: pointer;
+  font-family: inherit;
+  background: var(--calendar-event-bg, color-mix(in srgb, var(--color-link) 14%, transparent));
+  color: var(--calendar-event, var(--color-link));
+  transition: filter .12s;
+}
+.calendar__event:hover { filter: brightness(1.1); }
+.calendar__event:focus-visible { outline: 2px solid var(--color-link); outline-offset: 1px; }
+.calendar__event--primary   { --calendar-event: var(--calendar-event-primary);   --calendar-event-bg: color-mix(in srgb, var(--calendar-event-primary) 14%, transparent); }
+.calendar__event--success   { --calendar-event: var(--calendar-event-success);   --calendar-event-bg: color-mix(in srgb, var(--calendar-event-success) 14%, transparent); }
+.calendar__event--warning   { --calendar-event: var(--calendar-event-warning);   --calendar-event-bg: color-mix(in srgb, var(--calendar-event-warning) 14%, transparent); }
+.calendar__event--danger    { --calendar-event: var(--calendar-event-danger);    --calendar-event-bg: color-mix(in srgb, var(--calendar-event-danger) 12%, transparent); }
+.calendar__event--secondary { --calendar-event: var(--calendar-event-secondary); --calendar-event-bg: color-mix(in srgb, var(--calendar-event-secondary) 12%, transparent); }
+
+/* ── More-indicator ── */
+.calendar__more {
+  font-size: .66rem;
+  font-weight: 600;
+  color: var(--color-text-secondary);
+  padding-inline-start: 2px;
+}
+
+/* ── Compact on narrow screens ── */
+@media (max-width: 560px) {
+  :root { --calendar-cell-min-h: 56px; }
+  .calendar__day { padding: 5px; gap: 2px; }
+  .calendar__daynum { width: 20px; height: 20px; font-size: .72rem; }
+  .calendar__event { font-size: .62rem; padding: 1px 5px; }
+}
+}
+
+/* --- chart.css --- */
+@layer exsa.components {
+/* ============================================================
+   EXSA Chart — SVG line / area / bar / sparkline
+   Link after exsa.css + your theme.
+
+   Markup: any element with data-chart-values. js/chart.js
+   generates the SVG markup from data attributes; CSS only
+   styles it. Zero third-party dependencies.
+
+     <div class="chart chart--line"
+          data-chart-labels="Mon,Tue,Wed,Thu,Fri"
+          data-chart-values="12,28,19,33,24"
+          aria-label="Weekly sales"></div>
+
+   Types (class or data-chart-type): line, area, bar, sparkline.
+   Second series: data-chart-values-2 (renders with --chart-2 tokens).
+
+   Tokens (all derive from theme tokens, so dark mode + custom
+   themes adapt automatically — override any of them to rebrand):
+     --chart-line     series stroke       (default --color-link)
+     --chart-2        second series       (default --color-secondary)
+     --chart-fill     area fill           (12% color-mix of line)
+     --chart-bar      bar fill            (default --color-link)
+     --chart-grid     gridline stroke
+     --chart-axis     axis label color
+     --chart-point    point fill          (default --color-bg)
+
+   A11y: container carries aria-label (role=img); bars/points are
+   keyboard-focusable via the generated SVG when tabindex is set.
+   ============================================================ */
+
+:root {
+  --chart-line: var(--color-link);
+  --chart-2: var(--color-secondary);
+  --chart-fill: color-mix(in srgb, var(--color-link) 12%, transparent);
+  --chart-fill-2: color-mix(in srgb, var(--color-secondary) 12%, transparent);
+  --chart-bar: var(--color-link);
+  --chart-grid: color-mix(in srgb, var(--color-text) 9%, transparent);
+  --chart-axis: var(--color-text-secondary);
+  --chart-point: var(--color-bg);
+}
+
+/* ── Container ── */
+.chart { position: relative; width: 100%; }
+.chart svg { display: block; width: 100%; height: auto; overflow: visible; }
+.chart--sparkline svg { width: 100%; max-width: 180px; }
+
+/* ── Grid ── */
+.chart__grid line { stroke: var(--chart-grid); stroke-width: 1; shape-rendering: crispEdges; }
+
+/* ── Axis labels ── */
+.chart__axis text {
+  fill: var(--chart-axis);
+  font-size: 11px;
+  font-family: var(--font-family-mono);
+}
+
+/* ── Line series ── */
+.chart__line {
+  fill: none;
+  stroke: var(--chart-line);
+  stroke-width: 2.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  vector-effect: non-scaling-stroke;
+}
+.chart__series--2 .chart__line { stroke: var(--chart-2); }
+
+/* ── Area series ── */
+.chart__area { stroke: none; }
+.chart__area--1 { fill: var(--chart-fill); }
+.chart__area--2 { fill: var(--chart-fill-2); }
+
+/* ── Points ── */
+.chart__point {
+  fill: var(--chart-point);
+  stroke: var(--chart-line);
+  stroke-width: 2;
+  vector-effect: non-scaling-stroke;
+}
+.chart__series--2 .chart__point { stroke: var(--chart-2); }
+.chart__point:hover, .chart__point:focus { r: 5; outline: none; }
+
+/* ── Bars ── */
+.chart__bar { fill: var(--chart-bar); transition: opacity .15s; }
+.chart__bar:hover, .chart__bar:focus { opacity: .75; outline: none; }
+
+/* ── Bar value labels ── */
+.chart__bar-label {
+  fill: var(--chart-axis);
+  font-size: 10px;
+  font-family: var(--font-family-mono);
+  text-anchor: middle;
+}
+
+/* ── Sparkline — no axes, no grid ── */
+.chart--sparkline .chart__grid,
+.chart--sparkline .chart__axis,
+.chart--sparkline .chart__point { display: none; }
+
+/* ── Intro animation (skipped for reduced motion) ── */
+@media (prefers-reduced-motion: no-preference) {
+  .chart__line, .chart__area { animation: chart-in .5s ease-out both; }
+  .chart__bar { animation: chart-bar-in .4s ease-out both; transform-origin: bottom; }
+  @keyframes chart-in { from { opacity: 0; } to { opacity: 1; } }
+  @keyframes chart-bar-in { from { opacity: 0; transform: scaleY(.6); } to { opacity: 1; transform: scaleY(1); } }
+}
+}
+
+/* --- command-palette.css --- */
+@layer exsa.components {
+/* ============================================================
+   EXSA Command Palette — Ctrl+K modal search
+   Link after exsa.css + your theme + modal.css (overlay shell
+   is reused from .modal). Behavior from js/command-palette.js.
+
+   Markup:
+     <div class="modal command-palette" role="dialog" aria-modal="true" aria-label="Command palette">
+       <div class="modal__dialog command-palette__dialog">
+         <div class="command-palette__input-wrap">
+           <span class="command-palette__icon"><span class="ic ic-search"></span></span>
+           <input class="command-palette__input" type="text" placeholder="Type a command or search…">
+           <kbd class="command-palette__kbd">esc</kbd>
+         </div>
+         <div class="command-palette__list" role="listbox">
+           <div class="command-palette__group">
+             <div class="command-palette__group-title">Navigate</div>
+             <button type="button" class="command-palette__item" data-command="dashboard" role="option">
+               <span class="command-palette__item-icon"><span class="ic ic-home"></span></span>
+               <span class="command-palette__item-body">
+                 <span class="command-palette__item-label">Go to Dashboard</span>
+                 <span class="command-palette__item-desc">Overview and KPIs</span>
+               </span>
+             </button>
+           </div>
+         </div>
+         <div class="command-palette__empty" hidden>No results</div>
+         <div class="command-palette__foot">
+           <span><kbd class="command-palette__kbd">↑↓</kbd> navigate</span>
+           <span><kbd class="command-palette__kbd">↵</kbd> select</span>
+           <span><kbd class="command-palette__kbd">esc</kbd> close</span>
+         </div>
+       </div>
+     </div>
+
+   Behavior (js/command-palette.js, vanilla):
+     - Ctrl+K / Cmd+K toggles (also [data-command-open] buttons)
+     - type-to-filter across commands, labels, descriptions and
+       group names; groups with no matches hide; empty state shows
+     - ↑/↓ navigate, Enter selects, Escape closes, click backdrop closes
+     - events: exsa:command-open / -close / -select {command, label, item}
+   ============================================================ */
+
+/* ── Overlay — reuse .modal, park the dialog near the top ── */
+.command-palette {
+  align-items: flex-start;
+  padding-top: 16vh;
+  background: rgba(0, 0, 0, .38);
+}
+.command-palette__dialog { max-width: 560px; }
+
+/* ── Input row ── */
+.command-palette__input-wrap {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 16px;
+  border-bottom: 1px solid var(--color-bg-secondary);
+  flex-shrink: 0;
+}
+.command-palette__icon {
+  color: var(--color-text-secondary);
+  font-size: 1rem;
+  display: inline-flex;
+  flex-shrink: 0;
+}
+.command-palette__input {
+  flex: 1;
+  min-width: 0;
+  border: none;
+  background: none;
+  padding: 2px 0;
+  font-size: .92rem;
+  font-family: inherit;
+  color: var(--color-text);
+}
+.command-palette__input:focus { outline: none; }
+.command-palette__input::placeholder { color: var(--color-text-secondary); }
+
+/* ── kbd hint chips ── */
+.command-palette__kbd {
+  font-family: var(--font-family-mono);
+  font-size: .64rem;
+  color: var(--color-text-secondary);
+  border: 1px solid var(--color-bg-secondary);
+  border-bottom-width: 2px;
+  border-radius: 4px;
+  padding: 2px 6px;
+  white-space: nowrap;
+}
+
+/* ── Results list ── */
+.command-palette__list {
+  max-height: 320px;
+  overflow-y: auto;
+  padding: 6px;
+}
+.command-palette__group { margin-bottom: 4px; }
+.command-palette__group[hidden] { display: none; }
+.command-palette__group-title {
+  font-size: .66rem;
+  font-weight: 700;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: var(--color-text-secondary);
+  padding: 8px 10px 4px;
+}
+
+/* ── Item ── */
+.command-palette__item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 9px 10px;
+  border: none;
+  border-radius: var(--border-radius);
+  background: none;
+  color: var(--color-text);
+  font-family: inherit;
+  font-size: .86rem;
+  text-align: start;
+  cursor: pointer;
+}
+.command-palette__item[hidden] { display: none; }
+.command-palette__item:hover,
+.command-palette__item--active {
+  background: color-mix(in srgb, var(--color-link) 10%, transparent);
+}
+.command-palette__item-icon {
+  width: 28px;
+  height: 28px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--border-radius);
+  background: var(--color-bg-secondary);
+  color: var(--color-text-secondary);
+  font-size: .9rem;
+  flex-shrink: 0;
+}
+.command-palette__item--active .command-palette__item-icon {
+  background: var(--color-link);
+  color: var(--color-button-text);
+}
+.command-palette__item-body {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+.command-palette__item-label {
+  font-weight: 600;
+  color: var(--color-text);
+}
+.command-palette__item-desc {
+  font-size: .72rem;
+  color: var(--color-text-secondary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* ── Empty state ── */
+.command-palette__empty {
+  padding: 28px 16px;
+  text-align: center;
+  font-size: .82rem;
+  color: var(--color-text-secondary);
+}
+
+/* ── Footer hints ── */
+.command-palette__foot {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  padding: 10px 16px;
+  border-top: 1px solid var(--color-bg-secondary);
+  font-size: .68rem;
+  color: var(--color-text-secondary);
+  flex-shrink: 0;
+}
+.command-palette__foot span {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+}
+
+/* --- empty-state.css --- */
+@layer exsa.components {
+/* ============================================================
+   EXSA Empty State — icon + title + CTA for blank lists/tables
+   Link after exsa.css + your theme. icons.css optional.
+
+   Markup:
+     <div class="empty-state empty-state--bordered">
+       <span class="empty-state__icon"><span class="ic ic-inbox"></span></span>
+       <h3 class="empty-state__title">No projects yet</h3>
+       <p class="empty-state__text">Create your first project to get started.</p>
+       <div class="empty-state__actions">
+         <button class="btn btn--primary">New project</button>
+         <button class="btn btn--outline">Import</button>
+       </div>
+     </div>
+
+   Variants: --sm (compact), --bordered (dashed drop-zone look),
+             --dark (for use on colored panels).
+   ============================================================ */
+
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 5px;
+  padding: 48px 24px;
+}
+
+.empty-state__icon {
+  width: 56px;
+  height: 56px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: var(--color-bg-secondary);
+  color: var(--color-text-secondary);
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.empty-state__title {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--color-text);
+  margin: 0;
+}
+
+.empty-state__text {
+  font-size: .82rem;
+  line-height: 1.6;
+  color: var(--color-text-secondary);
+  max-width: 340px;
+  margin: 0;
+}
+
+.empty-state__actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 14px;
+}
+
+/* ── Compact ── */
+.empty-state--sm { padding: 24px 16px; gap: 3px; }
+.empty-state--sm .empty-state__icon { width: 40px; height: 40px; font-size: 18px; margin-bottom: 6px; }
+.empty-state--sm .empty-state__actions { margin-top: 10px; }
+
+/* ── Bordered (drop-zone / upload placeholder) ── */
+.empty-state--bordered {
+  border: 2px dashed var(--color-bg-secondary);
+  border-radius: var(--border-radius);
+}
+.empty-state--bordered:hover { border-color: var(--color-link); }
+
+/* ── On dark/colored panels ── */
+.empty-state--dark .empty-state__title { color: #fff; }
+.empty-state--dark .empty-state__text { color: rgba(255,255,255,.75); }
+.empty-state--dark .empty-state__icon {
+  background: rgba(255,255,255,.15);
+  color: #fff;
+}
+}
+
+/* --- kanban.css --- */
+@layer exsa.components {
+/* ============================================================
+   EXSA Kanban — drag-and-drop board with columns and cards
+   Link after exsa.css + your theme. badge.css / avatar.css
+   optional (used inside cards). Behavior comes from js/kanban.js.
+
+   Markup:
+     <div class="kanban">
+       <div class="kanban__col" data-col-id="todo">
+         <div class="kanban__col-head">
+           <span class="kanban__col-title">To Do</span>
+           <span class="kanban__col-count badge badge--default">2</span>
+         </div>
+         <div class="kanban__cards">
+           <article class="kanban__card" data-card-id="c1" tabindex="0">
+             <div class="kanban__card-title">Card title</div>
+             <div class="kanban__card-text">Optional body text</div>
+             <div class="kanban__card-tags"><span class="badge badge--primary">tag</span></div>
+             <div class="kanban__card-foot">
+               <span class="kanban__card-date">Aug 21</span>
+             </div>
+           </article>
+         </div>
+         <button class="kanban__add" type="button">+ Add card</button>
+       </div>
+     </div>
+
+   Behavior (js/kanban.js, pointer-based — mouse AND touch):
+     - drag cards between columns or reorder inside a column
+       (vertical page scroll on touch stays intact: touch-action pan-y)
+     - .kanban__add inserts a card with an editable title
+     - column count badges (.kanban__col-count) update automatically
+     - events: exsa:kanban-drop {cardId, fromColId, toColId, afterId}
+               exsa:kanban-add  {card, colId}
+
+   Tokens (theme-derived → dark mode adapts automatically):
+     --kanban-col-w   column width
+     --kanban-gap     board gap
+     --kanban-col-bg  column background
+     --kanban-over    drop-target highlight
+   ============================================================ */
+
+:root {
+  --kanban-col-w: 280px;
+  --kanban-gap: 16px;
+  --kanban-col-bg: color-mix(in srgb, var(--color-bg-secondary) 45%, transparent);
+  --kanban-over: color-mix(in srgb, var(--color-link) 10%, transparent);
+}
+
+/* ── Board — horizontal columns, scrolls on narrow screens ── */
+.kanban {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--kanban-gap);
+  overflow-x: auto;
+  padding: 2px 2px 10px;
+}
+
+/* ── Column ── */
+.kanban__col {
+  flex: 0 0 var(--kanban-col-w);
+  max-width: var(--kanban-col-w);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 12px;
+  background: var(--kanban-col-bg);
+  border: 1px solid var(--color-bg-secondary);
+  border-radius: var(--border-radius);
+}
+.kanban__col--over {
+  background: var(--kanban-over);
+  border-color: var(--color-link);
+}
+
+/* ── Column head ── */
+.kanban__col-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+.kanban__col-title {
+  font-size: .82rem;
+  font-weight: 700;
+  letter-spacing: .03em;
+  text-transform: uppercase;
+  color: var(--color-text);
+}
+.kanban__col-count { flex-shrink: 0; }
+
+/* ── Cards stack ── */
+.kanban__cards {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-height: 48px;
+  flex: 1;
+}
+
+/* ── Card ── */
+.kanban__card {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  padding: 12px;
+  background: var(--color-bg);
+  border: 1px solid var(--color-bg-secondary);
+  border-radius: var(--border-radius);
+  cursor: grab;
+  touch-action: pan-y; /* vertical scroll on touch; horizontal move = drag */
+  box-shadow: 0 1px 2px color-mix(in srgb, #000 6%, transparent);
+  transition: border-color .15s, box-shadow .15s;
+}
+.kanban__card:hover {
+  border-color: color-mix(in srgb, var(--color-text-secondary) 35%, transparent);
+  box-shadow: 0 2px 6px color-mix(in srgb, #000 10%, transparent);
+}
+.kanban__card:focus-visible { outline: 2px solid var(--color-link); outline-offset: 2px; }
+
+.kanban__card--ghost { opacity: .35; }
+
+/* Dragging clone */
+.kanban__card--dragging {
+  position: fixed;
+  left: 0;
+  top: 0;
+  margin: 0;
+  z-index: 9999;
+  pointer-events: none;
+  opacity: .96;
+  cursor: grabbing;
+  transform-origin: top left;
+  box-shadow: 0 12px 32px color-mix(in srgb, #000 18%, transparent);
+}
+body.kanban-dragging,
+body.kanban-dragging .kanban__card { user-select: none; }
+
+/* ── Card parts ── */
+.kanban__card-title {
+  font-size: .84rem;
+  font-weight: 600;
+  line-height: 1.4;
+  color: var(--color-text);
+  word-wrap: break-word;
+}
+.kanban__card-title[contenteditable="true"]:focus { outline: 1px dashed var(--color-link); outline-offset: 2px; }
+.kanban__card-text {
+  font-size: .76rem;
+  line-height: 1.5;
+  color: var(--color-text-secondary);
+  word-wrap: break-word;
+}
+.kanban__card-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+.kanban__card-foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+.kanban__card-date {
+  font-size: .7rem;
+  color: var(--color-text-secondary);
+  font-family: var(--font-family-mono);
+}
+
+/* ── Add button ── */
+.kanban__add {
+  width: 100%;
+  padding: 8px;
+  border: 1px dashed var(--color-bg-secondary);
+  border-radius: var(--border-radius);
+  background: none;
+  color: var(--color-text-secondary);
+  font-size: .78rem;
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+  transition: color .12s, border-color .12s;
+}
+.kanban__add:hover { color: var(--color-link); border-color: var(--color-link); }
+.kanban__add:focus-visible { outline: 2px solid var(--color-link); outline-offset: 2px; }
+
+/* ── Empty column hint ── */
+.kanban__empty {
+  padding: 14px 10px;
+  text-align: center;
+  font-size: .76rem;
+  color: var(--color-text-secondary);
+  border: 1px dashed var(--color-bg-secondary);
+  border-radius: var(--border-radius);
+}
+}
+
+/* --- kpi.css --- */
+@layer exsa.components {
+/* ============================================================
+   EXSA KPI Card — big number + delta + sparkline
+   Link after exsa.css + your theme. Standalone (works with or
+   without card.css / layouts/dashboard.css).
+
+   Markup:
+     <div class="kpi">
+       <div class="kpi__head">
+         <span class="kpi__label">Revenue</span>
+         <span class="kpi__icon"><span class="ic ic-chart"></span></span>
+       </div>
+       <div class="kpi__value">$48,290</div>
+       <div class="kpi__foot">
+         <span class="kpi__delta kpi__delta--up">12.4%</span>
+         <span class="kpi__delta-note">vs last month</span>
+       </div>
+     </div>
+
+   Sparkline slot (needs js/chart.js):
+     <span class="kpi__spark" data-chart-values="12,18,15,24,29"></span>
+
+   Variants: --success / --warning / --danger (accent + icon tint),
+             --sm (compact), --pill (delta badge).
+   Grid: wrap cards in .kpi-grid.
+   Tokens: --kpi-pad, --kpi-value-size, --kpi-accent, --kpi-icon-bg,
+           --kpi-delta-up, --kpi-delta-down.
+   ============================================================ */
+
+:root {
+  --kpi-pad: 20px;
+  --kpi-value-size: 1.75rem;
+  --kpi-accent: var(--color-link);
+  --kpi-icon-bg: color-mix(in srgb, var(--color-link) 12%, transparent);
+  --kpi-delta-up: var(--color-success);
+  --kpi-delta-down: var(--color-danger);
+}
+
+/* ── Card ── */
+.kpi {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: var(--kpi-pad);
+  background: var(--color-bg);
+  border: 1px solid var(--color-bg-secondary);
+  border-inline-start: 3px solid var(--kpi-accent);
+  border-radius: var(--border-radius);
+  position: relative;
+  min-width: 0;
+}
+
+/* ── Head row: label + icon ── */
+.kpi__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+.kpi__label {
+  font-size: .72rem;
+  font-weight: 700;
+  letter-spacing: .05em;
+  text-transform: uppercase;
+  color: var(--color-text-secondary);
+}
+.kpi__icon {
+  width: 36px;
+  height: 36px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--border-radius);
+  background: var(--kpi-icon-bg);
+  color: var(--kpi-accent);
+  font-size: 1rem;
+  flex-shrink: 0;
+}
+
+/* ── Value ── */
+.kpi__value {
+  font-size: var(--kpi-value-size);
+  font-weight: 800;
+  line-height: 1.1;
+  color: var(--color-text);
+  font-family: var(--font-family-mono);
+  letter-spacing: -.01em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* ── Foot: delta + note ── */
+.kpi__foot {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.kpi__delta {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  font-size: .74rem;
+  font-weight: 700;
+  font-family: var(--font-family-mono);
+}
+.kpi__delta--up { color: var(--kpi-delta-up); }
+.kpi__delta--up::before { content: '↑'; }
+.kpi__delta--down { color: var(--kpi-delta-down); }
+.kpi__delta--down::before { content: '↓'; }
+.kpi__delta--pill {
+  padding: 2px 9px;
+  border-radius: 99px;
+}
+.kpi__delta--up.kpi__delta--pill {
+  background: color-mix(in srgb, var(--kpi-delta-up) 14%, transparent);
+}
+.kpi__delta--down.kpi__delta--pill {
+  background: color-mix(in srgb, var(--kpi-delta-down) 12%, transparent);
+}
+.kpi__delta-note {
+  font-size: .72rem;
+  color: var(--color-text-secondary);
+}
+
+/* ── Sparkline slot ── */
+.kpi__spark { display: block; margin-top: 2px; }
+
+/* ── Progress slot — slim bars (progress.css) inside the card ── */
+.kpi__progress {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+  margin-top: 2px;
+  padding-top: 10px;
+  border-top: 1px solid var(--color-bg-secondary);
+}
+
+/* ── Color variants ── */
+.kpi--success { --kpi-accent: var(--color-success); --kpi-icon-bg: color-mix(in srgb, var(--color-success) 12%, transparent); }
+.kpi--warning { --kpi-accent: var(--color-warning); --kpi-icon-bg: color-mix(in srgb, var(--color-warning) 14%, transparent); }
+.kpi--danger  { --kpi-accent: var(--color-danger);  --kpi-icon-bg: color-mix(in srgb, var(--color-danger) 12%, transparent); }
+.kpi--secondary { --kpi-accent: var(--color-secondary); --kpi-icon-bg: color-mix(in srgb, var(--color-secondary) 12%, transparent); }
+
+/* ── Compact ── */
+.kpi--sm { --kpi-pad: 14px; --kpi-value-size: 1.35rem; gap: 6px; }
+.kpi--sm .kpi__icon { width: 28px; height: 28px; font-size: .8rem; }
+
+/* ── Grid ── */
+.kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+}
+}
+
+/* --- notifications.css --- */
+@layer exsa.components {
+/* ============================================================
+   EXSA Notifications — bell dropdown built on dropdown.css
+   Link after exsa.css + your theme + dropdown.css (+ badge.css,
+   avatar.css optional). Toggle behavior comes from js/dropdown.js
+   (class .dropdown--open) — no new JS needed.
+
+   Markup:
+     <div class="dropdown notifications">
+       <button class="dropdown__trigger notifications__trigger"
+               aria-haspopup="true" aria-expanded="false" aria-label="Notifications">
+         <span class="ic ic-bell"></span>
+         <span class="badge badge--danger badge--count">3</span>
+       </button>
+       <div class="dropdown__menu notifications__menu" role="menu">
+         <div class="notifications__head">
+           <span class="notifications__title">Notifications</span>
+           <button class="notifications__mark" type="button">Mark all read</button>
+         </div>
+         <div class="notifications__list">
+           <div class="notifications__item notifications__item--unread">
+             <span class="avatar avatar--xs">JD</span>
+             <div class="notifications__body">
+               <div class="notifications__text"><b>Jane</b> assigned you a task</div>
+               <span class="notifications__time">2 min ago</span>
+             </div>
+           </div>
+           …
+         </div>
+         <a class="notifications__foot" href="#">View all</a>
+       </div>
+     </div>
+
+   States: --unread (dot + tint), --error/--success (dot color).
+   ============================================================ */
+
+/* ── Trigger — round icon button with floating count badge ── */
+.notifications__trigger {
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  justify-content: center;
+  border-radius: 50%;
+  position: relative;
+}
+.notifications__trigger .badge {
+  position: absolute;
+  top: -4px;
+  inset-inline-end: -4px;
+  border: 2px solid var(--color-bg);
+}
+
+/* ── Menu panel ── */
+.notifications .dropdown__menu {
+  min-width: 320px;
+  max-width: calc(100vw - 24px);
+  padding: 0;
+  overflow: hidden;
+  inset-inline-start: auto;
+  inset-inline-end: 0;
+  transform-origin: top right;
+}
+[dir="rtl"] .notifications .dropdown__menu { transform-origin: top left; }
+
+/* ── Head ── */
+.notifications__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--color-bg-secondary);
+}
+.notifications__title {
+  font-size: .8rem;
+  font-weight: 700;
+  color: var(--color-text);
+}
+.notifications__mark {
+  font-size: .72rem;
+  font-weight: 600;
+  color: var(--color-link);
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+  padding: 0;
+}
+.notifications__mark:hover { text-decoration: underline; }
+
+/* ── List ── */
+.notifications__list {
+  max-height: 340px;
+  overflow-y: auto;
+  padding: 4px 0;
+}
+
+/* ── Item ── */
+.notifications__item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 10px 16px;
+  position: relative;
+  transition: background .12s;
+}
+.notifications__item:hover {
+  background: color-mix(in srgb, var(--color-text-secondary) 8%, transparent);
+}
+.notifications__item--unread {
+  background: color-mix(in srgb, var(--color-link) 7%, transparent);
+}
+.notifications__item--unread::before {
+  content: '';
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--color-link);
+  flex-shrink: 0;
+  margin-top: 7px;
+}
+.notifications__item--success::before { background: var(--color-success); }
+.notifications__item--danger::before  { background: var(--color-danger); }
+
+.notifications__body {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+.notifications__text {
+  font-size: .8rem;
+  line-height: 1.45;
+  color: var(--color-text);
+  word-wrap: break-word;
+}
+.notifications__text b { font-weight: 700; }
+.notifications__time {
+  font-size: .68rem;
+  color: var(--color-text-secondary);
+}
+.notifications__time--unread { color: var(--color-link); }
+
+/* ── Footer ── */
+.notifications__foot {
+  display: block;
+  text-align: center;
+  padding: 11px;
+  font-size: .78rem;
+  font-weight: 600;
+  color: var(--color-link);
+  border-top: 1px solid var(--color-bg-secondary);
+  text-decoration: none;
+}
+.notifications__foot:hover {
+  background: color-mix(in srgb, var(--color-link) 6%, transparent);
+}
+
+/* ── Empty state ── */
+.notifications__empty {
+  padding: 32px 16px;
+  text-align: center;
+  font-size: .8rem;
+  color: var(--color-text-secondary);
+}
+}
+
+/* --- product-card.css --- */
+@layer exsa.components {
+/* ============================================================
+   EXSA Product Card — store product tile
+
+   Link after exsa.css. Used inside layouts/store.css .shop__grid.
+   Classes (shop__ namespace — store vocabulary):
+     .shop__card            tile
+     .shop__card-image      square cover image
+     .shop__card-badge      corner badge (pair with badge.css colors)
+     .shop__card-body       text block
+     .shop__card-title      product name
+     .shop__card-price      price (+ --old strikethrough)
+     .shop__card-rating     star rating line
+   ============================================================ */
+
+.shop__card {
+  position: relative;
+  background: var(--color-bg);
+  border: 1px solid var(--color-bg-secondary);
+  border-radius: var(--border-radius);
+  overflow: hidden;
+  transition: box-shadow 0.2s, transform 0.15s;
+}
+.shop__card:hover {
+  box-shadow: 0 4px 16px rgba(0,0,0,.08);
+  transform: translateY(-2px);
+}
+.shop__card-image {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  display: block;
+  overflow: hidden;
+  background: var(--color-bg-secondary);
+}
+.shop__card-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.shop__card-badge {
+  position: absolute;
+  top: calc(10px * var(--space-factor, 1)); inset-inline-start: calc(10px * var(--space-factor, 1));
+  padding: calc(2px * var(--space-factor, 1)) calc(8px * var(--space-factor, 1));
+  border-radius: 4px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  z-index: 1;
+}
+.shop__card-body {
+  padding: calc(14px * var(--space-factor, 1));
+}
+.shop__card-title {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--color-text);
+  margin-bottom: calc(4px * var(--space-factor, 1));
+  line-height: 1.3;
+}
+.shop__card-price {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--color-text);
+}
+.shop__card-price--old {
+  font-size: 0.8rem;
+  font-weight: 400;
+  color: var(--color-text-secondary);
+  text-decoration: line-through;
+  margin-inline-start: calc(6px * var(--space-factor, 1));
+}
+.shop__card-rating {
+  font-size: 0.78rem;
+  color: var(--color-warning, #f59e0b);
+  margin-top: calc(4px * var(--space-factor, 1));
+}
+}
+
+/* --- tags-input.css --- */
+@layer exsa.components {
+/* ============================================================
+   EXSA Tags Input — chips + type-to-add with suggestions
+   Link after exsa.css + your theme. Behavior from js/tags-input.js.
+
+   Markup:
+     <div class="tags-input"
+          data-tags-suggestions='["design","a11y","docs","bug","feature"]'
+          data-tags-max="8" data-tags-name="tags">
+       <span class="tags-input__chip" data-value="design">
+         <span class="tags-input__chip-label">design</span>
+         <button type="button" class="tags-input__remove" aria-label="Remove design">&times;</button>
+       </span>
+       <!-- the text field is added by js/tags-input.js -->
+     </div>
+
+   Behavior (vanilla):
+     - Enter or comma adds a chip; Backspace on empty removes the last
+     - suggestions dropdown filtered as you type (ArrowUp/Down + Enter,
+       click to pick, Escape closes)
+     - duplicates are ignored; data-tags-max caps the count
+     - data-tags-free="false" restricts to suggestions only
+     - data-tags-name creates a hidden input with comma-joined values
+     - events: exsa:tags-add / exsa:tags-remove / exsa:tags-change
+
+   Tokens (theme-derived → dark mode adapts automatically):
+     --tags-chip-bg, --tags-chip-color
+   ============================================================ */
+
+:root {
+  --tags-chip-bg: color-mix(in srgb, var(--color-link) 12%, transparent);
+  --tags-chip-color: var(--color-link);
+}
+
+/* ── Container — looks like an input ── */
+.tags-input {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 10px;
+  border: 1px solid var(--color-bg-secondary);
+  border-radius: var(--border-radius);
+  background: var(--color-bg);
+  cursor: text;
+  transition: border-color .15s, box-shadow .15s;
+}
+.tags-input:focus-within {
+  border-color: var(--color-link);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-link) 18%, transparent);
+}
+
+/* ── Chip ── */
+.tags-input__chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 3px 9px;
+  border-radius: 99px;
+  background: var(--tags-chip-bg);
+  color: var(--tags-chip-color);
+  font-size: .76rem;
+  font-weight: 600;
+  line-height: 1.5;
+  white-space: nowrap;
+}
+.tags-input__chip--success { --tags-chip-bg: color-mix(in srgb, var(--color-success) 14%, transparent); --tags-chip-color: var(--color-success); }
+.tags-input__chip--warning { --tags-chip-bg: color-mix(in srgb, var(--color-warning) 14%, transparent); --tags-chip-color: var(--color-warning); }
+.tags-input__chip--danger  { --tags-chip-bg: color-mix(in srgb, var(--color-danger) 12%, transparent);  --tags-chip-color: var(--color-danger); }
+
+.tags-input__remove {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 14px;
+  height: 14px;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--tags-chip-color) 25%, transparent);
+  color: var(--tags-chip-color);
+  font-size: .8rem;
+  line-height: 1;
+  cursor: pointer;
+  font-family: inherit;
+}
+.tags-input__remove:hover { background: var(--tags-chip-color); color: var(--color-button-text); }
+.tags-input__remove:focus-visible { outline: 2px solid var(--color-link); outline-offset: 1px; }
+
+/* ── Text field ── */
+.tags-input__field {
+  flex: 1;
+  min-width: 90px;
+  border: none;
+  background: none;
+  padding: 4px 2px;
+  font-size: .84rem;
+  font-family: inherit;
+  color: var(--color-text);
+}
+.tags-input__field:focus { outline: none; }
+.tags-input__field::placeholder { color: var(--color-text-secondary); }
+
+/* ── Suggestions menu ── */
+.tags-input__menu {
+  position: absolute;
+  top: calc(100% + 4px);
+  inset-inline-start: 0;
+  z-index: var(--z-dropdown);
+  min-width: 180px;
+  max-height: 220px;
+  overflow-y: auto;
+  padding: 4px;
+  background: var(--color-bg);
+  border: 1px solid var(--color-bg-secondary);
+  border-radius: var(--border-radius);
+  box-shadow: 0 4px 16px color-mix(in srgb, #000 10%, transparent);
+  display: none;
+}
+.tags-input__menu--open { display: block; }
+
+.tags-input__item {
+  padding: 6px 10px;
+  font-size: .8rem;
+  border-radius: calc(var(--border-radius) * .6);
+  cursor: pointer;
+  color: var(--color-text);
+}
+.tags-input__item:hover,
+.tags-input__item--active {
+  background: color-mix(in srgb, var(--color-text-secondary) 10%, transparent);
+}
+}
+
+/* --- transfer.css --- */
+@layer exsa.components {
+/* ============================================================
+   EXSA Transfer — two-panel list picker
+   Link after exsa.css + your theme. badge.css optional.
+   Behavior from js/transfer.js.
+
+   Markup:
+     <div class="transfer" data-transfer-name="roles">
+       <div class="transfer__panel">
+         <div class="transfer__head">
+           <span class="transfer__title">Available</span>
+           <span class="transfer__count badge badge--default">3</span>
+         </div>
+         <input class="transfer__search" type="search" placeholder="Filter…" aria-label="Filter available">
+         <ul class="transfer__list">
+           <li class="transfer__item" data-value="admin" tabindex="0">Admin</li>
+           …
+         </ul>
+       </div>
+       <div class="transfer__actions">
+         <button class="transfer__btn" type="button" data-action="add" aria-label="Add selected">›</button>
+         <button class="transfer__btn" type="button" data-action="remove" aria-label="Remove selected">‹</button>
+         <button class="transfer__btn transfer__btn--text" type="button" data-action="add-all">All ›</button>
+         <button class="transfer__btn transfer__btn--text" type="button" data-action="remove-all">‹ All</button>
+       </div>
+       <div class="transfer__panel"> … selected panel … </div>
+     </div>
+
+   Behavior (js/transfer.js, vanilla):
+     - click item = select (aria-selected), double-click = move
+     - Space toggles selection, Enter moves a focused item
+     - action buttons move selected / all items
+     - per-panel search filters items
+     - data-transfer-name syncs a hidden input (comma-joined values)
+     - event: exsa:transfer-change {values, added, removed}
+
+   Tokens (theme-derived → dark mode adapts automatically):
+     --transfer-gap, --transfer-checked
+   ============================================================ */
+
+:root {
+  --transfer-gap: 12px;
+  --transfer-checked: color-mix(in srgb, var(--color-link) 10%, transparent);
+}
+
+/* ── Layout: two panels + central actions ── */
+.transfer {
+  display: flex;
+  align-items: stretch;
+  gap: var(--transfer-gap);
+  flex-wrap: wrap;
+}
+
+/* ── Panel ── */
+.transfer__panel {
+  flex: 1;
+  min-width: 200px;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--color-bg-secondary);
+  border-radius: var(--border-radius);
+  background: var(--color-bg);
+  overflow: hidden;
+}
+.transfer__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 10px 12px;
+  border-bottom: 1px solid var(--color-bg-secondary);
+}
+.transfer__title {
+  font-size: .72rem;
+  font-weight: 700;
+  letter-spacing: .05em;
+  text-transform: uppercase;
+  color: var(--color-text-secondary);
+}
+.transfer__count { flex-shrink: 0; }
+
+/* ── Search ── */
+.transfer__search {
+  margin: 10px 10px 4px;
+  padding: 7px 12px;
+  font-size: .8rem;
+  font-family: inherit;
+  color: var(--color-text);
+  background: var(--color-bg);
+  border: 1px solid var(--color-bg-secondary);
+  border-radius: var(--border-radius);
+  transition: border-color .15s, box-shadow .15s;
+}
+.transfer__search::placeholder { color: var(--color-text-secondary); }
+.transfer__search:focus { outline: none; border-color: var(--color-link); box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-link) 18%, transparent); }
+
+/* ── List ── */
+.transfer__list {
+  list-style: none;
+  margin: 0;
+  padding: 6px;
+  max-height: 220px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+/* ── Item ── */
+.transfer__item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 10px;
+  border-radius: var(--border-radius);
+  font-size: .82rem;
+  color: var(--color-text);
+  cursor: pointer;
+  user-select: none;
+  transition: background .1s;
+}
+.transfer__item:hover { background: color-mix(in srgb, var(--color-text-secondary) 8%, transparent); }
+.transfer__item:focus-visible { outline: 2px solid var(--color-link); outline-offset: -2px; }
+.transfer__item[hidden] { display: none; }
+
+/* Check indicator (pure CSS) */
+.transfer__item::before {
+  content: '';
+  width: 14px;
+  height: 14px;
+  flex-shrink: 0;
+  border: 1.5px solid var(--color-text-secondary);
+  border-radius: 4px;
+  transition: background .12s, border-color .12s;
+}
+.transfer__item--checked { background: var(--transfer-checked); }
+.transfer__item--checked::before {
+  background: var(--color-link);
+  border-color: var(--color-link);
+  box-shadow: inset 0 0 0 2.5px var(--color-bg);
+}
+
+/* ── Action buttons ── */
+.transfer__actions {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+.transfer__btn {
+  width: 34px;
+  height: 34px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--color-bg-secondary);
+  border-radius: var(--border-radius);
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-size: 1.05rem;
+  line-height: 1;
+  cursor: pointer;
+  font-family: inherit;
+  transition: background .12s, border-color .12s, color .12s;
+}
+.transfer__btn:hover { background: var(--color-bg-secondary); color: var(--color-link); }
+.transfer__btn:focus-visible { outline: 2px solid var(--color-link); outline-offset: 2px; }
+.transfer__btn--text {
+  width: auto;
+  padding: 6px 12px;
+  font-size: .76rem;
+  font-weight: 600;
+}
+
+/* RTL — flip directional glyphs */
+[dir="rtl"] .transfer__btn:not(.transfer__btn--text),
+[dir="rtl"] .transfer__btn--text { transform: scaleX(-1); }
+
+/* ── Narrow screens: actions row between panels ── */
+@media (max-width: 560px) {
+  .transfer { flex-direction: column; }
+  .transfer__actions { flex-direction: row; padding: 2px 0; }
+}
+}
+
+/* --- tree.css --- */
+@layer exsa.components {
+/* ============================================================
+   EXSA Tree — nested tree / file tree (pure CSS, zero JS)
+   Link after exsa.css + your theme. icons.css + badge.css
+   optional. Expand/collapse comes free from <details> —
+   keyboard accessible and no JavaScript required.
+
+   Markup:
+     <ul class="tree tree--lines">
+       <li>
+         <details class="tree__node" open>
+           <summary class="tree__row">
+             <span class="tree__icon"><span class="ic ic-folder"></span></span>
+             <span class="tree__label">src</span>
+             <span class="badge badge--default tree__badge">4</span>
+           </summary>
+           <ul class="tree">
+             <li class="tree__leaf">
+               <span class="tree__row">
+                 <input type="checkbox" class="tree__check" aria-label="index.php">
+                 <span class="tree__icon"><span class="ic ic-file"></span></span>
+                 <span class="tree__label">index.php</span>
+               </span>
+             </li>
+           </ul>
+         </details>
+       </li>
+     </ul>
+
+   States: .tree__row--selected (highlight), checkboxes for
+   permission/file selection, --lines variant draws connectors.
+   Chevron indicator is pure CSS on the summary (no icon file).
+   ============================================================ */
+
+.tree {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.tree .tree {
+  padding-inline-start: 20px;
+}
+
+/* ── Node row (summary or leaf row) ── */
+.tree__row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 10px;
+  border-radius: var(--border-radius);
+  font-size: .84rem;
+  color: var(--color-text);
+  cursor: pointer;
+  transition: background .12s;
+  list-style: none;
+  min-width: 0;
+}
+.tree__row:hover { background: color-mix(in srgb, var(--color-text-secondary) 8%, transparent); }
+.tree__row:focus-visible { outline: 2px solid var(--color-link); outline-offset: -2px; }
+.tree__row--selected {
+  background: color-mix(in srgb, var(--color-link) 8%, transparent);
+  color: var(--color-link);
+  font-weight: 600;
+}
+
+/* Hide the native details marker on summaries */
+.tree__node > summary { list-style: none; }
+.tree__node > summary::-webkit-details-marker { display: none; }
+
+/* ── Chevron (pure CSS, RTL-safe) ── */
+.tree__node > summary::before {
+  content: '';
+  width: 7px;
+  height: 7px;
+  flex-shrink: 0;
+  border-inline-end: 2px solid var(--color-text-secondary);
+  border-bottom: 2px solid var(--color-text-secondary);
+  transform: rotate(-45deg);
+  transition: transform .15s;
+}
+.tree__node[open] > summary::before { transform: rotate(45deg); }
+
+/* ── Icon slot ── */
+.tree__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: .95rem;
+  color: var(--color-text-secondary);
+  flex-shrink: 0;
+}
+.tree__row--selected .tree__icon { color: var(--color-link); }
+
+/* ── Label ── */
+.tree__label {
+  flex: 1;
+  min-width: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* ── Badge slot ── */
+.tree__badge { flex-shrink: 0; }
+
+/* ── Checkbox (permission / file selection) ── */
+.tree__check {
+  width: 15px;
+  height: 15px;
+  margin: 0;
+  accent-color: var(--color-link);
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+/* ── Guide lines variant ── */
+.tree--lines .tree {
+  padding-inline-start: 18px;
+  margin-inline-start: 9px;
+  border-inline-start: 1px solid var(--color-bg-secondary);
+}
+.tree--lines > li { position: relative; }
+
+/* ── Size variants ── */
+.tree--sm .tree__row {
+  padding: 3px 8px;
+  gap: 6px;
+  font-size: .76rem;
+}
+.tree--sm .tree .tree {
+  padding-inline-start: 14px;
+}
+.tree--sm .tree__icon { font-size: .8rem; }
+.tree--sm .tree__check { width: 13px; height: 13px; }
+.tree--sm .tree__node > summary::before { width: 6px; height: 6px; }
+.tree--sm.tree--lines .tree {
+  padding-inline-start: 13px;
+  margin-inline-start: 6px;
+}
+.tree--lg .tree__row {
+  padding: 10px 14px;
+  gap: 10px;
+  font-size: .92rem;
+}
+
+/* ── Reduced motion ── */
+@media (prefers-reduced-motion: reduce) {
+  .tree__node > summary::before { transition: none; }
+}
+}
+
+/* --- upload.css --- */
+@layer exsa.components {
+/* ============================================================
+   EXSA Upload — dropzone + file list with progress
+   Link after exsa.css + your theme. Behavior from js/upload.js.
+
+   Markup:
+     <div class="upload" data-upload-url="/api/upload">
+       <div class="upload__dropzone" tabindex="0" role="button"
+            aria-label="Upload files">
+         <span class="upload__icon"><span class="ic ic-upload"></span></span>
+         <div class="upload__title">Drop files here or click to browse</div>
+         <div class="upload__hint">PDF, DOC up to 10 MB</div>
+         <input class="upload__input" type="file" multiple accept=".pdf,.doc" hidden>
+       </div>
+       <ul class="upload__list"></ul>
+     </div>
+
+   Behavior (js/upload.js, vanilla):
+     - click / Enter / Space on the dropzone opens the file input
+     - drag & drop onto the dropzone (--over highlight)
+     - per-file row: extension chip, name, size, progress track, remove
+     - data-upload-url: real XHR upload with live progress
+       (omit it to simulate progress for demos)
+     - states: .upload__item--done / --error
+     - events: exsa:upload-add {files}, exsa:upload-done {file, name},
+               exsa:upload-error {file, name, message},
+               exsa:upload-remove {name}
+
+   Tokens (theme-derived → dark mode adapts automatically):
+     --upload-over, --upload-over-bg, --upload-progress,
+     --upload-success, --upload-error
+   ============================================================ */
+
+:root {
+  --upload-over: var(--color-link);
+  --upload-over-bg: color-mix(in srgb, var(--color-link) 8%, transparent);
+  --upload-progress: var(--color-link);
+  --upload-success: var(--color-success);
+  --upload-error: var(--color-danger);
+}
+
+.upload {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* ── Dropzone ── */
+.upload__dropzone {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  padding: 32px 20px;
+  border: 2px dashed var(--color-bg-secondary);
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  text-align: center;
+  transition: border-color .15s, background .15s;
+}
+.upload__dropzone:hover,
+.upload__dropzone:focus-visible { border-color: var(--upload-over); }
+.upload__dropzone:focus-visible { outline: none; }
+.upload__dropzone--over {
+  border-color: var(--upload-over);
+  background: var(--upload-over-bg);
+}
+
+.upload__icon {
+  width: 44px;
+  height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: var(--color-bg-secondary);
+  color: var(--color-text-secondary);
+  font-size: 20px;
+  margin-bottom: 6px;
+}
+.upload__title {
+  font-size: .88rem;
+  font-weight: 600;
+  color: var(--color-text);
+}
+.upload__hint {
+  font-size: .74rem;
+  color: var(--color-text-secondary);
+}
+
+/* ── File list ── */
+.upload__list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+/* ── File item ── */
+.upload__item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 12px;
+  border: 1px solid var(--color-bg-secondary);
+  border-radius: var(--border-radius);
+  background: var(--color-bg);
+}
+
+.upload__item-ext {
+  width: 36px;
+  height: 36px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--border-radius);
+  background: var(--color-bg-secondary);
+  color: var(--color-text-secondary);
+  font-size: .6rem;
+  font-weight: 800;
+  letter-spacing: .03em;
+  font-family: var(--font-family-mono);
+  flex-shrink: 0;
+}
+
+.upload__item-body {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.upload__item-name {
+  font-size: .82rem;
+  font-weight: 600;
+  color: var(--color-text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.upload__item-meta {
+  font-size: .7rem;
+  color: var(--color-text-secondary);
+  font-family: var(--font-family-mono);
+}
+.upload__item-track {
+  height: 6px;
+  border-radius: 99px;
+  background: var(--color-bg-secondary);
+  overflow: hidden;
+}
+.upload__item-fill {
+  height: 100%;
+  width: var(--upload-pct, 0%);
+  border-radius: 99px;
+  background: var(--upload-progress);
+  transition: width .2s;
+}
+
+/* ── States ── */
+.upload__item--done .upload__item-fill { background: var(--upload-success); }
+.upload__item--error { border-color: color-mix(in srgb, var(--upload-error) 45%, transparent); }
+.upload__item--error .upload__item-fill { background: var(--upload-error); }
+.upload__item--error .upload__item-meta { color: var(--upload-error); }
+
+/* ── Remove ── */
+.upload__item-remove {
+  width: 28px;
+  height: 28px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  border-radius: var(--border-radius);
+  background: none;
+  color: var(--color-text-secondary);
+  font-size: 1rem;
+  line-height: 1;
+  cursor: pointer;
+  flex-shrink: 0;
+  font-family: inherit;
+}
+.upload__item-remove:hover { background: var(--color-bg-secondary); color: var(--upload-error); }
+.upload__item-remove:focus-visible { outline: 2px solid var(--color-link); outline-offset: 2px; }
+}
+
 /* --- icons.css --- */
 @layer exsa.components {
 
 /* ============================================================
-   Icons — CSS Mask Library (110 icons)
+   Icons — CSS Mask Library (112 icons)
    ── Link this file to use any .ic-* icon class.
    SVG icons live in components/icons/. All icons are
    stroke-based 24×24, color inherited via currentColor.
    ARIA: decorative icons → aria-hidden="true";
          meaningful icons → aria-label on the element
 
-   ▸ 101 icons adapted from Feather Icons (MIT)
+   ▸ 103 icons adapted from Feather Icons (MIT)
      Copyright (c) 2013-2023 Cole Bemis — github.com/feathericons/feather
    ▸ 9 social/brand icons (github, x-social, linkedin, youtube,
      discord, tiktok, snapchat, instagram, whatsapp) — EXSA additions
@@ -4290,6 +6331,8 @@ select.select--success {
 .ic-flag        { -webkit-mask-image: url(components/icons/flag.svg);          mask-image: url(components/icons/flag.svg); }
 .ic-file        { -webkit-mask-image: url(components/icons/file.svg);          mask-image: url(components/icons/file.svg); }
 .ic-folder      { -webkit-mask-image: url(components/icons/folder.svg);        mask-image: url(components/icons/folder.svg); }
+.ic-inbox       { -webkit-mask-image: url(components/icons/inbox.svg);         mask-image: url(components/icons/inbox.svg); }
+.ic-chart       { -webkit-mask-image: url(components/icons/chart.svg);         mask-image: url(components/icons/chart.svg); }
 .ic-more-h      { -webkit-mask-image: url(components/icons/more-horizontal.svg); mask-image: url(components/icons/more-horizontal.svg); }
 .ic-more-v      { -webkit-mask-image: url(components/icons/more-vertical.svg); mask-image: url(components/icons/more-vertical.svg); }
 .ic-dashboard   { -webkit-mask-image: url(components/icons/dashboard.svg);     mask-image: url(components/icons/dashboard.svg); }
@@ -4316,10 +6359,11 @@ select.select--success {
 @layer exsa.themes {
 
 /* ============================================================
-   LAYER 4 � THEME: BREEZE
+   LAYER 2 — THEME: BREEZE
    Clean blue and white by default, deep navy in dark mode.
    Auto-switches via prefers-color-scheme.
    Force mode: <html data-theme-mode="light|dark">
+   Self-contained: forced-mode rules included below (also in exsa.css — harmless duplicate).
    ============================================================ */
 
 :root {

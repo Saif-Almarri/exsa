@@ -1,12 +1,21 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="800" height="600" viewBox="0 0 800 600">
   <defs>
-    <linearGradient id="g1" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0" stop-color="#ef8376"/>
-      <stop offset="1" stop-color="#7c3aed"/>
+    <linearGradient id="p1bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#2b1450"/>
+      <stop offset=".6" stop-color="#6d2f6f"/>
+      <stop offset="1" stop-color="#c65d66"/>
     </linearGradient>
+    <radialGradient id="p1glow" cx=".5" cy=".5" r=".5">
+      <stop offset="0" stop-color="#ffb3a7" stop-opacity=".75"/>
+      <stop offset="1" stop-color="#ffb3a7" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="p1soft" x="-80%" y="-80%" width="260%" height="260%"><feGaussianBlur stdDeviation="60"/></filter>
   </defs>
-  <rect width="800" height="600" fill="url(#g1)"/>
-  <circle cx="600" cy="150" r="160" fill="#ffffff" fill-opacity="0.18"/>
-  <circle cx="180" cy="460" r="220" fill="#1c0920" fill-opacity="0.28"/>
-  <path d="M0 600 L800 0" stroke="#ffffff" stroke-opacity="0.22" stroke-width="24"/>
+  <rect width="800" height="600" fill="url(#p1bg)"/>
+  <circle cx="620" cy="180" r="220" fill="url(#p1glow)" filter="url(#p1soft)"/>
+  <g stroke="#ffffff" stroke-opacity=".12" stroke-width="1.5" fill="none">
+    <path d="M0 430 C200 380 420 470 800 410"/>
+    <path d="M0 480 C240 440 500 520 800 460"/>
+    <path d="M0 530 C300 500 560 570 800 520"/>
+  </g>
 </svg>

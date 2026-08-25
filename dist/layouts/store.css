@@ -199,9 +199,15 @@
 .shop__card-image {
   width: 100%;
   aspect-ratio: 1 / 1;
+  display: block;
+  overflow: hidden;
+  background: var(--color-bg-secondary);
+}
+.shop__card-image img {
+  width: 100%;
+  height: 100%;
   object-fit: cover;
   display: block;
-  background: var(--color-bg-secondary);
 }
 .shop__card-badge {
   position: absolute;

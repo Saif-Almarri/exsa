@@ -1,14 +1,14 @@
 @layer exsa.components {
 
 /* ============================================================
-   Icons — CSS Mask Library (110 icons)
+   Icons — CSS Mask Library (112 icons)
    ── Link this file to use any .ic-* icon class.
    SVG icons live in components/icons/. All icons are
    stroke-based 24×24, color inherited via currentColor.
    ARIA: decorative icons → aria-hidden="true";
          meaningful icons → aria-label on the element
 
-   ▸ 101 icons adapted from Feather Icons (MIT)
+   ▸ 103 icons adapted from Feather Icons (MIT)
      Copyright (c) 2013-2023 Cole Bemis — github.com/feathericons/feather
    ▸ 9 social/brand icons (github, x-social, linkedin, youtube,
      discord, tiktok, snapchat, instagram, whatsapp) — EXSA additions
@@ -149,6 +149,8 @@
 .ic-flag        { -webkit-mask-image: url('icons/flag.svg');          mask-image: url('icons/flag.svg'); }
 .ic-file        { -webkit-mask-image: url('icons/file.svg');          mask-image: url('icons/file.svg'); }
 .ic-folder      { -webkit-mask-image: url('icons/folder.svg');        mask-image: url('icons/folder.svg'); }
+.ic-inbox       { -webkit-mask-image: url('icons/inbox.svg');         mask-image: url('icons/inbox.svg'); }
+.ic-chart       { -webkit-mask-image: url('icons/chart.svg');         mask-image: url('icons/chart.svg'); }
 .ic-more-h      { -webkit-mask-image: url('icons/more-horizontal.svg'); mask-image: url('icons/more-horizontal.svg'); }
 .ic-more-v      { -webkit-mask-image: url('icons/more-vertical.svg'); mask-image: url('icons/more-vertical.svg'); }
 .ic-dashboard   { -webkit-mask-image: url('icons/dashboard.svg');     mask-image: url('icons/dashboard.svg'); }

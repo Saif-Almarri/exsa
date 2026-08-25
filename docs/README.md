@@ -2,7 +2,7 @@
 
 > **v1.0.0-rc.1** — Release candidate. API frozen, breaking changes documented. [See what's new →](CHANGELOG.md)
 
-**EXSA is a lightweight CSS framework.** 32 KB core. 53 components. 20 themes. Zero build step. Works with any server — just link two CSS files and start building.
+**EXSA is a lightweight CSS framework.** 32 KB core. 68 components. 20 themes. Zero build step. Works with any server — just link two CSS files and start building.
 
 > *Link two files. Get a complete design system. Change one token — every component recolors.*
 >
@@ -16,7 +16,7 @@ CSS frameworks force a choice: utility-first means memorizing hundreds of classe
 
 EXSA chooses a third path.
 
-**Tokens are the design system.** 82 design tokens drive 53 components, 20 themes, and every utility. Change `--color-link` in one place — every button, badge, link, and card recolors instantly. No recompile. No variable hunt across 2,000 files.
+**Tokens are the design system.** 82 design tokens drive 68 components, 20 themes, and every utility. Change `--color-link` in one place — every button, badge, link, and card recolors instantly. No recompile. No variable hunt across 2,000 files.
 
 **Classes are optional.** Add `class="exsa"` to `<body>` and plain HTML — `<nav>`, `<section>`, `<table>`, `<form>`, `<button>`, `<blockquote>`, `<dialog>` — becomes a styled UI. Add any class to a structural element and EXSA steps aside. Zero specificity. No `!important`. You're always in control.
 
@@ -28,7 +28,7 @@ EXSA chooses a third path.
 
 **Components are files, not dependencies.** Every component is a single CSS file (~1 KB). Link what you need — zero dead styles.
 
-**CSS first, JS optional.** The core (`exsa.css` + a theme) is pure CSS — tokens, reset, layout utilities, Guarded Classless element styling. Zero JavaScript. 51% of components (27 of 53) are pure CSS too. The remaining 26 add interactivity via one behavior file each in `js/` — same zero-build philosophy. Dropdowns, modals, tabs, toasts — if you need them, link the JS. If you don't, nothing breaks. Same choice every CSS framework offers, just without the toolchain.
+**CSS first, JS optional.** The core (`exsa.css` + a theme) is pure CSS — tokens, reset, layout utilities, Guarded Classless element styling. Zero JavaScript. 46% of components (31 of 68) are pure CSS too. The remaining 37 add interactivity via one behavior file each in `dist/js/` — same zero-build philosophy. Dropdowns, modals, tabs, toasts — if you need them, link the JS. If you don't, nothing breaks. Same choice every CSS framework offers, just without the toolchain.
 
 In short: EXSA is what happens when you trust CSS custom properties, `@layer`, and `:where()` to do the work that frameworks usually delegate to tools. Bootstrap launched in 2011. Tailwind in 2017. But the three CSS features that make Guarded Classless™ possible — `:not([class])`, `:where()`, and `@layer` — only became baseline together in 2022. EXSA is the first framework to combine all three into a single architectural pattern. Its signature feature — **Guarded Classless™** — styles semantic HTML automatically, then steps aside the moment you add a single class. No overrides needed. No `!important`. Ever.
 
@@ -51,16 +51,17 @@ The codebase is intentionally small (~680 lines of core CSS) so it can evolve wi
 EXSA distributes as individual files — you never download the whole framework, so there are never dead styles to ship.
 
 ```html
-<!-- Core + theme: the only two files every page needs -->
+<!-- Core — the only required file (ships a built-in default theme) -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Saif-Almarri/exsa@main/dist/exsa.css">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Saif-Almarri/exsa@main/themes/breeze.css">
+<!-- Theme — optional: add one for your own palette, or skip it entirely -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Saif-Almarri/exsa@main/dist/themes/breeze.css">
 
 <!-- Add a component only when you use it -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Saif-Almarri/exsa@main/dist/components/buttons.css">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Saif-Almarri/exsa@main/components/modal.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Saif-Almarri/exsa@main/dist/components/modal.css">
 
 <!-- Add a behavior only when you use it -->
-<script src="https://cdn.jsdelivr.net/gh/Saif-Almarri/exsa@main/js/modal.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/Saif-Almarri/exsa@main/dist/js/modal.js"></script>
 ```
 
 > Pin a version by replacing `@main` with `@1.0.0-rc.1` (or any tag)
@@ -90,11 +91,44 @@ your-project/
 └── your-page.html
 ```
 
-Everything is optional except `dist/exsa.css` and your theme. Nothing unused ever ships.
+Only `dist/exsa.css` is required — it ships a built-in default theme. The theme file (and everything else) is optional. Nothing unused ever ships.
 
-**Or use the Generator — pick components, pick a theme, download a single bundle.**
+### What to link, and when
 
-Visit **[exsa.dev/generator.php](https://exsa.dev/generator.php)** — select the components you need, choose a theme, and download `exsa.bundle.css` + `bundle.js`. One file. Zero dead styles. No CLI. No config. Want everything prebuilt? Link [`dist/exsa.js`](dist/exsa.js) (all behaviors) and [`dist/exsa.bundle.css`](dist/exsa.bundle.css) (core + all components + breeze) — generated by `tools/build-bundle.mjs`.
+#### ✅ Required on every page
+
+| File | Notes |
+|---|---|
+| `dist/exsa.css` | **The only required file.** Core — tokens, reset, utilities, Guarded Classless element styles **and a built-in default theme** (light/dark). No JS. |
+| `dist/themes/<name>.css` | **Optional** — the core's built-in defaults already theme the page. Add one theme per page to brand your own palette; swap it to recolor everything. |
+
+> **Bundle shortcut** — one `dist/exsa.bundle.css` replaces core + theme + components (breeze included). Want a different theme? Link it **after** the bundle; its token overrides win.
+>
+> Prefer your own mix? Use the **[Generator](https://exsa.dev/generator.php)** — pick the components you need, a theme (optional — the core has built-in defaults), and a layout if you use one; it packages them into one `exsa.bundle.css` (styles + theme) + `bundle.js` (behaviors) download. Zero dead styles. No CLI. No config.
+
+#### ➕ Optional — link only what you use
+
+| File | Link it… | Notes |
+|---|---|---|
+| `dist/exsa.fluid.css` | For fluid scaling + density profiles | Spacing / typography / shape scale with viewport; `data-profile` attributes. Link **after** core + theme. |
+| `dist/components/<name>.css` | When the component appears on the page | ~1 KB each — zero dead styles. Link **after** core. |
+| `dist/layouts/<name>.css` | When using a layout shell (dash, store, general, …) | Link **after** core + theme. |
+| `dist/js/exsa-core.js` | Before any behavior file that needs shared helpers | Focus-trap + breakpoint helpers. Load **first**. |
+| `dist/js/<name>.js` | For interactive components only | One behavior file per component; several warn if `exsa-core.js` isn't loaded first. |
+| `dist/exsa.bundle.css` | Instead of core + every component | Prebuilt: core + all components + breeze. **CSS only — no JS**; pair with `dist/exsa.js` for behaviors. |
+| `dist/exsa.js` | Instead of every behavior file | Prebuilt: all behaviors bundled. |
+| `dist/templates/<name>/` | Starting a new project | Copy the whole template folder; it links its own local files. |
+
+> **Icon assets** — the `.ic-*` classes reference `components/icons/*.svg` by relative URL. Copy that folder next to any component CSS (or bundle) you ship, or icons render blank.
+
+#### 🧪 Development only — never ship
+
+| File | Notes |
+|---|---|
+| `dist/exsa.debug.css` + `dist/exsa.debug.js` | Markup-contract linter, class spellchecker, class-conflict detector. Enable with `<html data-debug>`. Link **last**. |
+
+Link order matters: **core → theme → fluid → components/layouts → debug** for CSS, and
+**`exsa-core.js` before any behavior file** for JS.
 
 ### Link and build
 
@@ -109,7 +143,7 @@ Visit **[exsa.dev/generator.php](https://exsa.dev/generator.php)** — select th
   <!-- 1. Core (tokens, reset, utilities, element styles) -->
   <link rel="stylesheet" href="dist/exsa.css">
 
-  <!-- 2. A theme (20 to choose from) -->
+  <!-- 2. Optional — a theme (20 to choose from; the core ships built-in defaults) -->
   <link rel="stylesheet" href="themes/breeze.css">
 </head>
 
@@ -142,7 +176,7 @@ Visit **[exsa.dev/generator.php](https://exsa.dev/generator.php)** — select th
       <p>Swap one file. Every component recolors instantly. No rebuild needed.</p>
     </aside>
     <aside>
-      <h3>🧩 53 Components</h3>
+      <h3>🧩 68 Components</h3>
       <p>Link only what you need. Each component is a single ~1 KB CSS file.</p>
     </aside>
   </section>
@@ -192,7 +226,7 @@ Priority  Layer                 Covers
   4       @layer exsa.reset     Box model, focus rings, RTL, body
   5       @layer exsa.utilities Flex, grid, containers, breakpoints
   6       @layer exsa.elements  Guarded Classless — semantic HTML with instant opt-out
-  7       @layer exsa.components 53 BEM components, zero specificity
+  7       @layer exsa.components 68 BEM components, zero specificity
   8       @layer exsa.layouts   Page shells (general, dashboard, store)
   9       @layer exsa.overrides u-* escape-hatch utilities
 
@@ -213,7 +247,7 @@ Priority  Layer                 Covers
 
 ## Design Tokens
 
-All 82 tokens live in `:root` inside `@layer exsa.tokens`. Themes override them by being unlayered. **Export:** [`tokens.json`](tokens.json) for Figma, JS, or Tailwind config — generated by `tools/build-tokens.mjs` from `manifest.json` + the CSS, never hand-edited.
+All 82 tokens live in `:root` inside `@layer exsa.tokens`. Themes override them from `@layer exsa.themes` (layer 2 — swap one file, everything recolors). **Export:** [`tokens.json`](../tokens.json) for Figma, JS, or Tailwind config — generated by `tools/build-tokens.mjs` from `manifest.json` + the CSS, never hand-edited.
 
 ### Base colors
 
@@ -292,10 +326,12 @@ Always active — no `.exsa` prefix needed.
 </div>
 ```
 
+> `.col-*` bases are pure fractions — the row's `gap-*` utility supplies the gutters.
+
 | Category | Classes |
 |---|---|
 | Display | `.flex`, `.flex-inline`, `.flex-col`, `.flex-col-rev`, `.flex-row-rev`, `.flex-wrap`, `.flex-nowrap` |
-| Sizing | `.flex-1`, `.flex-auto`, `.flex-none`, `.col-1`–`.col-5` |
+| Sizing | `.flex-1`, `.flex-auto`, `.flex-none`, `.col-1`–`.col-6` |
 | Justify | `.justify-start`, `-end`, `-center`, `-between`, `-around`, `-evenly` |
 | Align | `.items-start`, `-end`, `-center`, `-baseline`, `-stretch` |
 | Self | `.self-start`, `-end`, `-center`, `-stretch` |
@@ -333,6 +369,15 @@ Always active — no `.exsa` prefix needed.
 ## Guarded Classless
 
 EXSA's signature feature. Opt-in by adding `class="exsa"` to `<body>`. Semantic HTML elements — `<nav>`, `<table>`, `<form>`, `<button>`, `<blockquote>`, `<dialog>`, `<aside>` — get automatic baseline styling. Add any class to any of those elements and EXSA instantly steps aside. Zero specificity. No `!important`. You're always in control.
+
+### Coexisting with other CSS
+
+EXSA ships entirely inside `@layer` blocks and uses plain, unprefixed utility names (`.flex`, `.grid`, `.container`, `.text-center`, …). Class names are global — two frameworks can both define `.container` — so when EXSA shares a page with other stylesheets, the outcome is predictable:
+
+- **Unlayered author CSS always beats layered CSS.** Your own `.container { … }` written normally overrides EXSA's, everywhere.
+- **To let EXSA win instead**, put the competing rules in an `@layer` declared *before* the `exsa.*` layers (later layers win), or simply drop the duplicate rule.
+- **Don't mix two utility frameworks on one page** unless you accept that the framework whose layer comes later wins per-property. Deterministic, but rarely pleasant.
+- **Debug mode detects conflicts for you** — with `<html data-debug>`, `exsa.debug.js` warns in the console whenever a non-EXSA stylesheet defines a class name the framework also uses.
 
 ### Navigation
 
@@ -468,7 +513,7 @@ document.getElementById('theme-link').href = 'themes/night.css';
 
 ## Components
 
-EXSA ships 53 standalone component CSS files in `components/`. Each is ~1 KB, self-contained, and token-driven.
+EXSA ships 68 standalone component CSS files in `dist/components/`. Each is ~1 KB, self-contained, and token-driven.
 
 ### Using components
 
@@ -497,7 +542,7 @@ EXSA ships 53 standalone component CSS files in `components/`. Each is ~1 KB, se
 
 Sizes: `.btn--sm`, `.btn--lg` | Modifiers: `.btn--icon`, `.btn--block` | State: `disabled`
 
-### Full component list (53)
+### Full component list (68)
 
 | Category | Components |
 |---|---|
@@ -510,11 +555,59 @@ Sizes: `.btn--sm`, `.btn--lg` | Modifiers: `.btn--icon`, `.btn--block` | State: 
 | **Actions** | Buttons, Panel Resizer, Tabs |
 | **Feedback** | Alert, Cookie Bar, Skeleton Loader, Spinner, Toast |
 
+## Controlling Components from JavaScript
+
+EXSA is CSS-first: most component state is a class, not a method call. Toggle the class and the component follows — no JS API needed for most scripting.
+
+### State via class (the majority)
+
+| Component | State hook | Programmatic control |
+|---|---|---|
+| Modal | `.modal--open` | `el.classList.add('modal--open')` — overlay, Esc, close and focus-trap are already wired by `js/modal.js` |
+| Drawer | `.drawer__toggle` checkbox | set its `checked` property |
+| Lightbox | `.lightbox--open` | `classList` |
+| Topbar | `.topbar--open` (mobile menu), `.topbar--scrolled` | `classList` |
+| Dropdown | `.dropdown--open` | `classList` |
+| Context menu | `.ctx-menu--open` | `classList` |
+| Popover | `.popover--open` | `classList` |
+| Tabs | `.tabs__tab--active` + `.tabs__panel--active` | `classList` |
+| Back to top | `.back-top--visible` | `classList` |
+| Cookie bar | `.cookie-bar--visible` | `classList` |
+
+### Shared helpers (`js/exsa-core.js`)
+
+```js
+EXSA.trapFocus(container)    // locks Tab inside; returns an off() cleanup function
+EXSA.getFocusable(container) // first focusable element, or null
+EXSA.bp.up('md')             // matchMedia min-width wrapper — use .matches
+EXSA.bp.down('md')           // matchMedia max-width wrapper
+EXSA.bp.val('md')            // raw breakpoint value
+```
+
+### Events fired by components
+
+Interactive components dispatch `exsa:*` CustomEvents on their root element —
+subscribe to react to state changes without touching the component internals:
+
+```js
+kanban.addEventListener('exsa:kanban-drop', e => console.log(e.detail));      // {card, cardId, fromColId, toColId, afterId}
+upload.addEventListener('exsa:upload-done', e => console.log(e.detail));      // exsa:upload-add / -error / -remove
+calendar.addEventListener('exsa:day-select', ...);                            // also exsa:event-click, exsa:month-change
+transfer.addEventListener('exsa:transfer-change', e => console.log(e.detail)); // {values, added, removed}
+palette.addEventListener('exsa:command-select', ...);                          // exsa:command-open / -close
+table.addEventListener('exsa:table-sort', ...);                                // exsa:table-filter, exsa:row-toggle
+carousel.addEventListener('exsa-slide-change', e => console.log(e.detail.index));
+```
+
+Full event names and `detail` shapes are documented in each component's JS header comment.
+
+> **Known limitation** — there is no global init/destroy registry yet: a component inserted into the DOM *after* page load isn't auto-initialized by every behavior. Initialize the page after your dynamic content is inserted, or re-bind manually.
+
 ---
 
 ## Icons
 
-EXSA ships with **110 SVG icons** — stroke-based at 24×24, using `stroke="currentColor"` so they inherit color from the parent element. All icons are accessed via CSS mask classes:
+EXSA ships with **112 SVG icons** — 103 Feather Icons (stroke-based, MIT) + 9 Simple Icons brand logos (CC0) — all rendered via CSS masks with `currentColor`, so they inherit the text color of their parent. Use the mask classes:
 
 ```html
 <span class="ic ic-search"></span>
@@ -554,9 +647,8 @@ EXSA targets WCAG 2.1 AA compliance.
 
 ### Still in progress
 
-- Full keyboard audit across all 53 components
+- Full keyboard audit across all 68 components
 - Screen reader testing (NVDA, VoiceOver)
-- Focus trap management in modals/drawers
 
 ---
 
@@ -571,8 +663,9 @@ EXSA targets WCAG 2.1 AA compliance.
 | `:has()` | Chrome 105, Firefox 121, Safari 15.4 |
 | Logical properties | Chrome 89, Firefox 66, Safari 15 |
 | `color-mix()` | Chrome 111, Firefox 113, Safari 16.2 |
+| `light-dark()` | Chrome 123, Firefox 120, Safari 17.5 |
 
-**Full support**: Chrome 111+, Firefox 121+, Safari 17+ (2023+). Older browsers degrade gracefully — cosmetic features like `:has()` and container queries silently fall back.
+**Full support**: Chrome 123+, Firefox 121+, Safari 17.5+ (2024+). Older browsers degrade gracefully — `:has()`/container queries silently fall back, and color tokens fall back to a built-in system-color palette (`Canvas`, `LinkText`, …) that stays dark-aware via `color-scheme`, so the page remains styled and readable but uses system colors instead of the theme.
 
 **Not supported**: IE11 (no custom properties).
 
@@ -582,7 +675,7 @@ EXSA targets WCAG 2.1 AA compliance.
 
 | File | Size |
 |---|---|
-| `exsa.css` | 31.6 KB (~680 lines) |
+| `exsa.css` | 32.4 KB (820 lines) |
 | `exsa.fluid.css` | ~1.5 KB (optional) |
 | Each theme | ~1 KB (~30 lines) |
 | Each component | ~1 KB |
@@ -602,10 +695,10 @@ No minification needed — the files are already compact.
 | **Guarded Classless™** | Yes — semantic HTML with opt-out | No | No |
 | **Runtime theming** | 20 themes, live-swappable | Light/dark in 5.3 | Dark mode with `dark:` |
 | **CSS Grid utilities** | Yes | Limited | Yes |
-| **`@layer` cascade** | Yes — 5 layers | No | Yes (v3.2+) |
+| **`@layer` cascade** | Yes — 9 layers | No | Yes (v3.2+) |
 | **`:has()` support** | Yes | No | No |
 | **Container queries** | Yes | No | Yes (v3.2+) |
-| **Component library** | 53 token-driven components | 20+ components | None (Headless UI separate) |
+| **Component library** | 68 token-driven components | 20+ components | None (Headless UI separate) |
 | **Specificity model** | Zero (`:where()` + `@layer`) | Normal | Normal |
 
 ---
@@ -614,33 +707,23 @@ No minification needed — the files are already compact.
 
 ```
 root
-├── favicon.ico            Browser favicon
-├── dist/
+├── dist/                    ← the product — copy only what you link
 │   ├── exsa.css              Core (tokens, reset, utilities, elements, overrides)
 │   ├── style.css            Deprecated alias — @import of exsa.css (removed in v1.0.0)
 │   ├── exsa.fluid.css        Fluid tokens & density profiles (optional)
-│   ├── js/                    JavaScript behaviors — one file per component
+│   ├── js/                   Behaviors — one file per component (+ exsa-core.js, exsa.js)
 │   ├── layouts/               3 page layouts (general, dashboard, store)
 │   ├── templates/             2 starter templates (fullpage, onepage)
-│   ├── components/            53 component files
+│   ├── components/            68 component files + icons/
 │   └── themes/                20 themes + custom.css starter
-├── tokens.json            Design token export (Figma, JS, Tailwind)
-├── README.md              This file
-├── LICENSE                MIT License
-├── TRADEMARK.md           Trademark guidelines
-├── PHILOSOPHY.md          Design philosophy & inventor's statement
-├── CONTRIBUTING.md        Co-founder roles & how to join
-├── CHANGELOG.md           Release history
-├── themes/
-│   ├── breeze.css         ← 20 themes + custom.css starter
-│   ├── night.css
-│   └── ...
-├── components/
-│   ├── buttons.css        ← 53 component files
-│   ├── modal.css
-│   └── ...
-├── includes/images/       Layout imagery (backdrops, overlays)
-└── components/icons/      SVG icon library
+├── site/                    exsa.dev website (PHP pages, includes/, site CSS)
+├── tools/                   Validator, probes, build & migration scripts
+├── docs/                    This README, PHILOSOPHY, CHANGELOG, CONTRIBUTING
+├── manifest.json            Machine-readable catalog (components, themes, tokens)
+├── tokens.json              Design-token export — generated (Figma, JS, Tailwind)
+├── README.md                Repo map + quick start
+├── LICENSE                  MIT License
+└── TRADEMARK.md             Trademark guidelines
 ```
 
 ---
@@ -686,15 +769,15 @@ root
 
 ## License
 
-EXSA is [MIT licensed](LICENSE) — use it freely in personal, commercial, and client projects.
+EXSA is [MIT licensed](../LICENSE) — use it freely in personal, commercial, and client projects.
 
-See [TRADEMARK.md](TRADEMARK.md) for guidelines on using the EXSA name and the Guarded Classless™ methodology.
+See [TRADEMARK.md](../TRADEMARK.md) for guidelines on using the EXSA name and the Guarded Classless™ methodology.
 
 ---
 
 ## Feedback & Community
 
-EXSA is in beta. Your feedback shapes what it becomes.
+EXSA is at v1.0.0-rc.1 — your feedback shapes what 1.0 becomes.
 
 - 🐛 **Bug reports & feature requests:** [GitHub Issues](https://github.com/Saif-Almarri/exsa/issues)
 - 💬 **Questions & ideas:** [GitHub Discussions](https://github.com/Saif-Almarri/exsa/discussions)
@@ -727,7 +810,7 @@ No revenue yet. No salary. Everyone starts as a contributor. **24% equity each**
 
 ## Inventor's Statement
 
-The **9-layer CSS cascade architecture** (tokens → themes → fluid → reset → utilities → elements → components → layouts → overrides), the **Guarded Classless™** pattern, and the **Fluid Scale + Density Profiles** system are original inventions of Saif Almarri, first published in 2026. See [PHILOSOPHY.md](PHILOSOPHY.md) and [TRADEMARK.md](TRADEMARK.md) for the full technical documentation and design rationale.
+The **9-layer CSS cascade architecture** (tokens → themes → fluid → reset → utilities → elements → components → layouts → overrides), the **Guarded Classless™** pattern, and the **Fluid Scale + Density Profiles** system are original inventions of Saif Almarri, first published in 2026. See [PHILOSOPHY.md](PHILOSOPHY.md) and [TRADEMARK.md](../TRADEMARK.md) for the full technical documentation and design rationale.
 
 ---
 

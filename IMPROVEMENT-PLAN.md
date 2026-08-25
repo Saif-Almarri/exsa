@@ -9,83 +9,82 @@
 
 ---
 
-## Phase 0 — Baseline & Guardrails
+## Phase 0 — Baseline & Guardrails ✅ done
 
 **Goal:** Make regressions detectable before any restructuring begins.
 
-- [ ] Add a Node validation script (`tools/validate.mjs`) that checks:
+- [x] Add a Node validation script (`tools/validate.mjs`) that checks:
   - every file referenced in `manifest.json` exists
   - every token in `tokens.json` exists in `style.css`
   - no `!important` in `components/`, `layouts/`, `themes/`
   - (active from Phase 2 onward) every component/layout/theme file is wrapped in its `@layer`
   - (active from Phase 1 onward) no page references the deleted `components.js`
-- [ ] Add `npm test` / CI hook running the validator (GitHub Actions).
-- [ ] Record current bundle sizes (core, per-component) in `CHANGELOG.md` as the baseline.
-- [ ] Tag current state `v1.0.0-beta.3` (already tagged) as the rollback point.
+- [x] Add `npm test` / CI hook running the validator (GitHub Actions).
+- [x] Record current bundle sizes (core, per-component) in `CHANGELOG.md` as the baseline.
+- [x] Tag current state `v1.0.0-beta.3` (already tagged) as the rollback point.
 
 **Done when:** `tools/validate.mjs` runs green on today's code and fails on known drift
 (the 61-vs-80 token mismatch).
 
 ---
 
-## Phase 1 — Core Fixes (the foundation of everything)
+## Phase 1 — Core Fixes (the foundation of everything) ✅ done
 
 **Goal:** Get the core files correct before anything is built on top of them.
 
 1. **Delete the legacy JS bundle**
-   - [ ] Parity audit first (done 2026-08-22): all 28 behaviors in `components.js` exist
+   - [x] Parity audit first (done 2026-08-22): all 28 behaviors in `components.js` exist
          in `js/` — `carousel.js` + `code-block.js` are new-only, so nothing is lost.
-   - [ ] Migrate the 7 site pages still loading `components.js?v=14` (index, docs,
+   - [x] Migrate the 7 site pages still loading `components.js?v=14` (index, docs,
          cheatsheet, icons, generator, source, theme-builder) to the `js/*.js` files
          they actually use.
-   - [ ] Fix `docs.php`: it loads BOTH `components.js` and `js/topbar.js` (topbar
+   - [x] Fix `docs.php`: it loads BOTH `components.js` and `js/topbar.js` (topbar
          initializes twice — second handler undoes the first) and its prose still
          advertises the bundle as the primary API.
-   - [ ] Update the `README.md` file tree (drop the LEGACY entry), then delete
-         `components.js`.
-   - [ ] Move the inline `.ic` styles out of `includes/head.php` into the site's own CSS
+   - [x] Update the `README.md` file tree (drop the LEGACY entry), then delete
+         `components.js` (deleted in the rc.1 commit; validator `--no-legacy` guards it).
+   - [x] Move the inline `.ic` styles out of `includes/head.php` into the site's own CSS
      (created in Phase 4; temporarily `landing.css`).
 
 2. **Fix token-count drift**
-   - [ ] Single authoritative count everywhere: `style.css` header, `README.md`,
+   - [x] Single authoritative count everywhere: `style.css` header, `README.md`,
          `tokens.json` (currently 61 vs 80).
-   - [ ] Validator rule added so it can never drift again (Phase 0).
+   - [x] Validator rule added so it can never drift again (Phase 0).
 
 3. **Collapse dark-mode blocks**
-   - [ ] Replace the 4 synced token blocks in `style.css` with `light-dark()` pairs
+   - [x] Replace the 4 synced token blocks in `style.css` with `light-dark()` pairs
          + a `color-scheme` flip on `[data-theme-mode="dark"|"light"]`.
-   - [ ] Apply the same collapse to the 20 theme files — each currently re-implements
+   - [x] Apply the same collapse to the 20 theme files — each currently re-implements
          the light/dark/forced-mode plumbing; the core should own the switching and
          themes should define only light/dark token pairs.
-   - [ ] Delete the "keep the four blocks in sync" comment.
+   - [x] Delete the "keep the four blocks in sync" comment.
 
 4. **Rename the core**
-   - [ ] `style.css` → `exsa.css`; keep `style.css` as a one-line `@import` alias for one
-         release cycle, deprecation notice in `CHANGELOG.md`.
-   - [ ] Update all library references; site pages keep `style.css` until Phase 4.
+   - [x] `style.css` → `exsa.css` (hard rename at rc.1 — the one-cycle `@import` alias was skipped).
+   - [x] Update all library references; site pages keep `style.css` until Phase 4.
 
 **Done when:** validator green on core rules; `exsa.css` serves with an alias in place.
 
 ---
 
-## Phase 2 — Cascade Layers (make Layer 5 real)
+## Phase 2 — Cascade Layers (make Layer 5 real) ✅ done
 
 **Goal:** The layer architecture is the base every later change relies on. Phase 3
 removes `!important` rules *because* this phase landed first.
 
-- [ ] Declare the full layer order in the core `@layer` statement —
+- [x] Declare the full layer order in the core `@layer` statement —
       `exsa.tokens, exsa.themes, exsa.fluid, exsa.reset, exsa.utilities, exsa.elements, exsa.components, exsa.layouts`:
       token-vs-token precedence is tokens → themes → fluid (fluid's `clamp()` values must
       keep beating a theme's `--border-radius`, matching today's link order).
-- [ ] Wrap every `components/*.css` in `@layer exsa.components { … }`.
-- [ ] Wrap every `layouts/*.css` in `@layer exsa.layouts { … }`.
-- [ ] Wrap every `themes/*.css` in `@layer exsa.themes { … }`.
-- [ ] Wrap `exsa.fluid.css` in `@layer exsa.fluid { … }` (today it is unlayered and wins
+- [x] Wrap every `components/*.css` in `@layer exsa.components { … }`.
+- [x] Wrap every `layouts/*.css` in `@layer exsa.layouts { … }`.
+- [x] Wrap every `themes/*.css` in `@layer exsa.themes { … }`.
+- [x] Wrap `exsa.fluid.css` in `@layer exsa.fluid { … }` (today it is unlayered and wins
       by accident — the explicit layer preserves that behavior on purpose).
-- [ ] Remove the cascade workarounds this enables (element-prefixed selectors added to
+- [x] Remove the cascade workarounds this enables (element-prefixed selectors added to
       beat `:where()` — revisit back-top/lightbox/cookie-bar/topbar rules from
       `CHANGELOG 1.0.0-beta.3`).
-- [ ] Enable the validator's `@layer`-wrapper check (now the expected state, including
+- [x] Enable the validator's `@layer`-wrapper check (now the expected state, including
       `exsa.fluid.css`).
 
 **Done when:** every component/layout/theme file opens with `@layer`; validator green;
@@ -125,25 +124,25 @@ Verdict per file (from the layouts audit):
 | `layouts/onepage.css` | Keep — move to `templates/`; fix asset + palette/licensing |
 | `components/dashboard.css` | Delete (legacy float demo) — replace with extracted dashboard primitives |
 
-- [ ] Delete duplicated `body:has(.topbar--sm/lg/xl)` sync from general/blog/store
+- [x] Delete duplicated `body:has(.topbar--sm/lg/xl)` sync from general/blog/store
       (already defined in `components/topbar.css`).
-- [ ] Delete duplicated hero and sticky-footer patterns from blog/store.
-- [ ] Remove the 4 `!important` rules from `general.css` (Phase 2 layers make them moot).
-- [ ] Remove dashboard-mode classes from `general.css`
+- [x] Delete duplicated hero and sticky-footer patterns from blog/store.
+- [x] Remove the 4 `!important` rules from `general.css` (Phase 2 layers make them moot).
+- [x] Remove dashboard-mode classes from `general.css`
       (`layout--aside-full/full-height/content-scroll/aside-collapsed`) — document the
       migration path → `layouts/dashboard.css`.
-- [ ] Merge `blog.css` into `general.css` (`blog--prose`, `blog--has-toc` move over;
+- [x] Merge `blog.css` into `general.css` (`blog--prose`, `blog--has-toc` move over;
       delete the rest as duplicates).
-- [ ] Extract `dash-card`/`dash-stat`/`dash-grid`/`dash__toolbar` into
+- [x] Extract `dash-card`/`dash-stat`/`dash-grid`/`dash__toolbar` into
       `components/dashboard.css`; delete the legacy float demo it replaces.
-- [ ] Extract the store product card into a component (reuse `card.css`); fix
+- [x] Extract the store product card into a component (reuse `card.css`); fix
       `.shop__card-badge` (missing `position: relative` parent) and the dead
       `.shop__content { margin: 0 }` rule.
-- [ ] Move `fullpage.css` + `onepage.css` to `templates/` and label them "starter skins —
+- [x] Move `fullpage.css` + `onepage.css` to `templates/` and label them "starter skins —
       hardcoded palette, override via tokens where documented".
-- [ ] Fix `onepage.css`: remove `../includes/images/1.jpg` dependency (default to a
+- [x] Fix `onepage.css`: remove `../includes/images/1.jpg` dependency (default to a
       gradient); rewrite Helios-derived palette values (MIT-safe) or add CC-BY attribution.
-- [ ] Update `page-layouts.php`, `docs.php`, and the generator's layout list to the new
+- [x] Update `page-layouts.php`, `docs.php`, and the generator's layout list to the new
       file set.
 
 **Done when:** `layouts/` contains 3 files (general, dashboard, store); `templates/`
@@ -249,11 +248,41 @@ copy the library without touching any `.php` file.
 
 ---
 
-## Phase 8 — Release & Verification
+## Phase 8.6–8.14 — Contract Tooling & Hardening ✅ done
 
-- [ ] Visual regression smoke page in `site/` (reuse `elements.php`) run against every
-      theme via screenshots (Playwright script in `tools/`).
-- [ ] Version bump to `1.0.0-rc.1`; `CHANGELOG.md` documents the breaking changes:
+**Goal:** Give EXSA's "structured markup" promise teeth — machine-checked contracts,
+regression detectors, and a debug-time linter/spellchecker.
+
+- [x] **8.6 — Markup contracts:** `manifest.json` carries `structure` arrays for the
+      components with required inner parts; debug CSS flags missing parts.
+- [x] **8.7 — Regression detectors:** `.calc(` corruption rule, site token-reference
+      linter (`var(--x)` + bare multi-part tokens), multi-viewport overflow sweep
+      (`tools/layer-probe.mjs`).
+- [x] **8.8 — Contracts for slideshow, popover, sidebar** — per-part missing labels
+      (fixed the `:not(:has())` AND-chaining bug; drawer rootless sibling contract).
+- [x] **8.9 — Conditional layout contracts** — general/dashboard/store/fullpage/onepage
+      (34 rules, 8 layout fixtures, `site/qa/layout-probe.html`).
+- [x] **8.10 — Remaining required components** — accordion, code-block, data-list,
+      drawer, dropdown, modal, range-slider, select, timeline.
+- [x] **8.11 — Class-name spellchecker** — `dist/exsa.debug.js` (841-class registry,
+      Levenshtein ≤2 "did you mean?" suggestions, `data-dbg-allow` escape hatch).
+- [x] **8.12 — ARIA guidance** in all 14 component CSS headers.
+- [x] **8.13 — Semantics guidance** in layout/template headers (5 files).
+- [x] **8.14 — Fluid layer documented as optional per-project** (cascade comments,
+      fluid header, docs; the prebuilt bundle intentionally excludes it).
+
+**Done when:** ✅ `npm test` / `npm run audit` green; `contract-probe` 35/35,
+`layout-probe` 8/8, `spell-probe` 8/8, layer-probe overflow-free across 1280/768/390.
+
+---
+
+## Phase 8 — Release & Verification ✅ done (rc.1 tagged 2026-08-24)
+
+- [x] Regression probes in `site/qa/` run via Playwright: `layer-probe` (multi-viewport
+      overflow sweep + screenshots), `contract-probe` (35 checks), `layout-probe`
+      (+ 8 fixtures), `spell-probe` (8 checks). Full per-theme screenshot matrix
+      was descoped in favor of these structural probes.
+- [x] Version bump to `1.0.0-rc.1`; `CHANGELOG.md` documents the breaking changes:
   - `dist/` path prefix on CDN
   - `style.css` → `exsa.css`
   - `@layer`-wrapped components (override behavior now layer-based)
@@ -262,14 +291,15 @@ copy the library without touching any `.php` file.
   - dashboard-mode classes removed from `general.css`
   - `components/dashboard.css` repurposed (legacy demo replaced by primitives)
   - `fullpage.css` / `onepage.css` moved to `templates/`
-- [ ] Update `README.md`, `PHILOSOPHY.md`, manifest `schemaVersion`, and all site docs
+- [x] Update `README.md`, `PHILOSOPHY.md`, manifest `schemaVersion`, and all site docs
       for the new structure — and verify every absolute claim in the philosophy holds
       against the shipped code before publishing (layer promise, guard wording,
       token counts).
-- [ ] Re-run validator + bundle-size report; publish.
+- [x] Re-run validator + bundle-size report; publish.
 
-**Done when:** a fresh clone, two links, and one token override reproduce the full
-design system with zero warnings.
+**Done when:** ✅ `npm test` + `npm run audit` + all four probes green on the tagged rc.1;
+a fresh clone, two links, and one token override reproduce the full design system
+with zero warnings.
 
 ---
 

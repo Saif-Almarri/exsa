@@ -1,10 +1,11 @@
 @layer exsa.themes {
 
 /* ============================================================
-   LAYER 4 � THEME: CLINIC
+   LAYER 2 — THEME: CLINIC
    Calming teal-white by default, deep teal in dark mode.
    Auto-switches via prefers-color-scheme.
    Force mode: <html data-theme-mode="light|dark">
+   Self-contained: forced-mode rules included below (also in exsa.css — harmless duplicate).
    ============================================================ */
 
 :root {
@@ -28,7 +29,7 @@
   --color-warning-hover: light-dark(#b45309, #d97706);
   --color-border: light-dark(#c5ddd2, #1e4a3e);
   --color-button-text: light-dark(var(--color-bg), #ffffff);
-  --color-button-text-inverse: light-dark(#eeeeee, #e4e1e1);
+  --color-button-text-inverse: light-dark(#010e07, #0c0505);
   --border-radius: 8px;
 }
 

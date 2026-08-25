@@ -33,7 +33,7 @@ This is equity, not compensation. Ownership, not employment. We're building a co
 
 Most CSS frameworks are iterations of the same idea. EXSA isn't.
 
-**A genuine technical edge.** Guarded Classless™ — semantic HTML styled automatically via `:where()`, then the framework steps aside on `:not([class])`. A nine-layer `@layer` cascade. 82 tokens driving 53 components. 110 icons. 20 themes. Zero build step. No other framework combines all of this. The CSS features that make it possible — `@layer`, `:where()`, `:not([class])` — only became baseline in 2022. EXSA is the first framework designed for them, not retrofitted.
+**A genuine technical edge.** Guarded Classless™ — semantic HTML styled automatically via `:where()`, then the framework steps aside on `:not([class])`. A nine-layer `@layer` cascade. 82 tokens driving 68 components. 112 icons. 20 themes. Zero build step. No other framework combines all of this. The CSS features that make it possible — `@layer`, `:where()`, `:not([class])` — only became baseline in 2022. EXSA is the first framework designed for them, not retrofitted.
 
 **A clear, underserved audience.** PHP developers who write `.php` files directly — no Twig, no Blade, no `vite.config.js`. Millions of them. Every existing framework tells them to install Node, learn a templating language, or memorize utility classes. EXSA tells them: two `<link>` tags and you're building.
 
@@ -51,7 +51,7 @@ Most CSS frameworks are iterations of the same idea. EXSA isn't.
 
 You'll own the product:
 
-- Build and maintain the 53-component library
+- Build and maintain the 68-component library
 - Improve the Generator, manifest, and tooling
 - Review and merge community contributions
 - Make architectural decisions about the framework
@@ -117,15 +117,15 @@ Every EXSA component ships a small contract, and `npm test` enforces it:
    `dist/exsa.debug.css` contract-linter rules (enable with `<html data-debug>`),
    and `npm run probe:contract` renders reference snippets + deliberately broken
    markup in a real browser. Never let percent-sized children collapse silently.
-4. **Token-driven** — `var(--token)` for every color, spacing, and shadow. New public
+5. **Token-driven** — `var(--token)` for every color, spacing, and shadow. New public
    tokens get a `manifest.json → tokens.core` entry; component-scoped tokens get a
    `manifest.json → tokens.components` entry. Never hardcode values.
-5. **Behavioral JS (optional)** — one file in `dist/js/` named after the component,
+6. **Behavioral JS (optional)** — one file in `dist/js/` named after the component,
    wrapped in a DOM-ready guard (copy the pattern from any existing file), registered
    under `manifest.json → behaviors` with `requires` edges if it uses `EXSA.*`.
-6. **State classes stay on `<body>`** — `has-*` and `layout--*` are page-level state
+7. **State classes stay on `<body>`** — `has-*` and `layout--*` are page-level state
    only; components never read them.
-7. **Run the gate** — `npm test` (manifest refs, layers, tokens, bundles, structure,
+8. **Run the gate** — `npm test` (manifest refs, layers, tokens, bundles, structure,
    debug css) and `npm run audit` (zero actionable spacing literals). If you touched
    tokens, JS, or structure, regenerate: `npm run build`. Add a demo section to
    `site/showcase.php` so every component is visibly dogfooded.

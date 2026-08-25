@@ -1,0 +1,185 @@
+@layer exsa.components {
+/* ============================================================
+   EXSA Transfer — two-panel list picker
+   Link after exsa.css + your theme. badge.css optional.
+   Behavior from js/transfer.js.
+
+   Markup:
+     <div class="transfer" data-transfer-name="roles">
+       <div class="transfer__panel">
+         <div class="transfer__head">
+           <span class="transfer__title">Available</span>
+           <span class="transfer__count badge badge--default">3</span>
+         </div>
+         <input class="transfer__search" type="search" placeholder="Filter…" aria-label="Filter available">
+         <ul class="transfer__list">
+           <li class="transfer__item" data-value="admin" tabindex="0">Admin</li>
+           …
+         </ul>
+       </div>
+       <div class="transfer__actions">
+         <button class="transfer__btn" type="button" data-action="add" aria-label="Add selected">›</button>
+         <button class="transfer__btn" type="button" data-action="remove" aria-label="Remove selected">‹</button>
+         <button class="transfer__btn transfer__btn--text" type="button" data-action="add-all">All ›</button>
+         <button class="transfer__btn transfer__btn--text" type="button" data-action="remove-all">‹ All</button>
+       </div>
+       <div class="transfer__panel"> … selected panel … </div>
+     </div>
+
+   Behavior (js/transfer.js, vanilla):
+     - click item = select (aria-selected), double-click = move
+     - Space toggles selection, Enter moves a focused item
+     - action buttons move selected / all items
+     - per-panel search filters items
+     - data-transfer-name syncs a hidden input (comma-joined values)
+     - event: exsa:transfer-change {values, added, removed}
+
+   Tokens (theme-derived → dark mode adapts automatically):
+     --transfer-gap, --transfer-checked
+   ============================================================ */
+
+:root {
+  --transfer-gap: 12px;
+  --transfer-checked: color-mix(in srgb, var(--color-link) 10%, transparent);
+}
+
+/* ── Layout: two panels + central actions ── */
+.transfer {
+  display: flex;
+  align-items: stretch;
+  gap: var(--transfer-gap);
+  flex-wrap: wrap;
+}
+
+/* ── Panel ── */
+.transfer__panel {
+  flex: 1;
+  min-width: 200px;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--color-bg-secondary);
+  border-radius: var(--border-radius);
+  background: var(--color-bg);
+  overflow: hidden;
+}
+.transfer__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 10px 12px;
+  border-bottom: 1px solid var(--color-bg-secondary);
+}
+.transfer__title {
+  font-size: .72rem;
+  font-weight: 700;
+  letter-spacing: .05em;
+  text-transform: uppercase;
+  color: var(--color-text-secondary);
+}
+.transfer__count { flex-shrink: 0; }
+
+/* ── Search ── */
+.transfer__search {
+  margin: 10px 10px 4px;
+  padding: 7px 12px;
+  font-size: .8rem;
+  font-family: inherit;
+  color: var(--color-text);
+  background: var(--color-bg);
+  border: 1px solid var(--color-bg-secondary);
+  border-radius: var(--border-radius);
+  transition: border-color .15s, box-shadow .15s;
+}
+.transfer__search::placeholder { color: var(--color-text-secondary); }
+.transfer__search:focus { outline: none; border-color: var(--color-link); box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-link) 18%, transparent); }
+
+/* ── List ── */
+.transfer__list {
+  list-style: none;
+  margin: 0;
+  padding: 6px;
+  max-height: 220px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+/* ── Item ── */
+.transfer__item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 10px;
+  border-radius: var(--border-radius);
+  font-size: .82rem;
+  color: var(--color-text);
+  cursor: pointer;
+  user-select: none;
+  transition: background .1s;
+}
+.transfer__item:hover { background: color-mix(in srgb, var(--color-text-secondary) 8%, transparent); }
+.transfer__item:focus-visible { outline: 2px solid var(--color-link); outline-offset: -2px; }
+.transfer__item[hidden] { display: none; }
+
+/* Check indicator (pure CSS) */
+.transfer__item::before {
+  content: '';
+  width: 14px;
+  height: 14px;
+  flex-shrink: 0;
+  border: 1.5px solid var(--color-text-secondary);
+  border-radius: 4px;
+  transition: background .12s, border-color .12s;
+}
+.transfer__item--checked { background: var(--transfer-checked); }
+.transfer__item--checked::before {
+  background: var(--color-link);
+  border-color: var(--color-link);
+  box-shadow: inset 0 0 0 2.5px var(--color-bg);
+}
+
+/* ── Action buttons ── */
+.transfer__actions {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+.transfer__btn {
+  width: 34px;
+  height: 34px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--color-bg-secondary);
+  border-radius: var(--border-radius);
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-size: 1.05rem;
+  line-height: 1;
+  cursor: pointer;
+  font-family: inherit;
+  transition: background .12s, border-color .12s, color .12s;
+}
+.transfer__btn:hover { background: var(--color-bg-secondary); color: var(--color-link); }
+.transfer__btn:focus-visible { outline: 2px solid var(--color-link); outline-offset: 2px; }
+.transfer__btn--text {
+  width: auto;
+  padding: 6px 12px;
+  font-size: .76rem;
+  font-weight: 600;
+}
+
+/* RTL — flip directional glyphs */
+[dir="rtl"] .transfer__btn:not(.transfer__btn--text),
+[dir="rtl"] .transfer__btn--text { transform: scaleX(-1); }
+
+/* ── Narrow screens: actions row between panels ── */
+@media (max-width: 560px) {
+  .transfer { flex-direction: column; }
+  .transfer__actions { flex-direction: row; padding: 2px 0; }
+}
+}

@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#15071b"/>
+      <stop offset=".55" stop-color="#271331"/>
+      <stop offset="1" stop-color="#3d2a46"/>
+    </linearGradient>
+    <radialGradient id="coral" cx=".5" cy=".5" r=".5">
+      <stop offset="0" stop-color="#ef8376" stop-opacity=".5"/>
+      <stop offset="1" stop-color="#ef8376" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="violet" cx=".5" cy=".5" r=".5">
+      <stop offset="0" stop-color="#7c3aed" stop-opacity=".45"/>
+      <stop offset="1" stop-color="#7c3aed" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="teal" cx=".5" cy=".5" r=".5">
+      <stop offset="0" stop-color="#2dd4bf" stop-opacity=".18"/>
+      <stop offset="1" stop-color="#2dd4bf" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="soft" x="-80%" y="-80%" width="260%" height="260%">
+      <feGaussianBlur stdDeviation="90"/>
+    </filter>
+    <filter id="grain">
+      <feTurbulence type="fractalNoise" baseFrequency=".8" numOctaves="2" stitchTiles="stitch"/>
+      <feColorMatrix type="saturate" values="0"/>
+      <feComponentTransfer><feFuncA type="linear" slope=".06"/></feComponentTransfer>
+    </filter>
+  </defs>
+  <rect width="1600" height="900" fill="url(#bg)"/>
+  <g filter="url(#soft)">
+    <circle cx="1250" cy="220" r="430" fill="url(#coral)"/>
+    <circle cx="360" cy="760" r="520" fill="url(#violet)"/>
+    <circle cx="760" cy="120" r="360" fill="url(#teal)"/>
+  </g>
+  <g stroke="#ffffff" stroke-opacity=".06" stroke-width="1.5" fill="none">
+    <path d="M0 700 C420 650 820 760 1600 680"/>
+    <path d="M0 745 C400 715 980 805 1600 730"/>
+    <path d="M0 790 C460 770 1080 850 1600 780"/>
+  </g>
+  <rect width="1600" height="900" filter="url(#grain)"/>
+</svg>

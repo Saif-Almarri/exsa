@@ -1,0 +1,219 @@
+@layer exsa.components {
+/* ============================================================
+   EXSA Calendar — month grid + event chips
+   Link after exsa.css + your theme. js/calendar.js renders
+   the grid from data attributes; CSS only styles it.
+
+   Markup:
+     <div class="calendar"
+          data-calendar-date="2026-08-21"
+          data-calendar-week-start="0"
+          data-calendar-events='[
+            {"date":"2026-08-21","title":"Release v1.0","type":"primary"},
+            {"date":"2026-08-24","title":"Sprint review","type":"success"}
+          ]'></div>
+
+   Options:
+     data-calendar-date       initial visible month (ISO date, default today)
+     data-calendar-week-start first weekday 0=Sun (default) | 1=Mon
+     data-calendar-events     JSON array {date:"YYYY-MM-DD", title, type}
+                              type: primary (default) | success | warning |
+                              danger | secondary — event chip color
+
+   Events fired (CustomEvent on the .calendar element):
+     exsa:day-select   detail {date:"YYYY-MM-DD", dayEl}
+     exsa:event-click  detail {date, title, type, eventEl}
+     exsa:month-change detail {year, month}  (month is 1-based)
+
+   Tokens (derive from theme tokens → dark mode adapts automatically):
+     --calendar-event-*        chip colors per type
+     --calendar-cell-min-h     minimum day-cell height
+     --calendar-today          today ring color
+     --calendar-outside-op     opacity of days outside the month
+   ============================================================ */
+
+:root {
+  --calendar-event-primary: var(--color-link);
+  --calendar-event-success: var(--color-success);
+  --calendar-event-warning: var(--color-warning);
+  --calendar-event-danger: var(--color-danger);
+  --calendar-event-secondary: var(--color-secondary);
+  --calendar-cell-min-h: 72px;
+  --calendar-today: var(--color-link);
+  --calendar-outside-op: .45;
+}
+
+/* ── Shell ── */
+.calendar {
+  background: var(--color-bg);
+  border: 1px solid var(--color-bg-secondary);
+  border-radius: var(--border-radius);
+  overflow: hidden;
+  font-size: .84rem;
+}
+
+/* ── Head: prev / label / next / today ── */
+.calendar__head {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--color-bg-secondary);
+}
+.calendar__label {
+  flex: 1;
+  font-weight: 700;
+  font-size: .95rem;
+  color: var(--color-text);
+  padding-inline: 4px;
+}
+.calendar__nav {
+  width: 32px;
+  height: 32px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--color-bg-secondary);
+  border-radius: var(--border-radius);
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-size: 1rem;
+  line-height: 1;
+  cursor: pointer;
+  font-family: inherit;
+  transition: background .12s, border-color .12s;
+}
+.calendar__nav:hover { background: var(--color-bg-secondary); }
+.calendar__nav:focus-visible { outline: 2px solid var(--color-link); outline-offset: 2px; }
+/* RTL — prev/next arrows point the other way */
+[dir="rtl"] .calendar__nav { transform: scaleX(-1); }
+.calendar__today {
+  padding: 6px 14px;
+  font-size: .78rem;
+  font-weight: 600;
+  border: 1px solid var(--color-bg-secondary);
+  border-radius: var(--border-radius);
+  background: var(--color-bg);
+  color: var(--color-link);
+  cursor: pointer;
+  font-family: inherit;
+}
+.calendar__today:hover { background: color-mix(in srgb, var(--color-link) 8%, transparent); }
+
+/* ── Weekday header ── */
+.calendar__weekdays {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  border-bottom: 1px solid var(--color-bg-secondary);
+}
+.calendar__weekday {
+  padding: 8px 6px;
+  text-align: center;
+  font-size: .68rem;
+  font-weight: 700;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: var(--color-text-secondary);
+}
+
+/* ── Grid ── */
+.calendar__grid {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+}
+
+/* ── Day cell ── */
+.calendar__day {
+  position: relative;
+  min-height: var(--calendar-cell-min-h);
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+  padding: 8px;
+  border: none;
+  border-inline-end: 1px solid var(--color-bg-secondary);
+  border-bottom: 1px solid var(--color-bg-secondary);
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: inherit;
+  text-align: start;
+  cursor: pointer;
+  transition: background .12s;
+}
+.calendar__day:nth-child(7n) { border-inline-end: none; }
+.calendar__day:hover { background: color-mix(in srgb, var(--color-text-secondary) 7%, transparent); }
+.calendar__day:focus-visible { outline: 2px solid var(--color-link); outline-offset: -2px; }
+
+.calendar__day--outside { opacity: var(--calendar-outside-op); }
+
+.calendar__daynum {
+  width: 24px;
+  height: 24px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  font-size: .8rem;
+  font-weight: 600;
+  font-family: var(--font-family-mono);
+}
+.calendar__day--today .calendar__daynum {
+  background: var(--calendar-today);
+  color: var(--color-button-text);
+}
+.calendar__day--selected { background: color-mix(in srgb, var(--color-link) 8%, transparent); }
+.calendar__day--selected:hover { background: color-mix(in srgb, var(--color-link) 14%, transparent); }
+
+/* ── Event chips ── */
+.calendar__events {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  width: 100%;
+  overflow: hidden;
+}
+.calendar__event {
+  display: block;
+  width: 100%;
+  padding: 2px 7px;
+  border: none;
+  border-radius: 4px;
+  font-size: .68rem;
+  font-weight: 600;
+  line-height: 1.5;
+  text-align: start;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  cursor: pointer;
+  font-family: inherit;
+  background: var(--calendar-event-bg, color-mix(in srgb, var(--color-link) 14%, transparent));
+  color: var(--calendar-event, var(--color-link));
+  transition: filter .12s;
+}
+.calendar__event:hover { filter: brightness(1.1); }
+.calendar__event:focus-visible { outline: 2px solid var(--color-link); outline-offset: 1px; }
+.calendar__event--primary   { --calendar-event: var(--calendar-event-primary);   --calendar-event-bg: color-mix(in srgb, var(--calendar-event-primary) 14%, transparent); }
+.calendar__event--success   { --calendar-event: var(--calendar-event-success);   --calendar-event-bg: color-mix(in srgb, var(--calendar-event-success) 14%, transparent); }
+.calendar__event--warning   { --calendar-event: var(--calendar-event-warning);   --calendar-event-bg: color-mix(in srgb, var(--calendar-event-warning) 14%, transparent); }
+.calendar__event--danger    { --calendar-event: var(--calendar-event-danger);    --calendar-event-bg: color-mix(in srgb, var(--calendar-event-danger) 12%, transparent); }
+.calendar__event--secondary { --calendar-event: var(--calendar-event-secondary); --calendar-event-bg: color-mix(in srgb, var(--calendar-event-secondary) 12%, transparent); }
+
+/* ── More-indicator ── */
+.calendar__more {
+  font-size: .66rem;
+  font-weight: 600;
+  color: var(--color-text-secondary);
+  padding-inline-start: 2px;
+}
+
+/* ── Compact on narrow screens ── */
+@media (max-width: 560px) {
+  :root { --calendar-cell-min-h: 56px; }
+  .calendar__day { padding: 5px; gap: 2px; }
+  .calendar__daynum { width: 20px; height: 20px; font-size: .72rem; }
+  .calendar__event { font-size: .62rem; padding: 1px 5px; }
+}
+}

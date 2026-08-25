@@ -1,0 +1,134 @@
+@layer exsa.components {
+/* ============================================================
+   EXSA Tags Input — chips + type-to-add with suggestions
+   Link after exsa.css + your theme. Behavior from js/tags-input.js.
+
+   Markup:
+     <div class="tags-input"
+          data-tags-suggestions='["design","a11y","docs","bug","feature"]'
+          data-tags-max="8" data-tags-name="tags">
+       <span class="tags-input__chip" data-value="design">
+         <span class="tags-input__chip-label">design</span>
+         <button type="button" class="tags-input__remove" aria-label="Remove design">&times;</button>
+       </span>
+       <!-- the text field is added by js/tags-input.js -->
+     </div>
+
+   Behavior (vanilla):
+     - Enter or comma adds a chip; Backspace on empty removes the last
+     - suggestions dropdown filtered as you type (ArrowUp/Down + Enter,
+       click to pick, Escape closes)
+     - duplicates are ignored; data-tags-max caps the count
+     - data-tags-free="false" restricts to suggestions only
+     - data-tags-name creates a hidden input with comma-joined values
+     - events: exsa:tags-add / exsa:tags-remove / exsa:tags-change
+
+   Tokens (theme-derived → dark mode adapts automatically):
+     --tags-chip-bg, --tags-chip-color
+   ============================================================ */
+
+:root {
+  --tags-chip-bg: color-mix(in srgb, var(--color-link) 12%, transparent);
+  --tags-chip-color: var(--color-link);
+}
+
+/* ── Container — looks like an input ── */
+.tags-input {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 10px;
+  border: 1px solid var(--color-bg-secondary);
+  border-radius: var(--border-radius);
+  background: var(--color-bg);
+  cursor: text;
+  transition: border-color .15s, box-shadow .15s;
+}
+.tags-input:focus-within {
+  border-color: var(--color-link);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-link) 18%, transparent);
+}
+
+/* ── Chip ── */
+.tags-input__chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 3px 9px;
+  border-radius: 99px;
+  background: var(--tags-chip-bg);
+  color: var(--tags-chip-color);
+  font-size: .76rem;
+  font-weight: 600;
+  line-height: 1.5;
+  white-space: nowrap;
+}
+.tags-input__chip--success { --tags-chip-bg: color-mix(in srgb, var(--color-success) 14%, transparent); --tags-chip-color: var(--color-success); }
+.tags-input__chip--warning { --tags-chip-bg: color-mix(in srgb, var(--color-warning) 14%, transparent); --tags-chip-color: var(--color-warning); }
+.tags-input__chip--danger  { --tags-chip-bg: color-mix(in srgb, var(--color-danger) 12%, transparent);  --tags-chip-color: var(--color-danger); }
+
+.tags-input__remove {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 14px;
+  height: 14px;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--tags-chip-color) 25%, transparent);
+  color: var(--tags-chip-color);
+  font-size: .8rem;
+  line-height: 1;
+  cursor: pointer;
+  font-family: inherit;
+}
+.tags-input__remove:hover { background: var(--tags-chip-color); color: var(--color-button-text); }
+.tags-input__remove:focus-visible { outline: 2px solid var(--color-link); outline-offset: 1px; }
+
+/* ── Text field ── */
+.tags-input__field {
+  flex: 1;
+  min-width: 90px;
+  border: none;
+  background: none;
+  padding: 4px 2px;
+  font-size: .84rem;
+  font-family: inherit;
+  color: var(--color-text);
+}
+.tags-input__field:focus { outline: none; }
+.tags-input__field::placeholder { color: var(--color-text-secondary); }
+
+/* ── Suggestions menu ── */
+.tags-input__menu {
+  position: absolute;
+  top: calc(100% + 4px);
+  inset-inline-start: 0;
+  z-index: var(--z-dropdown);
+  min-width: 180px;
+  max-height: 220px;
+  overflow-y: auto;
+  padding: 4px;
+  background: var(--color-bg);
+  border: 1px solid var(--color-bg-secondary);
+  border-radius: var(--border-radius);
+  box-shadow: 0 4px 16px color-mix(in srgb, #000 10%, transparent);
+  display: none;
+}
+.tags-input__menu--open { display: block; }
+
+.tags-input__item {
+  padding: 6px 10px;
+  font-size: .8rem;
+  border-radius: calc(var(--border-radius) * .6);
+  cursor: pointer;
+  color: var(--color-text);
+}
+.tags-input__item:hover,
+.tags-input__item--active {
+  background: color-mix(in srgb, var(--color-text-secondary) 10%, transparent);
+}
+}

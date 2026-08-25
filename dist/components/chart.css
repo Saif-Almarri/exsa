@@ -1,0 +1,108 @@
+@layer exsa.components {
+/* ============================================================
+   EXSA Chart — SVG line / area / bar / sparkline
+   Link after exsa.css + your theme.
+
+   Markup: any element with data-chart-values. js/chart.js
+   generates the SVG markup from data attributes; CSS only
+   styles it. Zero third-party dependencies.
+
+     <div class="chart chart--line"
+          data-chart-labels="Mon,Tue,Wed,Thu,Fri"
+          data-chart-values="12,28,19,33,24"
+          aria-label="Weekly sales"></div>
+
+   Types (class or data-chart-type): line, area, bar, sparkline.
+   Second series: data-chart-values-2 (renders with --chart-2 tokens).
+
+   Tokens (all derive from theme tokens, so dark mode + custom
+   themes adapt automatically — override any of them to rebrand):
+     --chart-line     series stroke       (default --color-link)
+     --chart-2        second series       (default --color-secondary)
+     --chart-fill     area fill           (12% color-mix of line)
+     --chart-bar      bar fill            (default --color-link)
+     --chart-grid     gridline stroke
+     --chart-axis     axis label color
+     --chart-point    point fill          (default --color-bg)
+
+   A11y: container carries aria-label (role=img); bars/points are
+   keyboard-focusable via the generated SVG when tabindex is set.
+   ============================================================ */
+
+:root {
+  --chart-line: var(--color-link);
+  --chart-2: var(--color-secondary);
+  --chart-fill: color-mix(in srgb, var(--color-link) 12%, transparent);
+  --chart-fill-2: color-mix(in srgb, var(--color-secondary) 12%, transparent);
+  --chart-bar: var(--color-link);
+  --chart-grid: color-mix(in srgb, var(--color-text) 9%, transparent);
+  --chart-axis: var(--color-text-secondary);
+  --chart-point: var(--color-bg);
+}
+
+/* ── Container ── */
+.chart { position: relative; width: 100%; }
+.chart svg { display: block; width: 100%; height: auto; overflow: visible; }
+.chart--sparkline svg { width: 100%; max-width: 180px; }
+
+/* ── Grid ── */
+.chart__grid line { stroke: var(--chart-grid); stroke-width: 1; shape-rendering: crispEdges; }
+
+/* ── Axis labels ── */
+.chart__axis text {
+  fill: var(--chart-axis);
+  font-size: 11px;
+  font-family: var(--font-family-mono);
+}
+
+/* ── Line series ── */
+.chart__line {
+  fill: none;
+  stroke: var(--chart-line);
+  stroke-width: 2.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  vector-effect: non-scaling-stroke;
+}
+.chart__series--2 .chart__line { stroke: var(--chart-2); }
+
+/* ── Area series ── */
+.chart__area { stroke: none; }
+.chart__area--1 { fill: var(--chart-fill); }
+.chart__area--2 { fill: var(--chart-fill-2); }
+
+/* ── Points ── */
+.chart__point {
+  fill: var(--chart-point);
+  stroke: var(--chart-line);
+  stroke-width: 2;
+  vector-effect: non-scaling-stroke;
+}
+.chart__series--2 .chart__point { stroke: var(--chart-2); }
+.chart__point:hover, .chart__point:focus { r: 5; outline: none; }
+
+/* ── Bars ── */
+.chart__bar { fill: var(--chart-bar); transition: opacity .15s; }
+.chart__bar:hover, .chart__bar:focus { opacity: .75; outline: none; }
+
+/* ── Bar value labels ── */
+.chart__bar-label {
+  fill: var(--chart-axis);
+  font-size: 10px;
+  font-family: var(--font-family-mono);
+  text-anchor: middle;
+}
+
+/* ── Sparkline — no axes, no grid ── */
+.chart--sparkline .chart__grid,
+.chart--sparkline .chart__axis,
+.chart--sparkline .chart__point { display: none; }
+
+/* ── Intro animation (skipped for reduced motion) ── */
+@media (prefers-reduced-motion: no-preference) {
+  .chart__line, .chart__area { animation: chart-in .5s ease-out both; }
+  .chart__bar { animation: chart-bar-in .4s ease-out both; transform-origin: bottom; }
+  @keyframes chart-in { from { opacity: 0; } to { opacity: 1; } }
+  @keyframes chart-bar-in { from { opacity: 0; transform: scaleY(.6); } to { opacity: 1; transform: scaleY(1); } }
+}
+}

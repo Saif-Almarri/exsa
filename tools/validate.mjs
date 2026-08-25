@@ -21,6 +21,8 @@
   14. no `.calc(` corruption signature (dot-form tokenizer bug) in any CSS file
   15. site pages reference only defined EXSA tokens (or file-local custom props)
   16. every layout structure contract cross-checks its CSS (when-class + parts)
+  17. every theme defines both forced-mode color-scheme rules
+      (theme self-containment contract — themes stay standalone)
 
    --token-audit prints a spacing-discipline report (hardcoded margin/padding/gap
    that should reference tokens) and exits with the normal rule result.
@@ -315,7 +317,7 @@ const siteFiles = [];
     else if (/\.(php|html)$/.test(ent.name)) siteFiles.push(p);
   }
 })('site');
-const siteTokenIgnore = new Set(['--exsa-version', '--token']); // intentional placeholders in docs prose
+const siteTokenIgnore = new Set(['--exsa-version', '--token', '--g-radius']); // intentional placeholders in docs prose + site-local glass radius (site/glass.css)
 for (const f of siteFiles) {
   const content = readFileSync(join(root, f), 'utf8');
   const localDefs = new Set([...content.matchAll(/--[a-z0-9-]+(?=\s*:)/g)].map((m) => m[0]));
@@ -353,6 +355,21 @@ for (const lay of manifest.layouts || []) {
     for (const part of cond.required || []) {
       if (part.startsWith('>') || part.includes(':')) continue; // structural selectors — skip static check
       if (!allCss.includes(part)) fail(`layout ${lay.id}: required part ${part} not defined in any dist CSS file`);
+    }
+  }
+}
+
+/* ---------- rule 17: theme self-containment contract ----------
+   Every theme file is standalone: it must define both forced-mode
+   color-scheme rules. They also live in dist/exsa.css — a harmless
+   duplicate that keeps a theme fully usable when the core isn't linked
+   (e.g. a Generator bundle with Foundation off). Enforced, not accidental. */
+for (const f of cssFiles2.filter((f) => f.startsWith('dist/themes/') && f.endsWith('.css'))) {
+  const content = readFileSync(join(root, f), 'utf8');
+  for (const mode of ['dark', 'light']) {
+    const re = new RegExp(':root\\[data-theme-mode="' + mode + '"\\]\\s*\\{\\s*color-scheme:\\s*' + mode + ';?');
+    if (!re.test(content)) {
+      fail(`${f}: missing standalone forced-mode rule :root[data-theme-mode="${mode}"] { color-scheme: ${mode}; }`);
     }
   }
 }

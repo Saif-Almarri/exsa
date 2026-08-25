@@ -1,20 +1,20 @@
 @layer exsa.themes {
 
 /* ============================================================
-   LAYER 4 � THEME: VOLT
-   Deep navy with electric volt-green accents. High-voltage
-   contrast � dark enough for focus, bright enough to guide.
+   LAYER 2 — THEME: VOLT
+   Custom theme built with EXSA Theme Builder.
    Auto-switches via prefers-color-scheme.
    Force mode: <html data-theme-mode="light|dark">
+   Self-contained: forced-mode rules included below (also in exsa.css — harmless duplicate).
    ============================================================ */
 
 :root {
   color-scheme: light dark;
-  --color-bg: light-dark(#f0f4fa, #0d254c);
-  --color-bg-secondary: light-dark(#dde6f4, #132d58);
+  --color-bg: light-dark(#f0f6ff, #0d203f);
+  --color-bg-secondary: light-dark(#d0dbec, #1a3765);
   --color-text: light-dark(#0d254c, #dce4f4);
   --color-text-secondary: light-dark(#3f6798, #7bafd4);
-  --color-link: light-dark(#8cbf00, #ceff00);
+  --color-link: light-dark(#a5e000, #ceff00);
   --color-secondary: light-dark(#b4975a, #3f6798);
   --color-secondary-accent: light-dark(#b4975a0d, #3f679818);
   --color-accent: light-dark(#8cbf0010, #ceff0014);

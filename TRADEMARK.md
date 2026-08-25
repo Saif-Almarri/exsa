@@ -21,19 +21,25 @@ original inventions. This means:
 Three architectural ideas, first published in July 2026 by **Saif Almarri** as part
 of the EXSA CSS Framework. These are what make EXSA a category of one.
 
-### 1. The 5-Layer Cascade Architecture
+### 1. The 9-Layer Cascade Architecture
 
-CSS `@layer` enforces browser-native priority: **tokens → reset → layout →
-elements → components.** Each layer feeds the next. Themes and user CSS sit
-*outside* all layers — unlayered styles always override layered ones.
+CSS `@layer` enforces browser-native priority: **tokens → themes → fluid →
+reset → utilities → elements → components → layouts → overrides.** Each layer
+feeds the next. Themes live inside layer 2 — swapping a theme is one file, and
+the cascade applies it over every component. User CSS sits *outside* all layers
+— unlayered styles always override layered ones.
 Specificity becomes irrelevant. No `!important` wars. Ever.
 
 ```
 @layer exsa.tokens      → 82 design tokens
+     exsa.themes      → 20 themes, light-dark() palette overrides
+     exsa.fluid       → clamp() scaling + density profiles (optional)
      exsa.reset       → box model, focus, a11y, RTL, scrollbar
-     exsa.utilities  → 90+ flex & grid utilities
+     exsa.utilities   → 90+ flex & grid utilities
      exsa.elements    → Guarded Classless™ semantic HTML styling
-     exsa.components  → 53 BEM components (intentionally unlayered)
+     exsa.components  → 68 BEM components
+     exsa.layouts     → 3 page shells (general, dashboard, store)
+     exsa.overrides   → u-* escape hatch, always wins
 ```
 
 ### 2. Guarded Classless™
@@ -76,7 +82,7 @@ These aren't new ideas — but they're non-negotiable in EXSA:
   invention.)
 - **Components as files.** Each component is a single ~1 KB CSS file. Link only
   what you need. (Standard practice across the industry.)
-- **CSS first, JS optional.** 51% of components (27 of 53) are pure CSS. Interactive
+- **CSS first, JS optional.** 46% of components (31 of 68) are pure CSS. Interactive
   behaviors are one `<script>` tag. (Many frameworks are CSS-only.)
 
 ---

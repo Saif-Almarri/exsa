@@ -1,10 +1,11 @@
 @layer exsa.themes {
 
 /* ============================================================
-   LAYER 4 � THEME: STEEL
+   LAYER 2 — THEME: STEEL
    Industrial warm concrete by default, dark iron in dark mode.
    Auto-switches via prefers-color-scheme.
    Force mode: <html data-theme-mode="light|dark">
+   Self-contained: forced-mode rules included below (also in exsa.css — harmless duplicate).
    ============================================================ */
 
 :root {

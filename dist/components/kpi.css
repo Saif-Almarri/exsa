@@ -1,0 +1,156 @@
+@layer exsa.components {
+/* ============================================================
+   EXSA KPI Card — big number + delta + sparkline
+   Link after exsa.css + your theme. Standalone (works with or
+   without card.css / layouts/dashboard.css).
+
+   Markup:
+     <div class="kpi">
+       <div class="kpi__head">
+         <span class="kpi__label">Revenue</span>
+         <span class="kpi__icon"><span class="ic ic-chart"></span></span>
+       </div>
+       <div class="kpi__value">$48,290</div>
+       <div class="kpi__foot">
+         <span class="kpi__delta kpi__delta--up">12.4%</span>
+         <span class="kpi__delta-note">vs last month</span>
+       </div>
+     </div>
+
+   Sparkline slot (needs js/chart.js):
+     <span class="kpi__spark" data-chart-values="12,18,15,24,29"></span>
+
+   Variants: --success / --warning / --danger (accent + icon tint),
+             --sm (compact), --pill (delta badge).
+   Grid: wrap cards in .kpi-grid.
+   Tokens: --kpi-pad, --kpi-value-size, --kpi-accent, --kpi-icon-bg,
+           --kpi-delta-up, --kpi-delta-down.
+   ============================================================ */
+
+:root {
+  --kpi-pad: 20px;
+  --kpi-value-size: 1.75rem;
+  --kpi-accent: var(--color-link);
+  --kpi-icon-bg: color-mix(in srgb, var(--color-link) 12%, transparent);
+  --kpi-delta-up: var(--color-success);
+  --kpi-delta-down: var(--color-danger);
+}
+
+/* ── Card ── */
+.kpi {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: var(--kpi-pad);
+  background: var(--color-bg);
+  border: 1px solid var(--color-bg-secondary);
+  border-inline-start: 3px solid var(--kpi-accent);
+  border-radius: var(--border-radius);
+  position: relative;
+  min-width: 0;
+}
+
+/* ── Head row: label + icon ── */
+.kpi__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+.kpi__label {
+  font-size: .72rem;
+  font-weight: 700;
+  letter-spacing: .05em;
+  text-transform: uppercase;
+  color: var(--color-text-secondary);
+}
+.kpi__icon {
+  width: 36px;
+  height: 36px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--border-radius);
+  background: var(--kpi-icon-bg);
+  color: var(--kpi-accent);
+  font-size: 1rem;
+  flex-shrink: 0;
+}
+
+/* ── Value ── */
+.kpi__value {
+  font-size: var(--kpi-value-size);
+  font-weight: 800;
+  line-height: 1.1;
+  color: var(--color-text);
+  font-family: var(--font-family-mono);
+  letter-spacing: -.01em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* ── Foot: delta + note ── */
+.kpi__foot {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.kpi__delta {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  font-size: .74rem;
+  font-weight: 700;
+  font-family: var(--font-family-mono);
+}
+.kpi__delta--up { color: var(--kpi-delta-up); }
+.kpi__delta--up::before { content: '↑'; }
+.kpi__delta--down { color: var(--kpi-delta-down); }
+.kpi__delta--down::before { content: '↓'; }
+.kpi__delta--pill {
+  padding: 2px 9px;
+  border-radius: 99px;
+}
+.kpi__delta--up.kpi__delta--pill {
+  background: color-mix(in srgb, var(--kpi-delta-up) 14%, transparent);
+}
+.kpi__delta--down.kpi__delta--pill {
+  background: color-mix(in srgb, var(--kpi-delta-down) 12%, transparent);
+}
+.kpi__delta-note {
+  font-size: .72rem;
+  color: var(--color-text-secondary);
+}
+
+/* ── Sparkline slot ── */
+.kpi__spark { display: block; margin-top: 2px; }
+
+/* ── Progress slot — slim bars (progress.css) inside the card ── */
+.kpi__progress {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+  margin-top: 2px;
+  padding-top: 10px;
+  border-top: 1px solid var(--color-bg-secondary);
+}
+
+/* ── Color variants ── */
+.kpi--success { --kpi-accent: var(--color-success); --kpi-icon-bg: color-mix(in srgb, var(--color-success) 12%, transparent); }
+.kpi--warning { --kpi-accent: var(--color-warning); --kpi-icon-bg: color-mix(in srgb, var(--color-warning) 14%, transparent); }
+.kpi--danger  { --kpi-accent: var(--color-danger);  --kpi-icon-bg: color-mix(in srgb, var(--color-danger) 12%, transparent); }
+.kpi--secondary { --kpi-accent: var(--color-secondary); --kpi-icon-bg: color-mix(in srgb, var(--color-secondary) 12%, transparent); }
+
+/* ── Compact ── */
+.kpi--sm { --kpi-pad: 14px; --kpi-value-size: 1.35rem; gap: 6px; }
+.kpi--sm .kpi__icon { width: 28px; height: 28px; font-size: .8rem; }
+
+/* ── Grid ── */
+.kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+}
+}

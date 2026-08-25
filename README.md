@@ -1,6 +1,6 @@
 # EXSA CSS Framework
 
-> Built on tokens, not tools — a 9-layer cascade, 82 design tokens, 53 components,
+> Built on tokens, not tools — a 9-layer cascade, 82 design tokens, 68 components,
 > 3 layouts, 2 starter templates. Zero build step. **v1.0.0-rc.1**
 
 This repository contains the library, the website, and the tooling — separated so a
@@ -20,6 +20,7 @@ developer who clones it sees a library, not a website.
 ```html
 <!-- CDN — pin a version: @main → @1.0.0-rc.1 -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Saif-Almarri/exsa@main/dist/exsa.css">
+<!-- theme: optional — exsa.css ships a built-in default theme -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Saif-Almarri/exsa@main/dist/themes/breeze.css">
 
 <!-- behaviors (optional): every JS component, prebuilt, in one file -->

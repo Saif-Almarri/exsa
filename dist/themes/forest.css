@@ -1,10 +1,11 @@
 @layer exsa.themes {
 
 /* ============================================================
-   LAYER 4 � THEME: FOREST
+   LAYER 2 — THEME: FOREST
    Earthy greens by default, deep pine in dark mode.
    Auto-switches via prefers-color-scheme.
    Force mode: <html data-theme-mode="light|dark">
+   Self-contained: forced-mode rules included below (also in exsa.css — harmless duplicate).
    ============================================================ */
 
 :root {

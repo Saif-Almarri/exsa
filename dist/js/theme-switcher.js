@@ -6,7 +6,15 @@ function __exsaInit(){
 (function(){
   const sel=document.getElementById('theme-select'),link=document.getElementById('theme-stylesheet');
   if(!sel||!link)return;
-  function apply(n){link.href='themes/'+n+'.css';localStorage.setItem('exsa-theme',n);}
+  /* Resolve the theme file next to the CURRENT stylesheet href — works at any
+     page depth (site/*, root, CDN) and preserves the existing cache buster. */
+  function apply(n){
+    const cur=link.getAttribute('href')||'';
+    const q=(cur.match(/[?#].*$/)||[''])[0];
+    const base=cur.replace(/[^/?#]*[?#].*$/, '').replace(/[^/?#]*$/, '');
+    link.href=base+n+'.css'+q;
+    localStorage.setItem('exsa-theme',n);
+  }
   sel.addEventListener('change',function(){apply(this.value);});
   /* exsa-theme is the canonical key; cc-theme is read once for migration from older versions */
   const s=localStorage.getItem('exsa-theme')||localStorage.getItem('cc-theme');

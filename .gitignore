@@ -27,6 +27,7 @@ Thumbs.db
 demo.css
 landing.css
 site/splash.css
+site/glass.css
 
 # Server config
 .htaccess

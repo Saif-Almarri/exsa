@@ -34,12 +34,12 @@
     },
     "5_components": {
       "label": "Layer 5 — Components",
-      "desc": "53 plug-and-play components. Single CSS files."
+      "desc": "68 plug-and-play components. Single CSS files."
     }
   },
   "core": {
     "css": [
-      "dist/exsa.css?v=1"
+      "dist/exsa.css"
     ],
     "description": "Complete core: tokens, reset, layout utilities, classless element styles for 47 HTML elements (nav, table, form, fieldset, button, blockquote, dialog, kbd, progress, meter + structural detection). One file, one link."
   },
@@ -231,28 +231,6 @@
         { "when": "body.shop--sidebar-right", "required": [".shop__shell", ".shop__aside-right", ".shop__content"] }
       ],
       "tier": "free"
-    },
-    {
-      "id": "fullpage",
-      "name": "Fullpage",
-      "file": "dist/templates/fullpage/fullpage.css",
-      "html": "dist/templates/fullpage/index.html",
-      "desc": "Starter template: single-viewport landing — backdrop, centered brand, social rings, :target panels. Copy the folder, open index.html.",
-      "structure": [
-        { "when": "body.layout--fullpage", "required": [".fullpage__backdrop", ".fullpage__content"] }
-      ],
-      "tier": "free"
-    },
-    {
-      "id": "onepage",
-      "name": "Onepage",
-      "file": "dist/templates/onepage/onepage.css",
-      "html": "dist/templates/onepage/index.html",
-      "desc": "Starter template: multi-section marketing page — photo hero, nav dropdowns, banner, carousel, features, footer. Copy the folder, open index.html.",
-      "structure": [
-        { "when": "body.layout--onepage", "required": [".onepage__header", ".onepage__footer"] }
-      ],
-      "tier": "free"
     }
   ],
   "categories": [
@@ -267,7 +245,9 @@
         "modal",
         "pricing-table",
         "sidebar",
-        "dashboard"
+        "dashboard",
+        "kanban",
+        "product-card"
       ]
     },
     {
@@ -281,7 +261,10 @@
         "stepper",
         "timeline",
         "tooltip",
-        "context-menu"
+        "context-menu",
+        "command-palette",
+        "notifications",
+        "tree"
       ]
     },
     {
@@ -294,7 +277,9 @@
         "code-block",
         "table",
         "data-list",
-        "separator"
+        "separator",
+        "activity",
+        "empty-state"
       ]
     },
     {
@@ -314,7 +299,10 @@
       "components": [
         "donut",
         "progress",
-        "range-slider"
+        "range-slider",
+        "calendar",
+        "chart",
+        "kpi"
       ]
     },
     {
@@ -336,7 +324,10 @@
         "tabs",
         "toggle",
         "buttons",
-        "resizer"
+        "resizer",
+        "tags-input",
+        "transfer",
+        "upload"
       ]
     },
     {
@@ -588,9 +579,9 @@
       "name": "Table",
       "category": "content",
       "css": "dist/components/table.css",
-      "js": null,
-      "pureCss": true,
-      "desc": "Responsive data table with striped rows, hover highlight, and compact variant.",
+      "js": "dist/js/table.js",
+      "pureCss": false,
+      "desc": "Responsive data table with striped rows, hover highlight, and compact variant. Optional js/table.js adds sortable headers, search filtering, and row selection.",
       "tier": "free"
     },
     {
@@ -1030,6 +1021,153 @@
       "pureCss": true,
       "desc": "One-click animated page navigation via the cross-document View Transitions API. Link once, morph elements with .vt-brand/.vt-title/.vt-card/.vt-panel/.vt-hero.",
       "tier": "free"
+    },
+    {
+      "id": "activity",
+      "name": "Activity Feed",
+      "category": "content",
+      "css": "dist/components/activity.css",
+      "js": null,
+      "pureCss": true,
+      "desc": "Grouped timeline feed (today / yesterday) with icon rows. Pure CSS; pair with avatar.css.",
+      "structure": { "root": ".activity", "required": [".activity__group"], "optional": [".activity__header", ".activity__list", ".activity__item", ".activity__body", ".activity__title", ".activity__text", ".activity__time", ".activity__item--danger", ".activity__item--warning", ".activity__item--muted"] },
+      "tier": "free"
+    },
+    {
+      "id": "calendar",
+      "name": "Calendar",
+      "category": "data",
+      "css": "dist/components/calendar.css",
+      "js": "dist/js/calendar.js",
+      "pureCss": false,
+      "desc": "Month grid + event chips rendered from data attributes (data-calendar-date / -events). Behavior: js/calendar.js.",
+      "structure": { "root": ".calendar", "required": [".calendar__grid"], "optional": [".calendar__head", ".calendar__nav", ".calendar__label", ".calendar__today", ".calendar__weekdays", ".calendar__weekday", ".calendar__day", ".calendar__daynum", ".calendar__day--outside", ".calendar__day--selected", ".calendar__events", ".calendar__event", ".calendar__more", ".calendar__event--primary", ".calendar__event--secondary", ".calendar__event--success", ".calendar__event--warning", ".calendar__event--danger"] },
+      "tier": "free"
+    },
+    {
+      "id": "chart",
+      "name": "Chart",
+      "category": "data",
+      "css": "dist/components/chart.css",
+      "js": "dist/js/chart.js",
+      "pureCss": false,
+      "desc": "SVG line / area / bar / sparkline styled from data-chart-* attributes. Behavior: js/chart.js.",
+      "tier": "free"
+    },
+    {
+      "id": "command-palette",
+      "name": "Command Palette",
+      "category": "navigation",
+      "css": "dist/components/command-palette.css",
+      "js": "dist/js/command-palette.js",
+      "pureCss": false,
+      "desc": "Ctrl+K modal search built on modal.css. Behavior: js/command-palette.js.",
+      "structure": { "root": ".command-palette", "required": [".command-palette__input", ".command-palette__list"], "optional": [".command-palette__dialog", ".command-palette__input-wrap", ".command-palette__icon", ".command-palette__kbd", ".command-palette__group", ".command-palette__group-title", ".command-palette__item", ".command-palette__item--active", ".command-palette__item-icon", ".command-palette__item-body", ".command-palette__item-label", ".command-palette__item-desc", ".command-palette__empty", ".command-palette__foot"] },
+      "tier": "free"
+    },
+    {
+      "id": "empty-state",
+      "name": "Empty State",
+      "category": "content",
+      "css": "dist/components/empty-state.css",
+      "js": null,
+      "pureCss": true,
+      "icons": [
+        "inbox.svg"
+      ],
+      "desc": "Icon + title + CTA placeholder for blank lists/tables. --bordered variant.",
+      "structure": { "root": ".empty-state", "required": [".empty-state__title"], "optional": [".empty-state__icon", ".empty-state__text", ".empty-state__actions"] },
+      "tier": "free"
+    },
+    {
+      "id": "kanban",
+      "name": "Kanban Board",
+      "category": "layout",
+      "css": "dist/components/kanban.css",
+      "js": "dist/js/kanban.js",
+      "pureCss": false,
+      "desc": "Drag-and-drop board with columns and cards. Behavior: js/kanban.js.",
+      "structure": { "root": ".kanban", "required": [".kanban__col"], "optional": [".kanban__col-head", ".kanban__col-title", ".kanban__col-count", ".kanban__col--over", ".kanban__cards", ".kanban__card", ".kanban__card-title", ".kanban__card-text", ".kanban__card-tags", ".kanban__card-foot", ".kanban__card-date", ".kanban__card--dragging", ".kanban__card--ghost", ".kanban__add", ".kanban__empty"] },
+      "tier": "free"
+    },
+    {
+      "id": "kpi",
+      "name": "KPI Card",
+      "category": "data",
+      "css": "dist/components/kpi.css",
+      "js": null,
+      "pureCss": true,
+      "icons": [
+        "chart.svg"
+      ],
+      "desc": "Big number + delta (+--up/--down) + sparkline. Standalone, works with or without card.css.",
+      "structure": { "root": ".kpi", "required": [".kpi__value"], "optional": [".kpi__head", ".kpi__label", ".kpi__icon", ".kpi__foot", ".kpi__delta", ".kpi__delta--up", ".kpi__delta--down", ".kpi__delta-note", ".kpi__delta--pill", ".kpi__spark", ".kpi__progress"] },
+      "tier": "free"
+    },
+    {
+      "id": "notifications",
+      "name": "Notifications",
+      "category": "navigation",
+      "css": "dist/components/notifications.css",
+      "js": "dist/js/dropdown.js",
+      "pureCss": false,
+      "desc": "Bell dropdown built on dropdown.css (reuses its JS toggle). Badge count, item list.",
+      "structure": { "root": ".notifications", "required": [".notifications__trigger", ".notifications__list"], "optional": [".notifications__head", ".notifications__title", ".notifications__mark", ".notifications__body", ".notifications__text", ".notifications__time", ".notifications__time--unread", ".notifications__item", ".notifications__item--unread", ".notifications__empty", ".notifications__foot"] },
+      "tier": "free"
+    },
+    {
+      "id": "product-card",
+      "name": "Product Card",
+      "category": "layout",
+      "css": "dist/components/product-card.css",
+      "js": null,
+      "pureCss": true,
+      "desc": "Store product tile (.shop__card) for layouts/store.css product grids.",
+      "structure": { "root": ".shop__card", "required": [".shop__card-title"], "optional": [".shop__card-image", ".shop__card-badge", ".shop__card-body", ".shop__card-price", ".shop__card-price--old", ".shop__card-rating"] },
+      "tier": "free"
+    },
+    {
+      "id": "tags-input",
+      "name": "Tags Input",
+      "category": "actions",
+      "css": "dist/components/tags-input.css",
+      "js": "dist/js/tags-input.js",
+      "pureCss": false,
+      "desc": "Chips + type-to-add with suggestions (data-tags-suggestions / -max / -name). Behavior: js/tags-input.js.",
+      "tier": "free"
+    },
+    {
+      "id": "transfer",
+      "name": "Transfer List",
+      "category": "actions",
+      "css": "dist/components/transfer.css",
+      "js": "dist/js/transfer.js",
+      "pureCss": false,
+      "desc": "Two-panel list picker with search + move controls. Behavior: js/transfer.js.",
+      "structure": { "root": ".transfer", "required": [".transfer__panel", ".transfer__actions"], "optional": [".transfer__head", ".transfer__title", ".transfer__count", ".transfer__search", ".transfer__list", ".transfer__item", ".transfer__item--checked", ".transfer__btn", ".transfer__btn--text"] },
+      "tier": "free"
+    },
+    {
+      "id": "tree",
+      "name": "Tree",
+      "category": "navigation",
+      "css": "dist/components/tree.css",
+      "js": null,
+      "pureCss": true,
+      "desc": "Nested file tree via <details> — pure CSS, keyboard accessible. --lines variant.",
+      "structure": { "root": ".tree", "required": [".tree__row"], "optional": [".tree__node", ".tree__icon", ".tree__label", ".tree__badge", ".tree__check"] },
+      "tier": "free"
+    },
+    {
+      "id": "upload",
+      "name": "Upload Dropzone",
+      "category": "actions",
+      "css": "dist/components/upload.css",
+      "js": "dist/js/upload.js",
+      "pureCss": false,
+      "desc": "Dropzone + file list with progress bars. Behavior: js/upload.js.",
+      "structure": { "root": ".upload", "required": [".upload__dropzone", ".upload__list"], "optional": [".upload__dropzone--over", ".upload__icon", ".upload__title", ".upload__hint", ".upload__item", ".upload__item-body", ".upload__item-name", ".upload__item-meta", ".upload__item-ext", ".upload__item-track", ".upload__item-fill", ".upload__item-remove", ".upload__item--error", ".upload__item--done"] },
+      "tier": "free"
     }
   ],
   "behaviors": [
@@ -1219,6 +1357,54 @@
       "name": "code-block",
       "source": "dist/js/code-block.js",
       "desc": "Copy-to-clipboard button with Copied! feedback + auto syntax highlighting (hl-tag/attr/val/cmt)"
+    },
+    {
+      "id": "calendar",
+      "name": "calendar",
+      "source": "dist/js/calendar.js",
+      "desc": "Month grid rendering + navigation (day-select, event-click, month-change events)"
+    },
+    {
+      "id": "chart",
+      "name": "chart",
+      "source": "dist/js/chart.js",
+      "desc": "Data arrays to SVG line/area/bar/sparkline"
+    },
+    {
+      "id": "command-palette",
+      "name": "command-palette",
+      "source": "dist/js/command-palette.js",
+      "desc": "Ctrl+K modal search with filtering + selection"
+    },
+    {
+      "id": "kanban",
+      "name": "kanban",
+      "source": "dist/js/kanban.js",
+      "desc": "Pointer-based drag & drop board (mouse + touch)"
+    },
+    {
+      "id": "table",
+      "name": "table",
+      "source": "dist/js/table.js",
+      "desc": "Sortable headers, table search filter, row selection"
+    },
+    {
+      "id": "tags-input",
+      "name": "tags-input",
+      "source": "dist/js/tags-input.js",
+      "desc": "Chip input with suggestions, max, and free-typing"
+    },
+    {
+      "id": "transfer",
+      "name": "transfer",
+      "source": "dist/js/transfer.js",
+      "desc": "Two-panel list picker with move controls"
+    },
+    {
+      "id": "upload",
+      "name": "upload",
+      "source": "dist/js/upload.js",
+      "desc": "Dropzone + file list with XHR progress"
     }
   ],
   "tokens": {

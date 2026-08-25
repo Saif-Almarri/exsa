@@ -1,10 +1,11 @@
 @layer exsa.themes {
 
 /* ============================================================
-   LAYER 4 � THEME: NIGHT
+   LAYER 2 — THEME: NIGHT
    Dark by default, light variant for daytime.
    Auto-switches via prefers-color-scheme.
    Force mode: <html data-theme-mode="light|dark">
+   Self-contained: forced-mode rules included below (also in exsa.css — harmless duplicate).
    ============================================================ */
 
 :root {

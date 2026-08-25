@@ -601,6 +601,321 @@
   white-space: nowrap;
   pointer-events: none;
 }
+[data-debug] .activity:not(:has(.activity__group)){
+  outline: 2px dashed var(--dbg-danger);
+  outline-offset: 2px;
+  position: relative;
+}
+[data-debug] .activity:not(:has(.activity__group))::after{
+  content: "missing .activity__group";
+  position: absolute;
+  top: -1.6em;
+  inset-inline-start: 0;
+  z-index: 9999;
+  background: var(--dbg-danger);
+  color: #fff;
+  font-family: var(--font-family-mono, monospace);
+  font-size: 11px;
+  line-height: 1;
+  padding: 4px 8px;
+  border-radius: 4px;
+  white-space: nowrap;
+  pointer-events: none;
+}
+[data-debug] .calendar:not(:has(.calendar__grid)){
+  outline: 2px dashed var(--dbg-danger);
+  outline-offset: 2px;
+  position: relative;
+}
+[data-debug] .calendar:not(:has(.calendar__grid))::after{
+  content: "missing .calendar__grid";
+  position: absolute;
+  top: -1.6em;
+  inset-inline-start: 0;
+  z-index: 9999;
+  background: var(--dbg-danger);
+  color: #fff;
+  font-family: var(--font-family-mono, monospace);
+  font-size: 11px;
+  line-height: 1;
+  padding: 4px 8px;
+  border-radius: 4px;
+  white-space: nowrap;
+  pointer-events: none;
+}
+[data-debug] .command-palette:not(:has(.command-palette__input)){
+  outline: 2px dashed var(--dbg-danger);
+  outline-offset: 2px;
+  position: relative;
+}
+[data-debug] .command-palette:not(:has(.command-palette__input))::after{
+  content: "missing .command-palette__input";
+  position: absolute;
+  top: -1.6em;
+  inset-inline-start: 0;
+  z-index: 9999;
+  background: var(--dbg-danger);
+  color: #fff;
+  font-family: var(--font-family-mono, monospace);
+  font-size: 11px;
+  line-height: 1;
+  padding: 4px 8px;
+  border-radius: 4px;
+  white-space: nowrap;
+  pointer-events: none;
+}
+[data-debug] .command-palette:not(:has(.command-palette__list)){
+  outline: 2px dashed var(--dbg-danger);
+  outline-offset: 2px;
+  position: relative;
+}
+[data-debug] .command-palette:not(:has(.command-palette__list))::after{
+  content: "missing .command-palette__list";
+  position: absolute;
+  top: -1.6em;
+  inset-inline-start: 0;
+  z-index: 9999;
+  background: var(--dbg-danger);
+  color: #fff;
+  font-family: var(--font-family-mono, monospace);
+  font-size: 11px;
+  line-height: 1;
+  padding: 4px 8px;
+  border-radius: 4px;
+  white-space: nowrap;
+  pointer-events: none;
+}
+[data-debug] .empty-state:not(:has(.empty-state__title)){
+  outline: 2px dashed var(--dbg-danger);
+  outline-offset: 2px;
+  position: relative;
+}
+[data-debug] .empty-state:not(:has(.empty-state__title))::after{
+  content: "missing .empty-state__title";
+  position: absolute;
+  top: -1.6em;
+  inset-inline-start: 0;
+  z-index: 9999;
+  background: var(--dbg-danger);
+  color: #fff;
+  font-family: var(--font-family-mono, monospace);
+  font-size: 11px;
+  line-height: 1;
+  padding: 4px 8px;
+  border-radius: 4px;
+  white-space: nowrap;
+  pointer-events: none;
+}
+[data-debug] .kanban:not(:has(.kanban__col)){
+  outline: 2px dashed var(--dbg-danger);
+  outline-offset: 2px;
+  position: relative;
+}
+[data-debug] .kanban:not(:has(.kanban__col))::after{
+  content: "missing .kanban__col";
+  position: absolute;
+  top: -1.6em;
+  inset-inline-start: 0;
+  z-index: 9999;
+  background: var(--dbg-danger);
+  color: #fff;
+  font-family: var(--font-family-mono, monospace);
+  font-size: 11px;
+  line-height: 1;
+  padding: 4px 8px;
+  border-radius: 4px;
+  white-space: nowrap;
+  pointer-events: none;
+}
+[data-debug] .kpi:not(:has(.kpi__value)){
+  outline: 2px dashed var(--dbg-danger);
+  outline-offset: 2px;
+  position: relative;
+}
+[data-debug] .kpi:not(:has(.kpi__value))::after{
+  content: "missing .kpi__value";
+  position: absolute;
+  top: -1.6em;
+  inset-inline-start: 0;
+  z-index: 9999;
+  background: var(--dbg-danger);
+  color: #fff;
+  font-family: var(--font-family-mono, monospace);
+  font-size: 11px;
+  line-height: 1;
+  padding: 4px 8px;
+  border-radius: 4px;
+  white-space: nowrap;
+  pointer-events: none;
+}
+[data-debug] .notifications:not(:has(.notifications__trigger)){
+  outline: 2px dashed var(--dbg-danger);
+  outline-offset: 2px;
+  position: relative;
+}
+[data-debug] .notifications:not(:has(.notifications__trigger))::after{
+  content: "missing .notifications__trigger";
+  position: absolute;
+  top: -1.6em;
+  inset-inline-start: 0;
+  z-index: 9999;
+  background: var(--dbg-danger);
+  color: #fff;
+  font-family: var(--font-family-mono, monospace);
+  font-size: 11px;
+  line-height: 1;
+  padding: 4px 8px;
+  border-radius: 4px;
+  white-space: nowrap;
+  pointer-events: none;
+}
+[data-debug] .notifications:not(:has(.notifications__list)){
+  outline: 2px dashed var(--dbg-danger);
+  outline-offset: 2px;
+  position: relative;
+}
+[data-debug] .notifications:not(:has(.notifications__list))::after{
+  content: "missing .notifications__list";
+  position: absolute;
+  top: -1.6em;
+  inset-inline-start: 0;
+  z-index: 9999;
+  background: var(--dbg-danger);
+  color: #fff;
+  font-family: var(--font-family-mono, monospace);
+  font-size: 11px;
+  line-height: 1;
+  padding: 4px 8px;
+  border-radius: 4px;
+  white-space: nowrap;
+  pointer-events: none;
+}
+[data-debug] .shop__card:not(:has(.shop__card-title)){
+  outline: 2px dashed var(--dbg-danger);
+  outline-offset: 2px;
+  position: relative;
+}
+[data-debug] .shop__card:not(:has(.shop__card-title))::after{
+  content: "missing .shop__card-title";
+  position: absolute;
+  top: -1.6em;
+  inset-inline-start: 0;
+  z-index: 9999;
+  background: var(--dbg-danger);
+  color: #fff;
+  font-family: var(--font-family-mono, monospace);
+  font-size: 11px;
+  line-height: 1;
+  padding: 4px 8px;
+  border-radius: 4px;
+  white-space: nowrap;
+  pointer-events: none;
+}
+[data-debug] .transfer:not(:has(.transfer__panel)){
+  outline: 2px dashed var(--dbg-danger);
+  outline-offset: 2px;
+  position: relative;
+}
+[data-debug] .transfer:not(:has(.transfer__panel))::after{
+  content: "missing .transfer__panel";
+  position: absolute;
+  top: -1.6em;
+  inset-inline-start: 0;
+  z-index: 9999;
+  background: var(--dbg-danger);
+  color: #fff;
+  font-family: var(--font-family-mono, monospace);
+  font-size: 11px;
+  line-height: 1;
+  padding: 4px 8px;
+  border-radius: 4px;
+  white-space: nowrap;
+  pointer-events: none;
+}
+[data-debug] .transfer:not(:has(.transfer__actions)){
+  outline: 2px dashed var(--dbg-danger);
+  outline-offset: 2px;
+  position: relative;
+}
+[data-debug] .transfer:not(:has(.transfer__actions))::after{
+  content: "missing .transfer__actions";
+  position: absolute;
+  top: -1.6em;
+  inset-inline-start: 0;
+  z-index: 9999;
+  background: var(--dbg-danger);
+  color: #fff;
+  font-family: var(--font-family-mono, monospace);
+  font-size: 11px;
+  line-height: 1;
+  padding: 4px 8px;
+  border-radius: 4px;
+  white-space: nowrap;
+  pointer-events: none;
+}
+[data-debug] .tree:not(:has(.tree__row)){
+  outline: 2px dashed var(--dbg-danger);
+  outline-offset: 2px;
+  position: relative;
+}
+[data-debug] .tree:not(:has(.tree__row))::after{
+  content: "missing .tree__row";
+  position: absolute;
+  top: -1.6em;
+  inset-inline-start: 0;
+  z-index: 9999;
+  background: var(--dbg-danger);
+  color: #fff;
+  font-family: var(--font-family-mono, monospace);
+  font-size: 11px;
+  line-height: 1;
+  padding: 4px 8px;
+  border-radius: 4px;
+  white-space: nowrap;
+  pointer-events: none;
+}
+[data-debug] .upload:not(:has(.upload__dropzone)){
+  outline: 2px dashed var(--dbg-danger);
+  outline-offset: 2px;
+  position: relative;
+}
+[data-debug] .upload:not(:has(.upload__dropzone))::after{
+  content: "missing .upload__dropzone";
+  position: absolute;
+  top: -1.6em;
+  inset-inline-start: 0;
+  z-index: 9999;
+  background: var(--dbg-danger);
+  color: #fff;
+  font-family: var(--font-family-mono, monospace);
+  font-size: 11px;
+  line-height: 1;
+  padding: 4px 8px;
+  border-radius: 4px;
+  white-space: nowrap;
+  pointer-events: none;
+}
+[data-debug] .upload:not(:has(.upload__list)){
+  outline: 2px dashed var(--dbg-danger);
+  outline-offset: 2px;
+  position: relative;
+}
+[data-debug] .upload:not(:has(.upload__list))::after{
+  content: "missing .upload__list";
+  position: absolute;
+  top: -1.6em;
+  inset-inline-start: 0;
+  z-index: 9999;
+  background: var(--dbg-danger);
+  color: #fff;
+  font-family: var(--font-family-mono, monospace);
+  font-size: 11px;
+  line-height: 1;
+  padding: 4px 8px;
+  border-radius: 4px;
+  white-space: nowrap;
+  pointer-events: none;
+}
 [data-debug] body.layout--has-topbar:not(:has(.topbar)){
   outline: 2px dashed var(--dbg-danger);
   outline-offset: 2px;
@@ -1217,90 +1532,6 @@
 }
 [data-debug] body.shop--sidebar-right:not(:has(.shop__content))::after{
   content: "missing .shop__content";
-  position: absolute;
-  top: -1.6em;
-  inset-inline-start: 0;
-  z-index: 9999;
-  background: var(--dbg-danger);
-  color: #fff;
-  font-family: var(--font-family-mono, monospace);
-  font-size: 11px;
-  line-height: 1;
-  padding: 4px 8px;
-  border-radius: 4px;
-  white-space: nowrap;
-  pointer-events: none;
-}
-[data-debug] body.layout--fullpage:not(:has(.fullpage__backdrop)){
-  outline: 2px dashed var(--dbg-danger);
-  outline-offset: 2px;
-  position: relative;
-}
-[data-debug] body.layout--fullpage:not(:has(.fullpage__backdrop))::after{
-  content: "missing .fullpage__backdrop";
-  position: absolute;
-  top: -1.6em;
-  inset-inline-start: 0;
-  z-index: 9999;
-  background: var(--dbg-danger);
-  color: #fff;
-  font-family: var(--font-family-mono, monospace);
-  font-size: 11px;
-  line-height: 1;
-  padding: 4px 8px;
-  border-radius: 4px;
-  white-space: nowrap;
-  pointer-events: none;
-}
-[data-debug] body.layout--fullpage:not(:has(.fullpage__content)){
-  outline: 2px dashed var(--dbg-danger);
-  outline-offset: 2px;
-  position: relative;
-}
-[data-debug] body.layout--fullpage:not(:has(.fullpage__content))::after{
-  content: "missing .fullpage__content";
-  position: absolute;
-  top: -1.6em;
-  inset-inline-start: 0;
-  z-index: 9999;
-  background: var(--dbg-danger);
-  color: #fff;
-  font-family: var(--font-family-mono, monospace);
-  font-size: 11px;
-  line-height: 1;
-  padding: 4px 8px;
-  border-radius: 4px;
-  white-space: nowrap;
-  pointer-events: none;
-}
-[data-debug] body.layout--onepage:not(:has(.onepage__header)){
-  outline: 2px dashed var(--dbg-danger);
-  outline-offset: 2px;
-  position: relative;
-}
-[data-debug] body.layout--onepage:not(:has(.onepage__header))::after{
-  content: "missing .onepage__header";
-  position: absolute;
-  top: -1.6em;
-  inset-inline-start: 0;
-  z-index: 9999;
-  background: var(--dbg-danger);
-  color: #fff;
-  font-family: var(--font-family-mono, monospace);
-  font-size: 11px;
-  line-height: 1;
-  padding: 4px 8px;
-  border-radius: 4px;
-  white-space: nowrap;
-  pointer-events: none;
-}
-[data-debug] body.layout--onepage:not(:has(.onepage__footer)){
-  outline: 2px dashed var(--dbg-danger);
-  outline-offset: 2px;
-  position: relative;
-}
-[data-debug] body.layout--onepage:not(:has(.onepage__footer))::after{
-  content: "missing .onepage__footer";
   position: absolute;
   top: -1.6em;
   inset-inline-start: 0;

@@ -1230,7 +1230,15 @@ function __exsaInit(){
 (function(){
   const sel=document.getElementById('theme-select'),link=document.getElementById('theme-stylesheet');
   if(!sel||!link)return;
-  function apply(n){link.href='themes/'+n+'.css';localStorage.setItem('exsa-theme',n);}
+  /* Resolve the theme file next to the CURRENT stylesheet href — works at any
+     page depth (site/*, root, CDN) and preserves the existing cache buster. */
+  function apply(n){
+    const cur=link.getAttribute('href')||'';
+    const q=(cur.match(/[?#].*$/)||[''])[0];
+    const base=cur.replace(/[^/?#]*[?#].*$/, '').replace(/[^/?#]*$/, '');
+    link.href=base+n+'.css'+q;
+    localStorage.setItem('exsa-theme',n);
+  }
   sel.addEventListener('change',function(){apply(this.value);});
   /* exsa-theme is the canonical key; cc-theme is read once for migration from older versions */
   const s=localStorage.getItem('exsa-theme')||localStorage.getItem('cc-theme');
@@ -1638,6 +1646,1117 @@ function __exsaInit(){
     /* Skip blocks that are already hand-highlighted */
     if (!c.querySelector('.hl-tag, .hl-attr, .hl-val, .hl-cmt')) {
       c.innerHTML = hl(c.textContent);
+    }
+  });
+})();
+}
+if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',__exsaInit);}
+else{__exsaInit();}
+})();
+
+/* --- calendar --- */
+/* DOM-ready guard — works from <head>, defer, or end of <body>. */
+(function(){
+function __exsaInit(){
+
+/* EXSA Calendar — month grid rendering + navigation (vanilla, zero-dependency)
+   Targets .calendar elements with optional data-calendar-* attributes.
+   Fires CustomEvents: exsa:day-select, exsa:event-click, exsa:month-change. */
+(function () {
+  'use strict';
+
+  var DOW = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+  var MONTHS = ['January', 'February', 'March', 'April', 'May', 'June',
+    'July', 'August', 'September', 'October', 'November', 'December'];
+
+  function pad(n) { return (n < 10 ? '0' : '') + n; }
+  function iso(y, m, d) { return y + '-' + pad(m + 1) + '-' + pad(d); }
+  function esc(s) {
+    return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+  }
+
+  function parseEvents(el) {
+    var map = {};
+    var raw = el.getAttribute('data-calendar-events');
+    if (!raw) return map;
+    try {
+      JSON.parse(raw).forEach(function (ev) {
+        if (!ev || !ev.date) return;
+        (map[ev.date] = map[ev.date] || []).push(ev);
+      });
+    } catch (e) { /* invalid JSON — render without events */ }
+    return map;
+  }
+
+  function build(el) {
+    var events = parseEvents(el);
+    var init = el.getAttribute('data-calendar-date') || new Date().toISOString().slice(0, 10);
+    var y = parseInt(init.slice(0, 4), 10) || new Date().getFullYear();
+    var m = (parseInt(init.slice(5, 7), 10) || (new Date().getMonth() + 1)) - 1;
+    var weekStart = parseInt(el.getAttribute('data-calendar-week-start'), 10) || 0;
+
+    /* ── Static chrome, built once ── */
+    el.classList.add('calendar');
+    el.innerHTML =
+      '<div class="calendar__head">' +
+        '<button type="button" class="calendar__nav calendar__nav--prev" aria-label="Previous month">&#8249;</button>' +
+        '<div class="calendar__label"></div>' +
+        '<button type="button" class="calendar__nav calendar__nav--next" aria-label="Next month">&#8250;</button>' +
+        '<button type="button" class="calendar__today">Today</button>' +
+      '</div>' +
+      '<div class="calendar__weekdays" role="row">' +
+        DOW.map(function (d, i) {
+          var n = (i + weekStart) % 7;
+          return '<div class="calendar__weekday" role="columnheader">' + DOW[n] + '</div>';
+        }).join('') +
+      '</div>' +
+      '<div class="calendar__grid" role="grid"></div>';
+
+    var label = el.querySelector('.calendar__label');
+    var grid = el.querySelector('.calendar__grid');
+    var todayIso = new Date().toISOString().slice(0, 10);
+    var selected = init;
+
+    function render() {
+      label.textContent = MONTHS[m] + ' ' + y;
+      var first = new Date(y, m, 1);
+      var offset = (first.getDay() - weekStart + 7) % 7;
+      var daysInMonth = new Date(y, m + 1, 0).getDate();
+      var prevDays = new Date(y, m, 0).getDate();
+
+      var html = '';
+      for (var cell = 0; cell < 42; cell++) {
+        var d, isOutside = false;
+        if (cell < offset) { d = prevDays - offset + cell + 1; isOutside = true; }
+        else if (cell >= offset + daysInMonth) { d = cell - offset - daysInMonth + 1; isOutside = true; }
+        else { d = cell - offset + 1; }
+
+        var dIso = isOutside
+          ? iso(cell < offset ? (m === 0 ? y - 1 : y) : (m === 11 ? y + 1 : y), cell < offset ? (m === 0 ? 11 : m - 1) : (m === 11 ? 0 : m + 1), d)
+          : iso(y, m, d);
+
+        var cls = 'calendar__day';
+        if (isOutside) cls += ' calendar__day--outside';
+        if (dIso === todayIso) cls += ' calendar__day--today';
+        if (dIso === selected) cls += ' calendar__day--selected';
+        var selAttr = dIso === selected ? ' aria-selected="true"' : '';
+
+        html += '<button type="button" class="' + cls + '" role="gridcell" data-date="' + dIso + '"' + selAttr + '>' +
+          '<span class="calendar__daynum">' + d + '</span>' +
+          '<span class="calendar__events">';
+        var evs = events[dIso] || [];
+        evs.slice(0, 3).forEach(function (ev) {
+          html += '<button type="button" class="calendar__event calendar__event--' + esc(ev.type || 'primary') + '"' +
+            ' data-event-title="' + esc(ev.title || '') + '" data-event-date="' + esc(ev.date) + '"' +
+            ' data-event-type="' + esc(ev.type || 'primary') + '" title="' + esc(ev.title || '') + '">' + esc(ev.title || '') + '</button>';
+        });
+        if (evs.length > 3) html += '<span class="calendar__more">+' + (evs.length - 3) + ' more</span>';
+        html += '</span></button>';
+      }
+      grid.innerHTML = html;
+    }
+
+    /* ── Delegated interactions ── */
+    el.addEventListener('click', function (e) {
+      var nav = e.target.closest('.calendar__nav');
+      if (nav) {
+        if (nav.classList.contains('calendar__nav--prev')) { m--; if (m < 0) { m = 11; y--; } }
+        else { m++; if (m > 11) { m = 0; y++; } }
+        render();
+        el.dispatchEvent(new CustomEvent('exsa:month-change', { detail: { year: y, month: m + 1 } }));
+        return;
+      }
+      if (e.target.closest('.calendar__today')) {
+        var now = new Date();
+        y = now.getFullYear(); m = now.getMonth();
+        render();
+        el.dispatchEvent(new CustomEvent('exsa:month-change', { detail: { year: y, month: m + 1 } }));
+        return;
+      }
+      var ev = e.target.closest('.calendar__event');
+      if (ev) {
+        el.dispatchEvent(new CustomEvent('exsa:event-click', {
+          detail: { date: ev.getAttribute('data-event-date'), title: ev.getAttribute('data-event-title'), type: ev.getAttribute('data-event-type'), eventEl: ev }
+        }));
+        return;
+      }
+      var day = e.target.closest('.calendar__day');
+      if (day) {
+        selected = day.getAttribute('data-date');
+        grid.querySelectorAll('.calendar__day--selected').forEach(function (d2) { d2.classList.remove('calendar__day--selected'); d2.removeAttribute('aria-selected'); });
+        day.classList.add('calendar__day--selected');
+        day.setAttribute('aria-selected', 'true');
+        el.dispatchEvent(new CustomEvent('exsa:day-select', { detail: { date: selected, dayEl: day } }));
+      }
+    });
+
+    el.addEventListener('keydown', function (e) {
+      var day = e.target.closest('.calendar__day');
+      if (day && (e.key === 'Enter' || e.key === ' ')) {
+        e.preventDefault();
+        day.click();
+      }
+    });
+
+    render();
+  }
+
+  document.querySelectorAll('.calendar').forEach(build);
+})();
+}
+if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',__exsaInit);}
+else{__exsaInit();}
+})();
+
+/* --- chart --- */
+/* DOM-ready guard — works from <head>, defer, or end of <body>. */
+(function(){
+function __exsaInit(){
+
+/* EXSA Chart — data arrays → SVG markup (vanilla, zero-dependency)
+   Targets any element with [data-chart-values].
+   Types: line | area | bar | sparkline (class or data-chart-type).
+   Optional second series: data-chart-values-2. */
+(function () {
+  'use strict';
+
+  var NS = 'http://www.w3.org/2000/svg';
+
+  function svg(tag, attrs) {
+    var el = document.createElementNS(NS, tag);
+    for (var k in attrs) { if (attrs[k] !== null && attrs[k] !== undefined) el.setAttribute(k, attrs[k]); }
+    return el;
+  }
+
+  function parseList(str) {
+    return String(str || '').split(',').map(function (s) { return s.trim(); }).filter(function (s) { return s !== ''; });
+  }
+
+  function niceMax(n) {
+    if (n <= 0) return 1;
+    var pow = Math.pow(10, Math.floor(Math.log10(n)));
+    var m = n / pow;
+    var step = m <= 1 ? 1 : m <= 2 ? 2 : m <= 5 ? 5 : 10;
+    return step * pow;
+  }
+
+  function fmt(n) {
+    if (n >= 1000 && n % 1000 === 0) return (n / 1000) + 'k';
+    if (n >= 1000) return (n / 1000).toFixed(1) + 'k';
+    return String(n);
+  }
+
+  function linePath(pts) {
+    return pts.map(function (p, i) {
+      return (i ? 'L' : 'M') + p.x + ' ' + p.y;
+    }).join(' ');
+  }
+
+  function build(root) {
+    var values = parseList(root.getAttribute('data-chart-values')).map(Number);
+    if (!values.length) return;
+    var values2 = parseList(root.getAttribute('data-chart-values-2')).map(Number);
+    var labels = parseList(root.getAttribute('data-chart-labels'));
+    var type = root.getAttribute('data-chart-type') ||
+      (root.classList.contains('chart--bar') ? 'bar' :
+       root.classList.contains('chart--area') ? 'area' :
+       root.classList.contains('chart--sparkline') ? 'sparkline' : 'line');
+
+    var spark = type === 'sparkline';
+    var W = spark ? 300 : 600, H = spark ? 60 : 240;
+    var padL = spark ? 2 : 42, padR = spark ? 2 : 16, padT = spark ? 4 : 18, padB = spark ? 4 : 30;
+
+    var max = Math.max(niceMax(Math.max.apply(null, values.concat(values2.length ? values2 : []))), 1);
+    var plotW = W - padL - padR, plotH = H - padT - padB;
+
+    var g = svg('svg', { viewBox: '0 0 ' + W + ' ' + H, role: 'img',
+      'aria-label': root.getAttribute('aria-label') || root.getAttribute('data-chart-title') || 'Chart' });
+
+    function xy(i, v) {
+      return {
+        x: padL + (values.length === 1 ? plotW / 2 : (i / (values.length - 1)) * plotW),
+        y: padT + plotH - (v / max) * plotH
+      };
+    }
+
+    /* Grid + y axis */
+    if (!spark) {
+      var grid = svg('g', { class: 'chart__grid' });
+      var axis = svg('g', { class: 'chart__axis' });
+      for (var t = 0; t <= 4; t++) {
+        var yv = (max / 4) * t;
+        var gy = padT + plotH - (yv / max) * plotH;
+        grid.appendChild(svg('line', { x1: padL, y1: gy, x2: W - padR, y2: gy }));
+        var txt = svg('text', { x: padL - 8, y: gy + 3.5, 'text-anchor': 'end' });
+        txt.textContent = fmt(Math.round(yv));
+        axis.appendChild(txt);
+      }
+      g.appendChild(grid); g.appendChild(axis);
+    }
+
+    /* X labels */
+    if (!spark && labels.length) {
+      var xa = svg('g', { class: 'chart__axis' });
+      var step = Math.ceil(labels.length / 8);
+      labels.forEach(function (lb, i) {
+        if (i % step !== 0 && i !== labels.length - 1) return;
+        var t2 = svg('text', { x: xy(i, 0).x, y: H - 8, 'text-anchor': 'middle' });
+        t2.textContent = lb;
+        xa.appendChild(t2);
+      });
+      g.appendChild(xa);
+    }
+
+    function series(pts, cls, secondary) {
+      var grp = svg('g', { class: 'chart__series' + (secondary ? ' chart__series--2' : '') });
+      if (type === 'bar') {
+        var bw = Math.min((plotW / values.length) * 0.55, 48);
+        values.forEach(function (v, i) {
+          var p = xy(i, v);
+          var rect = svg('rect', { class: 'chart__bar', x: p.x - bw / 2, y: p.y,
+            width: bw, height: Math.max(padT + plotH - p.y, 1), rx: 2 });
+          if (root.getAttribute('data-chart-tabindex') === 'true') rect.setAttribute('tabindex', '0');
+          grp.appendChild(rect);
+        });
+      } else {
+        var path = svg('path', { class: 'chart__line', d: linePath(pts) });
+        grp.appendChild(path);
+        if (type === 'area') {
+          var close = 'L' + pts[pts.length - 1].x + ' ' + (padT + plotH) + 'L' + pts[0].x + ' ' + (padT + plotH) + 'Z';
+          grp.appendChild(svg('path', { class: 'chart__area chart__area--' + (secondary ? 2 : 1), d: linePath(pts) + close }));
+        }
+        if (!spark) {
+          pts.forEach(function (p) {
+            grp.appendChild(svg('circle', { class: 'chart__point', cx: p.x, cy: p.y, r: 3.5 }));
+          });
+        }
+      }
+      return grp;
+    }
+
+    var pts1 = values.map(function (v, i) { return xy(i, v); });
+    g.appendChild(series(pts1, 'series-1', false));
+    if (values2.length) {
+      var pts2 = values2.map(function (v, i) { return xy(i, v); });
+      g.appendChild(series(pts2, 'series-2', true));
+    }
+
+    root.innerHTML = '';
+    root.appendChild(g);
+    if (!root.classList.contains('chart')) root.classList.add('chart');
+  }
+
+  document.querySelectorAll('[data-chart-values]').forEach(function (el) { build(el); });
+})();
+}
+if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',__exsaInit);}
+else{__exsaInit();}
+})();
+
+/* --- command-palette --- */
+/* DOM-ready guard — works from <head>, defer, or end of <body>. */
+(function(){
+function __exsaInit(){
+
+/* EXSA Command Palette — Ctrl+K modal search (vanilla, zero-dependency)
+   Reuses modal.css (.modal / .modal--open / .modal__dialog) for the shell.
+   Items: .command-palette__item[data-command] inside .command-palette__group.
+   Events on the palette: exsa:command-open / -close / -select. */
+(function () {
+  'use strict';
+
+  document.querySelectorAll('.command-palette').forEach(function (pal) {
+    var input = pal.querySelector('.command-palette__input');
+    var empty = pal.querySelector('.command-palette__empty');
+    if (!input) return;
+
+    var activeIdx = 0;
+
+    function items() { return Array.prototype.slice.call(pal.querySelectorAll('.command-palette__item')); }
+    function visible() { return items().filter(function (i) { return !i.hidden; }); }
+
+    function applyActive() {
+      var vi = visible();
+      if (!vi.length) return;
+      activeIdx = Math.max(0, Math.min(activeIdx, vi.length - 1));
+      items().forEach(function (it) {
+        it.classList.remove('command-palette__item--active');
+        it.removeAttribute('aria-selected');
+      });
+      vi[activeIdx].classList.add('command-palette__item--active');
+      vi[activeIdx].setAttribute('aria-selected', 'true');
+      vi[activeIdx].scrollIntoView({ block: 'nearest' });
+    }
+
+    function filter(q) {
+      q = q.trim().toLowerCase();
+      var any = false;
+      pal.querySelectorAll('.command-palette__group').forEach(function (g) {
+        var vis = 0;
+        g.querySelectorAll('.command-palette__item').forEach(function (it) {
+          var hay = ((it.getAttribute('data-command') || '') + ' ' + (it.textContent || '')).toLowerCase();
+          var show = !q || hay.indexOf(q) !== -1;
+          it.hidden = !show;
+          if (show) vis++;
+        });
+        g.hidden = vis === 0;
+        if (vis) any = true;
+      });
+      if (empty) empty.hidden = any;
+      activeIdx = 0;
+      applyActive();
+    }
+
+    function select(item) {
+      if (!item) return;
+      pal.dispatchEvent(new CustomEvent('exsa:command-select', {
+        detail: {
+          command: item.getAttribute('data-command'),
+          label: (item.querySelector('.command-palette__item-label') || item).textContent.trim(),
+          item: item
+        }
+      }));
+      closePal();
+    }
+
+    function openPal() {
+      pal.classList.add('modal--open');
+      input.value = '';
+      filter('');
+      input.focus();
+      document.body.style.overflow = 'hidden';
+      pal.dispatchEvent(new CustomEvent('exsa:command-open'));
+    }
+
+    function closePal() {
+      pal.classList.remove('modal--open');
+      document.body.style.overflow = '';
+      pal.dispatchEvent(new CustomEvent('exsa:command-close'));
+    }
+
+    /* ── Input keyboard ── */
+    input.addEventListener('input', function () { filter(input.value); });
+    input.addEventListener('keydown', function (e) {
+      var vi = visible();
+      if (e.key === 'ArrowDown') {
+        e.preventDefault();
+        activeIdx = (activeIdx + 1) % Math.max(vi.length, 1);
+        applyActive();
+      } else if (e.key === 'ArrowUp') {
+        e.preventDefault();
+        activeIdx = (activeIdx - 1 + Math.max(vi.length, 1)) % Math.max(vi.length, 1);
+        applyActive();
+      } else if (e.key === 'Enter') {
+        e.preventDefault();
+        select(vi[activeIdx]);
+      } else if (e.key === 'Escape') {
+        e.preventDefault();
+        closePal();
+      }
+    });
+
+    /* ── Clicks: backdrop closes, items select ── */
+    pal.addEventListener('click', function (e) {
+      if (e.target === pal) { closePal(); return; }
+      var item = e.target.closest('.command-palette__item');
+      if (item && !item.hidden) select(item);
+    });
+
+    /* ── Global shortcut Ctrl/Cmd + K ── */
+    document.addEventListener('keydown', function (e) {
+      if (e.key.toLowerCase() === 'k' && (e.ctrlKey || e.metaKey)) {
+        e.preventDefault();
+        if (pal.classList.contains('modal--open')) closePal();
+        else openPal();
+      }
+    });
+  });
+
+  /* ── Any element with data-command-open opens the first palette ── */
+  document.querySelectorAll('[data-command-open]').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var pal = document.querySelector('.command-palette');
+      if (!pal) return;
+      pal.classList.add('modal--open');
+      var input = pal.querySelector('.command-palette__input');
+      if (input) input.focus();
+      document.body.style.overflow = 'hidden';
+      pal.dispatchEvent(new CustomEvent('exsa:command-open'));
+    });
+  });
+})();
+}
+if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',__exsaInit);}
+else{__exsaInit();}
+})();
+
+/* --- kanban --- */
+/* DOM-ready guard — works from <head>, defer, or end of <body>. */
+(function(){
+function __exsaInit(){
+
+/* EXSA Kanban — pointer-based drag & drop board (vanilla, zero-dependency)
+   Structure: .kanban > .kanban__col > (.kanban__col-head, .kanban__cards > .kanban__card, .kanban__add)
+   Mouse AND touch: cards use touch-action:pan-y, so vertical page scroll
+   still works on touch devices — horizontal movement initiates the drag.
+   Fires CustomEvents on the board:
+     exsa:kanban-drop {card, cardId, fromColId, toColId, afterId}
+     exsa:kanban-add  {card, colId} */
+(function () {
+  'use strict';
+
+  document.querySelectorAll('.kanban').forEach(function (board) {
+    var dragging = null, clone = null, fromCol = null, overCol = null;
+    var offsetX = 0, offsetY = 0;
+
+    function syncCount(col) {
+      var count = col.querySelector('.kanban__col-count');
+      if (count) count.textContent = col.querySelector('.kanban__cards').children.length;
+    }
+
+    function cleanup() {
+      if (clone) { clone.remove(); clone = null; }
+      if (dragging) { dragging.classList.remove('kanban__card--ghost'); dragging = null; }
+      if (overCol) { overCol.classList.remove('kanban__col--over'); overCol = null; }
+      document.body.classList.remove('kanban-dragging');
+    }
+
+    /* ── Drag (pointer events cover mouse + touch) ── */
+    board.addEventListener('pointerdown', function (e) {
+      if (e.button !== undefined && e.button > 0) return;
+      var card = e.target.closest('.kanban__card');
+      if (!card || !board.contains(card)) return;
+      if (e.target.closest('button,a,input,textarea,[contenteditable]')) return;
+
+      var col = card.closest('.kanban__col');
+      var startX = e.clientX, startY = e.clientY, started = false;
+      var rect = card.getBoundingClientRect();
+      offsetX = startX - rect.left;
+      offsetY = startY - rect.top;
+
+      function move(ev) {
+        if (!started) {
+          if (Math.abs(ev.clientX - startX) < 6 && Math.abs(ev.clientY - startY) < 6) return;
+          started = true;
+          dragging = card;
+          fromCol = col;
+          clone = card.cloneNode(true);
+          clone.classList.add('kanban__card--dragging');
+          clone.style.width = rect.width + 'px';
+          clone.style.height = rect.height + 'px';
+          document.body.appendChild(clone);
+          card.classList.add('kanban__card--ghost');
+          document.body.classList.add('kanban-dragging');
+          if (card.setPointerCapture) { try { card.setPointerCapture(ev.pointerId); } catch (err) { /* synthetic events */ } }
+        }
+        clone.style.transform = 'translate(' + (ev.clientX - offsetX) + 'px,' + (ev.clientY - offsetY) + 'px)';
+        var target = document.elementFromPoint(ev.clientX, ev.clientY);
+        var colEl = target ? target.closest('.kanban__col') : null;
+        if (colEl !== overCol) {
+          if (overCol) overCol.classList.remove('kanban__col--over');
+          overCol = colEl && board.contains(colEl) ? colEl : null;
+          if (overCol) overCol.classList.add('kanban__col--over');
+        }
+      }
+
+      function finish(ev) {
+        var targetCol = overCol || fromCol;
+        var ref = null;
+        if (dragging && fromCol && targetCol && ev) {
+          var under = document.elementFromPoint(ev.clientX, ev.clientY);
+          var underCard = under ? under.closest('.kanban__card') : null;
+          if (underCard && underCard !== dragging && underCard.closest('.kanban__cards') === targetCol.querySelector('.kanban__cards')) {
+            ref = underCard;
+          }
+          targetCol.querySelector('.kanban__cards').insertBefore(dragging, ref);
+          syncCount(fromCol);
+          if (targetCol !== fromCol) syncCount(targetCol);
+          board.dispatchEvent(new CustomEvent('exsa:kanban-drop', {
+            detail: {
+              card: dragging,
+              cardId: dragging.getAttribute('data-card-id') || null,
+              fromColId: fromCol.getAttribute('data-col-id') || null,
+              toColId: targetCol.getAttribute('data-col-id') || null,
+              afterId: ref ? (ref.getAttribute('data-card-id') || null) : null
+            }
+          }));
+        }
+        cleanup();
+      }
+
+      function up(ev) {
+        window.removeEventListener('pointermove', move);
+        window.removeEventListener('pointerup', up);
+        window.removeEventListener('pointercancel', cancel);
+        if (started) finish(ev);
+      }
+      function cancel() { up(null); }
+
+      window.addEventListener('pointermove', move);
+      window.addEventListener('pointerup', up);
+      window.addEventListener('pointercancel', cancel);
+    });
+
+    /* ── Quick add ── */
+    board.addEventListener('click', function (e) {
+      var btn = e.target.closest('.kanban__add');
+      if (!btn) return;
+      var col = btn.closest('.kanban__col');
+      var card = document.createElement('article');
+      card.className = 'kanban__card';
+      card.setAttribute('tabindex', '0');
+      var title = document.createElement('div');
+      title.className = 'kanban__card-title';
+      title.setAttribute('contenteditable', 'true');
+      title.textContent = 'New card';
+      card.appendChild(title);
+      col.querySelector('.kanban__cards').appendChild(card);
+      syncCount(col);
+      title.focus();
+      var range = document.createRange();
+      range.selectNodeContents(title);
+      var sel = window.getSelection();
+      sel.removeAllRanges();
+      sel.addRange(range);
+      board.dispatchEvent(new CustomEvent('exsa:kanban-add', {
+        detail: { card: card, colId: col.getAttribute('data-col-id') || null }
+      }));
+    });
+
+    /* ── Initial counts ── */
+    board.querySelectorAll('.kanban__col').forEach(syncCount);
+  });
+})();
+}
+if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',__exsaInit);}
+else{__exsaInit();}
+})();
+
+/* --- table --- */
+/* DOM-ready guard — works from <head>, defer, or end of <body>. */
+(function(){
+function __exsaInit(){
+
+/* EXSA Table — datatable behaviors (vanilla, zero-dependency)
+   Sortable:  table.tbl--sortable with th[data-sort]
+   Filter:    input.table-search[data-table="#id"] filters tbody rows
+   Select:    table.tbl--selectable — checkboxes .tbl__check,
+              head checkbox gets class .tbl__check--all
+   Events:    'exsa:table-sort', 'exsa:table-filter', 'exsa:row-toggle' */
+(function () {
+  'use strict';
+
+  /* ── Sorting ── */
+  document.querySelectorAll('.tbl--sortable').forEach(function (table) {
+    table.querySelectorAll('th[data-sort]').forEach(function (th) {
+      th.setAttribute('tabindex', '0');
+      th.setAttribute('role', 'columnheader');
+      var dir = null;
+      function run() {
+        var next = dir === 'asc' ? 'desc' : 'asc';
+        dir = next;
+        var col = Array.prototype.indexOf.call(th.parentElement.children, th);
+        var tbody = table.querySelector('tbody');
+        if (!tbody) return;
+        var rows = Array.prototype.slice.call(tbody.querySelectorAll('tr'));
+        rows.sort(function (a, b) {
+          var av = (a.cells[col] ? a.cells[col].textContent.trim() : '');
+          var bv = (b.cells[col] ? b.cells[col].textContent.trim() : '');
+          var an = parseFloat(av.replace(/[^0-9.\-]/g, ''));
+          var bn = parseFloat(bv.replace(/[^0-9.\-]/g, ''));
+          var cmp;
+          if (!isNaN(an) && !isNaN(bn) && /\d/.test(av) && /\d/.test(bv)) cmp = an - bn;
+          else cmp = av.localeCompare(bv, undefined, { numeric: true, sensitivity: 'base' });
+          return next === 'asc' ? cmp : -cmp;
+        });
+        rows.forEach(function (r) { tbody.appendChild(r); });
+        table.querySelectorAll('th[aria-sort]').forEach(function (t) {
+          if (t !== th) t.removeAttribute('aria-sort');
+        });
+        th.setAttribute('aria-sort', next === 'asc' ? 'ascending' : 'descending');
+        table.dispatchEvent(new CustomEvent('exsa:table-sort', { detail: { column: col, direction: next } }));
+      }
+      th.addEventListener('click', run);
+      th.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); run(); }
+      });
+    });
+  });
+
+  /* ── Filter ── */
+  document.querySelectorAll('.table-search[data-table]').forEach(function (input) {
+    var table = document.querySelector(input.getAttribute('data-table'));
+    if (!table) return;
+    input.addEventListener('input', function () {
+      var q = input.value.trim().toLowerCase();
+      var visible = 0;
+      table.querySelectorAll('tbody tr').forEach(function (row) {
+        var hit = q === '' || row.textContent.toLowerCase().indexOf(q) !== -1;
+        row.hidden = !hit;
+        if (hit) visible++;
+      });
+      var empty = table.querySelector('.table-empty');
+      if (empty) empty.hidden = visible > 0;
+      table.dispatchEvent(new CustomEvent('exsa:table-filter', { detail: { query: q, visible: visible } }));
+    });
+  });
+
+  /* ── Row selection ── */
+  document.querySelectorAll('.tbl--selectable').forEach(function (table) {
+    var all = table.querySelector('.tbl__check--all');
+    var checks = function () { return table.querySelectorAll('tbody .tbl__check'); };
+    function syncAll() {
+      if (!all) return;
+      var list = Array.prototype.slice.call(checks());
+      var checked = list.filter(function (c) { return c.checked; }).length;
+      all.checked = list.length > 0 && checked === list.length;
+      all.indeterminate = checked > 0 && checked < list.length;
+    }
+    if (all) {
+      all.addEventListener('change', function () {
+        checks().forEach(function (c) {
+          c.checked = all.checked;
+          c.closest('tr').classList.toggle('tbl__row--selected', all.checked);
+        });
+      });
+    }
+    table.addEventListener('change', function (e) {
+      var cb = e.target.closest('.tbl__check');
+      if (!cb || cb === all || !table.contains(cb)) return;
+      var row = cb.closest('tr');
+      row.classList.toggle('tbl__row--selected', cb.checked);
+      table.dispatchEvent(new CustomEvent('exsa:row-toggle', {
+        detail: { row: row, checked: cb.checked }
+      }));
+      syncAll();
+    });
+  });
+})();
+}
+if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',__exsaInit);}
+else{__exsaInit();}
+})();
+
+/* --- tags-input --- */
+/* DOM-ready guard — works from <head>, defer, or end of <body>. */
+(function(){
+function __exsaInit(){
+
+/* EXSA Tags Input — chips + suggestions (vanilla, zero-dependency)
+   .tags-input with optional data-tags-suggestions / -max / -name / -free.
+   The text field and suggestions menu are created by this script.
+   Events on the container: exsa:tags-add, exsa:tags-remove, exsa:tags-change. */
+(function () {
+  'use strict';
+
+  function esc(s) {
+    return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+  }
+
+  document.querySelectorAll('.tags-input').forEach(function (root) {
+    var suggestions = [];
+    try { suggestions = JSON.parse(root.getAttribute('data-tags-suggestions') || '[]'); } catch (e) { /* ignore */ }
+    var max = parseInt(root.getAttribute('data-tags-max'), 10) || 0;
+    var free = (root.getAttribute('data-tags-free') || 'true') !== 'false';
+
+    var field = root.querySelector('.tags-input__field');
+    if (!field) {
+      field = document.createElement('input');
+      field.type = 'text';
+      field.className = 'tags-input__field';
+      field.setAttribute('aria-label', root.getAttribute('data-tags-label') || 'Add tag');
+      root.appendChild(field);
+    }
+
+    var menu = document.createElement('div');
+    menu.className = 'tags-input__menu';
+    menu.setAttribute('role', 'listbox');
+    root.appendChild(menu);
+
+    var hidden = null;
+    var hiddenName = root.getAttribute('data-tags-name');
+    if (hiddenName) {
+      hidden = document.createElement('input');
+      hidden.type = 'hidden';
+      hidden.name = hiddenName;
+      hidden.className = 'tags-input__value';
+      root.appendChild(hidden);
+    }
+
+    var menuItems = [];
+
+    function chips() { return Array.prototype.slice.call(root.querySelectorAll('.tags-input__chip')); }
+    function values() {
+      return chips().map(function (c) {
+        return c.getAttribute('data-value') || (c.querySelector('.tags-input__chip-label') || c).textContent.trim();
+      });
+    }
+    function syncHidden() { if (hidden) hidden.value = values().join(','); }
+
+    function addTag(v) {
+      v = String(v || '').trim().replace(/,/g, '');
+      if (!v) return;
+      if (max && chips().length >= max) return;
+      if (values().indexOf(v) !== -1) return;
+      if (!free && suggestions.length && suggestions.indexOf(v) === -1) return;
+
+      var chip = document.createElement('span');
+      chip.className = 'tags-input__chip';
+      chip.setAttribute('data-value', v);
+      var label = document.createElement('span');
+      label.className = 'tags-input__chip-label';
+      label.textContent = v;
+      var x = document.createElement('button');
+      x.type = 'button';
+      x.className = 'tags-input__remove';
+      x.setAttribute('aria-label', 'Remove ' + v);
+      x.innerHTML = '&times;';
+      chip.appendChild(label);
+      chip.appendChild(x);
+      root.insertBefore(chip, field);
+      syncHidden();
+      root.dispatchEvent(new CustomEvent('exsa:tags-add', { detail: { tag: v, tags: values() } }));
+      root.dispatchEvent(new CustomEvent('exsa:tags-change', { detail: { tags: values(), added: v } }));
+    }
+
+    function removeTag(chip) {
+      var v = chip.getAttribute('data-value') || chip.querySelector('.tags-input__chip-label').textContent.trim();
+      chip.remove();
+      syncHidden();
+      root.dispatchEvent(new CustomEvent('exsa:tags-remove', { detail: { tag: v, tags: values() } }));
+      root.dispatchEvent(new CustomEvent('exsa:tags-change', { detail: { tags: values(), removed: v } }));
+    }
+
+    function showMenu() {
+      var q = field.value.trim().toLowerCase();
+      menuItems = suggestions
+        .filter(function (s) { return !q || s.toLowerCase().indexOf(q) !== -1; })
+        .filter(function (s) { return values().indexOf(s) === -1; })
+        .slice(0, 8);
+      if (!menuItems.length) { hideMenu(); return; }
+      menu.innerHTML = menuItems.map(function (s, i) {
+        return '<div class="tags-input__item' + (i === 0 ? ' tags-input__item--active' : '') + '" role="option">' + esc(s) + '</div>';
+      }).join('');
+      menu.classList.add('tags-input__menu--open');
+    }
+    function hideMenu() {
+      menu.classList.remove('tags-input__menu--open');
+      menuItems = [];
+      menu.innerHTML = '';
+    }
+    function activeIndex() {
+      var active = menu.querySelector('.tags-input__item--active');
+      return active ? Array.prototype.indexOf.call(menu.children, active) : -1;
+    }
+    function setActive(i) {
+      var items = menu.children;
+      if (!items.length) return;
+      i = (i + items.length) % items.length;
+      Array.prototype.forEach.call(items, function (it) { it.classList.remove('tags-input__item--active'); });
+      items[i].classList.add('tags-input__item--active');
+      items[i].scrollIntoView({ block: 'nearest' });
+    }
+
+    root.addEventListener('click', function (e) {
+      var x = e.target.closest('.tags-input__remove');
+      if (x) { removeTag(x.closest('.tags-input__chip')); field.focus(); }
+      else if (e.target === root) { field.focus(); }
+    });
+
+    menu.addEventListener('click', function (e) {
+      var item = e.target.closest('.tags-input__item');
+      if (!item) return;
+      addTag(item.textContent);
+      field.value = '';
+      hideMenu();
+      field.focus();
+    });
+
+    field.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter' || e.key === ',') {
+        e.preventDefault();
+        var idx = activeIndex();
+        if (idx >= 0) addTag(menuItems[idx]);
+        else addTag(field.value);
+        field.value = '';
+        hideMenu();
+      } else if (e.key === 'Backspace' && field.value === '') {
+        var cs = chips();
+        if (cs.length) removeTag(cs[cs.length - 1]);
+      } else if (e.key === 'Escape') {
+        hideMenu();
+      } else if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
+        if (menuItems.length) {
+          e.preventDefault();
+          setActive(activeIndex() + (e.key === 'ArrowDown' ? 1 : -1));
+        }
+      }
+    });
+
+    field.addEventListener('input', showMenu);
+    field.addEventListener('focus', function () { if (field.value) showMenu(); });
+    document.addEventListener('click', function (e) {
+      if (!root.contains(e.target)) hideMenu();
+    });
+  });
+})();
+}
+if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',__exsaInit);}
+else{__exsaInit();}
+})();
+
+/* --- transfer --- */
+/* DOM-ready guard — works from <head>, defer, or end of <body>. */
+(function(){
+function __exsaInit(){
+
+/* EXSA Transfer — two-panel list picker (vanilla, zero-dependency)
+   .transfer > (.transfer__panel ×2 + .transfer__actions)
+   Items: .transfer__item[data-value] — click selects, double-click moves,
+   Space toggles, Enter moves. Action buttons: data-action add/remove/add-all/remove-all.
+   data-transfer-name → hidden input with comma-joined selected values.
+   Event on the container: exsa:transfer-change {values, added, removed}. */
+(function () {
+  'use strict';
+
+  document.querySelectorAll('.transfer').forEach(function (t) {
+    var panels = t.querySelectorAll('.transfer__panel');
+    if (panels.length < 2) return;
+
+    var hidden = null;
+    var hiddenName = t.getAttribute('data-transfer-name');
+    if (hiddenName) {
+      hidden = document.createElement('input');
+      hidden.type = 'hidden';
+      hidden.name = hiddenName;
+      hidden.className = 'transfer__value';
+      t.appendChild(hidden);
+    }
+
+    function items(p) { return Array.prototype.slice.call(p.querySelectorAll('.transfer__item')); }
+    function other(p) { return p === panels[0] ? panels[1] : panels[0]; }
+    function selectedValues() { return items(panels[1]).map(function (i) { return i.getAttribute('data-value'); }); }
+    function sync() { if (hidden) hidden.value = selectedValues().join(','); }
+    function syncCount(p) {
+      var c = p.querySelector('.transfer__count');
+      if (c) c.textContent = items(p).length;
+    }
+
+    function move(list, destPanel) {
+      if (!list.length) return;
+      var added = destPanel === panels[1];
+      list.forEach(function (li) {
+        li.classList.remove('transfer__item--checked');
+        li.removeAttribute('aria-selected');
+        destPanel.querySelector('.transfer__list').appendChild(li);
+      });
+      panels.forEach(syncCount);
+      sync();
+      t.dispatchEvent(new CustomEvent('exsa:transfer-change', {
+        detail: {
+          values: selectedValues(),
+          added: added ? list.map(function (li) { return li.getAttribute('data-value'); }) : [],
+          removed: added ? [] : list.map(function (li) { return li.getAttribute('data-value'); })
+        }
+      }));
+    }
+
+    /* ── Action buttons ── */
+    t.querySelectorAll('.transfer__btn').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var action = btn.getAttribute('data-action');
+        if (action === 'add') move(items(panels[0]).filter(function (i) { return i.classList.contains('transfer__item--checked'); }), panels[1]);
+        else if (action === 'remove') move(items(panels[1]).filter(function (i) { return i.classList.contains('transfer__item--checked'); }), panels[0]);
+        else if (action === 'add-all') move(items(panels[0]), panels[1]);
+        else if (action === 'remove-all') move(items(panels[1]), panels[0]);
+      });
+    });
+
+    /* ── Item interaction (delegated) ── */
+    t.addEventListener('click', function (e) {
+      var li = e.target.closest('.transfer__item');
+      if (!li || !t.contains(li)) return;
+      li.classList.toggle('transfer__item--checked');
+      if (li.classList.contains('transfer__item--checked')) li.setAttribute('aria-selected', 'true');
+      else li.removeAttribute('aria-selected');
+    });
+
+    t.addEventListener('dblclick', function (e) {
+      var li = e.target.closest('.transfer__item');
+      if (!li || !t.contains(li)) return;
+      move([li], other(li.closest('.transfer__panel')));
+    });
+
+    t.addEventListener('keydown', function (e) {
+      var li = e.target.closest('.transfer__item');
+      if (!li || !t.contains(li)) return;
+      if (e.key === ' ') {
+        e.preventDefault();
+        li.classList.toggle('transfer__item--checked');
+        if (li.classList.contains('transfer__item--checked')) li.setAttribute('aria-selected', 'true');
+        else li.removeAttribute('aria-selected');
+      } else if (e.key === 'Enter') {
+        e.preventDefault();
+        move([li], other(li.closest('.transfer__panel')));
+      }
+    });
+
+    /* ── Per-panel search ── */
+    t.querySelectorAll('.transfer__search').forEach(function (input) {
+      var panel = input.closest('.transfer__panel');
+      input.addEventListener('input', function () {
+        var q = input.value.trim().toLowerCase();
+        items(panel).forEach(function (li) {
+          li.hidden = q !== '' && li.textContent.toLowerCase().indexOf(q) === -1;
+        });
+      });
+    });
+
+    panels.forEach(syncCount);
+  });
+})();
+}
+if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',__exsaInit);}
+else{__exsaInit();}
+})();
+
+/* --- upload --- */
+/* DOM-ready guard — works from <head>, defer, or end of <body>. */
+(function(){
+function __exsaInit(){
+
+/* EXSA Upload — dropzone + file list with progress (vanilla, zero-dependency)
+   .upload > (.upload__dropzone > .upload__input, .upload__list)
+   data-upload-url: real XHR upload with live progress.
+   Without it, progress is simulated (demo mode).
+   Events on .upload: exsa:upload-add / -done / -error / -remove. */
+(function () {
+  'use strict';
+
+  function fmtSize(b) {
+    if (b < 1024) return b + ' B';
+    if (b < 1048576) return (b / 1024).toFixed(1) + ' KB';
+    return (b / 1048576).toFixed(1) + ' MB';
+  }
+
+  function ext(name) {
+    var i = name.lastIndexOf('.');
+    return i > 0 ? name.slice(i + 1).toUpperCase().slice(0, 4) : 'FILE';
+  }
+
+  document.querySelectorAll('.upload').forEach(function (up) {
+    var input = up.querySelector('.upload__input');
+    var zone = up.querySelector('.upload__dropzone');
+    var list = up.querySelector('.upload__list');
+    if (!input || !zone || !list) return;
+    var url = up.getAttribute('data-upload-url') || '';
+
+    zone.addEventListener('click', function () { input.click(); });
+    zone.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); input.click(); }
+    });
+    input.addEventListener('change', function () {
+      if (input.files.length) addFiles(input.files);
+      input.value = '';
+    });
+
+    ['dragenter', 'dragover'].forEach(function (ev) {
+      zone.addEventListener(ev, function (e) {
+        e.preventDefault();
+        zone.classList.add('upload__dropzone--over');
+      });
+    });
+    ['dragleave', 'drop'].forEach(function (ev) {
+      zone.addEventListener(ev, function (e) {
+        e.preventDefault();
+        zone.classList.remove('upload__dropzone--over');
+      });
+    });
+    zone.addEventListener('drop', function (e) {
+      if (e.dataTransfer && e.dataTransfer.files.length) addFiles(e.dataTransfer.files);
+    });
+
+    function addFiles(files) {
+      Array.prototype.forEach.call(files, function (file) { addItem(file); });
+      up.dispatchEvent(new CustomEvent('exsa:upload-add', { detail: { files: Array.prototype.slice.call(files) } }));
+    }
+
+    function addItem(file) {
+      var li = document.createElement('li');
+      li.className = 'upload__item';
+      li.innerHTML =
+        '<span class="upload__item-ext">' + ext(file.name) + '</span>' +
+        '<div class="upload__item-body">' +
+          '<div class="upload__item-name"></div>' +
+          '<div class="upload__item-meta"></div>' +
+          '<div class="upload__item-track"><div class="upload__item-fill"></div></div>' +
+        '</div>' +
+        '<button type="button" class="upload__item-remove" aria-label="Remove file">&times;</button>';
+      li.querySelector('.upload__item-name').textContent = file.name;
+      list.appendChild(li);
+
+      var fill = li.querySelector('.upload__item-fill');
+      var meta = li.querySelector('.upload__item-meta');
+      var remove = li.querySelector('.upload__item-remove');
+      var xhr = null;
+      var simTimer = null;
+
+      function done() {
+        li.classList.add('upload__item--done');
+        meta.textContent = fmtSize(file.size) + ' · Done';
+        up.dispatchEvent(new CustomEvent('exsa:upload-done', { detail: { file: file, name: file.name } }));
+      }
+      function fail(message) {
+        li.classList.add('upload__item--error');
+        meta.textContent = message || 'Upload failed';
+        up.dispatchEvent(new CustomEvent('exsa:upload-error', { detail: { file: file, name: file.name, message: message || 'Upload failed' } }));
+      }
+      function cancel() {
+        if (xhr) xhr.abort();
+        if (simTimer) clearInterval(simTimer);
+        li.remove();
+        up.dispatchEvent(new CustomEvent('exsa:upload-remove', { detail: { name: file.name } }));
+      }
+      remove.addEventListener('click', cancel);
+
+      if (url) {
+        /* Real upload with live progress */
+        xhr = new XMLHttpRequest();
+        xhr.open('POST', url);
+        xhr.upload.onprogress = function (e) {
+          if (e.lengthComputable) {
+            var pct = (e.loaded / e.total) * 100;
+            fill.style.setProperty('--upload-pct', pct + '%');
+            meta.textContent = fmtSize(file.size) + ' · ' + Math.round(pct) + '%';
+          }
+        };
+        xhr.onload = function () {
+          if (xhr.status >= 200 && xhr.status < 300) done();
+          else fail('Upload failed (' + xhr.status + ')');
+        };
+        xhr.onerror = function () { fail('Network error'); };
+        xhr.onabort = function () { /* remove already called */ };
+        var fd = new FormData();
+        fd.append('file', file);
+        xhr.send(fd);
+        meta.textContent = fmtSize(file.size) + ' · 0%';
+      } else {
+        /* Demo mode — simulated progress */
+        var pct = 0;
+        meta.textContent = fmtSize(file.size) + ' · 0%';
+        simTimer = setInterval(function () {
+          pct += Math.random() * 14 + 4;
+          if (pct >= 100) {
+            pct = 100;
+            clearInterval(simTimer);
+            fill.style.setProperty('--upload-pct', '100%');
+            done();
+            return;
+          }
+          fill.style.setProperty('--upload-pct', pct + '%');
+          meta.textContent = fmtSize(file.size) + ' · ' + Math.round(pct) + '%';
+        }, 220);
+      }
     }
   });
 })();

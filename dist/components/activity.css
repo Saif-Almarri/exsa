@@ -1,0 +1,118 @@
+@layer exsa.components {
+/* ============================================================
+   EXSA Activity — grouped timeline feed (today / yesterday)
+   Link after exsa.css + your theme. avatar.css optional.
+
+   Markup:
+     <div class="activity">
+       <div class="activity__group">
+         <div class="activity__header">Today</div>
+         <div class="activity__list">
+           <div class="activity__item">
+             <div class="activity__body">
+               <div class="activity__title">Invoice #1042 paid</div>
+               <div class="activity__text">by Acme Corp · $1,240</div>
+             </div>
+             <span class="activity__time">09:41</span>
+           </div>
+           …
+         </div>
+       </div>
+     </div>
+
+   Dot colors: --success (default), --danger, --warning,
+               --muted (no color, just track).
+   ============================================================ */
+
+/* ── Root ── */
+.activity { display: block; }
+
+/* ── Group ── */
+.activity__group { margin-bottom: 22px; }
+.activity__group:last-child { margin-bottom: 0; }
+
+/* ── Day header with connecting rule ── */
+.activity__header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 12px;
+  font-size: .7rem;
+  font-weight: 700;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: var(--color-text-secondary);
+  white-space: nowrap;
+}
+.activity__header::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--color-bg-secondary);
+}
+
+/* ── Track + items ── */
+.activity__list {
+  position: relative;
+  padding-inline-start: 20px;
+  margin-inline-start: 5px;
+}
+.activity__list::before {
+  content: '';
+  position: absolute;
+  inset-inline-start: 0;
+  top: 6px;
+  bottom: 6px;
+  width: 2px;
+  border-radius: 2px;
+  background: var(--color-bg-secondary);
+}
+
+.activity__item {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 14px;
+  padding: 7px 0;
+}
+.activity__item::before {
+  content: '';
+  position: absolute;
+  inset-inline-start: -24px;
+  top: 13px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--activity-dot, var(--color-success));
+  border: 2px solid var(--color-bg);
+}
+
+/* ── Dot color variants ── */
+.activity__item--danger  { --activity-dot: var(--color-danger); }
+.activity__item--warning { --activity-dot: var(--color-warning); }
+.activity__item--muted   { --activity-dot: var(--color-text-secondary); }
+
+/* ── Content ── */
+.activity__body { flex: 1; min-width: 0; }
+.activity__title {
+  font-size: .82rem;
+  font-weight: 600;
+  color: var(--color-text);
+  line-height: 1.4;
+}
+.activity__text {
+  font-size: .76rem;
+  color: var(--color-text-secondary);
+  line-height: 1.5;
+  margin-top: 1px;
+  word-wrap: break-word;
+}
+.activity__time {
+  font-size: .7rem;
+  color: var(--color-text-secondary);
+  font-family: var(--font-family-mono);
+  white-space: nowrap;
+  padding-top: 2px;
+}
+}

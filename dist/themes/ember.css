@@ -1,11 +1,12 @@
 @layer exsa.themes {
 
 /* ============================================================
-   LAYER 4 � THEME: EMBER
+   LAYER 2 — THEME: EMBER
    Warm cream + amber by default. Deep charcoal + glowing
    embers in dark mode. Campfire warmth.
    Auto-switches via prefers-color-scheme.
    Force mode: <html data-theme-mode="light|dark">
+   Self-contained: forced-mode rules included below (also in exsa.css — harmless duplicate).
    ============================================================ */
 
 :root {

@@ -1,0 +1,190 @@
+@layer exsa.components {
+/* ============================================================
+   EXSA Command Palette — Ctrl+K modal search
+   Link after exsa.css + your theme + modal.css (overlay shell
+   is reused from .modal). Behavior from js/command-palette.js.
+
+   Markup:
+     <div class="modal command-palette" role="dialog" aria-modal="true" aria-label="Command palette">
+       <div class="modal__dialog command-palette__dialog">
+         <div class="command-palette__input-wrap">
+           <span class="command-palette__icon"><span class="ic ic-search"></span></span>
+           <input class="command-palette__input" type="text" placeholder="Type a command or search…">
+           <kbd class="command-palette__kbd">esc</kbd>
+         </div>
+         <div class="command-palette__list" role="listbox">
+           <div class="command-palette__group">
+             <div class="command-palette__group-title">Navigate</div>
+             <button type="button" class="command-palette__item" data-command="dashboard" role="option">
+               <span class="command-palette__item-icon"><span class="ic ic-home"></span></span>
+               <span class="command-palette__item-body">
+                 <span class="command-palette__item-label">Go to Dashboard</span>
+                 <span class="command-palette__item-desc">Overview and KPIs</span>
+               </span>
+             </button>
+           </div>
+         </div>
+         <div class="command-palette__empty" hidden>No results</div>
+         <div class="command-palette__foot">
+           <span><kbd class="command-palette__kbd">↑↓</kbd> navigate</span>
+           <span><kbd class="command-palette__kbd">↵</kbd> select</span>
+           <span><kbd class="command-palette__kbd">esc</kbd> close</span>
+         </div>
+       </div>
+     </div>
+
+   Behavior (js/command-palette.js, vanilla):
+     - Ctrl+K / Cmd+K toggles (also [data-command-open] buttons)
+     - type-to-filter across commands, labels, descriptions and
+       group names; groups with no matches hide; empty state shows
+     - ↑/↓ navigate, Enter selects, Escape closes, click backdrop closes
+     - events: exsa:command-open / -close / -select {command, label, item}
+   ============================================================ */
+
+/* ── Overlay — reuse .modal, park the dialog near the top ── */
+.command-palette {
+  align-items: flex-start;
+  padding-top: 16vh;
+  background: rgba(0, 0, 0, .38);
+}
+.command-palette__dialog { max-width: 560px; }
+
+/* ── Input row ── */
+.command-palette__input-wrap {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 16px;
+  border-bottom: 1px solid var(--color-bg-secondary);
+  flex-shrink: 0;
+}
+.command-palette__icon {
+  color: var(--color-text-secondary);
+  font-size: 1rem;
+  display: inline-flex;
+  flex-shrink: 0;
+}
+.command-palette__input {
+  flex: 1;
+  min-width: 0;
+  border: none;
+  background: none;
+  padding: 2px 0;
+  font-size: .92rem;
+  font-family: inherit;
+  color: var(--color-text);
+}
+.command-palette__input:focus { outline: none; }
+.command-palette__input::placeholder { color: var(--color-text-secondary); }
+
+/* ── kbd hint chips ── */
+.command-palette__kbd {
+  font-family: var(--font-family-mono);
+  font-size: .64rem;
+  color: var(--color-text-secondary);
+  border: 1px solid var(--color-bg-secondary);
+  border-bottom-width: 2px;
+  border-radius: 4px;
+  padding: 2px 6px;
+  white-space: nowrap;
+}
+
+/* ── Results list ── */
+.command-palette__list {
+  max-height: 320px;
+  overflow-y: auto;
+  padding: 6px;
+}
+.command-palette__group { margin-bottom: 4px; }
+.command-palette__group[hidden] { display: none; }
+.command-palette__group-title {
+  font-size: .66rem;
+  font-weight: 700;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: var(--color-text-secondary);
+  padding: 8px 10px 4px;
+}
+
+/* ── Item ── */
+.command-palette__item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 9px 10px;
+  border: none;
+  border-radius: var(--border-radius);
+  background: none;
+  color: var(--color-text);
+  font-family: inherit;
+  font-size: .86rem;
+  text-align: start;
+  cursor: pointer;
+}
+.command-palette__item[hidden] { display: none; }
+.command-palette__item:hover,
+.command-palette__item--active {
+  background: color-mix(in srgb, var(--color-link) 10%, transparent);
+}
+.command-palette__item-icon {
+  width: 28px;
+  height: 28px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--border-radius);
+  background: var(--color-bg-secondary);
+  color: var(--color-text-secondary);
+  font-size: .9rem;
+  flex-shrink: 0;
+}
+.command-palette__item--active .command-palette__item-icon {
+  background: var(--color-link);
+  color: var(--color-button-text);
+}
+.command-palette__item-body {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+.command-palette__item-label {
+  font-weight: 600;
+  color: var(--color-text);
+}
+.command-palette__item-desc {
+  font-size: .72rem;
+  color: var(--color-text-secondary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* ── Empty state ── */
+.command-palette__empty {
+  padding: 28px 16px;
+  text-align: center;
+  font-size: .82rem;
+  color: var(--color-text-secondary);
+}
+
+/* ── Footer hints ── */
+.command-palette__foot {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  padding: 10px 16px;
+  border-top: 1px solid var(--color-bg-secondary);
+  font-size: .68rem;
+  color: var(--color-text-secondary);
+  flex-shrink: 0;
+}
+.command-palette__foot span {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+}

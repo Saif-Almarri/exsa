@@ -9,6 +9,7 @@
     "audit": "node tools/validate.mjs --layers --no-legacy --check-tokens --check-bundles --token-audit",
     "build": "node tools/build-bundle.mjs && node tools/build-tokens.mjs && node tools/build-debug.mjs",
     "baseline": "node tools/validate.mjs --baseline",
+    "scan-encoding": "node tools/scan-encoding.mjs",
     "probe": "node tools/layer-probe.mjs",
     "probe:baseline": "node tools/layer-probe.mjs --baseline",
     "probe:contract": "node tools/contract-probe.mjs",

@@ -215,6 +215,57 @@ const EXSA_DEBUG_CLASSES = ${payload};
     t = setTimeout(scan, 250);
   }).observe(document.documentElement, { childList: true, subtree: true });
 })();
+
+/* ════════════════════════════════════════════════════════════
+   Class-conflict detector — warns when a NON-EXSA stylesheet
+   defines a class name the framework also uses (".flex",
+   ".container", …). EXSA-owned sheets are recognized by path
+   (/dist/, /components/, /themes/, /layouts/, /templates/,
+   exsa*.css). Cross-origin sheets (fonts, CDNs) are skipped.
+   ════════════════════════════════════════════════════════════ */
+(function () {
+  if (!document.documentElement.hasAttribute('data-debug')) return;
+
+  var registry = {};
+  EXSA_DEBUG_CLASSES.classes.forEach(function (c) { registry[c] = true; });
+
+  var OWN_SHEET = /(\\/(dist|components|themes|layouts|templates)\\/|(^|\\/)(exsa(\\.bundle|\\.fluid|\\.debug)?\\.css)$)/;
+  function isOwn(s) {
+    try { return s.href && OWN_SHEET.test(s.href); } catch (e) { return false; }
+  }
+  function sheetName(s) {
+    try { return s.href || 'inline stylesheet'; } catch (e) { return 'inline stylesheet'; }
+  }
+
+  var warned = {};
+  var cap = 10;
+  function inspect(rules, name) {
+    for (var i = 0; i < rules.length && cap > 0; i++) {
+      var r = rules[i];
+      if (r.cssRules) { inspect(r.cssRules, name); continue; } // media/supports groups
+      var sel = r.selectorText;
+      if (!sel) continue;
+      var m = sel.match(/\.([a-zA-Z_][a-zA-Z0-9_-]*)/g);
+      if (!m) continue;
+      for (var k = 0; k < m.length && cap > 0; k++) {
+        var cls = m[k].slice(1);
+        if (!registry[cls] || warned[cls]) continue;
+        warned[cls] = true;
+        cap--;
+        console.warn('EXSA debug — class conflict: "' + cls + '" is also defined by ' + name);
+      }
+    }
+  }
+  function scanSheets() {
+    for (var i = 0; i < document.styleSheets.length; i++) {
+      var s = document.styleSheets[i];
+      if (isOwn(s)) continue;
+      try { inspect(s.cssRules, sheetName(s)); } catch (e) { /* cross-origin — skip */ }
+    }
+  }
+  scanSheets();
+  window.addEventListener('load', scanSheets);
+})();
 `;
 }
 

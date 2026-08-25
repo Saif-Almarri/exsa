@@ -1,0 +1,87 @@
+@layer exsa.components {
+/* ============================================================
+   EXSA Empty State — icon + title + CTA for blank lists/tables
+   Link after exsa.css + your theme. icons.css optional.
+
+   Markup:
+     <div class="empty-state empty-state--bordered">
+       <span class="empty-state__icon"><span class="ic ic-inbox"></span></span>
+       <h3 class="empty-state__title">No projects yet</h3>
+       <p class="empty-state__text">Create your first project to get started.</p>
+       <div class="empty-state__actions">
+         <button class="btn btn--primary">New project</button>
+         <button class="btn btn--outline">Import</button>
+       </div>
+     </div>
+
+   Variants: --sm (compact), --bordered (dashed drop-zone look),
+             --dark (for use on colored panels).
+   ============================================================ */
+
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 5px;
+  padding: 48px 24px;
+}
+
+.empty-state__icon {
+  width: 56px;
+  height: 56px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: var(--color-bg-secondary);
+  color: var(--color-text-secondary);
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.empty-state__title {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--color-text);
+  margin: 0;
+}
+
+.empty-state__text {
+  font-size: .82rem;
+  line-height: 1.6;
+  color: var(--color-text-secondary);
+  max-width: 340px;
+  margin: 0;
+}
+
+.empty-state__actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 14px;
+}
+
+/* ── Compact ── */
+.empty-state--sm { padding: 24px 16px; gap: 3px; }
+.empty-state--sm .empty-state__icon { width: 40px; height: 40px; font-size: 18px; margin-bottom: 6px; }
+.empty-state--sm .empty-state__actions { margin-top: 10px; }
+
+/* ── Bordered (drop-zone / upload placeholder) ── */
+.empty-state--bordered {
+  border: 2px dashed var(--color-bg-secondary);
+  border-radius: var(--border-radius);
+}
+.empty-state--bordered:hover { border-color: var(--color-link); }
+
+/* ── On dark/colored panels ── */
+.empty-state--dark .empty-state__title { color: #fff; }
+.empty-state--dark .empty-state__text { color: rgba(255,255,255,.75); }
+.empty-state--dark .empty-state__icon {
+  background: rgba(255,255,255,.15);
+  color: #fff;
+}
+}

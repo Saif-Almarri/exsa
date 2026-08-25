@@ -1,0 +1,188 @@
+@layer exsa.components {
+/* ============================================================
+   EXSA Upload — dropzone + file list with progress
+   Link after exsa.css + your theme. Behavior from js/upload.js.
+
+   Markup:
+     <div class="upload" data-upload-url="/api/upload">
+       <div class="upload__dropzone" tabindex="0" role="button"
+            aria-label="Upload files">
+         <span class="upload__icon"><span class="ic ic-upload"></span></span>
+         <div class="upload__title">Drop files here or click to browse</div>
+         <div class="upload__hint">PDF, DOC up to 10 MB</div>
+         <input class="upload__input" type="file" multiple accept=".pdf,.doc" hidden>
+       </div>
+       <ul class="upload__list"></ul>
+     </div>
+
+   Behavior (js/upload.js, vanilla):
+     - click / Enter / Space on the dropzone opens the file input
+     - drag & drop onto the dropzone (--over highlight)
+     - per-file row: extension chip, name, size, progress track, remove
+     - data-upload-url: real XHR upload with live progress
+       (omit it to simulate progress for demos)
+     - states: .upload__item--done / --error
+     - events: exsa:upload-add {files}, exsa:upload-done {file, name},
+               exsa:upload-error {file, name, message},
+               exsa:upload-remove {name}
+
+   Tokens (theme-derived → dark mode adapts automatically):
+     --upload-over, --upload-over-bg, --upload-progress,
+     --upload-success, --upload-error
+   ============================================================ */
+
+:root {
+  --upload-over: var(--color-link);
+  --upload-over-bg: color-mix(in srgb, var(--color-link) 8%, transparent);
+  --upload-progress: var(--color-link);
+  --upload-success: var(--color-success);
+  --upload-error: var(--color-danger);
+}
+
+.upload {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* ── Dropzone ── */
+.upload__dropzone {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  padding: 32px 20px;
+  border: 2px dashed var(--color-bg-secondary);
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  text-align: center;
+  transition: border-color .15s, background .15s;
+}
+.upload__dropzone:hover,
+.upload__dropzone:focus-visible { border-color: var(--upload-over); }
+.upload__dropzone:focus-visible { outline: none; }
+.upload__dropzone--over {
+  border-color: var(--upload-over);
+  background: var(--upload-over-bg);
+}
+
+.upload__icon {
+  width: 44px;
+  height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: var(--color-bg-secondary);
+  color: var(--color-text-secondary);
+  font-size: 20px;
+  margin-bottom: 6px;
+}
+.upload__title {
+  font-size: .88rem;
+  font-weight: 600;
+  color: var(--color-text);
+}
+.upload__hint {
+  font-size: .74rem;
+  color: var(--color-text-secondary);
+}
+
+/* ── File list ── */
+.upload__list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+/* ── File item ── */
+.upload__item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 12px;
+  border: 1px solid var(--color-bg-secondary);
+  border-radius: var(--border-radius);
+  background: var(--color-bg);
+}
+
+.upload__item-ext {
+  width: 36px;
+  height: 36px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--border-radius);
+  background: var(--color-bg-secondary);
+  color: var(--color-text-secondary);
+  font-size: .6rem;
+  font-weight: 800;
+  letter-spacing: .03em;
+  font-family: var(--font-family-mono);
+  flex-shrink: 0;
+}
+
+.upload__item-body {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.upload__item-name {
+  font-size: .82rem;
+  font-weight: 600;
+  color: var(--color-text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.upload__item-meta {
+  font-size: .7rem;
+  color: var(--color-text-secondary);
+  font-family: var(--font-family-mono);
+}
+.upload__item-track {
+  height: 6px;
+  border-radius: 99px;
+  background: var(--color-bg-secondary);
+  overflow: hidden;
+}
+.upload__item-fill {
+  height: 100%;
+  width: var(--upload-pct, 0%);
+  border-radius: 99px;
+  background: var(--upload-progress);
+  transition: width .2s;
+}
+
+/* ── States ── */
+.upload__item--done .upload__item-fill { background: var(--upload-success); }
+.upload__item--error { border-color: color-mix(in srgb, var(--upload-error) 45%, transparent); }
+.upload__item--error .upload__item-fill { background: var(--upload-error); }
+.upload__item--error .upload__item-meta { color: var(--upload-error); }
+
+/* ── Remove ── */
+.upload__item-remove {
+  width: 28px;
+  height: 28px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  border-radius: var(--border-radius);
+  background: none;
+  color: var(--color-text-secondary);
+  font-size: 1rem;
+  line-height: 1;
+  cursor: pointer;
+  flex-shrink: 0;
+  font-family: inherit;
+}
+.upload__item-remove:hover { background: var(--color-bg-secondary); color: var(--upload-error); }
+.upload__item-remove:focus-visible { outline: 2px solid var(--color-link); outline-offset: 2px; }
+}

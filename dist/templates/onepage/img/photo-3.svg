@@ -1,14 +1,22 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="800" height="600" viewBox="0 0 800 600">
   <defs>
-    <linearGradient id="g3" x1="0" y1="1" x2="1" y2="0">
-      <stop offset="0" stop-color="#2b252c"/>
-      <stop offset="1" stop-color="#f59e0b"/>
+    <linearGradient id="p3bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#1c0920"/>
+      <stop offset=".6" stop-color="#332038"/>
+      <stop offset="1" stop-color="#483949"/>
     </linearGradient>
+    <radialGradient id="p3glow" cx=".5" cy=".5" r=".5">
+      <stop offset="0" stop-color="#f6d3cb" stop-opacity=".7"/>
+      <stop offset="1" stop-color="#f6d3cb" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="p3soft" x="-80%" y="-80%" width="260%" height="260%"><feGaussianBlur stdDeviation="55"/></filter>
   </defs>
-  <rect width="800" height="600" fill="url(#g3)"/>
-  <g fill="#ffffff" fill-opacity="0.22">
-    <polygon points="400,120 520,330 280,330"/>
-    <polygon points="400,480 220,270 580,270"/>
+  <rect width="800" height="600" fill="url(#p3bg)"/>
+  <circle cx="560" cy="230" r="210" fill="url(#p3glow)" filter="url(#p3soft)"/>
+  <circle cx="560" cy="230" r="58" fill="#fdf2ee"/>
+  <g stroke="#ffffff" stroke-opacity=".07" stroke-width="1.5" fill="none">
+    <path d="M0 440 C220 400 440 480 800 430"/>
+    <path d="M0 490 C260 450 540 530 800 480"/>
+    <path d="M0 540 C320 500 600 580 800 530"/>
   </g>
-  <circle cx="400" cy="300" r="40" fill="#ffffff" fill-opacity="0.5"/>
 </svg>

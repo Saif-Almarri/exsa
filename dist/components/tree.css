@@ -1,0 +1,150 @@
+@layer exsa.components {
+/* ============================================================
+   EXSA Tree — nested tree / file tree (pure CSS, zero JS)
+   Link after exsa.css + your theme. icons.css + badge.css
+   optional. Expand/collapse comes free from <details> —
+   keyboard accessible and no JavaScript required.
+
+   Markup:
+     <ul class="tree tree--lines">
+       <li>
+         <details class="tree__node" open>
+           <summary class="tree__row">
+             <span class="tree__icon"><span class="ic ic-folder"></span></span>
+             <span class="tree__label">src</span>
+             <span class="badge badge--default tree__badge">4</span>
+           </summary>
+           <ul class="tree">
+             <li class="tree__leaf">
+               <span class="tree__row">
+                 <input type="checkbox" class="tree__check" aria-label="index.php">
+                 <span class="tree__icon"><span class="ic ic-file"></span></span>
+                 <span class="tree__label">index.php</span>
+               </span>
+             </li>
+           </ul>
+         </details>
+       </li>
+     </ul>
+
+   States: .tree__row--selected (highlight), checkboxes for
+   permission/file selection, --lines variant draws connectors.
+   Chevron indicator is pure CSS on the summary (no icon file).
+   ============================================================ */
+
+.tree {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.tree .tree {
+  padding-inline-start: 20px;
+}
+
+/* ── Node row (summary or leaf row) ── */
+.tree__row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 10px;
+  border-radius: var(--border-radius);
+  font-size: .84rem;
+  color: var(--color-text);
+  cursor: pointer;
+  transition: background .12s;
+  list-style: none;
+  min-width: 0;
+}
+.tree__row:hover { background: color-mix(in srgb, var(--color-text-secondary) 8%, transparent); }
+.tree__row:focus-visible { outline: 2px solid var(--color-link); outline-offset: -2px; }
+.tree__row--selected {
+  background: color-mix(in srgb, var(--color-link) 8%, transparent);
+  color: var(--color-link);
+  font-weight: 600;
+}
+
+/* Hide the native details marker on summaries */
+.tree__node > summary { list-style: none; }
+.tree__node > summary::-webkit-details-marker { display: none; }
+
+/* ── Chevron (pure CSS, RTL-safe) ── */
+.tree__node > summary::before {
+  content: '';
+  width: 7px;
+  height: 7px;
+  flex-shrink: 0;
+  border-inline-end: 2px solid var(--color-text-secondary);
+  border-bottom: 2px solid var(--color-text-secondary);
+  transform: rotate(-45deg);
+  transition: transform .15s;
+}
+.tree__node[open] > summary::before { transform: rotate(45deg); }
+
+/* ── Icon slot ── */
+.tree__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: .95rem;
+  color: var(--color-text-secondary);
+  flex-shrink: 0;
+}
+.tree__row--selected .tree__icon { color: var(--color-link); }
+
+/* ── Label ── */
+.tree__label {
+  flex: 1;
+  min-width: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* ── Badge slot ── */
+.tree__badge { flex-shrink: 0; }
+
+/* ── Checkbox (permission / file selection) ── */
+.tree__check {
+  width: 15px;
+  height: 15px;
+  margin: 0;
+  accent-color: var(--color-link);
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+/* ── Guide lines variant ── */
+.tree--lines .tree {
+  padding-inline-start: 18px;
+  margin-inline-start: 9px;
+  border-inline-start: 1px solid var(--color-bg-secondary);
+}
+.tree--lines > li { position: relative; }
+
+/* ── Size variants ── */
+.tree--sm .tree__row {
+  padding: 3px 8px;
+  gap: 6px;
+  font-size: .76rem;
+}
+.tree--sm .tree .tree {
+  padding-inline-start: 14px;
+}
+.tree--sm .tree__icon { font-size: .8rem; }
+.tree--sm .tree__check { width: 13px; height: 13px; }
+.tree--sm .tree__node > summary::before { width: 6px; height: 6px; }
+.tree--sm.tree--lines .tree {
+  padding-inline-start: 13px;
+  margin-inline-start: 6px;
+}
+.tree--lg .tree__row {
+  padding: 10px 14px;
+  gap: 10px;
+  font-size: .92rem;
+}
+
+/* ── Reduced motion ── */
+@media (prefers-reduced-motion: reduce) {
+  .tree__node > summary::before { transition: none; }
+}
+}

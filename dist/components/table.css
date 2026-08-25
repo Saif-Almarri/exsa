@@ -47,4 +47,29 @@
   .tbl--responsive td::before{content:attr(data-label);font-size:.68rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--color-text-secondary);flex-shrink:0}
 }
 
+/* ── Sortable (js/table.js — .tbl--sortable with th[data-sort]) ── */
+.tbl--sortable th[data-sort]{cursor:pointer;user-select:none}
+.tbl--sortable th[data-sort]::after{
+  content:'';display:inline-block;width:6px;height:6px;margin-inline-start: calc(6px * var(--space-factor, 1));
+  border-inline-end:2px solid var(--color-text-secondary);border-bottom:2px solid var(--color-text-secondary);
+  transform:rotate(45deg) translateY(-2px);vertical-align:middle;opacity:.4;transition:opacity .15s;
+}
+.tbl--sortable th[data-sort]:hover::after{opacity:.9}
+.tbl--sortable th[aria-sort="ascending"]::after{transform:rotate(-135deg) translateY(-2px);border-color:var(--color-link);opacity:1}
+.tbl--sortable th[aria-sort="descending"]::after{transform:rotate(45deg) translateY(-2px);border-color:var(--color-link);opacity:1}
+.tbl--sortable th[data-sort]:focus-visible{outline:2px solid var(--color-link);outline-offset:-2px}
+
+/* ── Filter input (js/table.js — .table-search[data-table]) ── */
+.table-search{padding: calc(7px * var(--space-factor, 1)) calc(12px * var(--space-factor, 1));font-size:.82rem;font-family:inherit;border:1px solid var(--color-bg-secondary);border-radius:var(--border-radius);background:var(--color-bg);color:var(--color-text);min-width:200px;transition:border-color .15s,box-shadow .15s}
+.table-search:focus{outline:none;border-color:var(--color-link);box-shadow:0 0 0 3px color-mix(in srgb,var(--color-link)20%,transparent)}
+
+/* ── Empty row (js/table.js — .table-empty, hidden attr toggled) ── */
+.table-empty td{padding: calc(20px * var(--space-factor, 1));text-align:center;color:var(--color-text-secondary);font-style:italic}
+
+/* ── Selectable rows (js/table.js — .tbl--selectable + .tbl__check) ── */
+.tbl__check,.tbl__check--all{width:14px;height:14px;margin:0;accent-color:var(--color-link);cursor:pointer;vertical-align:middle}
+.tbl--selectable tbody tr.tbl__row--selected{background:color-mix(in srgb,var(--color-link)8%,transparent)}
+.tbl--selectable tbody tr.tbl__row--selected:hover{background:color-mix(in srgb,var(--color-link)14%,transparent)}
+.tbl--selectable th:first-child,.tbl--selectable td:first-child{width: calc(28px * var(--space-factor, 1));text-align:center;padding-inline-end: calc(4px * var(--space-factor, 1))}
+
 }
