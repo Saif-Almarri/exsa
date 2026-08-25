@@ -27,6 +27,10 @@ site/glass.css
 .htaccess
 nginx.conf
 
+# Internal tooling (kept local) — exception: the debug linter generator ships
+tools/*
+!tools/build-debug.mjs
+
 # Node
 node_modules/
 
