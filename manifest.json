@@ -928,8 +928,8 @@
       "id": "cookie-bar",
       "name": "Cookie Bar",
       "category": "feedback",
-      "css": "dist/components/cookie-bar.css",
-      "js": "dist/js/cookie-bar.js",
+      "css": "dist/components/consent-bar.css",
+      "js": "dist/js/consent-bar.js",
       "pureCss": false,
       "desc": "Fixed bottom cookie consent banner with accept button. JS handles dismiss.",
       "tier": "free"
@@ -1244,7 +1244,7 @@
     {
       "id": "cookie-bar",
       "name": "cookie-bar",
-      "source": "dist/js/cookie-bar.js",
+      "source": "dist/js/consent-bar.js",
       "desc": "Show/hide fixed cookie consent banner with localStorage"
     },
     {
