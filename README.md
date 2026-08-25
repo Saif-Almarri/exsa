@@ -18,13 +18,16 @@ is not part of this repo.
 ## Quick start (2 links)
 
 ```html
-<!-- CDN — pin a version: @main → @1.0.0-rc.1 -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Saif-Almarri/exsa@main/dist/exsa.css">
+<!-- pinned to v1.0.0-rc.1 — bump the version when you upgrade (@main = latest, testing only) -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Saif-Almarri/exsa@1.0.0-rc.1/dist/exsa.css"
+      integrity="sha384-hofP4EvOsGvjq909MlJVMwwwW4ImiZYBsXR3KKmRQXZrXhuH2yLba6jrIQp25UkP" crossorigin="anonymous">
 <!-- theme: optional — exsa.css ships a built-in default theme -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Saif-Almarri/exsa@main/dist/themes/breeze.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Saif-Almarri/exsa@1.0.0-rc.1/dist/themes/breeze.css"
+      integrity="sha384-cSX/ha32sMk/hWdkcebLcNuelWANa8AlyDjr0uR4HB7iDfoSoBg2VyI6BCEfW6Vo" crossorigin="anonymous">
 
 <!-- behaviors (optional): every JS component, prebuilt, in one file -->
-<script src="https://cdn.jsdelivr.net/gh/Saif-Almarri/exsa@main/dist/exsa.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/Saif-Almarri/exsa@1.0.0-rc.1/dist/exsa.js"
+        integrity="sha384-Qb+rAmCRUv+6oMfUBpW46K2xffB4qkSH5LCNH/QXcSnkcHg1ovdcepZvGjf139L5" crossorigin="anonymous"></script>
 ```
 
 Add `class="exsa"` to `<body>` and plain HTML is styled automatically. Add components
