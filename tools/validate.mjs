@@ -173,6 +173,7 @@ if (process.argv.includes('--layers')) {
 if (process.argv.includes('--no-legacy')) {
   const scanDirs = ['site', 'site/includes'];
   for (const dir of scanDirs) {
+    if (!existsSync(join(root, dir))) continue;
     for (const f of readdirSync(join(root, dir))) {
       if (!/\.(php|html)$/.test(f)) continue;
       const content = readFileSync(join(root, dir, f), 'utf8');
@@ -310,13 +311,15 @@ const knownTokens = new Set(tokenNames);
 for (const t of catalogVars) knownTokens.add(t);
 for (const m of allCss.matchAll(/--[a-z0-9-]+\s*:/g)) knownTokens.add(m[0].replace(/\s*:$/, ''));
 const siteFiles = [];
-(function walkSite(rel) {
-  for (const ent of readdirSync(join(root, rel), { withFileTypes: true })) {
-    const p = `${rel}/${ent.name}`;
-    if (ent.isDirectory()) walkSite(p);
-    else if (/\.(php|html)$/.test(ent.name)) siteFiles.push(p);
-  }
-})('site');
+if (existsSync(join(root, 'site'))) {
+  (function walkSite(rel) {
+    for (const ent of readdirSync(join(root, rel), { withFileTypes: true })) {
+      const p = `${rel}/${ent.name}`;
+      if (ent.isDirectory()) walkSite(p);
+      else if (/\.(php|html)$/.test(ent.name)) siteFiles.push(p);
+    }
+  })('site');
+}
 const siteTokenIgnore = new Set(['--exsa-version', '--token', '--g-radius']); // intentional placeholders in docs prose + site-local glass radius (site/glass.css)
 for (const f of siteFiles) {
   const content = readFileSync(join(root, f), 'utf8');

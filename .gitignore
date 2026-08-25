@@ -12,16 +12,10 @@ Thumbs.db
 *.tmp
 *.zip
 
-# Site pages (live at exsa.dev — not part of the framework distribution)
+# Site (lives at exsa.dev — not part of the framework distribution)
 *.html
 *.php
-
-# Exception: the QA probe pages ship with the release tooling
-!site/qa/layer-probe.html
-!site/qa/contract-probe.html
-!site/qa/layout-probe.html
-!site/qa/layout-fixtures/*.html
-!site/qa/spell-probe.html
+site/
 
 # Website-specific CSS
 demo.css
