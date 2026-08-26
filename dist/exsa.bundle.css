@@ -5878,6 +5878,9 @@ body.kanban-dragging .kanban__card { user-select: none; }
   margin: 0;
   padding: 0;
 }
+.tree .tree__node {
+  margin: 0;
+}
 .tree .tree {
   padding-inline-start: 20px;
 }
