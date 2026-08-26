@@ -1481,6 +1481,12 @@ function __exsaInit(){
     const menu=wrapper.querySelector('.ctx-menu');
     if(!menu)return;
 
+    /* Move the menu to <body>: position:fixed coordinates resolve against the
+       viewport there. Inside an ancestor with backdrop-filter/filter/transform,
+       fixed elements are positioned relative to that ancestor instead — the
+       menu would open offset from the cursor ("far from the area"). */
+    document.body.appendChild(menu);
+
     const backdrop=document.createElement('div');
     backdrop.className='ctx-backdrop';
     document.body.appendChild(backdrop);
