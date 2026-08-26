@@ -29,7 +29,7 @@
   --color-warning-hover: light-dark(#b45309, #d97706);
   --color-border: light-dark(#c8d4e4, #15305c);
   --color-button-text: light-dark(#ffffff, #0d254c);
-  --color-button-text-inverse: light-dark(#181717, #eeeeee);
+  --color-button-text-inverse: light-dark(#0d254c, #dce4f4);
   --border-radius: 4px;
 }
 

@@ -6387,7 +6387,7 @@ body.kanban-dragging .kanban__card { user-select: none; }
   --color-warning-hover: light-dark(#b45309, #d97706);
   --color-border: light-dark(#c5d8f7, #334155);
   --color-button-text: light-dark(var(--color-bg), #000618);
-  --color-button-text-inverse: light-dark(#eeeeee, #e4e1e1);
+  --color-button-text-inverse: light-dark(#1a1a2e, #e2e8f0);
   --border-radius: 6px;
 }
 

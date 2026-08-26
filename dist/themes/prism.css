@@ -30,7 +30,7 @@
   --color-warning-hover: light-dark(#b45309, #d97706);
   --color-border: light-dark(#bcc5de, #1e293b);
   --color-button-text: light-dark(var(--color-bg), #ffffff);
-  --color-button-text-inverse: light-dark(#eeeeee, #e4e1e1);
+  --color-button-text-inverse: light-dark(#181b2e, #e2e8f0);
   --border-radius: 16px;
 }
 
