@@ -5872,7 +5872,8 @@ body.kanban-dragging .kanban__card { user-select: none; }
    Chevron indicator is pure CSS on the summary (no icon file).
    ============================================================ */
 
-.tree {
+.tree,
+.tree li {
   list-style: none;
   margin: 0;
   padding: 0;
