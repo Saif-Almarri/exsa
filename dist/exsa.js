@@ -60,7 +60,7 @@ function __exsaInit(){
     if(!trigger)return;
     function open(){dd.classList.add('dropdown--open');if(trigger)trigger.setAttribute('aria-expanded','true');}
     function close(){dd.classList.remove('dropdown--open');if(trigger)trigger.setAttribute('aria-expanded','false');}
-    function getItems(){return menu?menu.querySelectorAll('.dropdown__item:not([disabled])'):[];}
+    function getItems(){return menu?menu.querySelectorAll('.dropdown__item:not([disabled]), .notifications__item:not([disabled])'):[];}
     trigger.addEventListener('click',function(e){
       e.stopPropagation();
       dd.parentElement.querySelectorAll('.dropdown--open').forEach(d=>{if(d!==dd)d.classList.remove('dropdown--open');});

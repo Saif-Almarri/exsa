@@ -38,9 +38,6 @@
   margin: 0;
   padding: 0;
 }
-.tree .tree__node {
-  margin: 0;
-}
 .tree .tree {
   padding-inline-start: 20px;
 }
@@ -67,8 +64,9 @@
   font-weight: 600;
 }
 
-/* Hide the native details marker on summaries */
-.tree__node > summary { list-style: none; }
+/* Hide the native details marker on summaries; declare the row weight
+   explicitly — it previously leaked in from the classless summary rule. */
+.tree__node > summary { list-style: none; font-weight: 700; }
 .tree__node > summary::-webkit-details-marker { display: none; }
 
 /* ── Chevron (pure CSS, RTL-safe) ── */

@@ -100,7 +100,7 @@ Link the optional `exsa.fluid.css` and tokens drive responsive behavior, not jus
 --gap: calc(clamp(0.75rem, 0.6rem + 0.5vw, 1.25rem) * var(--space-factor));
 ```
 
-Behavioral profiles (`data-profile="compact"`, `data-profile="spacious"`) change the density of every component with one HTML attribute — `--space-factor`, `--radius-factor`, `--font-factor` cascade through the entire design system. Fluid for values. Adaptive for layout. One optional file. Zero build.
+Behavioral profiles (`data-profile="compact"`, `data-profile="spacious"`) change the density of every component with one HTML attribute. `--space-factor` cascades through the entire design system — every component's padding, gap, and margin is `calc()`-wrapped around it. `--radius-factor` and `--font-factor` are narrower today: they scale `--border-radius` and the `--font-size-*` tokens (defined in `exsa.fluid.css`) plus the dashboard cluster. Fluid for values. Adaptive for layout. One optional file. Zero build.
 
 ---
 

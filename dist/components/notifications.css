@@ -95,13 +95,21 @@
   padding: 4px 0;
 }
 
-/* ── Item ── */
+/* ── Item ──
+   UA-neutral like .dropdown__item — items may be <div> (docs) or
+   <button role="menuitem"> (interactive), so button chrome must not leak. */
 .notifications__item {
   display: flex;
   align-items: flex-start;
   gap: 12px;
   padding: 10px 16px;
   position: relative;
+  width: 100%;
+  background: none;
+  border: none;
+  color: var(--color-text);
+  font-family: inherit;
+  text-align: start;
   transition: background .12s;
 }
 .notifications__item:hover {

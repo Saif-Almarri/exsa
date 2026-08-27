@@ -9,6 +9,26 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### 🔧 Changed
+
+- **Dropdown keyboard nav now covers notification items** — `js/dropdown.js` only arrow-navigated `.dropdown__item`, so the Notifications dropdown (whose items are `.notifications__item`) got no ArrowUp/Down support and Enter on the trigger didn't focus the first item. The item lookup now includes `.notifications__item:not([disabled])`.
+
+- **Chart sizing contract documented; showcase demos aligned** — charts are width-driven (full: 600×240 ≈ 2.5:1, sparkline: 300×60 = 5:1) and height follows automatically, but the showcase demos set heights that didn't match the ratio, leaving the SVGs letterboxed inside their boxes (e.g. 120px of chart in a 160px box). Demos now use ratio-matched sizes and `chart.css` documents the rule.
+
+- **Notifications items leaked button chrome** — when `.notifications__item` was authored as `<button role="menuitem">`, UA styles bled through (buttonface background, 2px outset border, Arial font, shrink-to-fit width ~165px in a 320px menu) because the component never neutralized button styles like its sibling `.dropdown__item` does. Items now reset background/border/font/color/text-align and fill the full menu width — correct for both `<div>` (docs markup) and `<button>` (interactive) usage.
+
+- **Utilities layer is now layout-only** — the typography suite (`.text-*`, `.fw-*`, `.font-*`, `.italic`, `.uppercase`, `.capitalize`, `.text-muted`, `.fluid-type`, plus the `.text-start/end/center/left/right` alignment set and `sm:text-center`) sat in `exsa.utilities` (layer 5), where any element/component rule in a later layer silently beat it — a class that did nothing. Re-homed in `exsa.overrides` as `u-*` escape hatches (`u-text-lg`, `u-fw-bold`, `u-font-mono`, `u-uppercase`, `u-capitalize`, `u-text-muted`, `u-fluid-type`, …) that always win; alignment got the existing `u-text-start/center/end` plus new `u-text-left/right`. The utilities layer now matches its documented "flex, grid, containers" scope.
+
+- **Guarded Classless™ guard asymmetry fixed** — `:where(.exsa ol li)`, `:where(.exsa ul li)`, `:where(.exsa details)`, `:where(.exsa details summary)`, and `:where(.exsa details details)` lacked `:not([class])`, unlike the rest of the classless engine, so classed component markup kept matching prose rules. That was the root cause of the earlier tree "neutralize classless …" patches — and it also gave every nested tree node a stray 2px border + 16px padding. Guards now sit on the list/details container; `tree.css` declares its row weight explicitly and drops the dead margin neutralizer.
+
+- **Density-factor claims corrected** — `--radius-factor` / `--font-factor` were documented as cascading "through the entire design system," but their only consumers were `exsa.fluid.css`'s `--border-radius` / `--font-size-*` tokens and the dashboard cluster (`--radius-factor` has exactly one consumer; `.dash--dense`'s body-level override was a no-op — `--border-radius` resolves at `:root`). `PHILOSOPHY.md` and the `manifest.json` factor notes now state exactly what scales. Wiring the factors through all components remains an open option for a future release.
+
+- **Token discipline in the classless button** — `:where(.exsa button:not([class]))` hardcoded `font-size: .88rem`; it now uses `var(--font-size-base)`, so the button follows theme/fluid font scaling. The table `.84rem` (classless + `.tbl`) is a deliberate in-between size and is now commented as such.
+
+- **KPI grid no longer drops its third card on desktop** — `.kpi-grid` was `minmax(200px, 1fr)`, so three cards need 632px of content width. The showcase demo frame capped at 620px (564px after stage padding), which could never fit three columns — every desktop saw 2 cards on the first row and 1 below. The grid minimum is now 180px (572px for three, still comfortable for a 1.75rem value with 20px padding) and the demo frame is 700px, so the KPI row stays 3-across from ~1000px viewports up and wraps gracefully below.
+
+- **Alert demo width is now responsive** — the Alert / Notice showcase stage was a fixed `max-width:620px`, so the alerts never reflected their container. The stage now uses `width:90%`, and the alerts scale with the page at every viewport.
+
 ### ✨ Added
 
 - **The 5→9 layer upgrade, and why** — the beta shipped a 5-layer cascade (`tokens → reset → layout → elements → components`); this release is a 9-layer cascade (`tokens → themes → fluid → reset → utilities → elements → components → layouts → overrides`). Every new layer is a new place for developers to take control without specificity escalation: **`themes`** makes a full-palette swap a one-`<link>` change that the cascade itself enforces; **`fluid`** layers `clamp()`-scaled spacing, type, and radius plus `data-profile="compact|spacious"` density on top of any theme; **`utilities`** (renamed from `layout`) keeps structural helpers at a predictable depth; **`layouts`** lets page shells restyle components with no per-page CSS; **`overrides`** adds the `u-*` escape hatch that always beats components and layouts — and unlayered user CSS still wins over all of it. More tiers to intervene, zero `!important` anywhere.

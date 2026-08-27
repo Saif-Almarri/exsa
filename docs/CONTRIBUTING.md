@@ -99,7 +99,8 @@ There are only three contributor slots — one per role. No open calls, no publi
 
 ### For Components — the component-author checklist
 
-Every EXSA component ships a small contract, and `npm test` enforces it:
+Every EXSA component ships a small contract, and the validate gate enforces it —
+`node tools/validate.mjs --layers --no-legacy --check-tokens --check-bundles --check-debug`:
 
 1. **One CSS file** in `dist/components/` named after the block (`card.css` → `.card`).
    Documented block-name abbreviations (legacy shorthand): `tbl`, `sep`, `pricing`,
@@ -115,8 +116,9 @@ Every EXSA component ships a small contract, and `npm test` enforces it:
    The validator cross-checks it against your CSS (every `__` part must be listed,
    every listed part must exist), `tools/build-debug.mjs` turns `required` into
    `dist/exsa.debug.css` contract-linter rules (enable with `<html data-debug>`),
-   and `npm run probe:contract` renders reference snippets + deliberately broken
-   markup in a real browser. Never let percent-sized children collapse silently.
+   and `node tools/contract-probe.mjs` renders reference snippets + deliberately
+   broken markup in a real browser. Never let percent-sized children collapse
+   silently.
 5. **Token-driven** — `var(--token)` for every color, spacing, and shadow. New public
    tokens get a `manifest.json → tokens.core` entry; component-scoped tokens get a
    `manifest.json → tokens.components` entry. Never hardcode values.
@@ -125,10 +127,13 @@ Every EXSA component ships a small contract, and `npm test` enforces it:
    under `manifest.json → behaviors` with `requires` edges if it uses `EXSA.*`.
 7. **State classes stay on `<body>`** — `has-*` and `layout--*` are page-level state
    only; components never read them.
-8. **Run the gate** — `npm test` (manifest refs, layers, tokens, bundles, structure,
-   debug css) and `npm run audit` (zero actionable spacing literals). If you touched
-   tokens, JS, or structure, regenerate: `npm run build`. Add a demo section to
-   `site/showcase.php` so every component is visibly dogfooded.
+8. **Run the gate** — the validate gate (`node tools/validate.mjs --layers --no-legacy
+   --check-tokens --check-bundles --check-debug`: manifest refs, layers, tokens,
+   bundles, structure, debug css) and the token audit (`node tools/validate.mjs
+   --layers --no-legacy --check-tokens --check-bundles --token-audit`: zero
+   actionable spacing literals). If you touched tokens, JS, or structure, regenerate:
+   `node tools/build-bundle.mjs && node tools/build-tokens.mjs && node tools/build-debug.mjs`.
+   Add a demo section to `site/showcase.php` so every component is visibly dogfooded.
 
 #### Add a component in six steps
 
@@ -140,7 +145,7 @@ Every EXSA component ships a small contract, and `npm test` enforces it:
 4. If it introduces tokens, catalog them (`manifest.json → tokens`) and run
    `node tools/build-tokens.mjs`.
 5. Add a demo section to `site/showcase.php` plus a sidebar link.
-6. `npm test` green → open a PR.
+6. Validate gate green → open a PR.
 
 ### For Content & Marketing
 

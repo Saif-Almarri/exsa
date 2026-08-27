@@ -138,6 +138,8 @@ figure{margin:0;padding:0}
 
 @layer exsa.utilities {
 
+/* Layout only — unprefixed utilities lose to elements/components/layouts;
+   use u-* (exsa.overrides) to force-win. */
 .container{max-width:var(--width-content);margin:0 auto;padding:0 var(--gap)}
 .container-sm{max-width:var(--width-card-wide);margin:0 auto;padding:0 var(--gap-sm)}
 .container-full{width:100%}
@@ -161,26 +163,16 @@ figure{margin:0;padding:0}
 .grid-cols-3{grid-template-columns:repeat(3,1fr)}.grid-cols-4{grid-template-columns:repeat(4,1fr)}
 .grid-cols-5{grid-template-columns:repeat(5,1fr)}.grid-cols-6{grid-template-columns:repeat(6,1fr)}
 .grid-auto-fit{grid-template-columns:repeat(auto-fit,minmax(200px,1fr))}
-/* Fluid typography — opt-in. Add .fluid-type to <body> */
-.fluid-type{--font-size-base:clamp(.85rem,.8rem + .25vw,1rem);--font-size-xl:clamp(1.2rem,1.1rem + .5vw,1.5rem);--font-size-2xl:clamp(1.6rem,1.4rem + 1vw,2.2rem)}
 /* Position */
 .relative{position:relative}.absolute{position:absolute}.fixed{position:fixed}.sticky{position:sticky}
 .inset-0{inset:0}
 /* Sizing */
 .w-full{width:100%}.h-full{height:100%}
-/* Text alignment (logical + physical) */
-.text-start{text-align:start}.text-end{text-align:end}.text-center{text-align:center}
-.text-left{text-align:left}.text-right{text-align:right}
-/* Typography — font sizes, weights, families, transforms */
-.text-xs{font-size:var(--font-size-xs)}.text-sm{font-size:var(--font-size-sm)}.text-base{font-size:var(--font-size-base)}.text-md{font-size:var(--font-size-md)}.text-lg{font-size:var(--font-size-lg)}.text-xl{font-size:var(--font-size-xl)}.text-2xl{font-size:var(--font-size-2xl)}
-.fw-normal{font-weight:var(--font-weight-normal)}.fw-bold{font-weight:var(--font-weight-bold)}.fw-heavy{font-weight:var(--font-weight-heavy)}
-.font-sans{font-family:var(--font-family)}.font-mono{font-family:var(--font-family-mono)}.font-heading{font-family:var(--font-family-heading)}
-.italic{font-style:italic}.uppercase{text-transform:uppercase}.capitalize{text-transform:capitalize}.text-muted{color:var(--color-text-secondary)}
 /* Overflow */
 .overflow-hidden{overflow:hidden}.overflow-auto{overflow:auto}
 /* Order (flex/grid children) */
 .order-first{order:-1}.order-last{order:999}
-@media(max-width:575px){.col-2,.col-3,.col-4,.col-5,.col-6{flex:0 0 100%}.sm\:flex-col{flex-direction:column}.sm\:flex-wrap{flex-wrap:wrap}.sm\:grid-cols-1{grid-template-columns:repeat(1,1fr)}.sm\:text-center{text-align:center}}
+@media(max-width:575px){.col-2,.col-3,.col-4,.col-5,.col-6{flex:0 0 100%}.sm\:flex-col{flex-direction:column}.sm\:flex-wrap{flex-wrap:wrap}.sm\:grid-cols-1{grid-template-columns:repeat(1,1fr)}}
 @media(min-width:768px){.md\:col-2{flex:0 0 50%}.md\:col-3{flex:0 0 33.333%}.md\:col-4{flex:0 0 25%}.md\:col-5{flex:0 0 20%}.md\:col-6{flex:0 0 16.667%}.md\:grid-cols-2{grid-template-columns:repeat(2,1fr)}.md\:grid-cols-3{grid-template-columns:repeat(3,1fr)}.md\:grid-cols-4{grid-template-columns:repeat(4,1fr)}.md\:grid-cols-5{grid-template-columns:repeat(5,1fr)}.md\:grid-cols-6{grid-template-columns:repeat(6,1fr)}}
 @media(min-width:1024px){.lg\:col-2{flex:0 0 50%}.lg\:col-3{flex:0 0 33.333%}.lg\:col-4{flex:0 0 25%}.lg\:col-5{flex:0 0 20%}.lg\:col-6{flex:0 0 16.667%}.lg\:grid-cols-3{grid-template-columns:repeat(3,1fr)}.lg\:grid-cols-4{grid-template-columns:repeat(4,1fr)}.lg\:grid-cols-5{grid-template-columns:repeat(5,1fr)}.lg\:grid-cols-6{grid-template-columns:repeat(6,1fr)}}
 @media(min-width:1280px){.xl\:col-2{flex:0 0 50%}.xl\:col-3{flex:0 0 33.333%}.xl\:col-4{flex:0 0 25%}.xl\:col-5{flex:0 0 20%}.xl\:col-6{flex:0 0 16.667%}.xl\:grid-cols-3{grid-template-columns:repeat(3,1fr)}.xl\:grid-cols-4{grid-template-columns:repeat(4,1fr)}.xl\:grid-cols-5{grid-template-columns:repeat(5,1fr)}.xl\:grid-cols-6{grid-template-columns:repeat(6,1fr)}}
@@ -275,9 +267,11 @@ figure{margin:0;padding:0}
   white-space: pre-wrap;
 }
 
-/* ── Lists & dividers ── */
-:where(.exsa ol li),
-:where(.exsa ul li) {
+/* ── Lists & dividers ──
+   Guarded at the LIST level — a class on ul/ol opts the whole subtree out,
+   so component lists (tree, sidebar, breadcrumbs, …) stop matching. */
+:where(.exsa ol:not([class]) li),
+:where(.exsa ul:not([class]) li) {
   padding: 0;
   padding-inline-start: 1.2em;
 }
@@ -289,14 +283,14 @@ figure{margin:0;padding:0}
   margin: var(--gap-2xl) 0;
   width: 100%;
 }
-:where(.exsa details) {
+:where(.exsa details:not([class])) {
   margin: var(--gap) 0;
 }
-:where(.exsa details summary) {
+:where(.exsa details:not([class]) summary) {
   font-weight: bold;
   cursor: pointer;
 }
-:where(.exsa details details) {
+:where(.exsa details:not([class]) details) {
   margin-inline-start: var(--gap-lg);
   border-inline-start: 2px solid var(--color-border);
   padding-inline-start: var(--gap);
@@ -543,7 +537,7 @@ figure{margin:0;padding:0}
   width: 100%;
   max-width: 100%;
   padding: 0;
-  font-size: .84rem;
+  font-size: .84rem; /* deliberate — sits between --font-size-sm (.78rem) and --font-size-base (.88rem) */
   color: var(--color-text);
 }
 :where(.exsa table:not([class]) td),
@@ -753,7 +747,7 @@ figure{margin:0;padding:0}
   justify-content: center;
   gap: calc(6px * var(--space-factor, 1));
   font-family: inherit;
-  font-size: .88rem;
+  font-size: var(--font-size-base);
   font-weight: 600;
   line-height: 1;
   padding: calc(10px * var(--space-factor, 1)) calc(20px * var(--space-factor, 1));
@@ -850,7 +844,8 @@ figure{margin:0;padding:0}
 
 @layer exsa.overrides {
 
-/* ── Override utilities — */
+/* ── Override utilities — force-win: u-* always beats components/layouts.
+   Unlayered user CSS still beats everything here. ── */
 
 .u-text-start{text-align:start}
 .u-text-center{text-align:center}
@@ -870,6 +865,14 @@ figure{margin:0;padding:0}
 .u-gap-lg{gap:var(--gap-lg)}
 .u-radius-0{border-radius:0}
 .u-radius-full{border-radius:9999px}
+/* Typography escape hatches (re-homed from exsa.utilities — the unprefixed
+   versions lost to elements/components, these always win) */
+.u-text-xs{font-size:var(--font-size-xs)}.u-text-sm{font-size:var(--font-size-sm)}.u-text-base{font-size:var(--font-size-base)}.u-text-md{font-size:var(--font-size-md)}.u-text-lg{font-size:var(--font-size-lg)}.u-text-xl{font-size:var(--font-size-xl)}.u-text-2xl{font-size:var(--font-size-2xl)}
+.u-fw-normal{font-weight:var(--font-weight-normal)}.u-fw-bold{font-weight:var(--font-weight-bold)}.u-fw-heavy{font-weight:var(--font-weight-heavy)}
+.u-font-sans{font-family:var(--font-family)}.u-font-mono{font-family:var(--font-family-mono)}.u-font-heading{font-family:var(--font-family-heading)}
+.u-italic{font-style:italic}.u-uppercase{text-transform:uppercase}.u-capitalize{text-transform:capitalize}.u-text-muted{color:var(--color-text-secondary)}
+.u-text-left{text-align:left}.u-text-right{text-align:right}
+.u-fluid-type{--font-size-base:clamp(.85rem,.8rem + .25vw,1rem);--font-size-xl:clamp(1.2rem,1.1rem + .5vw,1.5rem);--font-size-2xl:clamp(1.6rem,1.4rem + 1vw,2.2rem)}
 
 } /* overrides */
 
@@ -2272,7 +2275,7 @@ body:has(.topbar--xl) { --topbar-height: 72px; }
 .table-wrap::-webkit-scrollbar-thumb{background:var(--color-bg-secondary);border-radius:3px}
 
 /* ── Component table ── */
-.tbl{width:100%;border-collapse:collapse;font-size:.84rem;color:var(--color-text);white-space:nowrap}
+.tbl{width:100%;border-collapse:collapse;font-size:.84rem;color:var(--color-text);white-space:nowrap} /* .84rem deliberate — between --font-size-sm and --font-size-base */
 .tbl thead{border-bottom:2px solid var(--color-bg-secondary)}
 .tbl th{padding: calc(12px * var(--space-factor, 1)) calc(16px * var(--space-factor, 1));text-align:start;font-size:.72rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--color-text-secondary);background:var(--color-bg)}
 .tbl td{padding: calc(11px * var(--space-factor, 1)) calc(16px * var(--space-factor, 1));border-bottom:1px solid var(--color-bg-secondary)}
@@ -4535,6 +4538,11 @@ select.select--success {
    Types (class or data-chart-type): line, area, bar, sparkline.
    Second series: data-chart-values-2 (renders with --chart-2 tokens).
 
+   Sizing: width-driven — full charts render at 600×240 (2.5:1),
+   sparklines at 300×60 (5:1). Set the container width; height follows
+   automatically, so keep any explicit height at width × 0.4 (full)
+   or width × 0.2 (sparkline) or the chart letterboxes inside the box.
+
    Tokens (all derive from theme tokens, so dark mode + custom
    themes adapt automatically — override any of them to rebrand):
      --chart-line     series stroke       (default --color-link)
@@ -5260,7 +5268,7 @@ body.kanban-dragging .kanban__card { user-select: none; }
 /* ── Grid ── */
 .kpi-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
   gap: 16px;
 }
 }
@@ -5363,13 +5371,21 @@ body.kanban-dragging .kanban__card { user-select: none; }
   padding: 4px 0;
 }
 
-/* ── Item ── */
+/* ── Item ──
+   UA-neutral like .dropdown__item — items may be <div> (docs) or
+   <button role="menuitem"> (interactive), so button chrome must not leak. */
 .notifications__item {
   display: flex;
   align-items: flex-start;
   gap: 12px;
   padding: 10px 16px;
   position: relative;
+  width: 100%;
+  background: none;
+  border: none;
+  color: var(--color-text);
+  font-family: inherit;
+  text-align: start;
   transition: background .12s;
 }
 .notifications__item:hover {
@@ -5878,9 +5894,6 @@ body.kanban-dragging .kanban__card { user-select: none; }
   margin: 0;
   padding: 0;
 }
-.tree .tree__node {
-  margin: 0;
-}
 .tree .tree {
   padding-inline-start: 20px;
 }
@@ -5907,8 +5920,9 @@ body.kanban-dragging .kanban__card { user-select: none; }
   font-weight: 600;
 }
 
-/* Hide the native details marker on summaries */
-.tree__node > summary { list-style: none; }
+/* Hide the native details marker on summaries; declare the row weight
+   explicitly — it previously leaked in from the classless summary rule. */
+.tree__node > summary { list-style: none; font-weight: 700; }
 .tree__node > summary::-webkit-details-marker { display: none; }
 
 /* ── Chevron (pure CSS, RTL-safe) ── */

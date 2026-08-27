@@ -15,6 +15,11 @@
    Types (class or data-chart-type): line, area, bar, sparkline.
    Second series: data-chart-values-2 (renders with --chart-2 tokens).
 
+   Sizing: width-driven — full charts render at 600×240 (2.5:1),
+   sparklines at 300×60 (5:1). Set the container width; height follows
+   automatically, so keep any explicit height at width × 0.4 (full)
+   or width × 0.2 (sparkline) or the chart letterboxes inside the box.
+
    Tokens (all derive from theme tokens, so dark mode + custom
    themes adapt automatically — override any of them to rebrand):
      --chart-line     series stroke       (default --color-link)

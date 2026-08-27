@@ -1476,8 +1476,8 @@
       ],
       "factors": [
         { "css": "--space-factor", "name": "Spacing multiplier for profiles", "type": "number", "note": "Compact=0.8, Default=1, Spacious=1.3. Multiply with clamp() tokens for responsive density." },
-        { "css": "--radius-factor", "name": "Radius multiplier for profiles", "type": "number", "note": "Compact=0.85, Default=1, Spacious=1.2" },
-        { "css": "--font-factor", "name": "Font size multiplier for profiles", "type": "number", "note": "Compact=0.95, Default=1, Spacious=1.1" },
+        { "css": "--radius-factor", "name": "Radius multiplier for profiles", "type": "number", "note": "Compact=0.85, Default=1, Spacious=1.2. Consumed only by --border-radius in exsa.fluid.css — inert without the fluid file." },
+        { "css": "--font-factor", "name": "Font size multiplier for profiles", "type": "number", "note": "Compact=0.95, Default=1, Spacious=1.1. Scales the --font-size-* tokens (exsa.fluid.css) + dashboard type." },
         { "css": "--motion-factor", "name": "Animation intensity multiplier", "type": "number", "note": "Compact=0.6, Default=1, Spacious=1.4. prefers-reduced-motion sets to 0." }
       ],
       "interaction": [
