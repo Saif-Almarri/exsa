@@ -1156,6 +1156,7 @@ figure{margin:0;padding:0}
   display: flex;
   flex-direction: column;
   justify-content: center;
+  align-items: center;
   min-height: var(--hero-height);
   max-width: none;
   padding: 0;
@@ -1193,11 +1194,18 @@ figure{margin:0;padding:0}
 
 /* Text content: above video, centered */
 :where(body.exsa > header:not([class]) > div),
-:where(body.exsa > header:not([class]) > :not(figure):not(div)) {
+:where(body.exsa > header:not([class]) > :not(figure):not(div):not(button)) {
   position: relative;
   z-index: 2;
   text-align: center;
   padding: 0 var(--gap);
+}
+
+/* Buttons: never stretch, keep their own padding */
+:where(body.exsa > header:not([class]) > button) {
+  position: relative;
+  z-index: 2;
+  align-self: center;
 }
 
 /* Light text on dark background */
