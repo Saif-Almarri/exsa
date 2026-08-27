@@ -33,6 +33,19 @@ is not part of this repo.
 Add `class="exsa"` to `<body>` and plain HTML is styled automatically. Add components
 only when you use them, from `dist/components/` + `dist/js/`.
 
+**Bundle shortcut** — swap the first two links for one: `dist/exsa.bundle.css` ships
+with all 68 components + the icons library + the Breeze theme baked in.
+
+```html
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Saif-Almarri/exsa@1.0.0-rc.1/dist/exsa.bundle.css"
+      integrity="sha384-gTn9GlgDHR7Q/Fo6+N6cbZcGAWW9hbCF5wy5C1KIlxcqvC6gkR3uuxfRENSVRDKP" crossorigin="anonymous">
+```
+
+Pair it with the `exsa.js` tag above and every component works — no per-component
+links. Want a different theme? Link `dist/themes/<name>.css` **after** the bundle;
+the theme layer wins. Not bundled: `exsa.fluid.css`, `dist/layouts/`, `dist/templates/` —
+link those separately when you use them.
+
 Full documentation: [`docs/README.md`](docs/README.md) · Philosophy: [`docs/PHILOSOPHY.md`](docs/PHILOSOPHY.md) · What's new: [`docs/CHANGELOG.md`](docs/CHANGELOG.md)
 
 MIT License — see [LICENSE](LICENSE).
