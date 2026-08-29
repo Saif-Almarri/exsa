@@ -31,8 +31,6 @@
   --color-border: light-dark(#c0d0c0, #1a2a1a);
   --color-button-text: light-dark(#ffffff, #0c0d0c);
   --color-button-text-inverse: light-dark(#1a2a1a, #b8d8a8);
-  --border-radius: 0px;
-  --font-family: 'SF Mono','Cascadia Code','Fira Code',Consolas,monospace;
 }
 
 /* Forced dark — <html data-theme-mode="dark">, ignores OS preference */

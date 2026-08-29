@@ -18,8 +18,8 @@
   padding: 0 calc(24px * var(--space-factor, 1));
   margin: 0;
   max-width: none;
-  background: var(--color-bg);
-  border-bottom: 1px solid var(--color-bg-secondary);
+  background: var(--surface-bg-elevated);
+  border-bottom: var(--surface-border);
   transition: background 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
   font-family: inherit;
   text-align: start;
@@ -40,9 +40,9 @@ body:has(.topbar--sm) { --topbar-height: 48px; }
 body:has(.topbar--lg) { --topbar-height: 64px; }
 body:has(.topbar--xl) { --topbar-height: 72px; }
 
-/* Scrolled — shadow */
+/* Scrolled — elevation follows the active skin */
 .topbar--scrolled {
-  box-shadow: 0 1px 8px var(--color-shadow);
+  box-shadow: var(--surface-shadow-md);
 }
 
 /* Height variants */
@@ -50,12 +50,13 @@ body:has(.topbar--xl) { --topbar-height: 72px; }
 .topbar--lg { --topbar-height: 64px; }
 .topbar--xl { --topbar-height: 72px; }
 
-/* Transparent — frosted glass, always slightly see-through */
+/* Transparent — skin-tinted frost, always slightly see-through.
+   No backdrop-filter here: the crash rule — a bar toggling over
+   animated content must never sample it. Translucent tint reads
+   the same. */
 .topbar--transparent,
 .exsa .topbar--transparent {
-  background: color-mix(in srgb, var(--color-bg) 85%, transparent);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
+  background: color-mix(in srgb, var(--surface-bg) 85%, transparent);
 }
 
 /* ── Left / Right sections ── */
@@ -195,10 +196,10 @@ body:has(.topbar--xl) { --topbar-height: 72px; }
   top: calc(100% + 10px);
   left: 0;
   min-width: 180px;
-  background: var(--color-bg);
-  border: 1px solid var(--color-bg-secondary);
-  border-radius: var(--border-radius);
-  box-shadow: 0 8px 24px rgba(0,0,0,.12), 0 2px 6px rgba(0,0,0,.06);
+  background: var(--surface-bg);
+  border: var(--surface-border);
+  border-radius: var(--surface-radius);
+  box-shadow: var(--surface-shadow-md), 0 2px 6px rgba(0,0,0,.06);
   padding: calc(8px * var(--space-factor, 1)) 0;
   list-style: none;
   margin: 0;

@@ -11,7 +11,7 @@
 .timeline__item:last-child{padding-bottom:0}
 .timeline__dot{position:absolute;inset-inline-start:-25px;top:6px;width:18px;height:18px;border-radius:50%;background:var(--color-bg);border:2px solid var(--color-link);z-index:1}
 .timeline__item--active .timeline__dot{background:var(--color-link);box-shadow:0 0 0 4px rgba(0,0,0,.06)}
-.timeline__content{background:var(--color-bg);border:1px solid var(--color-bg-secondary);border-radius:var(--border-radius);padding: calc(14px * var(--space-factor, 1)) calc(18px * var(--space-factor, 1))}
+.timeline__content{background:var(--surface-bg);border:var(--surface-border);border-radius:var(--surface-radius);padding: calc(14px * var(--space-factor, 1)) calc(18px * var(--space-factor, 1))}
 .timeline__title{font-size:.88rem;font-weight:700;color:var(--color-text);margin: 0 0 calc(4px * var(--space-factor, 1))}
 .timeline__time{font-size:.7rem;font-weight:600;color:var(--color-text-secondary);letter-spacing:.04em;text-transform:uppercase;margin-bottom: calc(6px * var(--space-factor, 1))}
 .timeline__desc{font-size:.8rem;color:var(--color-text-secondary);line-height:1.6;margin:0;width:auto}

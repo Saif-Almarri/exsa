@@ -7,6 +7,8 @@
    --horizontal-reverse to flip which side the image is on,
    --glass / --glass-dark for frosted translucent cards.
    Container-query driven — adapts to its own width, not the viewport.
+   Surface recipes consume the --surface-* tokens — restyle globally
+   with a skin (dist/skins/) or override locally.
    ============================================================ */
 
 /* ── Base card ── */
@@ -16,16 +18,16 @@
   width: 100%;
   container-type: inline-size;
   container-name: card;
-  background: color-mix(in srgb, var(--color-bg) 97%, var(--color-text));
-  border: 1px solid var(--color-bg-secondary);
-  border-radius: var(--border-radius);
+  background: var(--surface-bg-elevated);
+  border: var(--surface-border);
+  border-radius: var(--surface-radius);
   overflow: hidden;
   transition: box-shadow .25s, transform .25s;
 }
 
 /* ── Hoverable ── */
 .card--hoverable:hover {
-  box-shadow: var(--box-shadow);
+  box-shadow: var(--surface-shadow-sm);
   transform: translateY(-2px);
 }
 

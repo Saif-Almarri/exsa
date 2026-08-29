@@ -25,7 +25,7 @@
 /* Fallback (no image): squircle background layer — container stays unmasked so the dot always shows */
 .avatar:not(:has(img[src]))::before{
   content:'';position:absolute;inset:0;z-index:0;
-  border-radius:var(--border-radius);
+  border-radius:var(--surface-radius);
   background:var(--avatar-bg);
   -webkit-mask-image:var(--avatar-mask);mask-image:var(--avatar-mask);
   -webkit-mask-size:100% 100%;mask-size:100% 100%;

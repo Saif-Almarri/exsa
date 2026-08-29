@@ -194,7 +194,7 @@ text-transform: uppercase; letter-spacing: 0.2rem;}
   border-bottom: 1px solid rgba(255,255,255,.25);
   padding-bottom: .45em; margin: 0 0 1em;
 }
-.fullpage__panel img { width: 100%; border-radius: var(--border-radius); margin-bottom: 1em; }
+.fullpage__panel img { width: 100%; border-radius: var(--surface-radius); margin-bottom: 1em; }
 .fullpage__panel p { color: rgba(255,255,255,.85); line-height: 1.5; margin-bottom: 1em; }
 .fullpage__panel .fullpage__fields { display: grid; grid-template-columns: 1fr 1fr; gap: var(--gap); }
 .fullpage__panel .fullpage__fields .full { grid-column: 1 / -1; }

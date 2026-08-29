@@ -1,0 +1,43 @@
+@layer exsa.skins {
+
+/* ============================================================
+   LAYER 3 — SKIN: GLOSSY
+   Specular finish: light streak across the surface, subtle
+   inset top highlight, soft colored shadows.
+   Link AFTER exsa.css (or the bundle) + your theme:
+   <link rel="stylesheet" href="skins/glossy.css">
+   Token-only: every rule targets :root. The sheen is a gradient
+   layer stacked over the surface color inside --surface-bg —
+   no pseudo-elements, no element rules.
+   ============================================================ */
+
+:root {
+  /* Specular shading — light-dark dims the streak in dark mode and flips
+     the bottom shading to black (light mode unchanged). */
+  --gloss-hi: light-dark(#ffffff81, color-mix(in srgb, #ffffff98 38%, transparent));
+  --gloss-lo: light-dark(var(--color-text), #000);
+  --surface-bg:
+    linear-gradient(115deg, color-mix(in srgb, var(--gloss-hi) 65%, transparent) 0%,
+                            color-mix(in srgb, var(--gloss-hi) 18%, transparent) 14%,
+                            transparent 26%),
+    linear-gradient(180deg, transparent 66%, light-dark(color-mix(in srgb, var(--gloss-lo) 7%, transparent), color-mix(in srgb, #000 16%, transparent))),
+    var(--color-bg);
+  --surface-bg-elevated:
+    linear-gradient(115deg, color-mix(in srgb, var(--gloss-hi) 70%, transparent) 0%,
+                            color-mix(in srgb, var(--gloss-hi) 20%, transparent) 16%,
+                            transparent 28%),
+    linear-gradient(180deg, transparent 68%, light-dark(color-mix(in srgb, var(--gloss-lo) 8%, transparent), color-mix(in srgb, #000 18%, transparent))),
+    color-mix(in srgb, var(--color-bg) 97%, var(--gloss-lo));
+  --surface-border: 1px solid color-mix(in srgb, var(--color-text) 12%, transparent);
+  --surface-radius: 16px;
+  --border-radius: 16px; /* legacy small-element shape — matches the surface; typography: system sans */
+  --surface-shadow-sm: 0 3px 8px color-mix(in srgb, var(--gloss-lo) 10%, transparent);
+  --surface-shadow-md: 0 6px 16px color-mix(in srgb, var(--gloss-lo) 12%, transparent);
+  --surface-shadow-lg: 0 10px 24px color-mix(in srgb, var(--gloss-lo) 14%, transparent);
+  --surface-shadow-side: 6px 0 18px color-mix(in srgb, var(--gloss-lo) 12%, transparent);
+  --surface-inset: inset 0 1px 0 color-mix(in srgb, var(--gloss-hi) 85%, transparent),
+                   inset 0 -2px 3px light-dark(color-mix(in srgb, var(--gloss-lo) 10%, transparent), color-mix(in srgb, #000 24%, transparent));
+  --surface-backdrop: none;
+}
+
+}

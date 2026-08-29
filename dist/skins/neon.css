@@ -1,0 +1,44 @@
+@layer exsa.skins {
+
+/* ============================================================
+   LAYER 3 — SKIN: NEON
+   Neon signage: darkened plates with glowing tube edges —
+   bright link-colored borders plus inner + outer glow in the
+   theme's link and secondary colors. Vs. glow: glow is a soft
+   ambient halo; neon is high-voltage sign tubes.
+   Link AFTER exsa.css (or the bundle) + your theme:
+   <link rel="stylesheet" href="skins/neon.css">
+   Token-only: every rule targets :root — all colors derive from
+   the active theme, so the tubes re-tint with every palette and
+   both forced modes.
+   ============================================================ */
+
+:root {
+  /* Dark plate — surfaces sit darker than the canvas in both modes. */
+  --surface-bg: light-dark(color-mix(in srgb, var(--color-bg) 88%, var(--color-text)), color-mix(in srgb, var(--color-bg) 88%, #000));
+  --surface-bg-elevated: light-dark(color-mix(in srgb, var(--color-bg) 82%, var(--color-text)), color-mix(in srgb, var(--color-bg) 80%, #000));
+  --surface-border: 2px solid var(--color-link);
+  --surface-border-control: 2px solid color-mix(in srgb, var(--color-link) 55%, var(--color-text));
+  --surface-radius: 14px;
+  --border-radius: 14px; /* legacy small-element shape — matches the surface */
+  /* Sign tube: outer halo + inner tube glow, link + secondary. */
+  --surface-shadow-sm: 0 0 5px color-mix(in srgb, var(--color-link) 45%, transparent),
+                       inset 0 0 5px color-mix(in srgb, var(--color-link) 22%, transparent);
+  --surface-shadow-md: 0 0 9px color-mix(in srgb, var(--color-link) 55%, transparent),
+                       0 0 22px color-mix(in srgb, var(--color-secondary) 28%, transparent),
+                       inset 0 0 9px color-mix(in srgb, var(--color-link) 24%, transparent);
+  --surface-shadow-lg: 0 0 14px color-mix(in srgb, var(--color-link) 65%, transparent),
+                       0 0 36px color-mix(in srgb, var(--color-secondary) 38%, transparent),
+                       inset 0 0 14px color-mix(in srgb, var(--color-link) 28%, transparent);
+  --surface-shadow-side: 8px 0 26px color-mix(in srgb, var(--color-link) 32%, transparent);
+  --surface-inset: inset 0 0 9px color-mix(in srgb, var(--color-link) 24%, transparent);
+  --surface-backdrop: none;
+  /* Preferred page backdrop — neon wash pools. */
+  --surface-canvas:
+    radial-gradient(60rem 40rem at 15% 0%, color-mix(in srgb, var(--color-link) 15%, transparent), transparent 65%),
+    radial-gradient(52rem 40rem at 90% 100%, color-mix(in srgb, var(--color-secondary) 13%, transparent), transparent 65%),
+    var(--color-bg);
+  --font-family-heading: var(--font-family-mono); /* signage headings */
+}
+
+}

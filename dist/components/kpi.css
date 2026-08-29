@@ -42,10 +42,11 @@
   flex-direction: column;
   gap: 10px;
   padding: var(--kpi-pad);
-  background: var(--color-bg);
-  border: 1px solid var(--color-bg-secondary);
+  background: var(--surface-bg);
+  border: var(--surface-border);
   border-inline-start: 3px solid var(--kpi-accent);
-  border-radius: var(--border-radius);
+  border-radius: var(--surface-radius);
+  box-shadow: var(--surface-shadow-md); /* elevated card — follows the skin's elevation */
   position: relative;
   min-width: 0;
 }
@@ -70,7 +71,7 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  border-radius: var(--border-radius);
+  border-radius: var(--surface-radius);
   background: var(--kpi-icon-bg);
   color: var(--kpi-accent);
   font-size: 1rem;
@@ -134,7 +135,7 @@
   gap: 9px;
   margin-top: 2px;
   padding-top: 10px;
-  border-top: 1px solid var(--color-bg-secondary);
+  border-top: var(--surface-border);
 }
 
 /* ── Color variants ── */

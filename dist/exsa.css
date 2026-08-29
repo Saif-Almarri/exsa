@@ -1,12 +1,12 @@
 /* Copyright © 2026 Saif Almarri. MIT License. See LICENSE.
-   Cascade: tokens → themes → (fluid — optional) → reset → utilities → elements → components → layouts → overrides.
+   Cascade: tokens → themes → skins → (fluid — optional) → reset → utilities → elements → components → layouts → overrides.
 */
 
-@layer exsa.tokens, exsa.themes, exsa.fluid, exsa.reset, exsa.utilities, exsa.elements, exsa.components, exsa.layouts, exsa.overrides;
+@layer exsa.tokens, exsa.themes, exsa.skins, exsa.fluid, exsa.reset, exsa.utilities, exsa.elements, exsa.components, exsa.layouts, exsa.overrides;
 
 @layer exsa.tokens {
 
-/* 82 design tokens */
+/* 94 design tokens */
 
 :root {
   color-scheme: light dark;
@@ -48,6 +48,21 @@
   --z-layout-aside:90;      /* fixed sidebars in layout shells (below bars/overlays) */
   --z-layout-footer:95;     /* footer above aside in aside-full mode */
   --z-announce:1001;        /* store announcement bar (above topbar) */
+  /* surface material — the skin axis (overridden by dist/skins/*.css).
+     Defaults mirror today's rendered pixels: zero visual change without a skin. */
+  --surface-bg:var(--color-bg);
+  --surface-bg-elevated:color-mix(in srgb,var(--color-bg) 97%,var(--color-text));
+  --surface-border:1px solid var(--color-border);
+  --surface-border-control:1px solid var(--color-border); /* control boundary — skins must keep it visible (never none) */
+  --surface-radius:var(--border-radius);
+  --surface-shadow-sm:2px 2px 10px; /* color omitted = currentColor — matches legacy --box-shadow hover */
+  --surface-shadow-md:0 4px 16px color-mix(in srgb,var(--color-text) 8%,transparent);
+  --surface-shadow-lg:0 8px 32px color-mix(in srgb,var(--color-text) 12%,transparent);
+  --surface-shadow-side:8px 0 32px color-mix(in srgb,var(--color-text) 14%,transparent);
+  --surface-inset:inset 0 0 0 0 transparent; /* no-op — composable in shadow lists; clay/skeuomorphic/glow replace it */
+  --surface-backdrop:none;
+  /* page canvas — the skin-preferred page backdrop (page chrome consumes it) */
+  --surface-canvas:var(--color-bg);
 }
 
 /* Dark/light — one definition per token via light-dark(); forced mode flips color-scheme */
@@ -117,7 +132,7 @@ html{scroll-behavior:smooth}
 @media(prefers-reduced-data:reduce){img,video{min-height:0;height:auto}}
 [dir=rtl]{direction:rtl;unicode-bidi:isolate}
 body{background:var(--color-bg);color:var(--color-text);font-family:var(--font-family);line-height:var(--line-height);margin:0;padding:0}
-h1,h2,h3,h4,h5,h6{line-height:var(--line-height);text-wrap:balance;margin:0 0 var(--gap-md)}
+h1,h2,h3,h4,h5,h6{font-family:var(--font-family-heading);line-height:var(--line-height);text-wrap:balance;margin:0 0 var(--gap-md)}
 img,svg,video{max-width:100%;height:auto}
 figure{margin:0;padding:0}
 [hidden]{display:none!important}
@@ -505,11 +520,11 @@ figure{margin:0;padding:0}
   justify-content: var(--justify-nav, space-between);
   margin-bottom: var(--gap-xl);
 }
-:where(.exsa nav:not([class]) ul) {
+:where(.exsa nav:not([class]) ul:not([class])) {
   list-style: none;
   padding: 0;
 }
-:where(.exsa nav:not([class]) ul li) {
+:where(.exsa nav:not([class]) ul:not([class]) li) {
   display: inline-block;
   margin: 0 var(--gap-sm);
   text-align: start;
@@ -518,7 +533,7 @@ figure{margin:0;padding:0}
   :where(.exsa nav:not([class])) {
     flex-wrap: wrap;
   }
-  :where(.exsa nav:not([class]) ul li) {
+  :where(.exsa nav:not([class]) ul:not([class]) li) {
     width: calc(100% - 1em);
   }
 }
@@ -869,5 +884,11 @@ figure{margin:0;padding:0}
 .u-italic{font-style:italic}.u-uppercase{text-transform:uppercase}.u-capitalize{text-transform:capitalize}.u-text-muted{color:var(--color-text-secondary)}
 .u-text-left{text-align:left}.u-text-right{text-align:right}
 .u-fluid-type{--font-size-base:clamp(.85rem,.8rem + .25vw,1rem);--font-size-xl:clamp(1.2rem,1.1rem + .5vw,1.5rem);--font-size-2xl:clamp(1.6rem,1.4rem + 1vw,2.2rem)}
+
+/* Crash-prevention: reduced-motion users never get backdrop blur, whatever
+   skin is active (overrides beats skins layer 3). */
+@media (prefers-reduced-motion: reduce) {
+  :root { --surface-backdrop: none; }
+}
 
 } /* overrides */

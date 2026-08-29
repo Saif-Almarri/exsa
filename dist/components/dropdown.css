@@ -12,14 +12,14 @@
 .dropdown{position:relative;display:inline-block}
 
 /* ── Trigger ── */
-.dropdown__trigger{display:inline-flex;align-items:center;gap: calc(6px * var(--space-factor, 1));padding: calc(8px * var(--space-factor, 1)) calc(16px * var(--space-factor, 1));border-radius:var(--border-radius);border:1px solid var(--color-bg-secondary);background:var(--color-bg);color:var(--color-text);font-size:.88rem;font-weight:500;cursor:pointer;font-family:inherit;transition:background .15s,border-color .15s,box-shadow .15s;line-height:1.4;white-space:nowrap}
+.dropdown__trigger{display:inline-flex;align-items:center;gap: calc(6px * var(--space-factor, 1));padding: calc(8px * var(--space-factor, 1)) calc(16px * var(--space-factor, 1));border-radius:var(--surface-radius);border:var(--surface-border-control);background:var(--surface-bg);color:var(--color-text);font-size:.88rem;font-weight:500;cursor:pointer;font-family:inherit;transition:background .15s,border-color .15s,box-shadow .15s;line-height:1.4;white-space:nowrap}
 .dropdown__trigger:hover{background:var(--color-bg-secondary);border-color:color-mix(in srgb,var(--color-text-secondary)30%,transparent)}
 .dropdown__trigger:focus-visible{outline:2px solid var(--color-link);outline-offset:2px}
 .dropdown__arrow{font-size:1rem;transition:transform .18s;opacity:.5}
 .dropdown--open .dropdown__arrow{transform:rotate(180deg)}
 
 /* ── Menu panel ── */
-.dropdown__menu{position:absolute;top:calc(100% + 4px);inset-inline-start:0;min-width:160px;background:var(--color-bg);border:1px solid var(--color-bg-secondary);border-radius:var(--border-radius);box-shadow:0 4px 16px color-mix(in srgb,#000 10%,transparent),0 0 0 1px color-mix(in srgb,var(--color-bg-secondary)60%,transparent);padding: calc(4px * var(--space-factor, 1));z-index:var(--z-dropdown);opacity:0;transform:scale(.95) translateY(-4px);transform-origin:top left;pointer-events:none;transition:opacity .12s,transform .12s}
+.dropdown__menu{position:absolute;top:calc(100% + 4px);inset-inline-start:0;min-width:160px;background:var(--surface-bg);border:var(--surface-border);border-radius:var(--surface-radius);box-shadow:var(--surface-shadow-md),0 0 0 1px color-mix(in srgb,var(--color-bg-secondary)60%,transparent);padding: calc(4px * var(--space-factor, 1));z-index:var(--z-dropdown);opacity:0;transform:scale(.95) translateY(-4px);transform-origin:top left;pointer-events:none;transition:opacity .12s,transform .12s}
 .dropdown--open .dropdown__menu{opacity:1;transform:scale(1) translateY(0);pointer-events:all}
 
 /* ── Soft variant ── */

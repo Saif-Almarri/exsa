@@ -9,7 +9,31 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### ✨ Added
+
+- **Skin picker in the Generator; Theme Builder stays colors-only** — the last Phase-4 gap: `generator.php` gained a Skin (Material) select that packages the chosen `skins/<name>.css` into the downloadable ZIP (preloaded, stat cell, size accounted in the total). `theme-builder.php` deliberately remains palette-only (the lab covers theme × skin previews), and `--border-radius` was dropped from its token set and export — shape belongs to the skin axis, so a theme file never carries it.
+
+- **Neon skin — the tenth material** — neon signage: darkened plates with glowing tube edges (bright link-colored 2px borders + inner/outer glow in the theme's link and secondary colors), vs. `glow`'s soft ambient halo. Neon wash pools on the canvas, mono headings. Composes with all 20 themes and both forced modes.
+
+- **Skins — the material axis** — a second theming dimension so one token file restyles every surface (Flat, Glass, Neomorphic, Clay, Skeuomorphic, Glossy, Brutalist, Metallic, Glow). Twelve `--surface-*` tokens live in `exsa.tokens` with defaults that reproduce today's pixels (zero visual change without a skin), including `--surface-canvas` (skin-preferred page backdrop) and `--surface-border-control` (control boundary — the validator rejects skins that set it to none). Skins are ~25-line token-only files in the new `@layer exsa.skins` (10-layer cascade), linked after core + theme. 24 components/layouts/templates migrated to consume surface tokens — form fields keep functional borders (a11y); controls, data-viz, and semantic states stay theme-driven. `tools/build-bundle.mjs --skin <name>` bakes a skin into a bundle; the validator enforces the skin contract (rule 18: `:root`-only rules, no element `backdrop-filter`, no `!important`). Full design in `skins-plan.md`.
+
+- **Heading font token now wired** — `h1–h6` consume `--font-family-heading` (previously only the `.u-font-heading` utility did), so a two-font setup is one `<link>` + `--font-family` and `--font-family-heading`. Defaults unchanged (`--font-family-heading: var(--font-family)`).
+
 ### 🔧 Changed
+
+- **Backdrop-filter eliminated site-wide (crash fix)** — every page's frosted chrome (`.g-panel`, `.sidebar`, `.footer`, landing `.glass`/badge/ghost buttons, the intro splash) now renders with near-opaque `color-mix` tints instead of `backdrop-filter`, which had repeatedly crashed the renderer (`STATUS_BREAKPOINT`), including during DevTools inspection. `head.php` pins `--surface-backdrop: none` for the whole site (skins keep shipping the token for external consumers), the landing's animated blobs are now the shared static glows, and `exsa.overrides` forces the token to `none` under `prefers-reduced-motion` as defense-in-depth.
+
+- **Skin shading is dark-mode aware** — directional recipes now flip with the mode via `light-dark()`: neo gets near-black + dim-white shadow pairs in dark (its text-mix halves no longer invert into two light shadows), and clay / glossy / metallic / skeuomorphic dim their white highlights and switch their depths to black. Light-mode values are unchanged.
+
+- **Glossy sheen tightened** — the specular streak is now a crisp band at the top of the surface (65%→18%→transparent) with a stronger top rim and a soft dark bottom edge; shadows sit closer to the surface, and dark mode gets a visible reflection band plus deeper bottom shading.
+
+- **Classless nav guard tightened** — `:where(.exsa nav:not([class]) ul li)` styled any list inside a classless `<nav>`, including classed component markup: at ≤768px it forced every item to full width, stacking the lab's pagination demo vertically. The rules now require `ul:not([class])` / `li:not([class])`, so component lists (pagination, breadcrumbs) inside a bare `<nav>` step aside like the rest of the Guarded Classless™ engine.
+
+- **Themes are now color-only** — `--border-radius` left all 21 theme files and `--font-family` left `console.css` / `ink.css`: the palette axis no longer leaks shape or typography. No-skin rendering now uses the core 5px radius and the system font stack; the moved fonts re-home as material-typical pairings (`brutalist` → mono body, `skeuomorphic` → serif body). Every skin now owns shape + typography end-to-end: each sets `--border-radius` to match its `--surface-radius` (legacy small-element consumers follow the material), and `metallic` / `glow` add mono headings.
+
+- **Topbar now follows the skin** — the bar itself was the last chrome holdout (`background: var(--color-bg)` + component border). The component now consumes `--surface-bg-elevated` / `--surface-border`, the scrolled state uses `--surface-shadow-md`, and `--transparent` is a skin-tinted frost with no backdrop-filter (the documented crash rule — a bar toggling over animated content must never sample it). The site's hardcoded topbar recipes are replaced by token-driven rules.
+
+- **`site/glass.css` deleted** — the shared site chrome moved into a token-driven block in `site/includes/head.php` (aurora reads `--surface-canvas`; panels, topbar crash-safe rules, and footer read the surface tokens), and `head.php` now defaults `$EXSA_SKIN = 'glass'` so every site page participates in the skin axis. All ten pages dropped their `glass.css` link and their hardcoded page-level glass recipes (`58%` mixes, `blur(18px)`) now consume `--surface-*` tokens.
 
 - **Dropdown keyboard nav now covers notification items** — `js/dropdown.js` only arrow-navigated `.dropdown__item`, so the Notifications dropdown (whose items are `.notifications__item`) got no ArrowUp/Down support and Enter on the trigger didn't focus the first item. The item lookup now includes `.notifications__item:not([disabled])`.
 

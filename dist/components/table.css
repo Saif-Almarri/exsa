@@ -8,15 +8,15 @@
    ============================================================ */
 
 /* ── Wrapper ── */
-.table-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;border:1px solid var(--color-bg-secondary);border-radius:var(--border-radius)}
+.table-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;background:var(--surface-bg);border:var(--surface-border);border-radius:var(--surface-radius);box-shadow:var(--surface-shadow-md)}
 .table-wrap::-webkit-scrollbar{height:5px}
 .table-wrap::-webkit-scrollbar-thumb{background:var(--color-bg-secondary);border-radius:3px}
 
 /* ── Component table ── */
 .tbl{width:100%;border-collapse:collapse;font-size:.84rem;color:var(--color-text);white-space:nowrap} /* .84rem deliberate — between --font-size-sm and --font-size-base */
-.tbl thead{border-bottom:2px solid var(--color-bg-secondary)}
-.tbl th{padding: calc(12px * var(--space-factor, 1)) calc(16px * var(--space-factor, 1));text-align:start;font-size:.72rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--color-text-secondary);background:var(--color-bg)}
-.tbl td{padding: calc(11px * var(--space-factor, 1)) calc(16px * var(--space-factor, 1));border-bottom:1px solid var(--color-bg-secondary)}
+.tbl thead{border-bottom:var(--surface-border)}
+.tbl th{padding: calc(12px * var(--space-factor, 1)) calc(16px * var(--space-factor, 1));text-align:start;font-size:.72rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--color-text-secondary);background:color-mix(in srgb,var(--surface-bg) 96%,var(--color-text))} /* header = rows but a little darker, derived from the active surface */
+.tbl td{padding: calc(11px * var(--space-factor, 1)) calc(16px * var(--space-factor, 1));border-bottom:var(--surface-border)}
 .tbl tbody tr{transition:background .12s}
 .tbl tbody tr:hover{background:var(--color-bg-secondary)}
 .tbl tbody tr:last-child td{border-bottom:none}
@@ -26,7 +26,7 @@
 .tbl--striped tbody tr:nth-child(even):hover{background:var(--color-bg-secondary)}
 
 /* Bordered */
-.tbl--bordered td,.tbl--bordered th{border:1px solid var(--color-bg-secondary)}
+.tbl--bordered td,.tbl--bordered th{border:var(--surface-border)}
 .tbl--bordered thead{border-bottom-width:1px}
 
 /* Compact */
@@ -42,7 +42,7 @@
 @media(max-width:640px){
   .tbl--responsive thead{display:none}
   .tbl--responsive,.tbl--responsive tbody,.tbl--responsive tr,.tbl--responsive td{display:block;white-space:normal}
-  .tbl--responsive tr{border:1px solid var(--color-bg-secondary);border-radius:var(--border-radius);margin-bottom: calc(10px * var(--space-factor, 1));padding: calc(8px * var(--space-factor, 1)) 0;background:var(--color-bg)}
+  .tbl--responsive tr{border:var(--surface-border);border-radius:var(--surface-radius);margin-bottom: calc(10px * var(--space-factor, 1));padding: calc(8px * var(--space-factor, 1)) 0;background:var(--surface-bg)}
   .tbl--responsive td{border:none;padding: calc(6px * var(--space-factor, 1)) calc(16px * var(--space-factor, 1));display:flex;justify-content:space-between;align-items:center;gap: calc(8px * var(--space-factor, 1))}
   .tbl--responsive td::before{content:attr(data-label);font-size:.68rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--color-text-secondary);flex-shrink:0}
 }
@@ -60,7 +60,7 @@
 .tbl--sortable th[data-sort]:focus-visible{outline:2px solid var(--color-link);outline-offset:-2px}
 
 /* ── Filter input (js/table.js — .table-search[data-table]) ── */
-.table-search{padding: calc(7px * var(--space-factor, 1)) calc(12px * var(--space-factor, 1));font-size:.82rem;font-family:inherit;border:1px solid var(--color-bg-secondary);border-radius:var(--border-radius);background:var(--color-bg);color:var(--color-text);min-width:200px;transition:border-color .15s,box-shadow .15s}
+.table-search{padding: calc(7px * var(--space-factor, 1)) calc(12px * var(--space-factor, 1));font-size:.82rem;font-family:inherit;border:var(--surface-border-control);border-radius:var(--surface-radius);background:var(--surface-bg);box-shadow:var(--surface-inset);color:var(--color-text);min-width:200px;transition:border-color .15s,box-shadow .15s}
 .table-search:focus{outline:none;border-color:var(--color-link);box-shadow:0 0 0 3px color-mix(in srgb,var(--color-link)20%,transparent)}
 
 /* ── Empty row (js/table.js — .table-empty, hidden attr toggled) ── */

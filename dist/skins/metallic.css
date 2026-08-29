@@ -1,0 +1,45 @@
+@layer exsa.skins {
+
+/* ============================================================
+   LAYER 3 — SKIN: METALLIC
+   Brushed-metal finish: banded light/dark gradient across the
+   surface, machined dual inset edges, subtle shadows.
+   Link AFTER exsa.css (or the bundle) + your theme:
+   <link rel="stylesheet" href="skins/metallic.css">
+   Token-only: every rule targets :root. Highlight bands use the
+   #fff neutral; dark bands derive from the active theme — composes
+   with all 21 palettes and both forced modes. With warm palettes
+   it reads as brushed brass, with cool ones as gunmetal.
+   ============================================================ */
+
+:root {
+  /* Brushed-metal shading — light-dark keeps the bands dark and the
+     highlights specular in dark mode (light mode unchanged). */
+  --metal-hi: light-dark(#fff, color-mix(in srgb, #fff 45%, transparent));
+  --metal-lo: light-dark(var(--color-text), #000);
+  --surface-bg: linear-gradient(180deg,
+    color-mix(in srgb, var(--color-bg) 92%, var(--metal-hi)) 0%,
+    color-mix(in srgb, var(--color-bg) 70%, var(--metal-lo)) 12%,
+    color-mix(in srgb, var(--color-bg) 96%, var(--metal-hi)) 30%,
+    color-mix(in srgb, var(--color-bg) 82%, var(--metal-lo)) 70%,
+    var(--color-bg) 100%);
+  --surface-bg-elevated: linear-gradient(180deg,
+    color-mix(in srgb, var(--color-bg) 96%, var(--metal-hi)) 0%,
+    color-mix(in srgb, var(--color-bg) 80%, var(--metal-lo)) 15%,
+    color-mix(in srgb, var(--color-bg) 98%, var(--metal-hi)) 35%,
+    color-mix(in srgb, var(--color-bg) 88%, var(--metal-lo)) 75%,
+    var(--color-bg) 100%);
+  --surface-border: 1px solid color-mix(in srgb, var(--color-text) 18%, transparent);
+  --surface-radius: 6px;
+  --border-radius: 6px; /* legacy small-element shape — matches the surface */
+  --surface-shadow-sm: 0 2px 6px color-mix(in srgb, var(--metal-lo) 10%, transparent);
+  --surface-shadow-md: 0 4px 12px color-mix(in srgb, var(--metal-lo) 14%, transparent);
+  --surface-shadow-lg: 0 12px 28px color-mix(in srgb, var(--metal-lo) 18%, transparent);
+  --surface-shadow-side: 8px 0 32px color-mix(in srgb, var(--metal-lo) 14%, transparent);
+  --surface-inset: inset 0 1px 0 color-mix(in srgb, var(--metal-hi) 60%, transparent),
+                   inset 0 -1px 0 color-mix(in srgb, var(--metal-lo) 12%, transparent);
+  --surface-backdrop: none;
+  --font-family-heading: var(--font-family-mono); /* machined-plate headings; body stays theme sans */
+}
+
+}

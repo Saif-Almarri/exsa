@@ -22,7 +22,7 @@
   font-weight: 600;
   line-height: 1;           /* tight: height = padding×2 + font-size */
   padding: calc(10px * var(--space-factor, 1)) calc(20px * var(--space-factor, 1));
-  border-radius: var(--border-radius);
+  border-radius: var(--surface-radius);
   border: 2px solid transparent;
   cursor: pointer;
   transition: background 0.15s, border-color 0.15s, color 0.15s, box-shadow 0.15s, transform 0.1s;
@@ -81,6 +81,13 @@
 }
 .btn--neutral:hover { filter: brightness(0.95); }
 
+/* Solid buttons pick up the skin's inset (clay's pressed highlight) — default no-op */
+.btn--primary,
+.btn--success,
+.btn--danger,
+.btn--warning,
+.btn--neutral { box-shadow: var(--surface-inset); }
+
 /* ── Subtle variants ── */
 
 /* Outline */
@@ -109,10 +116,10 @@
 
 /* Surface — card-like, raised */
 .btn--surface {
-  background: var(--color-bg);
+  background: var(--surface-bg);
   border-color: var(--color-border);
   color: var(--color-button-text-inverse);
-  box-shadow: 0 1px 3px color-mix(in srgb, var(--color-text-secondary) 12%, transparent);
+  box-shadow: 0 1px 3px color-mix(in srgb, var(--color-text-secondary) 12%, transparent), var(--surface-inset);
 }
 .btn--surface:hover { background: var(--color-bg-secondary); border-color: color-mix(in srgb, var(--color-text-secondary) 30%, transparent); }
 

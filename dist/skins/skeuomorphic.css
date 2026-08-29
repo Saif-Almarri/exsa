@@ -1,0 +1,38 @@
+@layer exsa.skins {
+
+/* ============================================================
+   LAYER 3 — SKIN: SKELUOMORPHIC
+   Beveled gradients, inset highlights, layered shadows,
+   serif body + headings (system serif — web font optional).
+   Link AFTER exsa.css (or the bundle) + your theme:
+   <link rel="stylesheet" href="skins/skeuomorphic.css">
+   Token-only: every rule targets :root. Highlight halves use
+   the #fff neutral; dark halves derive from the active theme.
+   ============================================================ */
+
+:root {
+  /* Bevel shading — light-dark flips the light source in dark mode:
+     dimmed white bevel + black shadows (light mode unchanged). */
+  --skeuo-hi: light-dark(#fff, color-mix(in srgb, #fff 30%, transparent));
+  --skeuo-lo: light-dark(var(--color-text), #000);
+  --surface-bg: linear-gradient(180deg, color-mix(in srgb, var(--color-bg) 94%, var(--skeuo-hi)),
+                                       color-mix(in srgb, var(--color-bg) 90%, var(--skeuo-lo)));
+  --surface-bg-elevated: linear-gradient(180deg, color-mix(in srgb, var(--color-bg) 97%, var(--skeuo-hi)),
+                                                color-mix(in srgb, var(--color-bg) 92%, var(--skeuo-lo)));
+  --surface-border: 1px solid color-mix(in srgb, var(--color-text) 20%, transparent);
+  --surface-radius: 8px;
+  --border-radius: 8px; /* legacy small-element shape — matches the surface */
+  --surface-shadow-sm: 0 1px 0 color-mix(in srgb, var(--skeuo-hi) 70%, transparent),
+                       0 2px 4px color-mix(in srgb, var(--skeuo-lo) 20%, transparent);
+  --surface-shadow-md: 0 1px 0 color-mix(in srgb, var(--skeuo-hi) 80%, transparent),
+                       0 3px 6px color-mix(in srgb, var(--skeuo-lo) 25%, transparent);
+  --surface-shadow-lg: 0 2px 0 color-mix(in srgb, var(--skeuo-hi) 70%, transparent),
+                       0 8px 16px color-mix(in srgb, var(--skeuo-lo) 28%, transparent);
+  --surface-shadow-side: 8px 0 32px color-mix(in srgb, var(--skeuo-lo) 22%, transparent);
+  --surface-inset: inset 0 1px 0 color-mix(in srgb, var(--skeuo-hi) 70%, transparent);
+  --surface-backdrop: none;
+  --font-family: Georgia, 'Times New Roman', serif; /* serif body — the ink-theme pairing */
+  --font-family-heading: Georgia, 'Times New Roman', serif;
+}
+
+}

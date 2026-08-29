@@ -6,7 +6,7 @@
 
 ## Inventor's Statement
 
-The **9-layer CSS cascade architecture** (tokens → themes → fluid → reset →
+The **10-layer CSS cascade architecture** (tokens → themes → skins → fluid → reset →
 utilities → elements → components → layouts → overrides)
 and the **Guarded Classless™** pattern (`:where(.exsa element:not([class]))`)
 are original inventions of **Saif Almarri**, first published in 2026 as part
@@ -67,7 +67,7 @@ This is the reversal of the traditional framework power dynamic. Most frameworks
 
 ### 2. Token-Driven Everything
 
-All 68 components share 82 design tokens. Every color, every shadow, every border-radius, every gap, every z-index — it all flows from `:root` tokens.
+All 68 components share 94 design tokens. Every color, every shadow, every border-radius, every gap, every z-index — it all flows from `:root` tokens.
 
 Swap one theme file. Every component, every element style, every utility class recolors instantly. No rebuild. No recompile. No class-name hunt across 200 files.
 
@@ -78,8 +78,9 @@ This is not "CSS variables are nice to have." This is: *the tokens are the desig
 CSS `@layer` is the most underused feature in the language. EXSA builds its entire architecture on it:
 
 ```
-@layer exsa.tokens      → 82 design tokens
-     exsa.themes       → theme token overrides
+@layer exsa.tokens      → 94 design tokens
+     exsa.themes       → theme token overrides (palette axis)
+     exsa.skins        → surface material recipes (skin axis)
      exsa.fluid        → clamp() scaling, density profiles
      exsa.reset        → box model, focus, a11y, RTL
      exsa.utilities    → flex, grid, containers

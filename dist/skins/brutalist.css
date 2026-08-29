@@ -1,0 +1,36 @@
+@layer exsa.skins {
+
+/* ============================================================
+   LAYER 3 — SKIN: BRUTALIST
+   Raw, high-contrast surfaces: zero radius, thick hard
+   borders, hard offset shadows (no blur), mono body +
+   Impact-style headings.
+   In dark mode the text-colored borders/shadows invert to
+   light — authentic inverted brutalism.
+   Link AFTER exsa.css (or the bundle) + your theme:
+   <link rel="stylesheet" href="skins/brutalist.css">
+   Token-only: every rule targets :root. All colors derive
+   from --color-text / --color-bg — composes with all 21 palettes.
+   ============================================================ */
+
+:root {
+  --surface-bg: var(--color-bg);
+  --surface-bg-elevated: var(--color-bg-secondary);
+  --surface-border: 3px solid var(--color-text);
+  --surface-border-control: 3px solid var(--color-text);
+  --surface-radius: 0;
+  --border-radius: 0; /* legacy small elements stay sharp too */
+  /* Resting density: tight suits hard edges. Applies only without
+     exsa.fluid.css — fluid (layer 4) always overrides skins (layer 3). */
+  --space-factor: 0.95;
+  --surface-shadow-sm: 3px 3px 0 var(--color-text);
+  --surface-shadow-md: 5px 5px 0 var(--color-text);
+  --surface-shadow-lg: 7px 7px 0 var(--color-text);
+  --surface-shadow-side: 8px 0 0 var(--color-text);
+  --surface-inset: inset 0 0 0 0 transparent; /* no-op — brutalist uses hard offsets, not insets */
+  --surface-backdrop: none;
+  --font-family: var(--font-family-mono); /* mono body — the console-theme pairing */
+  --font-family-heading: Impact, 'Arial Black', 'Segoe UI', sans-serif;
+}
+
+}

@@ -1,0 +1,30 @@
+@layer exsa.skins {
+
+/* ============================================================
+   LAYER 3 — SKIN: FLAT
+   The baseline material — zero effects: standard fills,
+   thin borders, no shadows. Mirrors the core token defaults
+   minus any elevation.
+   Link AFTER exsa.css (or the bundle) + your theme:
+   <link rel="stylesheet" href="skins/flat.css">
+   Token-only: every rule targets :root, no hardcoded colors.
+   Use this file as the template for custom skins.
+   ============================================================ */
+
+:root {
+  --surface-bg: var(--color-bg);
+  --surface-bg-elevated: var(--color-bg-secondary); /* standard fill */
+  --surface-border: 1px solid var(--color-border);
+  --surface-border-control: 1px solid var(--color-border);
+  --surface-radius: var(--border-radius);
+  --border-radius: 5px; /* legacy small-element shape — flat mirrors the core baseline; typography: system sans */
+  --surface-shadow-sm: none; /* zero effects — flat has no elevation */
+  --surface-shadow-md: none;
+  --surface-shadow-lg: none;
+  --surface-shadow-side: none;
+  --surface-inset: inset 0 0 0 0 transparent; /* no-op — composable in shadow lists */
+  --surface-backdrop: none;
+  --surface-canvas: var(--color-bg);
+}
+
+}

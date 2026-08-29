@@ -30,7 +30,6 @@
   --color-border: light-dark(#ccc0b4, #3a322a);
   --color-button-text: #ffffff;
   --color-button-text-inverse: light-dark(#1e1b18, #e8e0d8);
-  --border-radius: 3px;
 }
 
 /* Forced dark — <html data-theme-mode="dark">, ignores OS preference */

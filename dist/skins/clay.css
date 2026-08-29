@@ -1,0 +1,49 @@
+@layer exsa.skins {
+
+/* ============================================================
+   LAYER 3 — SKIN: CLAY
+   Inflated claymorphism: soft gradient surface, big soft outer
+   shadow, strong inner top highlight, extra-large radius.
+   Link AFTER exsa.css (or the bundle) + your theme:
+   <link rel="stylesheet" href="skins/clay.css">
+   Token-only: every rule targets :root. The inner highlight
+   uses the #fff neutral; everything else derives from the
+   active theme — composes with all 21 palettes.
+   ============================================================ */
+
+:root {
+  /* Directional clay shading — light-dark flips the light source in dark
+     mode: dimmed white highlight, black depths (light mode unchanged). */
+  --clay-hi: light-dark(#fff, color-mix(in srgb, #fff 24%, transparent));
+  --clay-lo: light-dark(var(--color-text), color-mix(in srgb, #000 60%, transparent));
+  --surface-bg: linear-gradient(145deg, color-mix(in srgb, var(--color-bg) 92%, var(--clay-hi)), color-mix(in srgb, var(--color-bg) 84%, var(--clay-lo)));
+  --surface-bg-elevated: linear-gradient(145deg, color-mix(in srgb, var(--color-bg) 96%, var(--clay-hi)), color-mix(in srgb, var(--color-bg) 88%, var(--clay-lo)));
+  --surface-border: none;
+  --surface-border-control: 1px solid color-mix(in srgb, var(--color-text) 14%, transparent); /* subtle but always visible */
+  --surface-radius: 28px;
+  --border-radius: 28px; /* legacy small-element shape — matches the surface; typography: system sans */
+  /* Resting density: inflated clay wants a touch more air. Applies only
+     without exsa.fluid.css — fluid (layer 4) always overrides skins (layer 3). */
+  --space-factor: 1.06;
+  /* Inflated clay: dual inset pair (light top-left, dark bottom-right)
+     baked into every elevation level + a soft offset outer shadow. */
+  --surface-shadow-sm: inset 1px 1px 2px color-mix(in srgb, var(--clay-hi) 60%, transparent),
+                       inset -2px -2px 4px color-mix(in srgb, var(--clay-lo) 12%, transparent),
+                       2px 3px 5px color-mix(in srgb, var(--clay-lo) 12%, transparent);
+  --surface-shadow-md: inset 2px 2px 4px color-mix(in srgb, var(--clay-hi) 55%, transparent),
+                       inset -3px -4px 6px color-mix(in srgb, var(--clay-lo) 14%, transparent),
+                       4px 5px 9px color-mix(in srgb, var(--clay-lo) 14%, transparent);
+  --surface-shadow-lg: inset 3px 3px 6px color-mix(in srgb, var(--clay-hi) 50%, transparent),
+                       inset -5px -6px 10px color-mix(in srgb, var(--clay-lo) 16%, transparent),
+                       6px 8px 14px color-mix(in srgb, var(--clay-lo) 16%, transparent);
+  --surface-shadow-side: 4px 0 10px color-mix(in srgb, var(--clay-lo) 12%, transparent);
+  --surface-inset: inset 2px 2px 4px color-mix(in srgb, var(--clay-hi) 55%, transparent),
+                   inset -3px -4px 6px color-mix(in srgb, var(--clay-lo) 14%, transparent);
+  --surface-backdrop: none;
+  /* Preferred page backdrop — soft ambient tint. */
+  --surface-canvas:
+    radial-gradient(80rem 60rem at 50% -20%, color-mix(in srgb, var(--color-link) 7%, transparent), transparent 60%),
+    var(--color-bg);
+}
+
+}

@@ -11,9 +11,9 @@
 
 :root {
   color-scheme: light dark;
-  --color-bg: light-dark(#faf6f4, #0a0300);
-  --color-bg-secondary: light-dark(#efe0d8, #180a00);
-  --color-text: light-dark(#180a00, #d4c8c0);
+  --color-bg: light-dark(#faf6f4, #0c0806);
+  --color-bg-secondary: light-dark(#efe0d8, #1b110d);
+  --color-text: light-dark(#16100b, #d4c8c0);
   --color-text-secondary: light-dark(#6a4030, #8a7060);
   --color-link: light-dark(#a04020, #c87040);
   --color-secondary: light-dark(#8a4030, #8a5030);
@@ -31,7 +31,6 @@
   --color-border: light-dark(#d4c0b8, #240e05);
   --color-button-text: light-dark(#ffffff, #0a0300);
   --color-button-text-inverse: light-dark(#180a00, #d4c8c0);
-  --border-radius: 4px;
 }
 
 /* Forced dark — <html data-theme-mode="dark">, ignores OS preference */

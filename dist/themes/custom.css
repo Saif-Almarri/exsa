@@ -2,8 +2,8 @@
 
 /* ============================================================
    LAYER 2 — THEME: CUSTOM
-   Blank canvas — all tokens set to 0 / transparent.
-   Fill in your own palette: one definition per token via
+   Blank canvas — every color token set to transparent.
+   Fill in your own palette: one definition per color via
    light-dark(light, dark) — swap for a plain value if you
    only need one mode. Forced mode: <html data-theme-mode="light|dark">.
    Self-contained: forced-mode rules included below (also in exsa.css — harmless duplicate).
@@ -31,7 +31,6 @@
   --color-border: transparent;
   --color-button-text: light-dark(var(--color-bg), #ffffff);
   --color-button-text-inverse: light-dark(#000000, #e4e1e1);
-  --border-radius: 0;
 }
 
 /* Forced dark — <html data-theme-mode="dark">, ignores OS preference */

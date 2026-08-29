@@ -21,7 +21,7 @@
    js/accordion.js syncs aria-expanded on checkbox change.
    ============================================================ */
 
-.accordion{border:1px solid var(--color-bg-secondary);border-radius:var(--border-radius);overflow:hidden}
+.accordion{border:var(--surface-border);border-radius:var(--surface-radius);overflow:hidden}
 .accordion__item{border-bottom:1px solid var(--color-bg-secondary)}
 .accordion__item:last-child{border-bottom:none}
 

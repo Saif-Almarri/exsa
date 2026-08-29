@@ -193,7 +193,7 @@
   transition: box-shadow 0.2s, transform 0.15s;
 }
 .shop__card:hover {
-  box-shadow: 0 4px 16px rgba(0,0,0,.08);
+  box-shadow: var(--surface-shadow-md);
   transform: translateY(-2px);
 }
 .shop__card-image {

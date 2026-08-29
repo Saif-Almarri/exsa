@@ -16,7 +16,7 @@ CSS frameworks force a choice: utility-first means memorizing hundreds of classe
 
 EXSA chooses a third path.
 
-**Tokens are the design system.** 82 design tokens drive 68 components, 20 themes, and every utility. Change `--color-link` in one place — every button, badge, link, and card recolors instantly. No recompile. No variable hunt across 2,000 files.
+**Tokens are the design system.** 94 design tokens drive 68 components, 20 themes, and every utility. Change `--color-link` in one place — every button, badge, link, and card recolors instantly. No recompile. No variable hunt across 2,000 files.
 
 **Classes are optional.** Add `class="exsa"` to `<body>` and plain HTML — `<nav>`, `<section>`, `<table>`, `<form>`, `<button>`, `<blockquote>`, `<dialog>` — becomes a styled UI. Add any class to a structural element and EXSA steps aside. Zero specificity. No `!important`. You're always in control.
 
@@ -213,22 +213,23 @@ This is the EXSA model: classless styles give you a respectable baseline for fre
 
 ---
 
-## Architecture: The 9-Layer Cascade
+## Architecture: The 10-Layer Cascade
 
 EXSA uses CSS `@layer` to enforce a browser-native cascade. **Unlayered user CSS always wins** — no specificity fights, no `!important` wars.
 
 ```
 Priority  Layer                 Covers
 ────────  ────────────────────  ──────────────────────────────────
-  1       @layer exsa.tokens    82 design tokens in :root
-  2       @layer exsa.themes    Theme token overrides
-  3       @layer exsa.fluid     Fluid clamp() tokens & density profiles
-  4       @layer exsa.reset     Box model, focus rings, RTL, body
-  5       @layer exsa.utilities Flex, grid, containers, breakpoints
-  6       @layer exsa.elements  Guarded Classless — semantic HTML with instant opt-out
-  7       @layer exsa.components 68 BEM components, zero specificity
-  8       @layer exsa.layouts   Page shells (general, dashboard, store)
-  9       @layer exsa.overrides u-* escape-hatch utilities
+  1       @layer exsa.tokens    92 design tokens in :root
+  2       @layer exsa.themes    Theme token overrides (palette axis)
+  3       @layer exsa.skins     Surface material recipes (skin axis)
+  4       @layer exsa.fluid     Fluid clamp() tokens & density profiles
+  5       @layer exsa.reset     Box model, focus rings, RTL, body
+  6       @layer exsa.utilities Flex, grid, containers, breakpoints
+  7       @layer exsa.elements  Guarded Classless — semantic HTML with instant opt-out
+  8       @layer exsa.components 68 BEM components, zero specificity
+  9       @layer exsa.layouts   Page shells (general, dashboard, store)
+  10      @layer exsa.overrides u-* escape-hatch utilities
 
   ∞       Unlayered             User CSS — always wins
 ```
@@ -247,7 +248,7 @@ Priority  Layer                 Covers
 
 ## Design Tokens
 
-All 82 tokens live in `:root` inside `@layer exsa.tokens`. Themes override them from `@layer exsa.themes` (layer 2 — swap one file, everything recolors). **Export:** [`tokens.json`](../tokens.json) for Figma, JS, or Tailwind config — generated from `manifest.json` + the CSS, never hand-edited.
+All 94 tokens live in `:root` inside `@layer exsa.tokens`. Themes override the color tokens from `@layer exsa.themes` (layer 2 — swap one file, everything recolors; themes own colors only, shape and font pairing belong to the skin axis); skins override the twelve `--surface-*` tokens from `@layer exsa.skins` (layer 3 — swap one file, every surface redraws, including the page backdrop via `--surface-canvas`). **Export:** [`tokens.json`](../tokens.json) for Figma, JS, or Tailwind config — generated from `manifest.json` + the CSS, never hand-edited.
 
 ### Base colors
 
@@ -500,7 +501,68 @@ Set `data-theme-mode` on `<html>`:
 | **Travei** | Cool cyan & slate | Light |
 | **Tropic** | Vibrant teal & coral | Light |
 
-Every theme is ~30 lines of CSS custom properties. All 20 pass WCAG AA contrast.
+Every theme is ~28 lines of color custom properties — the palette axis owns colors only; shape (radius) and font pairing live on the skin axis. All 20 pass WCAG AA contrast.
+
+### 10 Skins — the material axis
+
+Themes answer *which colors*. Skins answer *how surfaces are drawn* —
+backgrounds, borders, shadows, inner highlights, blur, radius, and optional
+font pairing. A skin is a ~25-line token-only file in `@layer exsa.skins`:
+link one after core + theme (or the bundle) and every surface follows.
+
+| Skin | Look |
+|---|---|
+| `flat` | solid surfaces, thin borders, zero effects — the baseline |
+| `glass` | frosted: backdrop blur + translucent tint |
+| `neomorphic` | dual light/dark shadows, no borders, radius 18px |
+| `clay` | inflated: soft gradient, big soft shadow, inner top highlight |
+| `skeuomorphic` | bevel gradients, layered shadows, serif body + headings |
+| `glossy` | specular sheen across the surface |
+| `brutalist` | zero radius, thick borders, hard offset shadows, mono body + Impact headings |
+| `metallic` | brushed-metal banding, machined inset edges, mono headings |
+| `glow` | neon link/secondary glow, mono headings — best on dark themes |
+| `neon` | neon signage — darkened plates with glowing tube edges, mono headings |
+
+```html
+<link rel="stylesheet" href="dist/skins/glass.css">
+```
+
+Skins never hardcode colors — every value derives from the active theme via
+`color-mix()`, so 20 palettes × 10 skins = 200 looks from 30 files. The twelve
+`--surface-*` tokens are exported in [`tokens.json`](../tokens.json); a
+custom skin is the same ~25-line file with your own values.
+
+### Luxury font pairings (link-based, optional)
+
+EXSA ships no font binaries — the core uses system font stacks, and
+`--font-family` / `--font-family-heading` accept any face you link. Curated
+open-source (SIL OFL) luxury pairings for the standard two-font setup:
+
+| Display (headings) | Niche | Pair with (body) |
+|---|---|---|
+| Playfair Display | editorial serif | Jost |
+| Cormorant Garamond | high-fashion | Tenor Sans |
+| Bodoni Moda | Didone / fashion | Jost |
+| Cinzel | jewelry / engraved | Jost |
+| Marcellus | heritage / Trajan | EB Garamond |
+| DM Serif Display | modern editorial | Tenor Sans |
+| Jost | geometric sans | any serif above |
+| Tenor Sans | understated sans | any serif above |
+
+```html
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900&family=Jost:wght@400;600&display=swap" rel="stylesheet">
+```
+
+```css
+:root {
+  --font-family: 'Jost', sans-serif;                 /* body     */
+  --font-family-heading: 'Playfair Display', serif;  /* headings */
+}
+```
+
+Caveats: strict CSPs must allow `fonts.googleapis.com` / `fonts.gstatic.com`;
+self-host the woff2 files (OFL — include the license file) for privacy,
+offline, or CSP-strict deployments.
 
 ### Runtime theme switching
 
@@ -809,7 +871,7 @@ No revenue yet. No salary. Everyone starts as a contributor. **24% equity each**
 
 ## Inventor's Statement
 
-The **9-layer CSS cascade architecture** (tokens → themes → fluid → reset → utilities → elements → components → layouts → overrides), the **Guarded Classless™** pattern, and the **Fluid Scale + Density Profiles** system are original inventions of Saif Almarri, first published in 2026. See [PHILOSOPHY.md](PHILOSOPHY.md) and [TRADEMARK.md](../TRADEMARK.md) for the full technical documentation and design rationale.
+The **10-layer CSS cascade architecture** (tokens → themes → skins → fluid → reset → utilities → elements → components → layouts → overrides), the **Guarded Classless™** pattern, and the **Fluid Scale + Density Profiles** system are original inventions of Saif Almarri, first published in 2026. See [PHILOSOPHY.md](PHILOSOPHY.md) and [TRADEMARK.md](../TRADEMARK.md) for the full technical documentation and design rationale.
 
 ---
 

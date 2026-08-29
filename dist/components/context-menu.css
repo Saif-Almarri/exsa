@@ -20,10 +20,10 @@
   min-width: 140px;
   max-width: 260px;
   padding: calc(4px * var(--space-factor, 1));
-  border-radius: var(--border-radius);
-  background: var(--color-bg);
-  border: 1px solid var(--color-bg-secondary);
-  box-shadow: 0 2px 10px color-mix(in srgb, #000 12%, transparent), 0 0 0 1px var(--color-bg-secondary);
+  border-radius: var(--surface-radius);
+  background: var(--surface-bg);
+  border: var(--surface-border);
+  box-shadow: var(--surface-shadow-md), 0 0 0 1px var(--color-bg-secondary);
   opacity: 0;
   transform: scale(0.96) translateY(-4px);
   transform-origin: var(--ctx-origin, top left);

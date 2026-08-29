@@ -5,7 +5,7 @@
    ============================================================ */
 
 /* --- C12: BADGE --- */
-.badge{display:inline-flex;align-items:center;padding: calc(2px * var(--space-factor, 1)) calc(10px * var(--space-factor, 1));border-radius:99px;font-size:.7rem;font-weight:700;letter-spacing:.03em;line-height:1.5;white-space:nowrap}
+.badge{display:inline-flex;align-items:center;padding: calc(2px * var(--space-factor, 1)) calc(10px * var(--space-factor, 1));border-radius:99px;font-size:.7rem;font-weight:700;letter-spacing:.03em;line-height:1.5;white-space:nowrap;box-shadow:var(--surface-inset)}
 .badge--default{background:var(--color-bg-secondary);color:var(--color-text-secondary)}
 .badge--primary{background:color-mix(in srgb,var(--color-link)14%,transparent);color:var(--color-link)}
 .badge--success{background:color-mix(in srgb, var(--color-success) 14%, transparent);color:var(--color-success-hover)}

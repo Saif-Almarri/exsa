@@ -2,7 +2,7 @@
   "name": "EXSA",
   "version": "1.0.0-rc.1",
   "schemaVersion": "1.0",
-  "description": "9-layer cascade CSS framework. Tokens → themes → fluid → reset → utilities → elements → components → layouts → overrides. Zero build, zero CLI, pure plug & play.",
+  "description": "10-layer cascade CSS framework. Tokens → themes → skins → fluid → reset → utilities → elements → components → layouts → overrides. Zero build, zero CLI, pure plug & play.",
   "tiers": {
     "free": {
       "label": "Free",
@@ -187,6 +187,68 @@
       "icon": "",
       "file": "dist/themes/travei.css",
       "color": "#003b95"
+    }
+  ],
+  "skins": [
+    {
+      "id": "flat",
+      "name": "Flat",
+      "file": "dist/skins/flat.css",
+      "desc": "Solid surfaces, thin borders, zero effects — the baseline material."
+    },
+    {
+      "id": "glass",
+      "name": "Glass",
+      "file": "dist/skins/glass.css",
+      "desc": "Frosted translucent surfaces — backdrop blur, light border, soft ambient shadows."
+    },
+    {
+      "id": "neomorphic",
+      "name": "Neomorphic",
+      "file": "dist/skins/neomorphic.css",
+      "desc": "Soft extruded surfaces — page-colored backgrounds, dual light/dark shadows, no borders."
+    },
+    {
+      "id": "clay",
+      "name": "Clay",
+      "file": "dist/skins/clay.css",
+      "desc": "Inflated claymorphism — soft gradient, big soft shadow, strong inner top highlight."
+    },
+    {
+      "id": "skeuomorphic",
+      "name": "Skeuomorphic",
+      "file": "dist/skins/skeuomorphic.css",
+      "desc": "Beveled gradients, inset highlights, layered shadows, serif headings."
+    },
+    {
+      "id": "glossy",
+      "name": "Glossy",
+      "file": "dist/skins/glossy.css",
+      "desc": "Specular sheen — light streak, subtle inset highlight, soft colored shadows."
+    },
+    {
+      "id": "brutalist",
+      "name": "Brutalist",
+      "file": "dist/skins/brutalist.css",
+      "desc": "Raw high-contrast surfaces — zero radius, thick hard borders, hard offset shadows, mono headings."
+    },
+    {
+      "id": "metallic",
+      "name": "Metallic",
+      "file": "dist/skins/metallic.css",
+      "desc": "Brushed-metal finish — banded gradient, machined dual inset edges, subtle shadows."
+    },
+    {
+      "id": "glow",
+      "name": "Glow",
+      "file": "dist/skins/glow.css",
+      "desc": "Neon glow — luminous link/secondary colored shadows and borders. Best on dark themes."
+    },
+    {
+      "id": "neon",
+      "name": "Neon",
+      "file": "dist/skins/neon.css",
+      "desc": "Neon signage — darkened plates with glowing tube edges (inner + outer glow)."
     }
   ],
   "layouts": [
@@ -1487,6 +1549,20 @@
         { "css": "--justify-body", "name": "Body/form alignment", "type": "string" },
         { "css": "--justify-nav", "name": "Nav alignment", "type": "string", "note": "Configurable via var() fallback. Set to center, start, etc." },
         { "css": "--blockquote-border", "name": "Blockquote left border pipe", "type": "string", "note": "Set to none to remove the pipe." }
+      ],
+      "surface": [
+        { "css": "--surface-bg", "name": "Surface background", "type": "background" },
+        { "css": "--surface-bg-elevated", "name": "Elevated surface background (cards)", "type": "background" },
+        { "css": "--surface-border", "name": "Surface border", "type": "border" },
+        { "css": "--surface-border-control", "name": "Control boundary border", "type": "border", "note": "Inputs/controls keep a visible boundary in every skin — skins must never set this to none." },
+        { "css": "--surface-radius", "name": "Surface corner radius", "type": "dimension" },
+        { "css": "--surface-shadow-sm", "name": "Small surface shadow (hover lift)", "type": "shadow" },
+        { "css": "--surface-shadow-md", "name": "Medium surface shadow", "type": "shadow" },
+        { "css": "--surface-shadow-lg", "name": "Large surface shadow", "type": "shadow" },
+        { "css": "--surface-shadow-side", "name": "Side surface shadow (drawer edge)", "type": "shadow" },
+        { "css": "--surface-inset", "name": "Inset surface highlight", "type": "shadow", "note": "Composable no-op (inset 0 0 0 0 transparent) by default so components can append it to shadow lists; clay/skeuomorphic/metallic/glow carry their inner highlight here." },
+        { "css": "--surface-backdrop", "name": "Surface backdrop filter", "type": "value", "note": "Full backdrop-filter value. Glass sets blur() saturate(); other skins set none." },
+        { "css": "--surface-canvas", "name": "Page canvas background", "type": "background", "note": "Skin-preferred page backdrop — page chrome (e.g. an aurora layer) consumes it. Defaults to the page background." }
       ],
       "zIndex": [
         { "css": "--z-floating", "name": "In-component floating controls (carousel arrows)", "type": "number" },

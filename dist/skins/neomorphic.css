@@ -1,0 +1,45 @@
+@layer exsa.skins {
+
+/* ============================================================
+   LAYER 3 — SKIN: NEOMORPHIC
+   Soft extruded surfaces: page-colored backgrounds, dual
+   light/dark shadows, no borders, large radius.
+   Link AFTER exsa.css (or the bundle) + your theme:
+   <link rel="stylesheet" href="skins/neomorphic.css">
+   Token-only: every rule targets :root. The light shadow half
+   uses the #fff neutral; the dark half derives from the active
+   theme — composes with all 21 palettes and both forced modes.
+   ============================================================ */
+
+:root {
+  /* Neumorphism needs a mid-tone canvas: surfaces are tinted toward the muted
+     text color (light themes → the classic #e1e6ec grey; dark themes → a soft
+     dark grey), and the canvas matches — no hardcoded colors. */
+  --surface-bg: color-mix(in srgb, var(--color-bg) 88%, var(--color-text-secondary));
+  --surface-bg-elevated: color-mix(in srgb, var(--color-bg) 88%, var(--color-text-secondary));
+  --surface-canvas: color-mix(in srgb, var(--color-bg) 88%, var(--color-text-secondary));
+  --surface-border: none;
+  --surface-border-control: 1px solid color-mix(in srgb, var(--color-text) 16%, transparent); /* subtle but always visible */
+  --surface-radius: 20px;
+  --border-radius: 20px; /* legacy small-element shape — matches the surface; typography: system sans */
+  /* Directional shading — light-dark so dark mode keeps the classic
+     near-black + dim-white pair (the light recipes would otherwise flip
+     into two light shadows on dark surfaces). */
+  --neo-dark: light-dark(var(--color-text), #000);
+  --neo-light: light-dark(#fff, color-mix(in srgb, #fff 10%, transparent));
+  /* Strong soft dual shadows — dark half: bg + --neo-dark (theme-aware grey
+     in light, near-black in dark); light half: bg + --neo-light. */
+  --surface-shadow-sm: 5px 5px 10px color-mix(in srgb, var(--color-bg) 72%, var(--neo-dark)),
+                       -5px -5px 10px color-mix(in srgb, var(--color-bg) 94%, var(--neo-light));
+  --surface-shadow-md: 8px 8px 16px color-mix(in srgb, var(--color-bg) 70%, var(--neo-dark)),
+                       -8px -8px 16px color-mix(in srgb, var(--color-bg) 94%, var(--neo-light));
+  --surface-shadow-lg: 12px 12px 24px color-mix(in srgb, var(--color-bg) 66%, var(--neo-dark)),
+                       -12px -12px 24px color-mix(in srgb, var(--color-bg) 96%, var(--neo-light));
+  --surface-shadow-side: 8px 0 32px color-mix(in srgb, var(--color-bg) 70%, var(--neo-dark));
+  /* Pressed-in pair — inputs, badges, and chips read as embossed by default. */
+  --surface-inset: inset 3px 3px 6px color-mix(in srgb, var(--color-bg) 72%, var(--neo-dark)),
+                   inset -3px -3px 6px color-mix(in srgb, var(--color-bg) 94%, var(--neo-light));
+  --surface-backdrop: none;
+}
+
+}

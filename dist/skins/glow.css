@@ -1,0 +1,36 @@
+@layer exsa.skins {
+
+/* ============================================================
+   LAYER 3 — SKIN: GLOW
+   Neon glow: luminous colored shadows and borders derived from
+   the active theme's link + secondary colors. Most spectacular
+   on dark themes (night, abyss, ink).
+   Link AFTER exsa.css (or the bundle) + your theme:
+   <link rel="stylesheet" href="skins/glow.css">
+   Token-only: every rule targets :root — no hardcoded colors,
+   no backdrop-filter property.
+   ============================================================ */
+
+:root {
+  --surface-bg: var(--color-bg);
+  --surface-bg-elevated: color-mix(in srgb, var(--color-bg) 97%, var(--color-text));
+  --surface-border: 1px solid color-mix(in srgb, var(--color-link) 45%, transparent);
+  --surface-radius: 12px;
+  --border-radius: 12px; /* legacy small-element shape — matches the surface */
+  --surface-shadow-sm: 0 0 8px color-mix(in srgb, var(--color-link) 30%, transparent);
+  --surface-shadow-md: 0 0 14px color-mix(in srgb, var(--color-link) 40%, transparent),
+                       0 0 32px color-mix(in srgb, var(--color-secondary) 22%, transparent);
+  --surface-shadow-lg: 0 0 20px color-mix(in srgb, var(--color-link) 50%, transparent),
+                       0 0 48px color-mix(in srgb, var(--color-secondary) 30%, transparent);
+  --surface-shadow-side: 8px 0 32px color-mix(in srgb, var(--color-link) 25%, transparent);
+  --surface-inset: inset 0 0 8px color-mix(in srgb, var(--color-link) 12%, transparent);
+  --surface-backdrop: none;
+  --font-family-heading: var(--font-family-mono); /* cyber-terminal headings; body stays theme sans */
+  /* Preferred page backdrop — ambient neon pools. */
+  --surface-canvas:
+    radial-gradient(52rem 40rem at 20% 0%, color-mix(in srgb, var(--color-link) 12%, transparent), transparent 65%),
+    radial-gradient(50rem 40rem at 90% 95%, color-mix(in srgb, var(--color-secondary) 10%, transparent), transparent 65%),
+    var(--color-bg);
+}
+
+}
