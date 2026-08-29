@@ -38,7 +38,7 @@ inside components, so no variable change can swap them.
 
 | Axis | Layer | Owns | Files |
 |---|---|---|---|
-| **Palette** | `@layer exsa.themes` | `--color-*` only — colors, nothing else | 21 theme files (20 catalog + custom starter) |
+| **Palette** | `@layer exsa.themes` | `--color-*` only — colors, nothing else | 20 theme files |
 | **Material** | `@layer exsa.skins` *(new)* | `--surface-*` recipes + optional font pairing | 9 skin files (new) |
 | **Structure** | components / layouts / templates | consume tokens only, never hardcode recipes | refactor, no new concepts |
 

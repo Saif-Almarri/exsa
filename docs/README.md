@@ -777,7 +777,7 @@ root
 │   ├── layouts/               3 page layouts (general, dashboard, store)
 │   ├── templates/             2 starter templates (fullpage, onepage)
 │   ├── components/            68 component files + icons/
-│   └── themes/                20 themes + custom.css starter
+│   └── themes/                20 themes
 ├── tools/                   build-debug.mjs — generates the debug linter files
 ├── docs/                    This README, PHILOSOPHY, CHANGELOG, CONTRIBUTING
 ├── manifest.json            Machine-readable catalog (components, themes, tokens)
