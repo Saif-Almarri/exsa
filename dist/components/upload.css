@@ -42,7 +42,7 @@
 .upload {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: calc(12px * var(--space-factor, 1));
 }
 
 /* ── Dropzone ── */
@@ -51,8 +51,8 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 5px;
-  padding: 32px 20px;
+  gap: calc(5px * var(--space-factor, 1));
+  padding: calc(32px * var(--space-factor, 1)) calc(20px * var(--space-factor, 1));
   border: 2px dashed var(--color-bg-secondary);
   border-radius: var(--border-radius);
   cursor: pointer;
@@ -77,7 +77,7 @@
   background: var(--color-bg-secondary);
   color: var(--color-text-secondary);
   font-size: 20px;
-  margin-bottom: 6px;
+  margin-bottom: calc(6px * var(--space-factor, 1));
 }
 .upload__title {
   font-size: .88rem;
@@ -93,7 +93,7 @@
 .upload__list {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: calc(8px * var(--space-factor, 1));
   list-style: none;
   margin: 0;
   padding: 0;
@@ -103,8 +103,8 @@
 .upload__item {
   display: flex;
   align-items: center;
-  gap: 12px;
-  padding: 10px 12px;
+  gap: calc(12px * var(--space-factor, 1));
+  padding: calc(10px * var(--space-factor, 1)) calc(12px * var(--space-factor, 1));
   border: 1px solid var(--color-bg-secondary);
   border-radius: var(--border-radius);
   background: var(--color-bg);
@@ -131,7 +131,7 @@
   min-width: 0;
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: calc(4px * var(--space-factor, 1));
 }
 .upload__item-name {
   font-size: .82rem;
@@ -148,14 +148,14 @@
 }
 .upload__item-track {
   height: 6px;
-  border-radius: 99px;
+  border-radius: calc(var(--border-radius) * 20);
   background: var(--color-bg-secondary);
   overflow: hidden;
 }
 .upload__item-fill {
   height: 100%;
   width: var(--upload-pct, 0%);
-  border-radius: 99px;
+  border-radius: calc(var(--border-radius) * 20);
   background: var(--upload-progress);
   transition: width .2s;
 }

@@ -1,8 +1,10 @@
 @layer exsa.components {
 /* ============================================================
-   EXSA Product Card — store product tile
+   EXSA Product Card — store product tile + product grid
 
-   Link after exsa.css. Used inside layouts/store.css .shop__grid.
+   Link after exsa.css. The .shop__card tile and the .shop__grid
+   product grid — used inside any layout's content piece (the store
+   recipe on the Layouts page pairs them with general.css).
    Classes (shop__ namespace — store vocabulary):
      .shop__card            tile
      .shop__card-image      square cover image
@@ -11,7 +13,21 @@
      .shop__card-title      product name
      .shop__card-price      price (+ --old strikethrough)
      .shop__card-rating     star rating line
+     .shop__grid            responsive product grid (auto-fill)
+     .shop__grid--compact   tighter columns
    ============================================================ */
+
+/* ── Product grid — the cards' host. Lives with the cards so a
+   store page links one file for its whole grid. ── */
+.shop__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: calc(20px * var(--space-factor, 1));
+}
+.shop__grid--compact {
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: calc(14px * var(--space-factor, 1));
+}
 
 .shop__card {
   position: relative;
@@ -42,7 +58,7 @@
   position: absolute;
   top: calc(10px * var(--space-factor, 1)); inset-inline-start: calc(10px * var(--space-factor, 1));
   padding: calc(2px * var(--space-factor, 1)) calc(8px * var(--space-factor, 1));
-  border-radius: 4px;
+  border-radius: var(--border-radius);
   font-size: 0.7rem;
   font-weight: 700;
   text-transform: uppercase;
@@ -74,5 +90,31 @@
   font-size: 0.78rem;
   color: var(--color-warning, #f59e0b);
   margin-top: calc(4px * var(--space-factor, 1));
+}
+
+/* ── Filter widget — aside filters for store layouts ──
+   Moved out of layouts/store.css: the shell arranges the aside,
+   this styles the filter content inside it. */
+.shop__aside-title {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-text-secondary);
+  margin-bottom: calc(12px * var(--space-factor, 1));
+}
+.shop__aside-group {
+  margin-bottom: calc(20px * var(--space-factor, 1));
+}
+.shop__aside-group a {
+  display: block;
+  padding: calc(4px * var(--space-factor, 1)) 0;
+  font-size: 0.84rem;
+  color: var(--color-text);
+  text-decoration: none;
+}
+.shop__aside-group a:hover,
+.shop__aside-group a.active {
+  color: var(--color-link);
 }
 }

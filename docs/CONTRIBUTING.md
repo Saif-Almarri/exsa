@@ -125,8 +125,9 @@ Every EXSA component ships a small contract, and the validate gate enforces it �
 6. **Behavioral JS (optional)** — one file in `dist/js/` named after the component,
    wrapped in a DOM-ready guard (copy the pattern from any existing file), registered
    under `manifest.json → behaviors` with `requires` edges if it uses `EXSA.*`.
-7. **State classes stay on `<body>`** — `has-*` and `layout--*` are page-level state
-   only; components never read them.
+7. **State classes stay on `<body>`** — `has-*` is page-level state; layouts are element-driven:
+   `layout__*` pieces live on the zone elements and modes (`.layout__page--app`, `--frame`) live
+   on the sheet itself. Components never read page state.
 8. **Run the gate** — the validate gate (`node tools/validate.mjs --layers --no-legacy
    --check-tokens --check-bundles --check-debug`: manifest refs, layers, tokens,
    bundles, structure, debug css) and the token audit (`node tools/validate.mjs

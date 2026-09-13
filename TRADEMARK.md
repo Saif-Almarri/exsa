@@ -38,7 +38,7 @@ Specificity becomes irrelevant. No `!important` wars. Ever.
      exsa.utilities   → 90+ flex & grid utilities
      exsa.elements    → Guarded Classless™ semantic HTML styling
      exsa.components  → 68 BEM components
-     exsa.layouts     → 3 page shells (general, dashboard, store)
+     exsa.layouts     → 2 page-shell files (general base + dashboard app-frame focus)
      exsa.overrides   → u-* escape hatch, always wins
 ```
 

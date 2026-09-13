@@ -1,279 +1,414 @@
 @layer exsa.layouts {
 
 /* ============================================================
-   EXSA Layout — compositional page shells
+   EXSA Layout — the paper model (general)
 
    Link AFTER exsa.css + your theme.
-   Add the layout classes to <body> — any zone can be on/off.
+   Element-driven: the markup IS the declaration — no body classes.
 
-   ── Structural zones (what exists on the page) ──
-   layout--has-topbar     = fixed topbar (reserves height)
-   layout--has-hero       = full-bleed hero below topbar
-   layout--aside-left     = left sidebar + content row
-   layout--aside-right    = right sidebar + content row
-   layout--has-sidebar    = shorthand for layout--aside-left
+   ── The paper model ──
+   body              = the table — full viewport boundary; nothing
+                       required here
+   .layout__page     = the sheet of paper laid on it. Full width by
+                       default; set --layout-page-w to any smaller
+                       size (e.g. 80%) and it centers on the table.
+                       It carries its own look (surface tokens).
+   .layout__grid     = the page's container layer — named zones cut
+                       from the sheet, side pieces sized to fill the
+                       sheet's width 100% exactly
+   elements/components = what goes inside each piece; they fit the
+                       piece (components own their look, the layout
+                       only owns the pieces)
 
-   ── Mode modifiers (how zones behave) ──
-   layout--centered       = single column, max-width constrained
-   layout--sticky-footer  = footer at viewport bottom, shell grows
-   (Dashboard-style fixed sidebar / collapsed aside / scrolling panes:
-    use layouts/dashboard.css — dash--sidebar, dash--sidebar-sm, etc.)
+   ── Zones (inside .layout__grid, all optional) ──
+   .layout__topbar    = in-page topbar — a strip above the grid,
+                        sticky to the viewport edge. Pair it with
+                        the .topbar component for its chrome.
+                        (Or keep the topbar OUTSIDE the page:
+                        use topbar.css's .topbar + body.has-topbar —
+                        the sheet then sits below the full-bleed bar.
+                        Both placements work at once.)
+   .layout__announce  = fixed full-bleed strip above everything
+                        (outside the sheet) — pairs with the outside
+                        topbar; body padding and sticky offsets
+                        account for it automatically
+   .layout__header    = full-width band above the pieces
+   .layout__aside-start = side piece at the inline-start edge
+   .layout__content   = the main piece (1fr — takes all leftover)
+   .layout__aside-end = side piece at the inline-end edge
+   .layout__footer    = full-width band below the pieces
 
-   ── Width overrides (topbar/footer vs sidebar alignment) ──
-   layout--topbar-full    = topbar spans full viewport width
-   layout--topbar-content = topbar aligns with content area
-   layout--footer-full    = footer spans full viewport width
-   layout--footer-content = footer aligns with content area
+   ── Mode modifiers (optional, composable) ──
+   .layout__hero             = full-width hero band above the pieces
+   .layout__page--auto       = sheet sizes to content (sticky footer off)
+   .layout__page--frame      = outside topbar + footer adopt the
+                               sheet's width (one shared edge).
+                               Set --layout-page-w on :root or
+                               <body> — the outside chrome is a
+                               sibling, so it reads the token there,
+                               not from the page element.
+   .layout__page--app        = dashboard-style app frame — ships in
+                               layouts/dashboard.css (link AFTER
+                               general.css): the sheet is exactly
+                               the viewport; .layout__aside-start is
+                               a fixed full-height rail and
+                               .layout__content the scrolling pane.
+   .layout__grid--centered   = content piece reads --layout-measure
+   .layout__aside-start--sticky = side piece sticks while scrolling
+   .layout__aside-end--sticky   = (clears the topbar automatically)
+   .sidebar--collapsed on a side piece = icon-width track (auto,
+   matching the rail's own width — --sidebar-collapsed-w, 56px)
 
-   Tokens (override in your theme):
-     --topbar-height          inherited from topbar.css (56/48/64/72px)
-     --layout-aside-left-w    260px
-     --layout-aside-right-w   260px
-     --layout-hero-min-h       55vh
+   Piece count is structural: content alone = 1 piece; one aside =
+   2; both asides = 3; header/footer frame them. Any N-way split
+   inside the content piece comes from the utilities grid (ONE grid
+   system: .grid → .grid-cols-1…8).
 
-   Semantics: <aside> for .layout__aside-left / --right · <main> for
-              .layout__content · classless <header> for layout--has-hero
+   DOM order recommendation: topbar (if in-page), hero, header,
+   aside-start, content, aside-end, footer.
+
+   ── Space model ──
+   Zones are element-evidenced (:has()): the grid only reserves
+   side tracks for asides that actually exist, a collapsed sidebar
+   (sidebar--collapsed) shrinks its track to icon width, and an
+   absent header/footer band collapses to nothing. Unused space
+   flows into .layout__content.
+
+   ── Responsiveness ──
+   The sheet is a query container (@container exsa-page). At
+   ≤860px the pieces stack to one column — keyed to the SHEET's
+   width, not the viewport's, so the layout stays correct when
+   embedded (app pane, split view, iframe). A viewport media
+   query mirrors the same rules as the fallback for engines
+   without container queries.
+
+   ── Tokens (override on the page element or in your theme) ──
+   --layout-page-w            sheet width (default 100%; e.g. 80%)
+   --layout-page-min-h        sheet height (default 100vh/100dvh —
+                              footer pinned to the sheet bottom;
+                              set auto to size to content)
+   --layout-page-bg           var(--surface-bg)    sheet paper color
+   --layout-aside-start-w     clamp(220px, 25%, 300px) start piece
+   --layout-aside-end-w       clamp(220px, 25%, 300px) end piece
+   --layout-gap               spacing between pieces
+   --layout-hero-min-h        55vh    hero band height
+   --layout-measure           var(--width-content) centered content
+                              width (--grid--centered)
+   --layout-sticky-top        sticky offset — auto-syncs to the
+                              topbar height when a topbar is present
+   --layout-announce-h        40px    announce strip height
+
+   Semantics: <header> for .layout__header, <aside> for the side
+   pieces, <main> for .layout__content, <footer> for .layout__footer,
+   <header class="topbar"> for the in-page topbar.
    ============================================================ */
 
 
 :root {
-  --layout-aside-left-w: 260px;
-  --layout-aside-right-w: 260px;
-  --layout-content-w: 720px;
+  --layout-page-w: 100%;
+  --layout-page-min-h: 100vh;
+  --layout-page-bg: var(--surface-bg);
+  --layout-aside-start-w: clamp(220px, 25%, 300px);
+  --layout-aside-end-w: clamp(220px, 25%, 300px);
+  --layout-gap: calc(16px * var(--space-factor, 1));
   --layout-hero-min-h: 55vh;
+  --layout-measure: var(--width-content);
+  --layout-sticky-top: 0px;
+  --layout-announce-h: 40px;
 }
 
 /* ════════════════════════════════════════
-   1. TOPBAR
-   Uses --topbar-height (syncs with topbar.css size variants).
+   1. PAGE — the sheet of paper
    ════════════════════════════════════════ */
+.layout__page {
+  width: var(--layout-page-w);
+  max-width: 100%;
+  margin-inline: auto;
+  min-height: var(--layout-page-min-h);
+  background: var(--layout-page-bg);
+  border: var(--layout-page-border);
+  border-radius: var(--layout-page-radius);
+  box-shadow: var(--layout-page-shadow);
+  padding: var(--layout-page-pad);
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+}
+/* Dynamic-viewport height where supported — the sheet tracks the
+   visible viewport (mobile URL bars) instead of the large viewport. */
+.layout__page { min-height: var(--layout-page-min-h, 100dvh); }
 
-/* Default topbar height — the size-variant sync (body:has(.topbar--sm/lg/xl))
-   lives in topbar.css; this rule only guarantees the fallback. */
-.layout--has-topbar {
-  --topbar-height: 56px;
-  padding-top: var(--topbar-height);
+/* The sheet is the responsive context — pieces stack against the
+   sheet's own width, not the window's. */
+.layout__page { container-type: inline-size; container-name: exsa-page; }
+
+/* Sticky-offset sync — sticky side pieces clear the fixed bar
+   (outside topbar) or the in-page sticky topbar. */
+body:has(> .topbar) .layout__page { --layout-sticky-top: var(--topbar-height, 56px); }
+.layout__page:has(> .layout__topbar) { --layout-sticky-top: var(--topbar-height, 56px); }
+
+/* Frame mode — the outside full-bleed topbar and the footer adopt
+   the sheet's width, so page chrome and paper share one edge.
+   The outside chrome is a SIBLING of the sheet, so it reads
+   --layout-page-w from a shared ancestor (:root / body) — an
+   inline override on the page element alone can't reach it. */
+body:has(> .layout__page--frame) > .topbar,
+body:has(> .layout__page--frame) > .footer {
+  width: var(--layout-page-w, 100%);
+  max-width: 100%;
+  margin-inline: auto;
+}
+
+/* Content-sized sheet — sticky footer off (default pins the footer
+   to the sheet bottom via --layout-page-min-h). */
+.layout__page--auto { --layout-page-min-h: auto; }
+
+/* ════════════════════════════════════════
+   2. IN-PAGE TOPBAR — a piece above the grid
+   Pair with the .topbar component class for its chrome. The inset
+   reset drops the component's fixed-position offsets so the sticky
+   constraint stays purely vertical.
+   ════════════════════════════════════════ */
+.layout__page > .layout__topbar {
+  position: sticky;
+  top: 0;
+  inset-inline: auto;
+  z-index: var(--z-topbar, 10);
+}
+.layout__page > .layout__topbar + .layout__grid {
+  margin-block-start: var(--layout-gap);
+}
+.layout__page > .layout__topbar + .layout__hero {
+  margin-block-start: var(--layout-gap);
 }
 
 /* ════════════════════════════════════════
-   2. HERO — full-bleed, flush to topbar
+   3. ANNOUNCE — fixed strip above everything
+   Full-bleed chrome OUTSIDE the sheet (sibling of the page), like
+   the outside topbar. Body padding, the topbar's position, and the
+   sticky pieces' offset all account for it automatically. The link
+   color + white text are the canonical announcement look; retoken
+   in your theme to match a store's brand.
    ════════════════════════════════════════ */
-.layout--has-hero > header:not([class]) {
-  min-height: var(--layout-hero-min-h);
+.layout__announce {
+  position: fixed;
+  top: 0; inset-inline-start: 0; inset-inline-end: 0;
+  z-index: var(--z-announce, 95);
+  height: var(--layout-announce-h);
+  display: flex; align-items: center; justify-content: center;
+  gap: calc(8px * var(--space-factor, 1));
+  padding: 0 var(--gap);
+  background: var(--color-link);
+  color: var(--color-button-text, #fff);
+  font-size: 0.82rem;
+  font-weight: 600;
+  text-align: center;
 }
-.layout--has-topbar.layout--has-hero > header:not([class]) {
-  margin-top: calc(-1 * var(--topbar-height));
-  padding-top: var(--topbar-height);
+.layout__announce a {
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+/* Body reservation — announce only */
+body:has(> .layout__announce):not(:has(> .topbar)) {
+  padding-top: var(--layout-announce-h);
+}
+/* Body reservation — announce + outside topbar */
+body.has-topbar:has(.topbar):has(> .layout__announce) {
+  padding-top: calc(var(--topbar-height, 56px) + var(--layout-announce-h));
+}
+/* The fixed topbar sits below the announce strip */
+body:has(> .layout__announce) > .topbar { top: var(--layout-announce-h); }
+/* Sticky pieces clear both fixed bars */
+body:has(> .layout__announce) .layout__page {
+  --layout-sticky-top: calc(var(--topbar-height, 0px) + var(--layout-announce-h));
 }
 
 /* ════════════════════════════════════════
-   3. SHELL — flex/grid row: aside(s) + content
+   4. HERO — full-width band above the pieces
+   Pair with components/hero.css (or a classless <header>) for
+   the look — the layout only owns the band's place + height.
    ════════════════════════════════════════ */
-.layout__shell { display: flex; flex: 1; min-height: 0; margin-top: 20px;}
+.layout__page > .layout__hero { min-height: var(--layout-hero-min-h); }
+.layout__page > .layout__hero + .layout__grid {
+  margin-block-start: var(--layout-gap);
+}
 
-/* Both asides → 3-column grid */
-.layout--aside-left.layout--aside-right .layout__shell {
+/* ════════════════════════════════════════
+   5. GRID — the pieces (named zones, element-evidenced)
+   Side tracks exist only when their aside element does, and a
+   sidebar--collapsed piece shrinks its track to icon width (auto).
+   The header/footer bands are always declared and collapse to
+   nothing when absent. Rows: bands auto, content 1fr — with a
+   full-height sheet the footer pins to the bottom.
+   ════════════════════════════════════════ */
+.layout__grid {
   display: grid;
-  grid-template-columns: var(--layout-aside-left-w) 1fr var(--layout-aside-right-w);
+  flex: 1 1 auto;
+  min-height: 0;
+  grid-template-columns: 1fr;
+  grid-template-rows: auto minmax(0, 1fr) auto;
+  grid-template-areas:
+    "header"
+    "content"
+    "footer";
+  column-gap: var(--layout-gap);
 }
+.layout__grid > * { min-width: 0; }
 
-/* Aside sizing (flex mode, one aside) */
-.layout--aside-left:not(.layout--aside-right) .layout__shell > .layout__aside-left,
-.layout--has-sidebar:not(.layout--aside-right) .layout__shell > .layout__aside-left,
-.layout--aside-right:not(.layout--aside-left) .layout__shell > .layout__aside-right {
-  display: flex; flex-direction: column;
+/* One start aside → 2 pieces */
+.layout__grid:has(> .layout__aside-start:not(.sidebar--collapsed)):not(:has(> .layout__aside-end)) {
+  grid-template-columns: var(--layout-aside-start-w) 1fr;
+  grid-template-areas:
+    "header      header"
+    "aside-start content"
+    "footer      footer";
 }
-.layout--aside-left .layout__shell > .layout__aside-left,
-.layout--has-sidebar .layout__shell > .layout__aside-left {
-  width: var(--layout-aside-left-w); flex-shrink: 0;
-  height: auto; overflow: hidden;
+.layout__grid:has(> .layout__aside-start.sidebar--collapsed):not(:has(> .layout__aside-end)) {
+  grid-template-columns: auto 1fr;
+  grid-template-areas:
+    "header      header"
+    "aside-start content"
+    "footer      footer";
 }
-.layout--aside-right .layout__shell > .layout__aside-right {
-  width: var(--layout-aside-right-w); flex-shrink: 0;
-  height: auto; overflow: hidden;
-  order: 2;
+/* One end aside → 2 pieces */
+.layout__grid:has(> .layout__aside-end:not(.sidebar--collapsed)):not(:has(> .layout__aside-start)) {
+  grid-template-columns: 1fr var(--layout-aside-end-w);
+  grid-template-areas:
+    "header      header"
+    "content     aside-end"
+    "footer      footer";
 }
-.layout--aside-right .layout__content { order: 1; }
-
-/* Aside nav: fills and scrolls */
-.layout--aside-left .layout__shell > .layout__aside-left .sidebar__nav,
-.layout--has-sidebar .layout__shell > .layout__aside-left .sidebar__nav,
-.layout--aside-right .layout__shell > .layout__aside-right .sidebar__nav {
-  flex: 1; overflow-y: auto;
+.layout__grid:has(> .layout__aside-end.sidebar--collapsed):not(:has(> .layout__aside-start)) {
+  grid-template-columns: 1fr auto;
+  grid-template-areas:
+    "header      header"
+    "content     aside-end"
+    "footer      footer";
 }
-
-/* ════════════════════════════════════════
-   4. CONTENT
-   ════════════════════════════════════════ */
-.layout__content { flex: 1; min-width: 0; }
-
-/* ════════════════════════════════════════
-   5. DASHBOARD MODES — moved to layouts/dashboard.css
-   layout--aside-full / layout--full-height / layout--content-scroll /
-   layout--aside-collapsed were removed. Use dash--sidebar, dash--topbar,
-   dash--sidebar-sm instead.
-   ════════════════════════════════════════ */
-
-/* ════════════════════════════════════════
-   7. MOBILE (≤860px) — stack the shell:
-   sidebar(s) flow above/below content, full width.
-   ════════════════════════════════════ */
-@media (max-width: 860px) {
-  .layout__shell { flex-direction: column; }
-  .layout--aside-left.layout--aside-right .layout__shell { display: flex; }
-  .layout--aside-left .layout__shell > .layout__aside-left,
-  .layout--has-sidebar .layout__shell > .layout__aside-left,
-  .layout--aside-right .layout__shell > .layout__aside-right {
-    width: 100%; flex-shrink: 0; height: auto; overflow: visible;
-  }
-  .layout--aside-left .layout__shell > .layout__aside-left .sidebar__nav,
-  .layout--has-sidebar .layout__shell > .layout__aside-left .sidebar__nav,
-  .layout--aside-right .layout__shell > .layout__aside-right .sidebar__nav {
-    flex: 0 0 auto; max-height: 45vh;
-  }
-  .layout--aside-right .layout__shell > .layout__aside-right { order: 0; }
-  .layout--aside-right .layout__content { order: 0; }
-  .layout--topbar-content.layout--has-topbar .topbar {
-    inset-inline-start: 0; inset-inline-end: 0;
-  }
+/* Both asides → 3 pieces (each side keeps or drops its track
+   independently when sidebar--collapsed) */
+.layout__grid:has(> .layout__aside-start:not(.sidebar--collapsed)):has(> .layout__aside-end:not(.sidebar--collapsed)) {
+  grid-template-columns: var(--layout-aside-start-w) 1fr var(--layout-aside-end-w);
+  grid-template-areas:
+    "header      header      header"
+    "aside-start content     aside-end"
+    "footer      footer      footer";
+}
+.layout__grid:has(> .layout__aside-start.sidebar--collapsed):has(> .layout__aside-end:not(.sidebar--collapsed)) {
+  grid-template-columns: auto 1fr var(--layout-aside-end-w);
+  grid-template-areas:
+    "header      header      header"
+    "aside-start content     aside-end"
+    "footer      footer      footer";
+}
+.layout__grid:has(> .layout__aside-start:not(.sidebar--collapsed)):has(> .layout__aside-end.sidebar--collapsed) {
+  grid-template-columns: var(--layout-aside-start-w) 1fr auto;
+  grid-template-areas:
+    "header      header      header"
+    "aside-start content     aside-end"
+    "footer      footer      footer";
+}
+.layout__grid:has(> .layout__aside-start.sidebar--collapsed):has(> .layout__aside-end.sidebar--collapsed) {
+  grid-template-columns: auto 1fr auto;
+  grid-template-areas:
+    "header      header      header"
+    "aside-start content     aside-end"
+    "footer      footer      footer";
 }
 
 /* ════════════════════════════════════
-   8. TOPBAR / FOOTER WIDTH TOGGLES
-   Default: full-width. --content aligns to the content column.
-   ════════════════════════════════════════ */
+   6. ZONES + MODES
+   ════════════════════════════════════ */
+.layout__grid > .layout__header { grid-area: header; }
+.layout__grid > .layout__content { grid-area: content; min-width: 0; }
+.layout__grid > .layout__footer { grid-area: footer; }
+.layout__grid > .layout__aside-start { grid-area: aside-start; }
+.layout__grid > .layout__aside-end { grid-area: aside-end; }
 
-/* Topbar width toggles */
-.layout--topbar-full.layout--has-topbar .topbar {
-  inset-inline-start: 0; inset-inline-end: 0;
-}
-.layout--topbar-content.layout--has-topbar .topbar {
-  inset-inline-start: var(--layout-aside-left-w);
-}
-
-/* Footer width toggles */
-.layout--footer-full .footer {
-  margin-inline-start: 0; margin-inline-end: 0;
-}
-
-/* Force footer content-aligned (even without aside-full) */
-.layout--footer-content .footer {
-  margin-inline-start: var(--layout-aside-left-w);
+/* The track owns the side piece's width — this overrides fixed
+   component widths (e.g. .sidebar's 240px) so the piece fills its
+   track exactly. A collapsed piece is exempt: it keeps the rail
+   width from .sidebar--collapsed (--sidebar-collapsed-w, 56px), and
+   its auto track then matches that rail width exactly. */
+.layout__grid > .layout__aside-start:not(.sidebar--collapsed),
+.layout__grid > .layout__aside-end:not(.sidebar--collapsed) {
+  width: auto;
 }
 
-/* ════════════════════════════════════════
-   8. CENTERED — single-column, max-width
-   ════════════════════════════════════════ */
-.layout--centered .layout__content {
-  max-width: var(--width-content);
-  margin: 0 auto;
-  padding: var(--gap-2xl) var(--gap);
-}
+/* Vertical rhythm — bands carry the gap so an absent band leaves
+   no stray spacing (empty grid rows would still consume row-gap). */
+.layout__grid > .layout__header { margin-block-end: var(--layout-gap); }
+.layout__grid > .layout__footer { margin-block-start: var(--layout-gap); }
 
-/* ════════════════════════════════════════
-   9. STICKY FOOTER — footer at viewport bottom
-   ════════════════════════════════════════ */
-.layout--sticky-footer {
-  display: flex; flex-direction: column; min-height: 100vh;
-}
-.layout--sticky-footer .layout__shell { flex: 1; }
-.layout--sticky-footer.layout--has-topbar {
-  min-height: calc(100vh - var(--topbar-height));
-}
-
-/* ════════════════════════════════════════
-   10. ASIDE STICKY — sidebar sticks on scroll
-   ════════════════════════════════════════ */
-.layout--aside-sticky .layout__shell > .layout__aside-left {
+/* Sticky side pieces — clear the topbar via --layout-sticky-top
+   (auto-synced above from either topbar placement). */
+.layout__aside-start--sticky,
+.layout__aside-end--sticky {
   position: sticky;
-  top: var(--topbar-height);
-  height: calc(100vh - var(--topbar-height));
-  overflow: visible;
-  align-self: flex-start;
-}
-.layout--aside-sticky:not(.layout--has-topbar) .layout__shell > .layout__aside-left {
-  top: 0;
-  height: 100vh;
-}
-.layout--aside-sticky .layout__shell > .layout__aside-left .sidebar__nav {
-  flex: 1 1 0%;
+  top: var(--layout-sticky-top);
+  align-self: start;
+  max-height: calc(100vh - var(--layout-sticky-top));
+  max-height: calc(100dvh - var(--layout-sticky-top));
   overflow-y: auto;
 }
 
-/* ════════════════════════════════════════
-   11. BLOG MODE — centered, reading-optimized (merged from blog.css)
-   Use with the shared classes: layout--has-topbar + layout--has-hero.
-   ════════════════════════════════════════ */
-.blog__content {
-  max-width: var(--layout-content-w);
-  margin: 0 auto;
-  padding: var(--gap-2xl) var(--gap);
+/* Centered content piece — reading width from --layout-measure. */
+.layout__grid--centered > .layout__content {
+  max-width: var(--layout-measure);
+  width: 100%;
+  margin-inline: auto;
 }
 
-/* Wider variant for docs/guides */
-.blog--wide .blog__content {
-  max-width: calc(var(--layout-content-w) + 260px);
+/* ════════════════════════════════════
+   7. STACKING — pieces go single-column when the SHEET is ≤860px.
+   The viewport media query is the fallback for engines without
+   container queries (same rules, keyed to the window). The
+   @container block wins wherever both apply and stays correct
+   when the sheet is smaller than the viewport.
+   ════════════════════════════════════ */
+@media (max-width: 860px) {
+  .layout__grid {
+    display: flex;
+    flex-direction: column;
+  }
+  .layout__grid > * + * { margin-block-start: var(--layout-gap); }
+  .layout__grid > .layout__header { margin-block-end: 0; }
+  .layout__grid > .layout__footer { margin-block-start: 0; }
+  /* A collapsed rail keeps its icon width at any size — the 100%
+     reset applies to expanded pieces only. */
+  .layout__grid > .layout__aside-start:not(.sidebar--collapsed),
+  .layout__grid > .layout__aside-end:not(.sidebar--collapsed) {
+    width: 100%; flex-basis: 100%;
+  }
+  .layout__aside-start--sticky,
+  .layout__aside-end--sticky {
+    position: static;
+    max-height: none;
+    overflow: visible;
+  }
 }
 
-/* Full-width content sections (for code blocks, tables) */
-.blog--fullwidth .blog__content {
-  max-width: none;
-  padding: var(--gap-2xl) var(--gap);
-}
-
-/* Sticky table of contents */
-.blog--has-toc .blog__shell {
-  display: flex;
-  justify-content: center;
-  gap: var(--gap-xl);
-  max-width: calc(var(--layout-content-w) + 260px + var(--gap-xl));
-  margin: 0 auto;
-  padding: var(--gap-2xl) var(--gap);
-}
-.blog--has-toc .blog__content {
-  flex: 1;
-  min-width: 0;
-  max-width: var(--layout-content-w);
-  margin: 0;
-  padding: 0;
-}
-.blog--has-toc .blog__toc {
-  width: 200px;
-  flex-shrink: 0;
-  position: sticky;
-  top: calc(var(--topbar-height, 56px) + var(--gap));
-  align-self: flex-start;
-  max-height: calc(100vh - var(--topbar-height, 56px) - var(--gap-2xl));
-  overflow-y: auto;
-  font-size: 0.82rem;
-}
-.blog--has-toc .blog__toc a {
-  display: block;
-  padding: calc(4px * var(--space-factor, 1)) 0;
-  color: var(--color-text-secondary);
-  text-decoration: none;
-  border-inline-start: 2px solid transparent;
-  padding-inline-start: calc(12px * var(--space-factor, 1));
-  transition: color 0.15s, border-inline-start-color 0.15s;
-}
-.blog--has-toc .blog__toc a:hover,
-.blog--has-toc .blog__toc a.active {
-  color: var(--color-link);
-  border-inline-start-color: var(--color-link);
-}
-
-/* Prose — optional typography boost */
-.blog--prose .blog__content {
-  font-size: 1.05rem;
-  line-height: 1.8;
-}
-.blog--prose .blog__content h2 { margin-top: calc(2.5rem * var(--space-factor, 1)); }
-.blog--prose .blog__content h3 { margin-top: calc(2rem * var(--space-factor, 1)); }
-.blog--prose .blog__content p  { margin-bottom: calc(1.5rem * var(--space-factor, 1)); }
-.blog--prose .blog__content img {
-  border-radius: var(--border-radius);
-  margin: calc(2rem * var(--space-factor, 1)) auto;
-  display: block;
+@container exsa-page (max-width: 860px) {
+  .layout__grid {
+    display: flex;
+    flex-direction: column;
+  }
+  .layout__grid > * + * { margin-block-start: var(--layout-gap); }
+  .layout__grid > .layout__header { margin-block-end: 0; }
+  .layout__grid > .layout__footer { margin-block-start: 0; }
+  /* A collapsed rail keeps its icon width at any size — the 100%
+     reset applies to expanded pieces only. */
+  .layout__grid > .layout__aside-start:not(.sidebar--collapsed),
+  .layout__grid > .layout__aside-end:not(.sidebar--collapsed) {
+    width: 100%; flex-basis: 100%;
+  }
+  .layout__aside-start--sticky,
+  .layout__aside-end--sticky {
+    position: static;
+    max-height: none;
+    overflow: visible;
+  }
 }
 
 }

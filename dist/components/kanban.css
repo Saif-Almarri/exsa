@@ -53,7 +53,7 @@
   align-items: flex-start;
   gap: var(--kanban-gap);
   overflow-x: auto;
-  padding: 2px 2px 10px;
+  padding: calc(2px * var(--space-factor, 1)) calc(2px * var(--space-factor, 1)) calc(10px * var(--space-factor, 1));
 }
 
 /* ── Column ── */
@@ -62,8 +62,8 @@
   max-width: var(--kanban-col-w);
   display: flex;
   flex-direction: column;
-  gap: 10px;
-  padding: 12px;
+  gap: calc(10px * var(--space-factor, 1));
+  padding: calc(12px * var(--space-factor, 1));
   background: var(--kanban-col-bg);
   border: 1px solid var(--color-bg-secondary);
   border-radius: var(--border-radius);
@@ -78,7 +78,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 8px;
+  gap: calc(8px * var(--space-factor, 1));
 }
 .kanban__col-title {
   font-size: .82rem;
@@ -93,7 +93,7 @@
 .kanban__cards {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: calc(10px * var(--space-factor, 1));
   min-height: 48px;
   flex: 1;
 }
@@ -102,8 +102,8 @@
 .kanban__card {
   display: flex;
   flex-direction: column;
-  gap: 7px;
-  padding: 12px;
+  gap: calc(7px * var(--space-factor, 1));
+  padding: calc(12px * var(--space-factor, 1));
   background: var(--color-bg);
   border: 1px solid var(--color-bg-secondary);
   border-radius: var(--border-radius);
@@ -154,13 +154,13 @@ body.kanban-dragging .kanban__card { user-select: none; }
 .kanban__card-tags {
   display: flex;
   flex-wrap: wrap;
-  gap: 5px;
+  gap: calc(5px * var(--space-factor, 1));
 }
 .kanban__card-foot {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 8px;
+  gap: calc(8px * var(--space-factor, 1));
 }
 .kanban__card-date {
   font-size: .7rem;
@@ -171,7 +171,7 @@ body.kanban-dragging .kanban__card { user-select: none; }
 /* ── Add button ── */
 .kanban__add {
   width: 100%;
-  padding: 8px;
+  padding: calc(8px * var(--space-factor, 1));
   border: 1px dashed var(--color-bg-secondary);
   border-radius: var(--border-radius);
   background: none;
@@ -187,7 +187,7 @@ body.kanban-dragging .kanban__card { user-select: none; }
 
 /* ── Empty column hint ── */
 .kanban__empty {
-  padding: 14px 10px;
+  padding: calc(14px * var(--space-factor, 1)) calc(10px * var(--space-factor, 1));
   text-align: center;
   font-size: .76rem;
   color: var(--color-text-secondary);

@@ -6,7 +6,7 @@
 
 /* --- C9: TIMELINE --- */
 .timeline{position:relative;padding-inline-start: calc(28px * var(--space-factor, 1))}
-.timeline::before{content:'';position:absolute;inset-inline-start:11px;top:4px;bottom:4px;width:2px;background:var(--color-bg-secondary);border-radius:1px}
+.timeline::before{content:'';position:absolute;inset-inline-start:11px;top:4px;bottom:4px;width:2px;background:var(--color-bg-secondary);border-radius:var(--border-radius)}
 .timeline__item{position:relative;padding-bottom: calc(28px * var(--space-factor, 1))}
 .timeline__item:last-child{padding-bottom:0}
 .timeline__dot{position:absolute;inset-inline-start:-25px;top:6px;width:18px;height:18px;border-radius:50%;background:var(--color-bg);border:2px solid var(--color-link);z-index:1}

@@ -95,4 +95,13 @@
   border-color: #fff;
 }
 
+/* Short viewports (landscape phones) — size to the content instead
+   of clipping against the 60vh minimum */
+@media (max-height: 480px) {
+  :where(body.exsa > header:not([class]):has(> figure)) {
+    min-height: auto;
+    padding-block: var(--gap-2xl);
+  }
+}
+
 }

@@ -92,7 +92,7 @@ export function generateDebugCss(manifestPath = join(root, 'manifest.json')) {
 /* ---------- class registry (spellchecker) ---------- */
 const CSS_SOURCES = (() => {
   const files = ['dist/exsa.css', 'dist/exsa.fluid.css'];
-  for (const dir of ['dist/components', 'dist/layouts', 'dist/templates']) {
+  for (const dir of ['dist/components', 'dist/layouts']) {
     const walk = (rel) => {
       for (const ent of readdirSync(join(root, rel), { withFileTypes: true })) {
         const p = `${rel}/${ent.name}`;
@@ -220,8 +220,8 @@ const EXSA_DEBUG_CLASSES = ${payload};
    Class-conflict detector — warns when a NON-EXSA stylesheet
    defines a class name the framework also uses (".flex",
    ".container", …). EXSA-owned sheets are recognized by path
-   (/dist/, /components/, /themes/, /layouts/, /templates/,
-   exsa*.css). Cross-origin sheets (fonts, CDNs) are skipped.
+   (/dist/, /components/, /themes/, /layouts/, exsa*.css).
+   Cross-origin sheets (fonts, CDNs) are skipped.
    ════════════════════════════════════════════════════════════ */
 (function () {
   if (!document.documentElement.hasAttribute('data-debug')) return;
@@ -229,7 +229,7 @@ const EXSA_DEBUG_CLASSES = ${payload};
   var registry = {};
   EXSA_DEBUG_CLASSES.classes.forEach(function (c) { registry[c] = true; });
 
-  var OWN_SHEET = /(\\/(dist|components|themes|layouts|templates)\\/|(^|\\/)(exsa(\\.bundle|\\.fluid|\\.debug)?\\.css)$)/;
+  var OWN_SHEET = /(\\/(dist|components|themes|layouts)\\/|(^|\\/)(exsa(\\.bundle|\\.fluid|\\.debug)?\\.css)$)/;
   function isOwn(s) {
     try { return s.href && OWN_SHEET.test(s.href); } catch (e) { return false; }
   }

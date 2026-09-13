@@ -38,7 +38,7 @@ const fail = (m) => errors.push(m);
 const warn = (m) => warnings.push(m);
 
 /* ---------- collect CSS files ---------- */
-const cssRoots = ['dist/components', 'dist/themes', 'dist/skins', 'dist/layouts', 'dist/templates'];
+const cssRoots = ['dist/components', 'dist/themes', 'dist/skins', 'dist/layouts'];
 const cssFiles = ['dist/exsa.css', 'dist/style.css', 'dist/exsa.fluid.css', 'dist/exsa.debug.css'];
 const walkDir = (rel) => {
   for (const ent of readdirSync(join(root, rel), { withFileTypes: true })) {
@@ -60,7 +60,7 @@ const refs = new Set();
 (function walk(v) {
   if (typeof v === 'string') {
     const clean = v.split('?')[0];
-    if (/^(dist\/)?(components|themes|layouts|templates|js)\/[A-Za-z0-9._/-]+\.(css|js|svg|html)$/.test(clean) ||
+    if (/^(dist\/)?(components|themes|layouts|js)\/[A-Za-z0-9._/-]+\.(css|js|svg|html)$/.test(clean) ||
         /^(dist\/)?(style\.css|exsa\.fluid\.css|exsa\.css|exsa\.bundle\.css)(\?v=\d+)?$/.test(clean)) refs.add(clean);
   } else if (Array.isArray(v)) v.forEach(walk);
   else if (v && typeof v === 'object') Object.values(v).forEach(walk);
@@ -353,7 +353,7 @@ for (const lay of manifest.layouts || []) {
   if (!arr || !arr.length) continue;
   const src = readFileSync(join(root, lay.file), 'utf8');
   for (const cond of arr) {
-    const whenClass = cond.when.replace(/^body\./, '');
+    const whenClass = cond.when.replace(/^body\./, '').replace(/^body:has\(([^)]+)\)$/, '$1');
     if (!src.includes(whenClass)) fail(`layout ${lay.id}: structure.when "${cond.when}" not found in ${lay.file}`);
     for (const part of cond.required || []) {
       if (part.startsWith('>') || part.includes(':')) continue; // structural selectors — skip static check

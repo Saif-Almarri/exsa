@@ -256,15 +256,10 @@
       "id": "general",
       "name": "General",
       "file": "dist/layouts/general.css",
-      "desc": "Compositional page shell — topbar, hero, aside, content, footer toggles, plus merged blog mode (blog--prose, blog--has-toc).",
+      "desc": "The paper model — element-driven page shell: a sheet (.layout__page) over the viewport, a grid of optional pieces (.layout__grid: header, start/end asides, content, footer), sheet-keyed stacking, sticky/centered/frame modes, and the --layout-* token family.",
       "structure": [
-        { "when": "body.layout--has-topbar", "required": [".topbar"] },
-        { "when": "body.layout--has-hero", "required": ["> header:not([class])"] },
-        { "when": "body.layout--aside-left", "required": [".layout__shell", ".layout__aside-left", ".layout__content"] },
-        { "when": "body.layout--has-sidebar", "required": [".layout__shell", ".layout__aside-left", ".layout__content"] },
-        { "when": "body.layout--aside-right", "required": [".layout__shell", ".layout__aside-right", ".layout__content"] },
-        { "when": "body.layout--centered", "required": [".layout__content"] },
-        { "when": "body.blog--has-toc", "required": [".blog__shell", ".blog__content", ".blog__toc"] }
+        { "when": "body:has(.layout__page)", "required": [".layout__grid", ".layout__content"] },
+        { "when": ".layout__page > .layout__topbar", "required": [".topbar"] }
       ],
       "tier": "free"
     },
@@ -272,25 +267,9 @@
       "id": "dashboard",
       "name": "Dashboard",
       "file": "dist/layouts/dashboard.css",
-      "desc": "Full-viewport admin shell with fixed sidebar and scrollable content.",
+      "desc": "App-frame focus layer over the paper model — link AFTER general.css: .layout__page--app turns the sheet into the viewport (100dvh, no body scroll) with a fixed full-height .layout__aside-start rail and a scrolling .layout__content pane; clears an outside topbar automatically.",
       "structure": [
-        { "when": "body.dash--sidebar", "required": [".dash__sidebar", ".dash__content"] },
-        { "when": "body.dash--topbar", "required": [".topbar"] },
-        { "when": "body.dash--panel", "required": [".dash__shell", ".dash__content", ".dash__panel"] }
-      ],
-      "tier": "free"
-    },
-    {
-      "id": "store",
-      "name": "Store",
-      "file": "dist/layouts/store.css",
-      "desc": "Product catalog — announce bar, cart topbar, filter sidebar, product grid.",
-      "structure": [
-        { "when": "body.shop--announce", "required": [".shop__announce"] },
-        { "when": "body.shop--topbar", "required": [".topbar"] },
-        { "when": "body.shop--hero", "required": ["> header:not([class])"] },
-        { "when": "body.shop--sidebar", "required": [".shop__shell", ".shop__aside", ".shop__content"] },
-        { "when": "body.shop--sidebar-right", "required": [".shop__shell", ".shop__aside-right", ".shop__content"] }
+        { "when": "body:has(.layout__page--app)", "required": [".layout__grid", ".layout__aside-start", ".layout__content"] }
       ],
       "tier": "free"
     }
@@ -504,8 +483,8 @@
         "search.svg",
         "user.svg"
       ],
-      "desc": "Vertical navigation sidebar with icons, collapsible sub-menus, and active states.",
-      "structure": { "root": ".sidebar", "required": [".sidebar__nav", ".sidebar__link"], "optional": [".sidebar__head", ".sidebar__icon", ".sidebar__label", ".sidebar__arrow", ".sidebar__sub", ".sidebar__sub-menu", ".sidebar__badge"] },
+      "desc": "Vertical navigation sidebar with icons, collapsible sub-menus, active states, a dark variant (.sidebar--dark), a manual icon-only collapse (.sidebar--collapsed, rail width via --sidebar-collapsed-w), a fluid container-driven collapse (.sidebar--fluid), a click-to-open tray beside icon-only rails (sidebar.js), and an automatic icon-only rail at ≤767px (layout-shell pieces exempt).",
+      "structure": { "root": ".sidebar", "required": [".sidebar__nav", ".sidebar__link"], "optional": [".sidebar__head", ".sidebar__icon", ".sidebar__label", ".sidebar__arrow", ".sidebar__sub", ".sidebar__sub-menu", ".sidebar__badge", ".sidebar__tray", ".sidebar__tray-title"] },
       "tier": "free"
     },
     {
@@ -518,7 +497,7 @@
       "icons": [
         "menu.svg"
       ],
-      "desc": "Fixed top navigation bar. Transparent at top, solid with backdrop-blur on scroll. Mobile hamburger menu.",
+      "desc": "Fixed top navigation bar with a search box (.topbar__search). Transparent at top, solid with backdrop-blur on scroll. Mobile hamburger menu.",
       "tier": "free"
     },
     {
@@ -623,7 +602,7 @@
       "css": "dist/components/badge.css",
       "js": null,
       "pureCss": true,
-      "desc": "Inline badge/tag with color variants and rounded pill style.",
+      "desc": "Inline badge/tag with color variants, a solid pill counter (.badge--solid), and rounded pill style.",
       "tier": "free"
     },
     {
@@ -1184,7 +1163,7 @@
       "css": "dist/components/product-card.css",
       "js": null,
       "pureCss": true,
-      "desc": "Store product tile (.shop__card) for layouts/store.css product grids.",
+      "desc": "Store product tile (.shop__card) plus the .shop__grid product grid — used inside any layout's content piece.",
       "structure": { "root": ".shop__card", "required": [".shop__card-title"], "optional": [".shop__card-image", ".shop__card-badge", ".shop__card-body", ".shop__card-price", ".shop__card-price--old", ".shop__card-rating"] },
       "tier": "free"
     },
@@ -1573,7 +1552,7 @@
         { "css": "--z-cookiebar", "name": "Cookie consent bar", "type": "number" },
         { "css": "--z-topbar", "name": "Fixed topbar", "type": "number" },
         { "css": "--z-topbar-dropdown", "name": "Topbar dropdown menus", "type": "number" },
-        { "css": "--z-announce", "name": "Store announcement bar (above topbar)", "type": "number" },
+        { "css": "--z-announce", "name": "Announcement bar (above topbar)", "type": "number" },
         { "css": "--z-modal", "name": "Modal dialogs + video modals (above topbar)", "type": "number" },
         { "css": "--z-lightbox", "name": "Fullscreen lightbox", "type": "number" },
         { "css": "--z-popover-backdrop", "name": "Popover backdrop", "type": "number" },
@@ -1610,6 +1589,12 @@
           { "css": "--topbar-height", "name": "Topbar height (body padding syncs via :has())", "type": "dimension", "note": "Size variants: 48px (sm), 56px (default), 64px (lg), 72px (xl). Body padding-top auto-syncs." }
         ]
       },
+      "sidebar": {
+        "file": "dist/components/sidebar.css",
+        "tokens": [
+          { "css": "--sidebar-collapsed-w", "name": "Collapsed icon-only rail width", "type": "dimension", "fallback": "56px", "note": "Owned by the sidebar component; general.css and dashboard.css read the same token to sync their tracks and content margins with the collapsed rail." }
+        ]
+      },
       "progress": {
         "file": "dist/components/progress.css",
         "tokens": [
@@ -1629,19 +1614,16 @@
       }
     },
     "layouts": {
-      "dashboard": {
-        "file": "dist/layouts/dashboard.css",
+      "general": {
+        "file": "dist/layouts/general.css",
         "tokens": [
-          { "css": "--dash-gap", "name": "Dashboard shell gap", "type": "dimension" },
-          { "css": "--dash-col-min", "name": "Dashboard grid column minimum", "type": "dimension" },
-          { "css": "--dash-toolbar-z", "name": "Dashboard toolbar z-index", "type": "number" }
-        ]
-      },
-      "fullpage": {
-        "file": "dist/templates/fullpage/fullpage.css",
-        "tokens": [
-          { "css": "--fullpage-pan-image", "name": "Seamless pan tile image", "type": "image", "fallback": "none", "note": "Required for --pan mode." },
-          { "css": "--fullpage-pattern", "name": "Optional texture over the backdrop", "type": "image", "fallback": "none" }
+          { "css": "--layout-page-w", "name": "Sheet width", "type": "dimension", "fallback": "100%" },
+          { "css": "--layout-page-min-h", "name": "Sheet min height", "type": "dimension", "fallback": "100vh" },
+          { "css": "--layout-aside-start-w", "name": "Start side piece width", "type": "dimension", "fallback": "clamp(220px, 25%, 300px)" },
+          { "css": "--layout-aside-end-w", "name": "End side piece width", "type": "dimension", "fallback": "clamp(220px, 25%, 300px)" },
+          { "css": "--layout-gap", "name": "Piece gap", "type": "dimension", "fallback": "calc(16px * var(--space-factor, 1))" },
+          { "css": "--layout-hero-min-h", "name": "Hero band height", "type": "dimension", "fallback": "55vh" },
+          { "css": "--layout-measure", "name": "Centered content measure", "type": "dimension", "note": "Defaults to --width-content (1080px); override for blog-style reading columns (e.g. 720px)." }
         ]
       }
     }

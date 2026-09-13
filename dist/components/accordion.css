@@ -31,7 +31,7 @@
 .accordion details.accordion__item[open] > .accordion__label{color:var(--color-link)}
 .accordion details.accordion__item[open] > .accordion__label::after{transform:rotate(45deg)}
 .accordion details.accordion__item > .accordion__panel{max-height:0;overflow:hidden;transition:max-height .35s ease,padding .35s ease}
-.accordion details.accordion__item[open] > .accordion__panel{max-height:2000px}
+.accordion details.accordion__item[open] > .accordion__panel{max-height:6000px /* animation ceiling — taller panels clip (CSS-only limitation) */}
 
 /* ── Checkbox hack — legacy ── */
 .accordion__trigger{display:none}
@@ -45,7 +45,7 @@
 .accordion__panel{max-height:0;overflow:hidden;transition:max-height .35s ease,padding .35s ease}
 .accordion__panel-inner{padding: 0 calc(18px * var(--space-factor, 1)) calc(16px * var(--space-factor, 1));font-size:.84rem;color:var(--color-text-secondary);line-height:1.7}
 .accordion__trigger:checked ~ .accordion__panel,
-.accordion__label[aria-expanded="true"] ~ .accordion__panel{max-height:2000px}
+.accordion__label[aria-expanded="true"] ~ .accordion__panel{max-height:6000px}
 
 /* Compact variant */
 .accordion--sm .accordion__label{padding: calc(10px * var(--space-factor, 1)) calc(14px * var(--space-factor, 1));font-size:.82rem}

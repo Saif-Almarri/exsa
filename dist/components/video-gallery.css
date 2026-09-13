@@ -6,7 +6,7 @@
    ============================================================ */
 
 /* --- C18: VIDEO GALLERY --- */
-.video-gallery{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap: calc(20px * var(--space-factor, 1))}
+.video-gallery{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(280px,100%),1fr));gap: calc(20px * var(--space-factor, 1))}
 .video-gallery__card{position:relative;border-radius:var(--surface-radius);overflow:hidden;background:var(--surface-bg);border:var(--surface-border);transition:box-shadow .25s,transform .25s;cursor:pointer}
 .video-gallery__card:hover{box-shadow:var(--surface-shadow-sm);transform:translateY(-2px)}
 .video-gallery__thumb{position:relative;aspect-ratio:16/9;overflow:hidden;background:var(--color-bg-secondary)}
@@ -15,7 +15,7 @@
 .video-gallery__play{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:54px;height:54px;border-radius:50%;background:rgba(0,0,0,.6);border:2px solid rgba(255,255,255,.85);display:flex;align-items:center;justify-content:center;transition:background .2s,transform .2s;pointer-events:none}
 .video-gallery__play::after{content:'';display:block;width:0;height:0;border-style:solid;border-width:9px 0 9px 16px;border-color:transparent transparent transparent #fff;margin-left: calc(3px * var(--space-factor, 1))}
 .video-gallery__card:hover .video-gallery__play{background:var(--color-link);border-color:var(--color-link);transform:translate(-50%,-50%) scale(1.12)}
-.video-gallery__duration{position:absolute;bottom:10px;inset-inline-end:10px;background:rgba(0,0,0,.72);color:#fff;font-size:.68rem;font-weight:600;padding: calc(3px * var(--space-factor, 1)) calc(8px * var(--space-factor, 1));border-radius:4px;font-family:var(--font-family-mono);letter-spacing:.02em;pointer-events:none}
+.video-gallery__duration{position:absolute;bottom:10px;inset-inline-end:10px;background:rgba(0,0,0,.72);color:#fff;font-size:.68rem;font-weight:600;padding: calc(3px * var(--space-factor, 1)) calc(8px * var(--space-factor, 1));border-radius:var(--border-radius);font-family:var(--font-family-mono);letter-spacing:.02em;pointer-events:none}
 .video-gallery__info{padding: calc(14px * var(--space-factor, 1)) calc(16px * var(--space-factor, 1))}
 .video-gallery__title{font-size:.88rem;font-weight:600;color:var(--color-text);margin:0;line-height:1.35}
 .video-gallery__meta{font-size:.72rem;color:var(--color-text-secondary);margin-top: calc(4px * var(--space-factor, 1))}

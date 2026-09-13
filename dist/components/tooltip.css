@@ -5,6 +5,9 @@
    ARIA: role="tooltip" on .tooltip; for hover/focus-only content also
          expose the tip as aria-label/aria-describedby (::after text
          is not reliably announced by screen readers)
+   Positioning: centered above the trigger, viewport-capped
+   (max-width: min(320px, 100vw - 24px)). Exact edge-flip needs
+   position-anchor or JS — the CSS-only build clamps, not flips.
    ============================================================ */
    
 /* --- C10: TOOLTIP --- */

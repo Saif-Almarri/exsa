@@ -28,15 +28,15 @@
 .activity { display: block; }
 
 /* ── Group ── */
-.activity__group { margin-bottom: 22px; }
+.activity__group { margin-bottom: calc(22px * var(--space-factor, 1)); }
 .activity__group:last-child { margin-bottom: 0; }
 
 /* ── Day header with connecting rule ── */
 .activity__header {
   display: flex;
   align-items: center;
-  gap: 10px;
-  margin-bottom: 12px;
+  gap: calc(10px * var(--space-factor, 1));
+  margin-bottom: calc(12px * var(--space-factor, 1));
   font-size: .7rem;
   font-weight: 700;
   letter-spacing: .06em;
@@ -54,8 +54,8 @@
 /* ── Track + items ── */
 .activity__list {
   position: relative;
-  padding-inline-start: 20px;
-  margin-inline-start: 5px;
+  padding-inline-start: calc(20px * var(--space-factor, 1));
+  margin-inline-start: calc(5px * var(--space-factor, 1));
 }
 .activity__list::before {
   content: '';
@@ -64,7 +64,7 @@
   top: 6px;
   bottom: 6px;
   width: 2px;
-  border-radius: 2px;
+  border-radius: var(--border-radius);
   background: var(--color-bg-secondary);
 }
 
@@ -73,8 +73,8 @@
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
-  gap: 14px;
-  padding: 7px 0;
+  gap: calc(14px * var(--space-factor, 1));
+  padding: calc(7px * var(--space-factor, 1)) 0;
 }
 .activity__item::before {
   content: '';
@@ -105,7 +105,7 @@
   font-size: .76rem;
   color: var(--color-text-secondary);
   line-height: 1.5;
-  margin-top: 1px;
+  margin-top: calc(1px * var(--space-factor, 1));
   word-wrap: break-word;
 }
 .activity__time {
@@ -113,6 +113,6 @@
   color: var(--color-text-secondary);
   font-family: var(--font-family-mono);
   white-space: nowrap;
-  padding-top: 2px;
+  padding-top: calc(2px * var(--space-factor, 1));
 }
 }

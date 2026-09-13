@@ -22,6 +22,10 @@
 .dropdown__menu{position:absolute;top:calc(100% + 4px);inset-inline-start:0;min-width:160px;background:var(--surface-bg);border:var(--surface-border);border-radius:var(--surface-radius);box-shadow:var(--surface-shadow-md),0 0 0 1px color-mix(in srgb,var(--color-bg-secondary)60%,transparent);padding: calc(4px * var(--space-factor, 1));z-index:var(--z-dropdown);opacity:0;transform:scale(.95) translateY(-4px);transform-origin:top left;pointer-events:none;transition:opacity .12s,transform .12s}
 .dropdown--open .dropdown__menu{opacity:1;transform:scale(1) translateY(0);pointer-events:all}
 
+/* End-aligned — flips to the inline-end edge (use when the trigger
+   sits near the viewport's inline-end edge) */
+.dropdown--align-end .dropdown__menu{inset-inline-start:auto;inset-inline-end:0;transform-origin:top right}
+
 /* ── Soft variant ── */
 .dropdown--soft .dropdown__menu{background:var(--color-bg-secondary);border-color:transparent;box-shadow:0 4px 12px color-mix(in srgb,#000 6%,transparent)}
 

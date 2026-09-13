@@ -112,12 +112,11 @@ Only `dist/exsa.css` is required — it ships a built-in default theme. The them
 |---|---|---|
 | `dist/exsa.fluid.css` | For fluid scaling + density profiles | Spacing / typography / shape scale with viewport; `data-profile` attributes. Link **after** core + theme. |
 | `dist/components/<name>.css` | When the component appears on the page | ~1 KB each — zero dead styles. Link **after** core. |
-| `dist/layouts/<name>.css` | When using a layout shell (dash, store, general, …) | Link **after** core + theme. |
+| `dist/layouts/<name>.css` | When using the layout shell (general) | Link **after** core + theme. |
 | `dist/js/exsa-core.js` | Before any behavior file that needs shared helpers | Focus-trap + breakpoint helpers. Load **first**. |
 | `dist/js/<name>.js` | For interactive components only | One behavior file per component; several warn if `exsa-core.js` isn't loaded first. |
 | `dist/exsa.bundle.css` | Instead of core + every component | Prebuilt: core + all components + breeze. **CSS only — no JS**; pair with `dist/exsa.js` for behaviors. |
 | `dist/exsa.js` | Instead of every behavior file | Prebuilt: all behaviors bundled. |
-| `dist/templates/<name>/` | Starting a new project | Copy the whole template folder; it links its own local files. |
 
 > **Icon assets** — the `.ic-*` classes reference `components/icons/*.svg` by relative URL. Copy that folder next to any component CSS (or bundle) you ship, or icons render blank.
 
@@ -228,7 +227,7 @@ Priority  Layer                 Covers
   6       @layer exsa.utilities Flex, grid, containers, breakpoints
   7       @layer exsa.elements  Guarded Classless — semantic HTML with instant opt-out
   8       @layer exsa.components 68 BEM components, zero specificity
-  9       @layer exsa.layouts   Page shells (general, dashboard, store)
+  9       @layer exsa.layouts   Page shells — general (paper base) + dashboard (app-frame focus)
   10      @layer exsa.overrides u-* escape-hatch utilities
 
   ∞       Unlayered             User CSS — always wins
@@ -351,7 +350,7 @@ Always active — no `.exsa` prefix needed.
 | Class | Effect |
 |---|---|
 | `.grid` | `display: grid` |
-| `.grid-cols-1`–`.grid-cols-6` | Fixed columns |
+| `.grid-cols-1`–`.grid-cols-8` | Fixed columns |
 | `.grid-auto-fit` | `repeat(auto-fit, minmax(200px, 1fr))` — auto-wrapping cards |
 | `.grid-auto-fill` | `repeat(auto-fill, minmax(200px, 1fr))` |
 
@@ -727,7 +726,14 @@ EXSA targets WCAG 2.1 AA compliance.
 | `color-mix()` | Chrome 111, Firefox 113, Safari 16.2 |
 | `light-dark()` | Chrome 123, Firefox 120, Safari 17.5 |
 
-**Full support**: Chrome 123+, Firefox 121+, Safari 17.5+ (2024+). Older browsers degrade gracefully — `:has()`/container queries silently fall back, and color tokens fall back to a built-in system-color palette (`Canvas`, `LinkText`, …) that stays dark-aware via `color-scheme`, so the page remains styled and readable but uses system colors instead of the theme.
+**Support tiers** — older browsers degrade in defined steps; the page never gets a half-applied theme.
+
+| Cohort | Behavior |
+|---|---|
+| 2024+ (Chrome 123+, Firefox 121+, Safari 17.5+) | **Full** — layers, `color-mix()`, `:has()`, container queries, `light-dark()`. |
+| 2023 (Chrome 111–122, Firefox 113–120, Safari 16.2–17.4) | `light-dark()` falls back to a built-in system-color palette (`Canvas`, `LinkText`, …) that stays dark-aware via `color-scheme`. Firefox < 121 lacks `:has()`: classless card/hero auto-detection renders as plain vertical cards, and topbar size variants stay at default height so body padding never desyncs. |
+| 2022 – early 2023 (Chrome 99–110, Firefox 97–112, Safari 15.4–16.1) | `@layer` works; `color-mix()` doesn't — surface tokens fall back to flat, opaque values with static shadows (plus the system-color palette above). Styled and readable; theme colors not applied. |
+| Pre-2022 (Chrome < 99, Firefox < 97, Safari < 15.4) | **Unstyled.** `@layer` is a hard requirement — these browsers drop the entire layered stylesheet, and no fallback sheet is shipped. Architectural, by design. |
 
 **Not supported**: IE11 (no custom properties).
 
@@ -774,8 +780,7 @@ root
 │   ├── style.css            Deprecated alias — @import of exsa.css (removed in v1.0.0)
 │   ├── exsa.fluid.css        Fluid tokens & density profiles (optional)
 │   ├── js/                   Behaviors — one file per component (+ exsa-core.js, exsa.js)
-│   ├── layouts/               3 page layouts (general, dashboard, store)
-│   ├── templates/             2 starter templates (fullpage, onepage)
+│   ├── layouts/               2 files — general (paper base) + dashboard (app-frame focus)
 │   ├── components/            68 component files + icons/
 │   └── themes/                20 themes
 ├── tools/                   build-debug.mjs — generates the debug linter files

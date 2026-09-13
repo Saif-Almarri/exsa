@@ -24,4 +24,11 @@
 .stepper--vertical .stepper__label{margin-top: calc(4px * var(--space-factor, 1))}
 .stepper--vertical .stepper__step:last-child{padding-bottom:0}
 
+/* Compact on narrow screens — 4+ steps stay legible at ≤480px */
+@media (max-width: 480px) {
+  .stepper__dot { width: 28px; height: 28px; font-size: .7rem; }
+  .stepper__label { font-size: .68rem; }
+  .stepper__step::after { top: 14px; inset-inline-start: calc(50% + 16px); width: calc(100% - 32px); }
+}
+
 }

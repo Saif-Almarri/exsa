@@ -29,16 +29,20 @@
 /* Push page content below the fixed topbar.
    --topbar-height is the single source of truth — both body padding
    and .topbar height read from it. Size variants sync automatically
-   via :has() so body padding always matches the actual topbar height. */
-body.has-topbar {
+   via :has() so body padding always matches the actual topbar height.
+   :has(.topbar) element evidence — a declared topbar absent from the
+   DOM reserves no height (pre-:has() engines fall back below). */
+body.has-topbar:has(.topbar) {
   --topbar-height: 56px;
   padding-top: var(--topbar-height);
 }
 
-/* Size variants — set on topbar, body syncs via :has() */
-body:has(.topbar--sm) { --topbar-height: 48px; }
-body:has(.topbar--lg) { --topbar-height: 64px; }
-body:has(.topbar--xl) { --topbar-height: 72px; }
+/* Size variants — set on topbar, body syncs via :has(). The .has-topbar
+   prefix raises specificity above the base reservation rule, which
+   would otherwise always win (0,2,1 beats 0,1,1 regardless of order). */
+body.has-topbar:has(.topbar--sm) { --topbar-height: 48px; }
+body.has-topbar:has(.topbar--lg) { --topbar-height: 64px; }
+body.has-topbar:has(.topbar--xl) { --topbar-height: 72px; }
 
 /* Scrolled — elevation follows the active skin */
 .topbar--scrolled {
@@ -49,6 +53,19 @@ body:has(.topbar--xl) { --topbar-height: 72px; }
 .topbar--sm { --topbar-height: 48px; }
 .topbar--lg { --topbar-height: 64px; }
 .topbar--xl { --topbar-height: 72px; }
+
+/* Legacy — engines without :has() (Firefox <121): pin size variants to the
+   default height so body padding (56px) never desyncs from the bar. */
+@supports not selector(:has(*)) {
+  .topbar--sm { --topbar-height: 56px; }
+  .topbar--lg { --topbar-height: 56px; }
+  .topbar--xl { --topbar-height: 56px; }
+  /* No element evidence available — keep the class-based reservation. */
+  body.has-topbar {
+    --topbar-height: 56px;
+    padding-top: var(--topbar-height);
+  }
+}
 
 /* Transparent — skin-tinted frost, always slightly see-through.
    No backdrop-filter here: the crash rule — a bar toggling over
@@ -169,7 +186,9 @@ body:has(.topbar--xl) { --topbar-height: 72px; }
   background: var(--color-bg);
   color: var(--color-text);
 }
-.topbar__btn:hover {
+/* Secondary buttons tint on hover; the primary variant keeps its
+   link background and dims via opacity instead. */
+.topbar__btn:not(.topbar__btn--primary):hover {
   background: var(--color-bg-secondary);
 }
 .topbar__btn--primary {
@@ -179,7 +198,28 @@ body:has(.topbar--xl) { --topbar-height: 72px; }
 }
 .topbar__btn--primary:hover {
   opacity: 0.9;
+  background: var(--color-link);
 }
+
+/* Search box in the topbar (store layout, doc shells) */
+.topbar__search {
+  display: flex;
+  align-items: center;
+  background: var(--color-bg-secondary);
+  border-radius: var(--border-radius);
+  padding: calc(6px * var(--space-factor, 1)) calc(12px * var(--space-factor, 1));
+  gap: calc(6px * var(--space-factor, 1));
+  font-size: 0.84rem;
+  color: var(--color-text-secondary);
+  cursor: text;
+  min-width: 240px;
+}
+.topbar__search input {
+  border: none; background: none; outline: none;
+  font-family: inherit; font-size: inherit; color: var(--color-text);
+  width: 100%;
+}
+
 
 /* ── Dropdown menus ── */
 .topbar__dropdown { position: relative; }
@@ -194,7 +234,7 @@ body:has(.topbar--xl) { --topbar-height: 72px; }
 .topbar__dd-menu {
   position: absolute;
   top: calc(100% + 10px);
-  left: 0;
+  inset-inline-start: 0;
   min-width: 180px;
   background: var(--surface-bg);
   border: var(--surface-border);
@@ -227,7 +267,7 @@ body:has(.topbar--xl) { --topbar-height: 72px; }
   content: '';
   position: absolute;
   top: -6px;
-  left: 16px;
+  inset-inline-start: 16px;
   width: 12px;
   height: 12px;
   background: var(--color-bg);
@@ -366,6 +406,8 @@ body:has(.topbar--xl) { --topbar-height: 72px; }
   .topbar__dd-menu li { display: block; padding: 0; margin: 0; border-bottom: 0; }
   .topbar__dropdown--open > .topbar__dd-menu { display: block; }
   .topbar__dd-item { padding-inline-start: calc(40px * var(--space-factor, 1)); }
+  .topbar__search { min-width: 0; }
+  .topbar__search input { min-width: 0; }
 }
 
 }

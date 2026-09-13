@@ -2,10 +2,13 @@
 
 /* ============================================================
    Component: Dashboard Primitives — reusable app pieces
-   Extracted from layouts/dashboard.css so they work in any shell.
-   Tokens (optional, set on <body> by layouts/dashboard.css):
+   (dash cards, panels, toolbars, grids — the pieces you fill an
+   app frame with). Layout-agnostic: they work in any layout.
+   For the full-viewport app frame (fixed rail + scrolling pane),
+   pair with layouts/dashboard.css, linked after layouts/general.css.
+   Tokens (optional — override on any ancestor):
      --dash-gap, --dash-col-min, --dash-toolbar-z
-   Fallbacks keep the component functional without the layout.
+   Fallbacks keep the component functional without any overrides.
    ============================================================ */
 
 /* Panel card */

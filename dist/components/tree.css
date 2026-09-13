@@ -39,15 +39,15 @@
   padding: 0;
 }
 .tree .tree {
-  padding-inline-start: 20px;
+  padding-inline-start: calc(20px * var(--space-factor, 1));
 }
 
 /* ── Node row (summary or leaf row) ── */
 .tree__row {
   display: flex;
   align-items: center;
-  gap: 8px;
-  padding: 6px 10px;
+  gap: calc(8px * var(--space-factor, 1));
+  padding: calc(6px * var(--space-factor, 1)) calc(10px * var(--space-factor, 1));
   border-radius: var(--border-radius);
   font-size: .84rem;
   color: var(--color-text);
@@ -117,31 +117,31 @@
 
 /* ── Guide lines variant ── */
 .tree--lines .tree {
-  padding-inline-start: 18px;
-  margin-inline-start: 9px;
+  padding-inline-start: calc(18px * var(--space-factor, 1));
+  margin-inline-start: calc(9px * var(--space-factor, 1));
   border-inline-start: 1px solid var(--color-bg-secondary);
 }
 .tree--lines > li { position: relative; }
 
 /* ── Size variants ── */
 .tree--sm .tree__row {
-  padding: 3px 8px;
-  gap: 6px;
+  padding: calc(3px * var(--space-factor, 1)) calc(8px * var(--space-factor, 1));
+  gap: calc(6px * var(--space-factor, 1));
   font-size: .76rem;
 }
 .tree--sm .tree .tree {
-  padding-inline-start: 14px;
+  padding-inline-start: calc(14px * var(--space-factor, 1));
 }
 .tree--sm .tree__icon { font-size: .8rem; }
 .tree--sm .tree__check { width: 13px; height: 13px; }
 .tree--sm .tree__node > summary::before { width: 6px; height: 6px; }
 .tree--sm.tree--lines .tree {
-  padding-inline-start: 13px;
-  margin-inline-start: 6px;
+  padding-inline-start: calc(13px * var(--space-factor, 1));
+  margin-inline-start: calc(6px * var(--space-factor, 1));
 }
 .tree--lg .tree__row {
-  padding: 10px 14px;
-  gap: 10px;
+  padding: calc(10px * var(--space-factor, 1)) calc(14px * var(--space-factor, 1));
+  gap: calc(10px * var(--space-factor, 1));
   font-size: .92rem;
 }
 

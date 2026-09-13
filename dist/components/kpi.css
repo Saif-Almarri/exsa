@@ -40,7 +40,7 @@
 .kpi {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: calc(10px * var(--space-factor, 1));
   padding: var(--kpi-pad);
   background: var(--surface-bg);
   border: var(--surface-border);
@@ -56,7 +56,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 12px;
+  gap: calc(12px * var(--space-factor, 1));
 }
 .kpi__label {
   font-size: .72rem;
@@ -95,13 +95,13 @@
 .kpi__foot {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: calc(8px * var(--space-factor, 1));
   flex-wrap: wrap;
 }
 .kpi__delta {
   display: inline-flex;
   align-items: center;
-  gap: 3px;
+  gap: calc(3px * var(--space-factor, 1));
   font-size: .74rem;
   font-weight: 700;
   font-family: var(--font-family-mono);
@@ -111,8 +111,8 @@
 .kpi__delta--down { color: var(--kpi-delta-down); }
 .kpi__delta--down::before { content: '↓'; }
 .kpi__delta--pill {
-  padding: 2px 9px;
-  border-radius: 99px;
+  padding: calc(2px * var(--space-factor, 1)) calc(9px * var(--space-factor, 1));
+  border-radius: calc(var(--border-radius) * 20);
 }
 .kpi__delta--up.kpi__delta--pill {
   background: color-mix(in srgb, var(--kpi-delta-up) 14%, transparent);
@@ -126,15 +126,15 @@
 }
 
 /* ── Sparkline slot ── */
-.kpi__spark { display: block; margin-top: 2px; }
+.kpi__spark { display: block; margin-top: calc(2px * var(--space-factor, 1)); }
 
 /* ── Progress slot — slim bars (progress.css) inside the card ── */
 .kpi__progress {
   display: flex;
   flex-direction: column;
-  gap: 9px;
-  margin-top: 2px;
-  padding-top: 10px;
+  gap: calc(9px * var(--space-factor, 1));
+  margin-top: calc(2px * var(--space-factor, 1));
+  padding-top: calc(10px * var(--space-factor, 1));
   border-top: var(--surface-border);
 }
 
@@ -145,13 +145,13 @@
 .kpi--secondary { --kpi-accent: var(--color-secondary); --kpi-icon-bg: color-mix(in srgb, var(--color-secondary) 12%, transparent); }
 
 /* ── Compact ── */
-.kpi--sm { --kpi-pad: 14px; --kpi-value-size: 1.35rem; gap: 6px; }
+.kpi--sm { --kpi-pad: 14px; --kpi-value-size: 1.35rem; gap: calc(6px * var(--space-factor, 1)); }
 .kpi--sm .kpi__icon { width: 28px; height: 28px; font-size: .8rem; }
 
 /* ── Grid ── */
 .kpi-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-  gap: 16px;
+  gap: calc(16px * var(--space-factor, 1));
 }
 }

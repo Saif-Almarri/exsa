@@ -24,8 +24,8 @@
   align-items: center;
   justify-content: center;
   text-align: center;
-  gap: 5px;
-  padding: 48px 24px;
+  gap: calc(5px * var(--space-factor, 1));
+  padding: calc(48px * var(--space-factor, 1)) calc(24px * var(--space-factor, 1));
 }
 
 .empty-state__icon {
@@ -38,7 +38,7 @@
   background: var(--color-bg-secondary);
   color: var(--color-text-secondary);
   font-size: 24px;
-  margin-bottom: 10px;
+  margin-bottom: calc(10px * var(--space-factor, 1));
 }
 
 .empty-state__title {
@@ -59,16 +59,16 @@
 .empty-state__actions {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: calc(10px * var(--space-factor, 1));
   flex-wrap: wrap;
   justify-content: center;
-  margin-top: 14px;
+  margin-top: calc(14px * var(--space-factor, 1));
 }
 
 /* ── Compact ── */
-.empty-state--sm { padding: 24px 16px; gap: 3px; }
-.empty-state--sm .empty-state__icon { width: 40px; height: 40px; font-size: 18px; margin-bottom: 6px; }
-.empty-state--sm .empty-state__actions { margin-top: 10px; }
+.empty-state--sm { padding: calc(24px * var(--space-factor, 1)) calc(16px * var(--space-factor, 1)); gap: calc(3px * var(--space-factor, 1)); }
+.empty-state--sm .empty-state__icon { width: 40px; height: 40px; font-size: 18px; margin-bottom: calc(6px * var(--space-factor, 1)); }
+.empty-state--sm .empty-state__actions { margin-top: calc(10px * var(--space-factor, 1)); }
 
 /* ── Bordered (drop-zone / upload placeholder) ── */
 .empty-state--bordered {
