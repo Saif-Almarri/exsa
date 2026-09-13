@@ -46,31 +46,41 @@ The codebase is intentionally small (~680 lines of core CSS) so it can evolve wi
 
 ### Getting the files
 
-**Link only what you need. No download. No installer.**
+Three ways to get EXSA — no `npm install`, ever.
 
-EXSA distributes as individual files — you never download the whole framework, so there are never dead styles to ship.
+#### 1. Clone or vendor the repo (recommended)
+
+Pin to the release tag for a stable, self-contained copy:
+
+```bash
+git clone --branch v1.0.0-rc.2 --depth 1 https://github.com/Saif-Almarri/exsa.git
+```
+
+Link from `exsa/dist/…` or copy only the files you use into your project.
+Vendoring keeps upgrades explicit and works fully offline.
+
+#### 2. Generate a custom bundle (for production)
+
+Use the **[Generator](https://exsa.dev/generator.php)** — pick the components,
+a theme, and a layout you need; it packages them into one `exsa.bundle.css`
+(styles + theme) + `bundle.js` (behaviors) download. Zero dead styles. No CLI.
+
+#### 3. Link the CDN (for quick testing only)
+
+Sandbox EXSA without downloading anything. **Testing only** — self-host
+(option 1 or 2) for anything you ship. No `integrity` here, by design.
 
 ```html
 <!-- Core — the only required file (ships a built-in default theme) -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Saif-Almarri/exsa@main/dist/exsa.css">
 <!-- Theme — optional: add one for your own palette, or skip it entirely -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Saif-Almarri/exsa@main/dist/themes/breeze.css">
-
-<!-- Add a component only when you use it -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Saif-Almarri/exsa@main/dist/components/buttons.css">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Saif-Almarri/exsa@main/dist/components/modal.css">
-
-<!-- Add a behavior only when you use it -->
-<script src="https://cdn.jsdelivr.net/gh/Saif-Almarri/exsa@main/dist/js/modal.js"></script>
+<!-- Behaviors — every JS component, prebuilt, in one file -->
+<script src="https://cdn.jsdelivr.net/gh/Saif-Almarri/exsa@main/dist/exsa.js"></script>
 ```
 
-> Pin a version by replacing `@main` with `@1.0.0-rc.2` (or any tag)
-
-**Want the files locally instead?**
-
-```bash
-git clone https://github.com/Saif-Almarri/exsa.git
-```
+> Pin a version by replacing `@main` with `@1.0.0-rc.2` (or any tag). Per-component
+> links are covered in the table below.
 
 **Optional: Fluid tokens & profiles.** Link `exsa.fluid.css` after the core to make spacing, typography, and shape scale smoothly with viewport width — no breakpoints needed. Built-in behavioral profiles (Compact / Comfortable / Spacious) change density with one HTML attribute. One file. Build-free.
 

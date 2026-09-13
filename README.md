@@ -14,36 +14,42 @@ who clones it sees a library.
 | `manifest.json` | Single machine-readable catalog (components, themes, layouts, JS, **design tokens**) | consumed by tooling |
 | `tokens.json` | Design-token export (Figma, JS, Tailwind) | design tooling |
 
-## Quick start (2 links)
+## Quick start
 
-```html
-<!-- pinned to v1.0.0-rc.2 — bump the version when you upgrade (@main = latest, testing only) -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Saif-Almarri/exsa@1.0.0-rc.2/dist/exsa.css"
-      integrity="sha384-AELhIo96WqG733606KbcPwyH3ryOBE/7ONdct8la0bLhSjhhodOEbpgGesgjxF+C" crossorigin="anonymous">
-<!-- theme: optional — exsa.css ships a built-in default theme -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Saif-Almarri/exsa@1.0.0-rc.2/dist/themes/breeze.css"
-      integrity="sha384-yIMgHZM98w2Fqxh3twH6cBqWtYUobiAjjMVJugs557J6WD6s+Csi5NsI7Heai5Dw" crossorigin="anonymous">
+**1. Clone (or vendor) the repo — recommended:**
 
-<!-- behaviors (optional): every JS component, prebuilt, in one file -->
-<script src="https://cdn.jsdelivr.net/gh/Saif-Almarri/exsa@1.0.0-rc.2/dist/exsa.js"
-        integrity="sha384-2vCT2ZA/zbTGcxa6t8wkTHKoRCLLKTAXXVdtzwSGmsPTyjo/QoDDolkV+cGyg08M" crossorigin="anonymous"></script>
+```bash
+git clone --branch v1.0.0-rc.2 --depth 1 https://github.com/Saif-Almarri/exsa.git
 ```
 
-Add `class="exsa"` to `<body>` and plain HTML is styled automatically. Add components
-only when you use them, from `dist/components/` + `dist/js/`.
+Link from `exsa/dist/…`, or copy only the files you use into your project.
+
+**2. Custom bundle** — the [Generator](https://exsa.dev/generator.php) packages the
+components, theme, and layout you pick into one `exsa.bundle.css` + `bundle.js`.
+
+**3. CDN links — quick testing only (no `integrity` by design):**
+
+```html
+<!-- @main = latest, testing only — pin @1.0.0-rc.2 for anything you ship -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Saif-Almarri/exsa@1.0.0-rc.2/dist/exsa.css">
+<!-- theme: optional — exsa.css ships a built-in default theme -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Saif-Almarri/exsa@1.0.0-rc.2/dist/themes/breeze.css">
+<!-- behaviors (optional): every JS component, prebuilt, in one file -->
+<script src="https://cdn.jsdelivr.net/gh/Saif-Almarri/exsa@1.0.0-rc.2/dist/exsa.js"></script>
+```
 
 **Bundle shortcut** — swap the first two links for one: `dist/exsa.bundle.css` ships
 with all 68 components + the icons library + the Breeze theme baked in.
 
 ```html
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Saif-Almarri/exsa@1.0.0-rc.2/dist/exsa.bundle.css"
-      integrity="sha384-sZWjE+JxL9ARPgo6Dn7pPe4Exy6jjDEsW2uCrHnuJHf3iU0MUdQiLRnrvt34kISR" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Saif-Almarri/exsa@1.0.0-rc.2/dist/exsa.bundle.css">
 ```
 
-Pair it with the `exsa.js` tag above and every component works — no per-component
-links. Want a different theme? Link `dist/themes/<name>.css` **after** the bundle;
-the theme layer wins. Not bundled: `exsa.fluid.css` and `dist/layouts/` —
-link those separately when you use them.
+Add `class="exsa"` to `<body>` and plain HTML is styled automatically. Add components
+only when you use them, from `dist/components/` + `dist/js/`. Pair the bundle with
+the `exsa.js` tag above and every component works — no per-component links. Want a
+different theme? Link `dist/themes/<name>.css` **after** the bundle; the theme layer
+wins. Not bundled: `exsa.fluid.css` and `dist/layouts/` — link those separately.
 
 Full documentation: [`docs/README.md`](docs/README.md) · Philosophy: [`docs/PHILOSOPHY.md`](docs/PHILOSOPHY.md) · What's new: [`docs/CHANGELOG.md`](docs/CHANGELOG.md)
 
