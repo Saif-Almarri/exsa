@@ -88,6 +88,10 @@
                               footer pinned to the sheet bottom;
                               set auto to size to content)
    --layout-page-bg           var(--surface-bg)    sheet paper color
+   --layout-page-border       var(--surface-border) sheet edge
+   --layout-page-radius       var(--surface-radius) sheet corners
+   --layout-page-shadow       var(--surface-shadow-lg) sheet elevation
+   --layout-page-pad          0                    sheet inner padding
    --layout-aside-start-w     clamp(220px, 25%, 300px) start piece
    --layout-aside-end-w       clamp(220px, 25%, 300px) end piece
    --layout-gap               spacing between pieces
@@ -108,6 +112,10 @@
   --layout-page-w: 100%;
   --layout-page-min-h: 100vh;
   --layout-page-bg: var(--surface-bg);
+  --layout-page-border: var(--surface-border);
+  --layout-page-radius: var(--surface-radius);
+  --layout-page-shadow: var(--surface-shadow-lg);
+  --layout-page-pad: 0;
   --layout-aside-start-w: clamp(220px, 25%, 300px);
   --layout-aside-end-w: clamp(220px, 25%, 300px);
   --layout-gap: calc(16px * var(--space-factor, 1));

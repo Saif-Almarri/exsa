@@ -9,6 +9,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.0.0-rc.2] — 2026-09-13
+
 ### ⚠️ Breaking changes
 
 - **`dashboard.css` dissolved into the paper model (breaking)** — a dashboard is now an app-frame recipe: `general.css` gains `.layout__page--app` (the sheet becomes the viewport — no body scroll, a fixed full-height `.layout__aside-start` rail, and `.layout__content` as the scrolling pane; an outside topbar clears both automatically). The `dash--*` body classes, the drawer/backdrop, auto-collapse, right panel, and `.dash--dense` are retired — the layout is only the frame; the dashboard primitives stay in `components/dashboard.css` and work in any layout. Manifest entry, token catalog, QA fixtures, and probe rows removed.
@@ -42,6 +44,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **`general.css` is now a pure universal shell — blog decomposed into a recipe** — the merged blog mode was deleted, not relocated: reading layouts are shell recipes (`layout--centered` + the new `--layout-measure` token for the column width; `layout--aside-right` + `layout--aside-sticky` with the sidebar component for a TOC), and aside widths are fluid (`--layout-aside-left/right-w: clamp(220px, 25%, 300px)`): sizing needs no intermediate breakpoints, only the final 860px stack remains. The `blog--*` classes are removed (breaking) — docs (docs.php, page-layouts.php, cheatsheet, README) and manifest updated.
 
 ### 🔧 Changed
+
+- **Layout shell tokens registered + documented** — `.layout__page` consumed `--layout-page-border/radius/shadow/pad` with no definition or fallback (validator red, standalone sheets rendered bare). The four tokens now default in `general.css` (`--layout-page-border: var(--surface-border)`, `--layout-page-radius: var(--surface-radius)`, `--layout-page-shadow: var(--surface-shadow-lg)`, `--layout-page-pad: 0`) and are listed in the file's token docs. `docs/README.md` gains a "Page shells" section (markup, pieces, modifiers, recipes), and the `tools/` folder rows + design-token count across the READMEs are corrected.
 
 - **Input group keeps a lone field's edge spacing** — `.input-group__input` had `padding-inline-start: 0` on the assumption a leading `.input-group__icon` / `.input-group__addon` always preceded it, so an icon-less input (e.g. the Theme Builder preview fields) had typed text flush against the left border. The input now carries symmetric 12px inline padding; a leading icon zeroes it back (the icon supplies the gap), while a leading addon keeps the input's padding and drops its own inline-end instead — the chip hugs its label and the gap to the input text is the input's white padding, never chip background. Trailing addons mirror it. All rules are logical (RTL-safe).
 

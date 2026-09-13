@@ -1,6 +1,6 @@
 {
   "name": "EXSA",
-  "version": "1.0.0-rc.1",
+  "version": "1.0.0-rc.2",
   "schemaVersion": "1.0",
   "description": "10-layer cascade CSS framework. Tokens → themes → skins → fluid → reset → utilities → elements → components → layouts → overrides. Zero build, zero CLI, pure plug & play.",
   "tiers": {

@@ -1,6 +1,6 @@
 # EXSA CSS Framework — Built on Tokens, Not Tools
 
-> **v1.0.0-rc.1** — Release candidate. API frozen, breaking changes documented. [See what's new →](CHANGELOG.md)
+> **v1.0.0-rc.2** — Release candidate. API frozen, breaking changes documented. [See what's new →](CHANGELOG.md)
 
 **EXSA is a lightweight CSS framework.** 32 KB core. 68 components. 20 themes. Zero build step. Works with any server — just link two CSS files and start building.
 
@@ -64,7 +64,7 @@ EXSA distributes as individual files — you never download the whole framework,
 <script src="https://cdn.jsdelivr.net/gh/Saif-Almarri/exsa@main/dist/js/modal.js"></script>
 ```
 
-> Pin a version by replacing `@main` with `@1.0.0-rc.1` (or any tag)
+> Pin a version by replacing `@main` with `@1.0.0-rc.2` (or any tag)
 
 **Want the files locally instead?**
 
@@ -219,7 +219,7 @@ EXSA uses CSS `@layer` to enforce a browser-native cascade. **Unlayered user CSS
 ```
 Priority  Layer                 Covers
 ────────  ────────────────────  ──────────────────────────────────
-  1       @layer exsa.tokens    92 design tokens in :root
+  1       @layer exsa.tokens    94 design tokens in :root
   2       @layer exsa.themes    Theme token overrides (palette axis)
   3       @layer exsa.skins     Surface material recipes (skin axis)
   4       @layer exsa.fluid     Fluid clamp() tokens & density profiles
@@ -363,6 +363,71 @@ Always active — no `.exsa` prefix needed.
 | **sm** `≤575px` | `.sm:flex-col`, `.sm:flex-wrap` | `.sm:grid-cols-1` |
 | **md** `≥768px` | `.md:col-2`, `.md:col-3`, `.md:col-4` | `.md:grid-cols-2`, `-3`, `-4` |
 | **lg** `≥1024px` | `.lg:col-2`–`.lg:col-5` | `.lg:grid-cols-3`–`.lg:grid-cols-6` |
+
+### Page shells (`dist/layouts/`)
+
+The utilities above size *content*. For whole-page structure — a sheet holding
+header, sidebars, content, and footer — link the layout file(s) instead:
+
+```html
+<link rel="stylesheet" href="dist/layouts/general.css">   <!-- after core + theme -->
+<link rel="stylesheet" href="dist/layouts/dashboard.css"> <!-- optional app frame — after general.css -->
+```
+
+The markup *is* the declaration — no body classes:
+
+```html
+<div class="layout__page">
+  <div class="layout__grid">
+    <header class="layout__header">…</header>
+    <aside  class="layout__aside-start">…</aside>   <!-- optional -->
+    <main   class="layout__content">…</main>
+    <aside  class="layout__aside-end">…</aside>     <!-- optional -->
+    <footer class="layout__footer">…</footer>
+  </div>
+</div>
+```
+
+| Class | Zone |
+|---|---|
+| `.layout__page` | the sheet — width via `--layout-page-w`, look via the `--layout-page-*` tokens |
+| `.layout__grid` | the piece container — side tracks exist only when their `<aside>` does |
+| `.layout__header` / `.layout__footer` | top / bottom bands (collapse when absent) |
+| `.layout__aside-start` / `.layout__aside-end` | side pieces — logical (RTL-safe) |
+| `.layout__content` | main column — takes all leftover space |
+
+Modifiers: `.layout__page--auto` (size to content), `.layout__page--frame`
+(shared edge with outside chrome), `.layout__page--app` (dashboard app frame),
+`.layout__grid--centered` (reading column), `.layout__aside-start--sticky` /
+`-end--sticky`, and `.sidebar--collapsed` on a side piece for an icon rail.
+
+**Reading layout recipe** (content + sticky TOC):
+
+```html
+<div class="layout__page">
+  <div class="layout__grid">
+    <aside class="layout__aside-end layout__aside-end--sticky">…TOC…</aside>
+    <main class="layout__content">…</main>
+  </div>
+</div>
+```
+
+**App-frame recipe** (fixed rail + scrolling pane — link `dashboard.css` too):
+
+```html
+<div class="layout__page layout__page--app">
+  <div class="layout__grid">
+    <aside class="layout__aside-start sidebar">…</aside>
+    <main class="layout__content">…</main>
+  </div>
+</div>
+```
+
+Layout tokens (override on the page element): `--layout-page-w`, `--layout-page-min-h`,
+`--layout-page-bg`, `--layout-page-border`, `--layout-page-radius`, `--layout-page-shadow`,
+`--layout-page-pad`, `--layout-aside-start-w`, `--layout-aside-end-w`, `--layout-gap`,
+`--layout-hero-min-h`, `--layout-measure`, `--layout-sticky-top`, `--layout-announce-h`.
+At ≤860px the pieces stack to one column, keyed to the sheet's own width.
 
 ---
 
@@ -783,7 +848,7 @@ root
 │   ├── layouts/               2 files — general (paper base) + dashboard (app-frame focus)
 │   ├── components/            68 component files + icons/
 │   └── themes/                20 themes
-├── tools/                   build-debug.mjs — generates the debug linter files
+├── tools/                   validate.mjs (gate) + build-bundle/build-tokens/build-debug.mjs
 ├── docs/                    This README, PHILOSOPHY, CHANGELOG, CONTRIBUTING
 ├── manifest.json            Machine-readable catalog (components, themes, tokens)
 ├── tokens.json              Design-token export — generated (Figma, JS, Tailwind)
@@ -843,7 +908,7 @@ See [TRADEMARK.md](../TRADEMARK.md) for guidelines on using the EXSA name and th
 
 ## Feedback & Community
 
-EXSA is at v1.0.0-rc.1 — your feedback shapes what 1.0 becomes.
+EXSA is at v1.0.0-rc.2 — your feedback shapes what 1.0 becomes.
 
 - 🐛 **Bug reports & feature requests:** [GitHub Issues](https://github.com/Saif-Almarri/exsa/issues)
 - 💬 **Questions & ideas:** [GitHub Discussions](https://github.com/Saif-Almarri/exsa/discussions)
