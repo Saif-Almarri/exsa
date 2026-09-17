@@ -2,8 +2,8 @@
 
 /* ============================================================
    LAYER 3 — SKIN: GLOSSY
-   Specular finish: light streak across the surface, subtle
-   inset top highlight, soft colored shadows.
+   Specular finish over a frosted translucent base: light streak,
+   subtle inset top highlight, soft colored shadows, backdrop blur.
    Link AFTER exsa.css (or the bundle) + your theme:
    <link rel="stylesheet" href="skins/glossy.css">
    Token-only: every rule targets :root. The sheen is a gradient
@@ -19,15 +19,15 @@
   --surface-bg:
     linear-gradient(115deg, color-mix(in srgb, var(--gloss-hi) 65%, transparent) 0%,
                             color-mix(in srgb, var(--gloss-hi) 18%, transparent) 14%,
-                            transparent 26%),
+                            transparent 66%),
     linear-gradient(180deg, transparent 66%, light-dark(color-mix(in srgb, var(--gloss-lo) 7%, transparent), color-mix(in srgb, #000 16%, transparent))),
-    var(--color-bg);
+    color-mix(in srgb, var(--color-bg) 55%, transparent);
   --surface-bg-elevated:
-    linear-gradient(115deg, color-mix(in srgb, var(--gloss-hi) 70%, transparent) 0%,
-                            color-mix(in srgb, var(--gloss-hi) 20%, transparent) 16%,
-                            transparent 28%),
+    linear-gradient(115deg, color-mix(in srgb, var(--gloss-hi) 56%, transparent) 0%,
+                            color-mix(in srgb, var(--gloss-hi) 15%, transparent) 14%,
+                            transparent 26%),
     linear-gradient(180deg, transparent 68%, light-dark(color-mix(in srgb, var(--gloss-lo) 8%, transparent), color-mix(in srgb, #000 18%, transparent))),
-    color-mix(in srgb, var(--color-bg) 97%, var(--gloss-lo));
+    color-mix(in srgb, var(--color-bg) 66%, transparent); /* 66% + softer streak — the frost must read through */
   --surface-border: 1px solid color-mix(in srgb, var(--color-text) 12%, transparent);
   --surface-radius: 16px;
   --border-radius: 16px; /* legacy small-element shape — matches the surface; typography: system sans */
@@ -37,7 +37,8 @@
   --surface-shadow-side: 6px 0 18px color-mix(in srgb, var(--gloss-lo) 12%, transparent);
   --surface-inset: inset 0 1px 0 color-mix(in srgb, var(--gloss-hi) 85%, transparent),
                    inset 0 -2px 3px light-dark(color-mix(in srgb, var(--gloss-lo) 10%, transparent), color-mix(in srgb, #000 24%, transparent));
-  --surface-backdrop: none;
+  --surface-backdrop: blur(12px) saturate(1.4);        /* frost — applied by the components' surfaces */
+  --surface-backdrop-strong: blur(18px) saturate(1.5); /* elevated boxes (topbar, cards, tray) frost a step stronger */
 }
 
 }

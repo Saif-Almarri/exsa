@@ -39,7 +39,7 @@ const warn = (m) => warnings.push(m);
 
 /* ---------- collect CSS files ---------- */
 const cssRoots = ['dist/components', 'dist/themes', 'dist/skins', 'dist/layouts'];
-const cssFiles = ['dist/exsa.css', 'dist/style.css', 'dist/exsa.fluid.css', 'dist/exsa.debug.css'];
+const cssFiles = ['dist/exsa.css', 'dist/exsa.fluid.css', 'dist/exsa.debug.css'];
 const walkDir = (rel) => {
   for (const ent of readdirSync(join(root, rel), { withFileTypes: true })) {
     const p = `${rel}/${ent.name}`;
@@ -206,7 +206,7 @@ if (process.argv.includes('--check-bundles')) {
    that intentionally scales with font or viewport. Token defaults are listed
    separately. Informational — never fails. */
 if (process.argv.includes('--token-audit')) {
-  const scope = cssFiles2.filter((f) => f.startsWith('dist/') && f !== 'dist/style.css');
+  const scope = cssFiles2.filter((f) => f.startsWith('dist/'));
   const actionable = [];
   const informational = [];
   const tokenDefaults = [];

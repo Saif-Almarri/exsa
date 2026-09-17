@@ -19,6 +19,8 @@
   margin: 0;
   max-width: none;
   background: var(--surface-bg-elevated);
+  backdrop-filter: var(--surface-backdrop-strong, none); /* skin frost — none unless a frosted skin ships it */
+  -webkit-backdrop-filter: var(--surface-backdrop-strong, none);
   border-bottom: var(--surface-border);
   transition: background 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
   font-family: inherit;
@@ -73,7 +75,8 @@ body.has-topbar:has(.topbar--xl) { --topbar-height: 72px; }
    the same. */
 .topbar--transparent,
 .exsa .topbar--transparent {
-  background: color-mix(in srgb, var(--surface-bg) 85%, transparent);
+  background: var(--surface-bg); /* gradient surfaces (glossy): full surface — color-mix() can't take a gradient */
+  background: color-mix(in srgb, var(--surface-bg) 85%, transparent); /* color surfaces: 85% tint (wins where valid) */
 }
 
 /* ── Left / Right sections ── */
@@ -237,6 +240,8 @@ body.has-topbar:has(.topbar--xl) { --topbar-height: 72px; }
   inset-inline-start: 0;
   min-width: 180px;
   background: var(--surface-bg);
+  backdrop-filter: var(--surface-backdrop, none);
+  -webkit-backdrop-filter: var(--surface-backdrop, none);
   border: var(--surface-border);
   border-radius: var(--surface-radius);
   box-shadow: var(--surface-shadow-md), 0 2px 6px rgba(0,0,0,.06);
@@ -249,6 +254,27 @@ body.has-topbar:has(.topbar--xl) { --topbar-height: 72px; }
   transform: translateY(-8px);
   transition: opacity 0.15s, transform 0.15s, visibility 0.15s;
   z-index: var(--z-topbar-dropdown);
+}
+
+/* Portaled variant — on desktop topbar.js moves the menu to <body> (fixed,
+   JS-positioned under its trigger). A frosted topbar is the backdrop root
+   for its descendants, which would clip the menu's backdrop blur to the
+   bar's bounds — outside it, the frost can sample the page. Mobile keeps
+   the in-flow accordion. Mirrors the sidebar tray portal. */
+.topbar__dd-menu--fixed {
+  position: fixed;
+  top: 0;
+  inset-inline-start: auto;
+  margin: 0;
+}
+
+/* Menu-level open state — the portaled menu is no longer a descendant of
+   .topbar__dropdown, so the open selector is duplicated on the menu itself. */
+.topbar__dd-menu--open {
+  display: block;
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
 }
 
 /* Menu list items — full-width click target */
@@ -278,7 +304,8 @@ body.has-topbar:has(.topbar--xl) { --topbar-height: 72px; }
   z-index: -1;
 }
 
-.topbar__dropdown--open > .topbar__dd-menu {
+.topbar__dropdown--open > .topbar__dd-menu,
+.topbar__dd-menu--open {
   display: block;
   opacity: 1;
   visibility: visible;
@@ -402,6 +429,7 @@ body.has-topbar:has(.topbar--xl) { --topbar-height: 72px; }
     visibility: visible;
     transition: none;
   }
+  .topbar__dd-menu--fixed { position: static; } /* safety — the portal is desktop-only */
   .topbar__dd-menu::before { display: none; }
   .topbar__dd-menu li { display: block; padding: 0; margin: 0; border-bottom: 0; }
   .topbar__dropdown--open > .topbar__dd-menu { display: block; }

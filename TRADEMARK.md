@@ -21,9 +21,9 @@ original inventions. This means:
 Three architectural ideas, first published in July 2026 by **Saif Almarri** as part
 of the EXSA CSS Framework. These are what make EXSA a category of one.
 
-### 1. The 9-Layer Cascade Architecture
+### 1. The 10-Layer Cascade Architecture
 
-CSS `@layer` enforces browser-native priority: **tokens → themes → fluid →
+CSS `@layer` enforces browser-native priority: **tokens → themes → skins → fluid →
 reset → utilities → elements → components → layouts → overrides.** Each layer
 feeds the next. Themes live inside layer 2 — swapping a theme is one file, and
 the cascade applies it over every component. User CSS sits *outside* all layers
@@ -31,11 +31,12 @@ the cascade applies it over every component. User CSS sits *outside* all layers
 Specificity becomes irrelevant. No `!important` wars. Ever.
 
 ```
-@layer exsa.tokens      → 82 design tokens
+@layer exsa.tokens      → 95 design tokens
      exsa.themes      → 20 themes, light-dark() palette overrides
+     exsa.skins       → 10 surface material recipes (skin axis)
      exsa.fluid       → clamp() scaling + density profiles (optional)
      exsa.reset       → box model, focus, a11y, RTL, scrollbar
-     exsa.utilities   → 90+ flex & grid utilities
+     exsa.utilities   → 68 layout utilities + 40 responsive breakpoint variants
      exsa.elements    → Guarded Classless™ semantic HTML styling
      exsa.components  → 68 BEM components
      exsa.layouts     → 2 page-shell files (general base + dashboard app-frame focus)
@@ -64,7 +65,7 @@ classes. The UI breathes with the screen — automatically.
 default (comfortable), or `data-profile="spacious"` (landing pages, marketing)
 on `<html>` — and every component shifts density. One attribute. Four factors
 (`--space-factor`, `--radius-factor`, `--font-factor`, `--motion-factor`)
-cascade through all 53 components simultaneously.
+cascade through all 68 components simultaneously.
 
 One optional file (`exsa.fluid.css`). Zero build.
 
@@ -74,7 +75,7 @@ One optional file (`exsa.fluid.css`). Zero build.
 
 These aren't new ideas — but they're non-negotiable in EXSA:
 
-- **Token-driven.** 82 design tokens drive every component and theme.
+- **Token-driven.** 95 design tokens drive every component and theme.
   Components don't have colors — they have `var(--color-link)`. Themes are ~30
   lines of token overrides. (Token systems predate EXSA; see Open Props.)
 - **Zero build step.** Two `<link>` tags, no CLI, no config file. Works with
@@ -82,7 +83,7 @@ These aren't new ideas — but they're non-negotiable in EXSA:
   invention.)
 - **Components as files.** Each component is a single ~1 KB CSS file. Link only
   what you need. (Standard practice across the industry.)
-- **CSS first, JS optional.** 46% of components (31 of 68) are pure CSS. Interactive
+- **CSS first, JS optional.** 53% of components (36 of 68) are pure CSS. Interactive
   behaviors are one `<script>` tag. (Many frameworks are CSS-only.)
 
 ---

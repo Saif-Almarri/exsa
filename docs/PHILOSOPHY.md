@@ -67,7 +67,7 @@ This is the reversal of the traditional framework power dynamic. Most frameworks
 
 ### 2. Token-Driven Everything
 
-All 68 components share 94 design tokens. Every color, every shadow, every border-radius, every gap, every z-index — it all flows from `:root` tokens.
+All 68 components share 95 design tokens. Every color, every shadow, every border-radius, every gap, every z-index — it all flows from `:root` tokens.
 
 Swap one theme file. Every component, every element style, every utility class recolors instantly. No rebuild. No recompile. No class-name hunt across 200 files.
 
@@ -78,7 +78,7 @@ This is not "CSS variables are nice to have." This is: *the tokens are the desig
 CSS `@layer` is the most underused feature in the language. EXSA builds its entire architecture on it:
 
 ```
-@layer exsa.tokens      → 94 design tokens
+@layer exsa.tokens      → 95 design tokens
      exsa.themes       → theme token overrides (palette axis)
      exsa.skins        → surface material recipes (skin axis)
      exsa.fluid        → clamp() scaling, density profiles

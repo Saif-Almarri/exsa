@@ -1,6 +1,6 @@
 {
   "name": "EXSA",
-  "version": "1.0.0-rc.2",
+  "version": "1.0.0-rc.3",
   "schemaVersion": "1.0",
   "description": "10-layer cascade CSS framework. Tokens → themes → skins → fluid → reset → utilities → elements → components → layouts → overrides. Zero build, zero CLI, pure plug & play.",
   "tiers": {
@@ -18,23 +18,43 @@
   "layers": {
     "1_tokens": {
       "label": "Layer 1 — Tokens (CSS custom properties)",
-      "desc": "82 design tokens. Colors, spacing, shadows, type, fonts, breakpoints, behavioral factors."
+      "desc": "95 design tokens. Colors, spacing, shadows, type, fonts, breakpoints, behavioral factors."
     },
-    "2_reset": {
-      "label": "Layer 2 — Reset",
+    "2_themes": {
+      "label": "Layer 2 — Themes (palette axis)",
+      "desc": "20 themes. light-dark() palette overrides on top of the token layer."
+    },
+    "3_skins": {
+      "label": "Layer 3 — Skins (surface material recipes)",
+      "desc": "10 skins. Surface material recipes — shape, font pairing, and the thirteen --surface-* tokens."
+    },
+    "4_fluid": {
+      "label": "Layer 4 — Fluid (scaling & density profiles)",
+      "desc": "clamp() scaling tokens and density profiles (optional file: exsa.fluid.css)."
+    },
+    "5_reset": {
+      "label": "Layer 5 — Reset",
       "desc": "Box model, focus rings, RTL, scrollbar, body defaults."
     },
-    "3_layout": {
-      "label": "Layer 3 — Layout Utilities",
-      "desc": "72+ flex & grid utilities + 18 typography utilities. No prefix needed."
+    "6_utilities": {
+      "label": "Layer 6 — Utilities",
+      "desc": "68 layout utilities + 40 responsive breakpoint variants. No prefix needed."
     },
-    "4_elements": {
-      "label": "Layer 4 — Element Styles (opt-in)",
+    "7_elements": {
+      "label": "Layer 7 — Element Styles (opt-in)",
       "desc": "Classless HTML styling via <body class='exsa'>."
     },
-    "5_components": {
-      "label": "Layer 5 — Components",
+    "8_components": {
+      "label": "Layer 8 — Components",
       "desc": "68 plug-and-play components. Single CSS files."
+    },
+    "9_layouts": {
+      "label": "Layer 9 — Layouts (page shells)",
+      "desc": "2 page-shell files: general (paper base) + dashboard (app-frame focus)."
+    },
+    "10_overrides": {
+      "label": "Layer 10 — Overrides (escape hatch)",
+      "desc": "u-* utilities that always win."
     }
   },
   "core": {
@@ -200,7 +220,7 @@
       "id": "glass",
       "name": "Glass",
       "file": "dist/skins/glass.css",
-      "desc": "Frosted translucent surfaces — backdrop blur, light border, soft ambient shadows."
+      "desc": "Clear translucent surfaces — see-through tint + bright edge, no frost (readable where backdrop-filter is absent)."
     },
     {
       "id": "neomorphic",
@@ -224,7 +244,7 @@
       "id": "glossy",
       "name": "Glossy",
       "file": "dist/skins/glossy.css",
-      "desc": "Specular sheen — light streak, subtle inset highlight, soft colored shadows."
+      "desc": "Frosted — translucent surfaces with backdrop blur, specular sheen, subtle inset highlight, soft colored shadows."
     },
     {
       "id": "brutalist",
@@ -242,7 +262,7 @@
       "id": "glow",
       "name": "Glow",
       "file": "dist/skins/glow.css",
-      "desc": "Neon glow — luminous link/secondary colored shadows and borders. Best on dark themes."
+      "desc": "Frosted neon — translucent plates with backdrop blur, luminous link/secondary colored shadows and borders. Best on dark themes."
     },
     {
       "id": "neon",
@@ -1540,7 +1560,8 @@
         { "css": "--surface-shadow-lg", "name": "Large surface shadow", "type": "shadow" },
         { "css": "--surface-shadow-side", "name": "Side surface shadow (drawer edge)", "type": "shadow" },
         { "css": "--surface-inset", "name": "Inset surface highlight", "type": "shadow", "note": "Composable no-op (inset 0 0 0 0 transparent) by default so components can append it to shadow lists; clay/skeuomorphic/metallic/glow carry their inner highlight here." },
-        { "css": "--surface-backdrop", "name": "Surface backdrop filter", "type": "value", "note": "Full backdrop-filter value. Glass sets blur() saturate(); other skins set none." },
+        { "css": "--surface-backdrop", "name": "Surface backdrop filter", "type": "value", "note": "Full backdrop-filter value for box surfaces. Frosted skins (glossy, glow) set blur() saturate(); other skins set none." },
+        { "css": "--surface-backdrop-strong", "name": "Elevated surface backdrop filter", "type": "value", "note": "Stronger frost for elevated surfaces (topbar, cards, sidebar tray). Frosted skins set blur() saturate(); other skins none." },
         { "css": "--surface-canvas", "name": "Page canvas background", "type": "background", "note": "Skin-preferred page backdrop — page chrome (e.g. an aurora layer) consumes it. Defaults to the page background." }
       ],
       "zIndex": [

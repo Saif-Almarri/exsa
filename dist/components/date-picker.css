@@ -11,6 +11,8 @@
   width: 100%;
   max-width: 320px;
   background: var(--surface-bg);
+  backdrop-filter: var(--surface-backdrop, none);
+  -webkit-backdrop-filter: var(--surface-backdrop, none);
   border: var(--surface-border-control);
   border-radius: var(--surface-radius);
   box-shadow: var(--surface-shadow-md);

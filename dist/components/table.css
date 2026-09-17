@@ -8,14 +8,14 @@
    ============================================================ */
 
 /* ── Wrapper ── */
-.table-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;background:var(--surface-bg);border:var(--surface-border);border-radius:var(--surface-radius);box-shadow:var(--surface-shadow-md)}
+.table-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;background:var(--surface-bg);backdrop-filter:var(--surface-backdrop,none);-webkit-backdrop-filter:var(--surface-backdrop,none);border:var(--surface-border);border-radius:var(--surface-radius);box-shadow:var(--surface-shadow-md)}
 .table-wrap::-webkit-scrollbar{height:5px}
 .table-wrap::-webkit-scrollbar-thumb{background:var(--color-bg-secondary);border-radius:var(--border-radius)}
 
 /* ── Component table ── */
 .tbl{width:100%;border-collapse:collapse;font-size:.84rem;color:var(--color-text);white-space:nowrap} /* .84rem deliberate — between --font-size-sm and --font-size-base */
 .tbl thead{border-bottom:var(--surface-border)}
-.tbl th{padding: calc(12px * var(--space-factor, 1)) calc(16px * var(--space-factor, 1));text-align:start;font-size:.72rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--color-text-secondary);background:color-mix(in srgb,var(--surface-bg) 96%,var(--color-text))} /* header = rows but a little darker, derived from the active surface */
+.tbl th{padding: calc(12px * var(--space-factor, 1)) calc(16px * var(--space-factor, 1));text-align:start;font-size:.72rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--color-text-secondary);background:linear-gradient(color-mix(in srgb,var(--color-text) 4%,transparent),color-mix(in srgb,var(--color-text) 4%,transparent)),var(--surface-bg)} /* header = rows but a little darker — a 4% text veil layered over the active surface (color-mix can't take a gradient surface) */
 .tbl td{padding: calc(11px * var(--space-factor, 1)) calc(16px * var(--space-factor, 1));border-bottom:var(--surface-border)}
 .tbl tbody tr{transition:background .12s}
 .tbl tbody tr:hover{background:var(--color-bg-secondary)}
@@ -60,7 +60,7 @@
 .tbl--sortable th[data-sort]:focus-visible{outline:2px solid var(--color-link);outline-offset:-2px}
 
 /* ── Filter input (js/table.js — .table-search[data-table]) ── */
-.table-search{padding: calc(7px * var(--space-factor, 1)) calc(12px * var(--space-factor, 1));font-size:.82rem;font-family:inherit;border:var(--surface-border-control);border-radius:var(--surface-radius);background:var(--surface-bg);box-shadow:var(--surface-inset);color:var(--color-text);min-width:200px;transition:border-color .15s,box-shadow .15s}
+.table-search{padding: calc(7px * var(--space-factor, 1)) calc(12px * var(--space-factor, 1));font-size:.82rem;font-family:inherit;border:var(--surface-border-control);border-radius:var(--surface-radius);background:var(--surface-bg);backdrop-filter:var(--surface-backdrop,none);-webkit-backdrop-filter:var(--surface-backdrop,none);box-shadow:var(--surface-inset);color:var(--color-text);min-width:200px;transition:border-color .15s,box-shadow .15s}
 .table-search:focus{outline:none;border-color:var(--color-link);box-shadow:0 0 0 3px color-mix(in srgb,var(--color-link)20%,transparent)}
 
 /* ── Empty row (js/table.js — .table-empty, hidden attr toggled) ── */

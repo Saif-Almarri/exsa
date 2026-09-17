@@ -6,7 +6,7 @@
 
 @layer exsa.tokens {
 
-/* 94 design tokens */
+/* 95 design tokens */
 
 :root {
   color-scheme: light dark;
@@ -60,8 +60,9 @@
   --surface-shadow-lg:0 8px 32px color-mix(in srgb,var(--color-text) 12%,transparent);
   --surface-shadow-side:8px 0 32px color-mix(in srgb,var(--color-text) 14%,transparent);
   --surface-inset:inset 0 0 0 0 transparent; /* no-op — composable in shadow lists; clay/skeuomorphic/glow replace it */
-  --surface-backdrop:none;
-  /* page canvas — the skin-preferred page backdrop (page chrome consumes it) */
+  --surface-backdrop:none;          /* box frost — frosted skins (glossy, glow) set blur(); default none = off */
+  --surface-backdrop-strong:none;   /* elevated-surface frost (topbar, cards, tray) — frosted skins set a stronger blur */
+  /* page canvas — the skin-preferred page backdrop (paints the body background) */
   --surface-canvas:var(--color-bg);
 }
 
@@ -131,7 +132,7 @@ html{scroll-behavior:smooth}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}:target{animation:none}*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
 @media(prefers-reduced-data:reduce){img,video{min-height:0;height:auto}}
 [dir=rtl]{direction:rtl;unicode-bidi:isolate}
-body{background:var(--color-bg);color:var(--color-text);font-family:var(--font-family);line-height:var(--line-height);margin:0;padding:0}
+body{background:var(--surface-canvas);background-attachment:fixed;color:var(--color-text);font-family:var(--font-family);line-height:var(--line-height);margin:0;padding:0}
 h1,h2,h3,h4,h5,h6{font-family:var(--font-family-heading);line-height:var(--line-height);text-wrap:balance;margin:0 0 var(--gap-md)}
 img,svg,video{max-width:100%;height:auto}
 figure{margin:0;padding:0}
@@ -710,8 +711,7 @@ figure{margin:0;padding:0}
   display: block;
   font-size: x-large;
   line-height: var(--line-height);
-  margin: calc(1rem * var(--space-factor, 1)) auto;
-  max-width: var(--width-card-medium);
+  margin: calc(1rem * var(--space-factor, 1)) 0;
   padding: calc(1rem * var(--space-factor, 1)) calc(1.5rem * var(--space-factor, 1));
   text-align: var(--justify-heading);
 }
@@ -907,7 +907,7 @@ figure{margin:0;padding:0}
 /* Crash-prevention: reduced-motion users never get backdrop blur, whatever
    skin is active (overrides beats skins layer 3). */
 @media (prefers-reduced-motion: reduce) {
-  :root { --surface-backdrop: none; }
+  :root { --surface-backdrop: none; --surface-backdrop-strong: none; }
 }
 
 /* Legacy color-mix() fallback — engines with @layer but without color-mix()

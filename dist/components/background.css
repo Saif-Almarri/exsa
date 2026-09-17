@@ -120,8 +120,8 @@
 
 /* ── Effects ── */
 .bg-blur {
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: var(--surface-backdrop, blur(12px));
+  -webkit-backdrop-filter: var(--surface-backdrop, blur(12px));
 }
 .bg-grayscale { --bg-filter: grayscale(1); }
 .bg-sepia     { --bg-filter: sepia(.65); }
@@ -131,14 +131,14 @@
   background: color-mix(in srgb, var(--color-bg) 55%, transparent);
   border: 1px solid color-mix(in srgb, #fff 25%, transparent);
   border-radius: var(--border-radius);
-  backdrop-filter: blur(12px) saturate(1.4);
-  -webkit-backdrop-filter: blur(12px) saturate(1.4);
+  backdrop-filter: var(--surface-backdrop, blur(12px) saturate(1.4));
+  -webkit-backdrop-filter: var(--surface-backdrop, blur(12px) saturate(1.4));
   box-shadow: 0 8px 32px rgba(0,0,0,.12);
 }
 .glass--strong {
   background: color-mix(in srgb, var(--color-bg) 78%, transparent);
-  backdrop-filter: blur(18px) saturate(1.5);
-  -webkit-backdrop-filter: blur(18px) saturate(1.5);
+  backdrop-filter: var(--surface-backdrop-strong, blur(18px) saturate(1.5));
+  -webkit-backdrop-filter: var(--surface-backdrop-strong, blur(18px) saturate(1.5));
 }
 .glass--dark {
   background: color-mix(in srgb, #0f172a 45%, transparent);

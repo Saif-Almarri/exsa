@@ -1,8 +1,8 @@
 # EXSA CSS Framework — Built on Tokens, Not Tools
 
-> **v1.0.0-rc.2** — Release candidate. API frozen, breaking changes documented. [See what's new →](CHANGELOG.md)
+> **v1.0.0-rc.3** — Release candidate. API frozen, breaking changes documented. [See what's new →](CHANGELOG.md)
 
-**EXSA is a lightweight CSS framework.** 32 KB core. 68 components. 20 themes. Zero build step. Works with any server — just link two CSS files and start building.
+**EXSA is a lightweight CSS framework.** ~37 KB core. 68 components. 20 themes. Zero build step. Works with any server — just link two CSS files and start building.
 
 > *Link two files. Get a complete design system. Change one token — every component recolors.*
 >
@@ -16,7 +16,7 @@ CSS frameworks force a choice: utility-first means memorizing hundreds of classe
 
 EXSA chooses a third path.
 
-**Tokens are the design system.** 94 design tokens drive 68 components, 20 themes, and every utility. Change `--color-link` in one place — every button, badge, link, and card recolors instantly. No recompile. No variable hunt across 2,000 files.
+**Tokens are the design system.** 95 design tokens drive 68 components, 20 themes, and every utility. Change `--color-link` in one place — every button, badge, link, and card recolors instantly. No recompile. No variable hunt across 2,000 files.
 
 **Classes are optional.** Add `class="exsa"` to `<body>` and plain HTML — `<nav>`, `<section>`, `<table>`, `<form>`, `<button>`, `<blockquote>`, `<dialog>` — becomes a styled UI. Add any class to a structural element and EXSA steps aside. Zero specificity. No `!important`. You're always in control.
 
@@ -28,7 +28,7 @@ EXSA chooses a third path.
 
 **Components are files, not dependencies.** Every component is a single CSS file (~1 KB). Link what you need — zero dead styles.
 
-**CSS first, JS optional.** The core (`exsa.css` + a theme) is pure CSS — tokens, reset, layout utilities, Guarded Classless element styling. Zero JavaScript. 46% of components (31 of 68) are pure CSS too. The remaining 37 add interactivity via one behavior file each in `dist/js/` — same zero-build philosophy. Dropdowns, modals, tabs, toasts — if you need them, link the JS. If you don't, nothing breaks. Same choice every CSS framework offers, just without the toolchain.
+**CSS first, JS optional.** The core (`exsa.css` + a theme) is pure CSS — tokens, reset, layout utilities, Guarded Classless element styling. Zero JavaScript. 53% of components (36 of 68) are pure CSS too. The remaining 32 add interactivity via one behavior file each in `dist/js/` — same zero-build philosophy. Dropdowns, modals, tabs, toasts — if you need them, link the JS. If you don't, nothing breaks. Same choice every CSS framework offers, just without the toolchain.
 
 In short: EXSA is what happens when you trust CSS custom properties, `@layer`, and `:where()` to do the work that frameworks usually delegate to tools. Bootstrap launched in 2011. Tailwind in 2017. But the three CSS features that make Guarded Classless™ possible — `:not([class])`, `:where()`, and `@layer` — only became baseline together in 2022. EXSA is the first framework to combine all three into a single architectural pattern. Its signature feature — **Guarded Classless™** — styles semantic HTML automatically, then steps aside the moment you add a single class. No overrides needed. No `!important`. Ever.
 
@@ -38,7 +38,7 @@ EXSA isn't designed for CSS as it was in 2015. It's designed for CSS as it is no
 
 Every architectural choice — `@layer` for cascade control, custom properties for theming, `:where()` for zero specificity, container queries for responsive cards — is built on W3C standards that browsers are actively investing in. As those standards mature, EXSA's foundation strengthens. No framework churn. No migration guides. No "version 2 with breaking changes."
 
-The codebase is intentionally small (~680 lines of core CSS) so it can evolve with the language rather than fight it. When CSS adds a native `popover` — swap the popover component. When `scroll-driven animations` land — add a file. The architecture stays the same.
+The codebase is intentionally small (~940 lines of core CSS) so it can evolve with the language rather than fight it. When CSS adds a native `popover` — swap the popover component. When `scroll-driven animations` land — add a file. The architecture stays the same.
 
 ---
 
@@ -53,7 +53,7 @@ Three ways to get EXSA — no `npm install`, ever.
 Pin to the release tag for a stable, self-contained copy:
 
 ```bash
-git clone --branch v1.0.0-rc.2 --depth 1 https://github.com/Saif-Almarri/exsa.git
+git clone --branch v1.0.0-rc.3 --depth 1 https://github.com/Saif-Almarri/exsa.git
 ```
 
 Link from `exsa/dist/…` or copy only the files you use into your project.
@@ -79,7 +79,7 @@ Sandbox EXSA without downloading anything. **Testing only** — self-host
 <script src="https://cdn.jsdelivr.net/gh/Saif-Almarri/exsa@main/dist/exsa.js"></script>
 ```
 
-> Pin a version by replacing `@main` with `@1.0.0-rc.2` (or any tag). Per-component
+> Pin a version by replacing `@main` with `@1.0.0-rc.3` (or any tag). Per-component
 > links are covered in the table below.
 
 **Optional: Fluid tokens & profiles.** Link `exsa.fluid.css` after the core to make spacing, typography, and shape scale smoothly with viewport width — no breakpoints needed. Built-in behavioral profiles (Compact / Comfortable / Spacious) change density with one HTML attribute. One file. Build-free.
@@ -153,7 +153,7 @@ Link order matters: **core → theme → fluid → components/layouts → debug*
   <link rel="stylesheet" href="dist/exsa.css">
 
   <!-- 2. Optional — a theme (20 to choose from; the core ships built-in defaults) -->
-  <link rel="stylesheet" href="themes/breeze.css">
+  <link rel="stylesheet" href="dist/themes/breeze.css">
 </head>
 
 <!-- 3. Opt-in to classless element styling -->
@@ -229,7 +229,7 @@ EXSA uses CSS `@layer` to enforce a browser-native cascade. **Unlayered user CSS
 ```
 Priority  Layer                 Covers
 ────────  ────────────────────  ──────────────────────────────────
-  1       @layer exsa.tokens    94 design tokens in :root
+  1       @layer exsa.tokens    95 design tokens in :root
   2       @layer exsa.themes    Theme token overrides (palette axis)
   3       @layer exsa.skins     Surface material recipes (skin axis)
   4       @layer exsa.fluid     Fluid clamp() tokens & density profiles
@@ -250,14 +250,14 @@ Priority  Layer                 Covers
 .my-button { background: purple; }
 
 /* It ALWAYS beats EXSA's .btn--primary */
-/* Unlayered CSS > all 9 @layers. Every time. */
+/* Unlayered CSS > all 10 @layers. Every time. */
 ```
 
 ---
 
 ## Design Tokens
 
-All 94 tokens live in `:root` inside `@layer exsa.tokens`. Themes override the color tokens from `@layer exsa.themes` (layer 2 — swap one file, everything recolors; themes own colors only, shape and font pairing belong to the skin axis); skins override the twelve `--surface-*` tokens from `@layer exsa.skins` (layer 3 — swap one file, every surface redraws, including the page backdrop via `--surface-canvas`). **Export:** [`tokens.json`](../tokens.json) for Figma, JS, or Tailwind config — generated from `manifest.json` + the CSS, never hand-edited.
+All 94 tokens live in `:root` inside `@layer exsa.tokens`. Themes override the color tokens from `@layer exsa.themes` (layer 2 — swap one file, everything recolors; themes own colors only, shape and font pairing belong to the skin axis); skins override the thirteen `--surface-*` tokens from `@layer exsa.skins` (layer 3 — swap one file, every surface redraws, including the page backdrop via `--surface-canvas`). **Export:** [`tokens.json`](../tokens.json) for Figma, JS, or Tailwind config — generated from `manifest.json` + the CSS, never hand-edited.
 
 ### Base colors
 
@@ -584,17 +584,22 @@ backgrounds, borders, shadows, inner highlights, blur, radius, and optional
 font pairing. A skin is a ~25-line token-only file in `@layer exsa.skins`:
 link one after core + theme (or the bundle) and every surface follows.
 
+Three box treatments, chosen by the skin: **solid** (opaque `--surface-bg`),
+**clear** (translucent tint, `--surface-backdrop: none`), and **frosted**
+(translucent tint + a blur shipped in `--surface-backdrop` / `-strong`,
+which the components apply via `backdrop-filter`).
+
 | Skin | Look |
 |---|---|
 | `flat` | solid surfaces, thin borders, zero effects — the baseline |
-| `glass` | frosted: backdrop blur + translucent tint |
+| `glass` | clear: translucent tint + bright edge, no frost |
 | `neomorphic` | dual light/dark shadows, no borders, radius 18px |
 | `clay` | inflated: soft gradient, big soft shadow, inner top highlight |
 | `skeuomorphic` | bevel gradients, layered shadows, serif body + headings |
-| `glossy` | specular sheen across the surface |
+| `glossy` | frosted: translucent surfaces + backdrop blur + specular sheen |
 | `brutalist` | zero radius, thick borders, hard offset shadows, mono body + Impact headings |
 | `metallic` | brushed-metal banding, machined inset edges, mono headings |
-| `glow` | neon link/secondary glow, mono headings — best on dark themes |
+| `glow` | frosted: translucent plates + backdrop blur, neon link/secondary glow, mono headings — best on dark themes |
 | `neon` | neon signage — darkened plates with glowing tube edges, mono headings |
 
 ```html
@@ -602,9 +607,20 @@ link one after core + theme (or the bundle) and every surface follows.
 ```
 
 Skins never hardcode colors — every value derives from the active theme via
-`color-mix()`, so 20 palettes × 10 skins = 200 looks from 30 files. The twelve
+`color-mix()`, so 20 palettes × 10 skins = 200 looks from 30 files. The thirteen
 `--surface-*` tokens are exported in [`tokens.json`](../tokens.json); a
 custom skin is the same ~25-line file with your own values.
+
+**Frost boundaries** — a frosted skin frosts the box and floating surfaces
+that consume `--surface-*` tokens. Deliberately unfrosted: controls *inside*
+an already-frosted panel (dialog/bar buttons, chips, dropdown items),
+slideshow arrows, `alert--outline`, `.sidebar--dark`, responsive table rows,
+and the layout page sheet. Four notes: frost stacks (a frosted control inside
+a frosted panel blurs an already-blurred backdrop — avoid nesting); a frosted
+element becomes the containing block for `position: fixed` descendants; frost
+only reads over a vivid backdrop — pair a frosted skin with a colorful
+`--surface-canvas` or page image; and a frosted bar clips its dropdowns'
+blur, so topbar menus portal to `<body>` on desktop (`topbar.js`).
 
 ### Luxury font pairings (link-based, optional)
 
@@ -641,8 +657,8 @@ offline, or CSP-strict deployments.
 ### Runtime theme switching
 
 ```js
-// Swap theme at runtime — no rebuild, no page reload
-document.getElementById('theme-link').href = 'themes/night.css';
+// Give the theme <link> an id="theme-link", then swap its href at runtime:
+document.getElementById('theme-link').href = 'dist/themes/night.css';
 ```
 
 ---
@@ -818,12 +834,12 @@ EXSA targets WCAG 2.1 AA compliance.
 
 | File | Size |
 |---|---|
-| `exsa.css` | 32.4 KB (820 lines) |
+| `exsa.css` | 36.6 KB (941 lines) |
 | `exsa.fluid.css` | ~1.5 KB (optional) |
 | Each theme | ~1 KB (~30 lines) |
 | Each component | ~1 KB |
-| Full framework (core + theme) | ~33 KB |
-| Typical deploy (core + theme + 10 components) | ~43 KB |
+| Full framework (core + theme) | ~38 KB |
+| Typical deploy (core + theme + 10 components) | ~48 KB |
 No minification needed — the files are already compact.
 
 ---
@@ -834,11 +850,11 @@ No minification needed — the files are already compact.
 |---|---|---|---|
 | **Build step** | None | None (SCSS optional) | Yes (PostCSS/CLI) |
 | **No template engine needed** | ✅ Yes — plain `.php` files, no Twig, no Blade | ✅ (HTML/CSS only) | ❌ Requires Node.js + PostCSS |
-| **File size (base)** | 32 KB | ~50 KB (minified grid+reboot) | ~4 KB (compiled, no utilities yet) |
+| **File size (base)** | 37 KB | ~50 KB (minified grid+reboot) | ~4 KB (compiled, no utilities yet) |
 | **Guarded Classless™** | Yes — semantic HTML with opt-out | No | No |
 | **Runtime theming** | 20 themes, live-swappable | Light/dark in 5.3 | Dark mode with `dark:` |
 | **CSS Grid utilities** | Yes | Limited | Yes |
-| **`@layer` cascade** | Yes — 9 layers | No | Yes (v3.2+) |
+| **`@layer` cascade** | Yes — 10 layers | No | Yes (v3.2+) |
 | **`:has()` support** | Yes | No | No |
 | **Container queries** | Yes | No | Yes (v3.2+) |
 | **Component library** | 68 token-driven components | 20+ components | None (Headless UI separate) |
@@ -852,7 +868,6 @@ No minification needed — the files are already compact.
 root
 ├── dist/                    ← the product — copy only what you link
 │   ├── exsa.css              Core (tokens, reset, utilities, elements, overrides)
-│   ├── style.css            Deprecated alias — @import of exsa.css (removed in v1.0.0)
 │   ├── exsa.fluid.css        Fluid tokens & density profiles (optional)
 │   ├── js/                   Behaviors — one file per component (+ exsa-core.js, exsa.js)
 │   ├── layouts/               2 files — general (paper base) + dashboard (app-frame focus)
@@ -918,7 +933,7 @@ See [TRADEMARK.md](../TRADEMARK.md) for guidelines on using the EXSA name and th
 
 ## Feedback & Community
 
-EXSA is at v1.0.0-rc.2 — your feedback shapes what 1.0 becomes.
+EXSA is at v1.0.0-rc.3 — your feedback shapes what 1.0 becomes.
 
 - 🐛 **Bug reports & feature requests:** [GitHub Issues](https://github.com/Saif-Almarri/exsa/issues)
 - 💬 **Questions & ideas:** [GitHub Discussions](https://github.com/Saif-Almarri/exsa/discussions)
@@ -935,7 +950,7 @@ EXSA is at v1.0.0-rc.2 — your feedback shapes what 1.0 becomes.
 
 ## Co-Founders Wanted
 
-EXSA was founded by **Saif Almarri**, who invented the 9-layer cascade architecture, Guarded Classless™ pattern, and built the entire framework solo. He holds **28% equity** and leads product direction.
+EXSA was founded by **Saif Almarri**, who invented the 10-layer cascade architecture, Guarded Classless™ pattern, and built the entire framework solo. He holds **28% equity** and leads product direction.
 
 EXSA has three contributor slots — one per co-founder role. Invite-only, not an open call:
 

@@ -2,22 +2,26 @@
 
 /* ============================================================
    LAYER 3 — SKIN: GLASS
-   Frosted translucent surfaces.
+   Clear translucent surfaces — a see-through tint with a bright
+   edge, no backdrop frost. Alpha stays ≥70% so boxes stay
+   readable where backdrop-filter is absent (or pinned off).
+   The frosted skins are glossy + glow — they own the blur.
    Link AFTER exsa.css (or the bundle) + your theme:
    <link rel="stylesheet" href="skins/glass.css">
    Token-only: every rule targets :root. The #fff mixes are the
    neutral glass highlight — every other color derives from the
    active theme via color-mix, so this composes with all 21 palettes
    and both forced modes.
-   Crash rule: the blur value lives in --surface-backdrop and is
-   consumed by components' surfaces — never apply it to elements
-   that sit over animated content.
+   Crash rule (applies to custom frosted skins): the blur value
+   lives in --surface-backdrop and is consumed by components'
+   surfaces — never apply it to elements that sit over animated
+   content.
    ============================================================ */
 
 :root {
-  --surface-bg: color-mix(in srgb, var(--color-bg) 55%, transparent);
-  --surface-bg-elevated: color-mix(in srgb, var(--color-bg) 78%, transparent);
-  --surface-border: 1px solid color-mix(in srgb, #fff 25%, transparent);
+  --surface-bg: color-mix(in srgb, var(--color-bg) 70%, transparent);
+  --surface-bg-elevated: color-mix(in srgb, var(--color-bg) 84%, transparent);
+  --surface-border: 1px solid color-mix(in srgb, #fff 30%, transparent); /* the edge carries the box — no frost to fall back on */
   --surface-border-control: 1px solid color-mix(in srgb, var(--color-text) 16%, transparent);
   --surface-radius: 16px;
   --border-radius: 16px; /* legacy small-element shape — matches the surface; typography: system sans */
@@ -26,7 +30,8 @@
   --surface-shadow-lg: 0 16px 48px color-mix(in srgb, var(--color-text) 16%, transparent);
   --surface-shadow-side: 8px 0 32px color-mix(in srgb, var(--color-text) 10%, transparent);
   --surface-inset: inset 0 0 0 0 transparent; /* no-op — composable in shadow lists */
-  --surface-backdrop: blur(12px) saturate(1.4);
+  --surface-backdrop: none;        /* Clear treatment — translucent tint only, no frost */
+  --surface-backdrop-strong: none;
   /* Preferred page backdrop — the aurora + ambient blobs, folded into one canvas. */
   --surface-canvas:
     radial-gradient(34rem 34rem at -10% -10%, color-mix(in srgb, var(--color-link) 26%, transparent), transparent 70%),

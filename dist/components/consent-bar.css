@@ -6,7 +6,7 @@
    ============================================================ */
 
 /* --- C33: COOKIE BAR --- */
-.cookie-bar{position:fixed;bottom:0;left:0;right:0;z-index:var(--z-cookiebar);background:var(--surface-bg);border-top:var(--surface-border);box-shadow:var(--surface-shadow-md);padding: calc(16px * var(--space-factor, 1)) calc(24px * var(--space-factor, 1));padding-bottom: calc(16px * var(--space-factor, 1) + env(safe-area-inset-bottom, 0px));display:flex;align-items:center;justify-content:center;gap: calc(16px * var(--space-factor, 1));flex-wrap:wrap;transform:translateY(100%);transition:transform .35s cubic-bezier(.4,0,.2,1)}
+.cookie-bar{position:fixed;bottom:0;left:0;right:0;z-index:var(--z-cookiebar);background:var(--surface-bg);backdrop-filter:var(--surface-backdrop,none);-webkit-backdrop-filter:var(--surface-backdrop,none);border-top:var(--surface-border);box-shadow:var(--surface-shadow-md);padding: calc(16px * var(--space-factor, 1)) calc(24px * var(--space-factor, 1));padding-bottom: calc(16px * var(--space-factor, 1) + env(safe-area-inset-bottom, 0px));display:flex;align-items:center;justify-content:center;gap: calc(16px * var(--space-factor, 1));flex-wrap:wrap;transform:translateY(100%);transition:transform .35s cubic-bezier(.4,0,.2,1)}
 .cookie-bar--visible{transform:translateY(0)}
 .cookie-bar__text{font-size:.82rem;color:var(--color-text-secondary);line-height:1.6;max-width:600px;margin:0}
 .cookie-bar__text a{color:var(--color-link);font-weight:600;text-decoration:underline}

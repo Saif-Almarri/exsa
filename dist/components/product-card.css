@@ -32,6 +32,8 @@
 .shop__card {
   position: relative;
   background: var(--surface-bg);
+  backdrop-filter: var(--surface-backdrop, none);
+  -webkit-backdrop-filter: var(--surface-backdrop, none);
   border: var(--surface-border);
   border-radius: var(--surface-radius);
   overflow: hidden;

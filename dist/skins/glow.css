@@ -5,6 +5,9 @@
    Neon glow: luminous colored shadows and borders derived from
    the active theme's link + secondary colors. Most spectacular
    on dark themes (night, abyss, ink).
+   Treatment: Frosted — translucent plates read through the blur.
+   The frost value lives in --surface-backdrop (components apply
+   the property — a skin never does).
    Link AFTER exsa.css (or the bundle) + your theme:
    <link rel="stylesheet" href="skins/glow.css">
    Token-only: every rule targets :root — no hardcoded colors,
@@ -12,8 +15,8 @@
    ============================================================ */
 
 :root {
-  --surface-bg: var(--color-bg);
-  --surface-bg-elevated: color-mix(in srgb, var(--color-bg) 97%, var(--color-text));
+  --surface-bg: color-mix(in srgb, var(--color-bg) 62%, transparent);
+  --surface-bg-elevated: color-mix(in srgb, var(--color-bg) 70%, transparent); /* elevated boxes stay translucent so the frost reads */
   --surface-border: 1px solid color-mix(in srgb, var(--color-link) 45%, transparent);
   --surface-radius: 12px;
   --border-radius: 12px; /* legacy small-element shape — matches the surface */
@@ -24,7 +27,8 @@
                        0 0 48px color-mix(in srgb, var(--color-secondary) 30%, transparent);
   --surface-shadow-side: 8px 0 32px color-mix(in srgb, var(--color-link) 25%, transparent);
   --surface-inset: inset 0 0 8px color-mix(in srgb, var(--color-link) 12%, transparent);
-  --surface-backdrop: none;
+  --surface-backdrop: blur(12px) saturate(1.4);
+  --surface-backdrop-strong: blur(18px) saturate(1.5);
   --font-family-heading: var(--font-family-mono); /* cyber-terminal headings; body stays theme sans */
   /* Preferred page backdrop — ambient neon pools. */
   --surface-canvas:

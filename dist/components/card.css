@@ -19,6 +19,8 @@
   container-type: inline-size;
   container-name: card;
   background: var(--surface-bg-elevated);
+  backdrop-filter: var(--surface-backdrop-strong, none); /* skin frost — none unless a frosted skin ships it */
+  -webkit-backdrop-filter: var(--surface-backdrop-strong, none);
   border: var(--surface-border);
   border-radius: var(--surface-radius);
   overflow: hidden;
@@ -35,8 +37,8 @@
 .card--glass {
   background: color-mix(in srgb, var(--color-bg) 55%, transparent);
   border-color: color-mix(in srgb, #fff 25%, transparent);
-  backdrop-filter: blur(12px) saturate(1.4);
-  -webkit-backdrop-filter: blur(12px) saturate(1.4);
+  backdrop-filter: var(--surface-backdrop, blur(12px) saturate(1.4));
+  -webkit-backdrop-filter: var(--surface-backdrop, blur(12px) saturate(1.4));
   box-shadow: 0 8px 32px rgba(0,0,0,.12);
 }
 .card--glass-dark {

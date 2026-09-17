@@ -243,6 +243,8 @@
   scrollbar-width: thin;
   scrollbar-color: var(--color-scrollbar) transparent;
   background: var(--surface-bg-elevated);
+  backdrop-filter: var(--surface-backdrop-strong, none);
+  -webkit-backdrop-filter: var(--surface-backdrop-strong, none);
   border: var(--surface-border);
   border-radius: var(--surface-radius);
   box-shadow: var(--surface-shadow-lg);

@@ -7,7 +7,27 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
-## [Unreleased]
+## [1.0.0-rc.3] — 2026-09-17
+
+### ⚠️ Breaking changes
+
+- **`dist/style.css` deprecation shim removed** — the one-line `@import` alias for `exsa.css` (flagged for removal since v1.0.0) is deleted. Everything already links `dist/exsa.css`; the validator's file list and `--token-audit` scope no longer reference it.
+
+### ✨ Added
+
+- **Skin box treatments — clear vs frosted, fully token-driven** — every box and floating surface now consumes the skin's frost: components apply `backdrop-filter: var(--surface-backdrop, none)` (box/floating surfaces: dropdown + trigger, popover, context menu, modal, drawer, toast, date picker, KPI, shop/video cards, topbar menu, consent bar, timeline, pricing, table wrap + search, tags-input wrapper + menu, alert, pagination, input group, password, select, surface button) and `var(--surface-backdrop-strong, none)` (elevated surfaces: topbar, cards, sidebar tray, `.glass--strong`). The new `--surface-backdrop-strong` is the elevated-tier twin of `--surface-backdrop`, defaulting to `none` in core (root + the reduced-motion guard), and registered in the manifest/tokens.json surface catalog. Frost now ships in exactly two skins — **glossy** (specular frost) and **glow** (neon frost; its plates are now translucent so the frost reads) — and nowhere else.
+
+- **The skins lab opts into real frost** — `site/skins.php` sets `$EXSA_FROST = true` (head.php's site-wide frost pin is now conditional), paints theme-derived aurora blobs behind the demo tiles so the blur has something to frost, and frosts its chrome (topbar, panels, footer). The whole site now ships frosted by default (head.php defaults `$EXSA_FROST = true` on the glossy skin); set `$EXSA_FROST = false` on a page to pin the frost tokens to `none`.
+
+### 🔧 Changed
+
+- **Glass is now the Clear material** — `glass.css` drops its `backdrop-filter` value (`--surface-backdrop: none`) and raises the surface alpha from 55/78% to 70/84% so see-through boxes stay readable wherever frost is absent, with a brighter edge border (25% → 30% white). The frosted treatments live only in glossy + glow. The site pins both frost tokens to `none` in `head.php` only when `$EXSA_FROST = false`; validator rule 18 is unchanged — skin files still never apply the `backdrop-filter` property.
+
+- **Gradient surfaces are now safe inside `color-mix()` consumers** — `.tbl th` (table.css) and the site chrome (`.g-panel`, `.sidebar`, `.footer`, topbar dropdown/nav, lab panels) no longer mix `--surface-bg` into `color-mix()`, which computed to transparent under glossy's gradient surface; they paint the veil as a gradient layer over `--surface-bg` instead (identical rendering for color surfaces).
+
+- **Topbar dropdowns portal to `<body>` on desktop** — a frosted topbar is the backdrop root for its descendants, which clipped the dropdown's backdrop blur to the bar's bounds (the menu hung below it and rendered unfrosted). `topbar.js` now moves the menus to `<body>` at ≥768px (fixed, positioned under their trigger, viewport-clamped, RTL-aware) and returns them at smaller widths, where the in-flow accordion stays. The menu's open state moved to a menu-level class (`.topbar__dd-menu--open`) so it survives the portal; mobile behavior is unchanged.
+
+- **Topbar keeps its skin surface at every scroll state** — the `topbar--transparent` start state is retired from the site chrome: `head.php` (and the page-level duplicates in `index.php` and `skins.php`) no longer overrides the bar to transparent, so the frosted surface + blur apply at the top exactly as when scrolled (`.topbar--scrolled` now adds only the shadow). Every page's include drops the dead class; the `topbar--transparent` component modifier still ships as framework API.
 
 ## [1.0.0-rc.2] — 2026-09-13
 
@@ -44,6 +64,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **`general.css` is now a pure universal shell — blog decomposed into a recipe** — the merged blog mode was deleted, not relocated: reading layouts are shell recipes (`layout--centered` + the new `--layout-measure` token for the column width; `layout--aside-right` + `layout--aside-sticky` with the sidebar component for a TOC), and aside widths are fluid (`--layout-aside-left/right-w: clamp(220px, 25%, 300px)`): sizing needs no intermediate breakpoints, only the final 860px stack remains. The `blog--*` classes are removed (breaking) — docs (docs.php, page-layouts.php, cheatsheet, README) and manifest updated.
 
 ### 🔧 Changed
+
+- **Page backdrop now follows the skin's `--surface-canvas`** — `body` consumes `--surface-canvas` (`background: var(--surface-canvas); background-attachment: fixed`) instead of `--color-bg`, so a skin's preferred page backdrop (glass aurora, neon wash, …) renders automatically for any consumer. No-skin pages are unchanged (`--surface-canvas` defaults to `var(--color-bg)`). The site's redundant `.g-aurora` layer is removed.
+
+- **Frosted classes now consume `--surface-backdrop`** — `.glass`, `.glass--strong`, `.card--glass`, and `.bg-blur` read `var(--surface-backdrop, …)` instead of hardcoding their blur, so a skin (glass/glossy) controls the frost. The previous hardcoded values remain as fallbacks. Note: with no skin the core default is `--surface-backdrop: none`, so these classes no longer blur unless a skin sets it.
 
 - **Layout shell tokens registered + documented** — `.layout__page` consumed `--layout-page-border/radius/shadow/pad` with no definition or fallback (validator red, standalone sheets rendered bare). The four tokens now default in `general.css` (`--layout-page-border: var(--surface-border)`, `--layout-page-radius: var(--surface-radius)`, `--layout-page-shadow: var(--surface-shadow-lg)`, `--layout-page-pad: 0`) and are listed in the file's token docs. `docs/README.md` gains a "Page shells" section (markup, pieces, modifiers, recipes), and the `tools/` folder rows + design-token count across the READMEs are corrected.
 

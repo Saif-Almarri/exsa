@@ -43,6 +43,8 @@
   gap: calc(10px * var(--space-factor, 1));
   padding: var(--kpi-pad);
   background: var(--surface-bg);
+  backdrop-filter: var(--surface-backdrop, none);
+  -webkit-backdrop-filter: var(--surface-backdrop, none);
   border: var(--surface-border);
   border-inline-start: 3px solid var(--kpi-accent);
   border-radius: var(--surface-radius);
