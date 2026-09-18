@@ -7,6 +7,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [Unreleased]
+
+### 🔧 Changed
+
+- **Forced light now opts out of browser auto-darkening** — `:root[data-theme-mode="light"]` declares `color-scheme: only light` (core, all 20 themes, and the Theme Builder export template). A page pinned to light can no longer be auto/force-darkened by mobile browsers in OS dark mode (Chrome Auto Dark, Samsung Internet dark mode), which was rendering light pages dark and corrupting `background-clip: text` headings. Validator rule 17 enforces the new form.
+
+- **Site gradient headings can never render dark or invisible** — every gradient heading on the site (index hero/stats/bench, generator, docs, cheatsheet, icons, source, page-layouts, elements, showcase, shared `.g-title`) now carries a solid `var(--color-link)` fallback, with the gradient + transparent fill guarded by `@supports ((background-clip: text)…)`. Engines without clip-to-text get a theme-aware solid accent instead of near-black glyphs or blank text. The shared `<head>` also declares `<meta name="color-scheme" content="light dark">`.
+
+### 🐛 Fixed
+
+- **Site pages no longer overflow horizontally on phones** — index code card drops its `min-width: 400px`; docs reference tables, cheatsheet class tables, and page-layouts class/token tables scroll inside their own boxes instead of stretching the page; the icons grid uses the `minmax(min(150px,100%),1fr)` track guard (and `minmax(0,1fr)` two-up on mobile); the Theme Builder export bar wraps; the Layouts page zone diagram stacks its asides like the real layout does.
+- **Wide component demos are no longer clipped on phones** — `.doc-demo__stage` scrolls horizontally under 768px (elements/showcase included), so kanban and table demos stay inspectable.
+
+---
+
 ## [1.0.0-rc.3] — 2026-09-17
 
 ### ⚠️ Breaking changes

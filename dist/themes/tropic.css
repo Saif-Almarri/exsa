@@ -37,6 +37,6 @@
 :root[data-theme-mode="dark"] { color-scheme: dark; }
 
 /* Forced light — <html data-theme-mode="light">, ignores OS preference */
-:root[data-theme-mode="light"] { color-scheme: light; }
+:root[data-theme-mode="light"] { color-scheme: only light; }
 
 }

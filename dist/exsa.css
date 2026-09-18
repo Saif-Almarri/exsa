@@ -71,8 +71,9 @@
 /* Forced dark — <html data-theme-mode="dark">, ignores OS preference */
 :root[data-theme-mode="dark"] { color-scheme: dark; }
 
-/* Forced light — <html data-theme-mode="light">, ignores OS preference */
-:root[data-theme-mode="light"] { color-scheme: light; }
+/* Forced light — <html data-theme-mode="light">, ignores OS preference.
+   "only" = browsers must never auto/force-darken a page that pinned light. */
+:root[data-theme-mode="light"] { color-scheme: only light; }
 
 /* Legacy fallback  */
 @supports not (color: light-dark(#000, #fff)) {

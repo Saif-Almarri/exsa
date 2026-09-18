@@ -366,13 +366,16 @@ for (const lay of manifest.layouts || []) {
    Every theme file is standalone: it must define both forced-mode
    color-scheme rules. They also live in dist/exsa.css — a harmless
    duplicate that keeps a theme fully usable when the core isn't linked
-   (e.g. a Generator bundle with Foundation off). Enforced, not accidental. */
+   (e.g. a Generator bundle with Foundation off). Enforced, not accidental.
+   Forced light must be `only light` — the CSS Color Adjust opt-out that
+   stops mobile browsers from auto/force-darkening a pinned-light page. */
 for (const f of cssFiles2.filter((f) => f.startsWith('dist/themes/') && f.endsWith('.css'))) {
   const content = readFileSync(join(root, f), 'utf8');
   for (const mode of ['dark', 'light']) {
-    const re = new RegExp(':root\\[data-theme-mode="' + mode + '"\\]\\s*\\{\\s*color-scheme:\\s*' + mode + ';?');
+    const val = mode === 'light' ? '(?:only\\s+)?light' : mode;
+    const re = new RegExp(':root\\[data-theme-mode="' + mode + '"\\]\\s*\\{\\s*color-scheme:\\s*' + val + ';?');
     if (!re.test(content)) {
-      fail(`${f}: missing standalone forced-mode rule :root[data-theme-mode="${mode}"] { color-scheme: ${mode}; }`);
+      fail(`${f}: missing standalone forced-mode rule :root[data-theme-mode="${mode}"] { color-scheme: ${mode === 'light' ? 'only light' : mode}; }`);
     }
   }
 }
