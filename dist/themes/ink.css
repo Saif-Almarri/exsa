@@ -2,19 +2,17 @@
 
 /* ============================================================
    LAYER 2 — THEME: INK
-   Warm paper + dark ink by default. Near-black + parchment
-   text in dark mode. High contrast, comfortable reading.
+   Custom theme built with EXSA Theme Builder.
    Auto-switches via prefers-color-scheme.
    Force mode: <html data-theme-mode="light|dark">
-   Self-contained: forced-mode rules included below (also in exsa.css — harmless duplicate).
    ============================================================ */
 
 :root {
   color-scheme: light dark;
-  --color-bg: light-dark(#f8f4e8, #0f0f0c);
-  --color-bg-secondary: light-dark(#ebe4d0, #1a1a14);
-  --color-text: light-dark(#1a1814, #d4cebc);
-  --color-text-secondary: light-dark(#6a6458, #8a8478);
+  --color-bg: light-dark(#ffffff, #00010f);
+  --color-bg-secondary: light-dark(#e5e7ff, #1e1e2a);
+  --color-text: light-dark(#000099, #bec2d5);
+  --color-text-secondary: light-dark(#747ca4, #797b8b);
   --color-link: light-dark(#8a6a30, #c4a44a);
   --color-secondary: light-dark(#6a5030, #a08040);
   --color-secondary-accent: light-dark(#6a50300d, #a0804018);
@@ -30,7 +28,7 @@
   --color-warning-hover: light-dark(#b45309, #f59e0b);
   --color-border: light-dark(#d4ccb8, #2a2a20);
   --color-button-text: light-dark(var(--color-bg), #0f0f0c);
-  --color-button-text-inverse: light-dark(#1a1814, #d4cebc);
+  --color-button-text-inverse: light-dark(#15141a, #d4cebc);
 }
 
 /* Forced dark — <html data-theme-mode="dark">, ignores OS preference */

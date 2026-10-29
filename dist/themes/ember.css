@@ -6,7 +6,6 @@
    embers in dark mode. Campfire warmth.
    Auto-switches via prefers-color-scheme.
    Force mode: <html data-theme-mode="light|dark">
-   Self-contained: forced-mode rules included below (also in exsa.css — harmless duplicate).
    ============================================================ */
 
 :root {
@@ -32,11 +31,5 @@
   --color-button-text: light-dark(var(--color-bg), #181410);
   --color-button-text-inverse: light-dark(#2a1e10, #e8dcc8);
 }
-
-/* Forced dark — <html data-theme-mode="dark">, ignores OS preference */
-:root[data-theme-mode="dark"] { color-scheme: dark; }
-
-/* Forced light — <html data-theme-mode="light">, ignores OS preference */
-:root[data-theme-mode="light"] { color-scheme: only light; }
 
 }

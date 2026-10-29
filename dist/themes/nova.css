@@ -2,26 +2,24 @@
 
 /* ============================================================
    LAYER 2 — THEME: NOVA
-   High-tech electric blue on deep slate. Clean, precise,
-   dashboard-grade. For interfaces that mean business.
+   Custom theme built with EXSA Theme Builder.
    Auto-switches via prefers-color-scheme.
    Force mode: <html data-theme-mode="light|dark">
-   Self-contained: forced-mode rules included below (also in exsa.css — harmless duplicate).
    ============================================================ */
 
 :root {
   color-scheme: light dark;
-  --color-bg: light-dark(#f5f7fc, #0b0f19);
-  --color-bg-secondary: light-dark(#e4eaf5, #141c2c);
-  --color-text: light-dark(#101830, #e0e8f8);
-  --color-text-secondary: light-dark(#506088, #6b80a8);
-  --color-link: light-dark(#1a5fdc, #3291ff);
-  --color-secondary: light-dark(#5b4ad8, #6c5ce7);
-  --color-secondary-accent: light-dark(#5b4ad80d, #6c5ce718);
-  --color-accent: light-dark(#1a5fdc10, #3291ff14);
+  --color-bg: light-dark(#ffffff, #0e031c);
+  --color-bg-secondary: light-dark(#f0e5f5, #20152e);
+  --color-text: light-dark(#261132, #ede3f8);
+  --color-text-secondary: light-dark(#754f87, #fec3f9);
+  --color-link: light-dark(#e2a3ff, #e733ff);
+  --color-secondary: light-dark(#a04ad9, #6700e6);
+  --color-secondary-accent: light-dark(#b34ad90d, #b65be618);
+  --color-accent: light-dark(#8e1adb10, #a333ff14);
   --color-overlay: rgba(0,0,0,.5);
   --color-shadow: light-dark(#c4cde4, #00000055);
-  --color-scrollbar: light-dark(#a0b4d0, #1a2840);
+  --color-scrollbar: light-dark(#a0b4d0, #2e1f37);
   --color-success: light-dark(#16a34a, #22c55e);
   --color-success-hover: light-dark(#15803d, #16a34a);
   --color-danger: light-dark(#dc2626, #ef4444);
@@ -29,8 +27,8 @@
   --color-warning: light-dark(#d97706, #f59e0b);
   --color-warning-hover: light-dark(#b45309, #d97706);
   --color-border: light-dark(#c4cde4, #1a2840);
-  --color-button-text: light-dark(#0b0f19, #ffffff);
-  --color-button-text-inverse: light-dark(#101830, #e0e8f8);
+  --color-button-text: light-dark(#130b19, #ffffff);
+  --color-button-text-inverse: light-dark(#1f1132, #e0e8f8);
 }
 
 /* Forced dark — <html data-theme-mode="dark">, ignores OS preference */

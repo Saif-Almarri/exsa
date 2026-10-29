@@ -1,0 +1,40 @@
+@layer exsa.themes {
+
+/* ============================================================
+   LAYER 2 — THEME: TROPIC
+   Custom theme built with EXSA Theme Builder.
+   Auto-switches via prefers-color-scheme.
+   Force mode: <html data-theme-mode="light|dark">
+   ============================================================ */
+
+:root {
+  color-scheme: light dark;
+  --color-bg: light-dark(#ffffff, #0a0f0d);
+  --color-bg-secondary: light-dark(#d4f5b0, #4b6d26);
+  --color-text: light-dark(#0a0124, #cff7d3);
+  --color-text-secondary: light-dark(#0e5d3b, #96e9a4);
+  --color-link: light-dark(#3fad10, #a4da95);
+  --color-secondary: light-dark(#0d8c5b, #319b38);
+  --color-secondary-accent: light-dark(#0d8c2d0d, #13ad1018);
+  --color-accent: light-dark(#10ad4c10, #6adcca14);
+  --color-overlay: light-dark(#30602a2b, rgba(0,0,0,.5));
+  --color-shadow: light-dark(#b8e8a0, #00000066);
+  --color-scrollbar: light-dark(#99eea9, #69917e);
+  --color-success: light-dark(#16a34a, #22c55e);
+  --color-success-hover: light-dark(#15803d, #16a34a);
+  --color-danger: light-dark(#dc2626, #ef4444);
+  --color-danger-hover: light-dark(#b91c1c, #dc2626);
+  --color-warning: light-dark(#d97706, #f59e0b);
+  --color-warning-hover: light-dark(#b45309, #d97706);
+  --color-border: light-dark(#b8e8a0, #0a380b);
+  --color-button-text: light-dark(var(--color-bg), #071307);
+  --color-button-text-inverse: light-dark(#0a0124, #cff7d3);
+}
+
+/* Forced dark — <html data-theme-mode="dark">, ignores OS preference */
+:root[data-theme-mode="dark"] { color-scheme: dark; }
+
+/* Forced light — <html data-theme-mode="light">, ignores OS preference */
+:root[data-theme-mode="light"] { color-scheme: only light; }
+
+}

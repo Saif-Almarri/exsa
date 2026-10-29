@@ -2,19 +2,18 @@
 
 /* ============================================================
    LAYER 2 — THEME: SEPIA
-   Warm paper tones by default, deep espresso in dark mode.
+   Custom theme built with EXSA Theme Builder.
    Auto-switches via prefers-color-scheme.
    Force mode: <html data-theme-mode="light|dark">
-   Self-contained: forced-mode rules included below (also in exsa.css — harmless duplicate).
    ============================================================ */
 
 :root {
   color-scheme: light dark;
-  --color-bg: light-dark(#fdf6e3, #1e1814);
+  --color-bg: light-dark(#ffffff, #1e1814);
   --color-bg-secondary: light-dark(#ede4cc, #2c221c);
   --color-text: light-dark(#3b2f2f, #e8dcc8);
   --color-text-secondary: light-dark(#6b5e4e, #a89880);
-  --color-link: light-dark(#8b4513, #d4956b);
+  --color-link: light-dark(#43220a, #986e34);
   --color-secondary: light-dark(#b5460f, #c77a4a);
   --color-secondary-accent: light-dark(#b5460f0f, #c77a4a18);
   --color-accent: light-dark(#8b451312, #d4956b14);

@@ -2,15 +2,14 @@
 
 /* ============================================================
    LAYER 2 — THEME: CORAL
-   Warm pink-orange by default, deep plum in dark mode.
+   Custom theme built with EXSA Theme Builder.
    Auto-switches via prefers-color-scheme.
    Force mode: <html data-theme-mode="light|dark">
-   Self-contained: forced-mode rules included below (also in exsa.css — harmless duplicate).
    ============================================================ */
 
 :root {
   color-scheme: light dark;
-  --color-bg: light-dark(#fff8f6, #1a1018);
+  --color-bg: light-dark(#fff8f6, #0f0e13);
   --color-bg-secondary: light-dark(#ffe0d8, #2a1a24);
   --color-text: light-dark(#2d1810, #f0d8d8);
   --color-text-secondary: light-dark(#7a5548, #c09898);
