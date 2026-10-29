@@ -1,0 +1,2758 @@
+/* EXSA — exsa.js. All behaviors in one file.
+   https://exsa.dev · v1.0.0-rc.3 · MIT License
+*/
+
+/* Copyright © 2026 Saif Almarri. MIT License. See LICENSE.
+   EXSA Core — shared utilities required by other EXSA JS modules.
+   ════════════════════════════════════════════════════════════ */
+
+/* ── Focus Trap Utility ── */
+var EXSA=EXSA||{};
+EXSA.ready=function(fn){if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',fn);}else{fn();}};
+(function(){
+  var SELECTORS='a[href], button:not([disabled]), textarea:not([disabled]), input:not([disabled]), select:not([disabled]), [tabindex]:not([tabindex="-1"])';
+
+  EXSA.trapFocus=function(container){
+    var focusable=Array.from(container.querySelectorAll(SELECTORS)).filter(function(el){return el.offsetParent!==null;});
+    if(!focusable.length)return function(){};
+    var first=focusable[0],last=focusable[focusable.length-1];
+
+    function handler(e){
+      if(e.key!=='Tab')return;
+      if(e.shiftKey&&document.activeElement===first){e.preventDefault();last.focus();}
+      else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first.focus();}
+    }
+    document.addEventListener('keydown',handler);
+    return function(){document.removeEventListener('keydown',handler);};
+  };
+
+  EXSA.getFocusable=function(container){
+    return Array.from(container.querySelectorAll(SELECTORS)).find(function(el){return el.offsetParent!==null;})||null;
+  };
+})();
+
+/* ── Breakpoint Helpers ── */
+(function(){
+  var root= getComputedStyle(document.documentElement);
+
+  EXSA.bp={
+    up: function(name){
+      return window.matchMedia('(min-width:' + root.getPropertyValue('--bp-' + name).trim() + ')');
+    },
+    down: function(name){
+      return window.matchMedia('(max-width:' + root.getPropertyValue('--bp-' + name).trim() + ')');
+    },
+    val: function(name){
+      return root.getPropertyValue('--bp-' + name).trim();
+    }
+  };
+})();
+
+/* --- dropdown --- */
+EXSA.ready(function(){
+
+/* EXSA Dropdown — click toggle + keyboard nav + outside click dismiss */
+(function(){
+  document.querySelectorAll('.dropdown').forEach(dd=>{
+    const trigger=dd.querySelector('.dropdown__trigger');
+    const menu=dd.querySelector('.dropdown__menu');
+    if(!trigger)return;
+    function open(){dd.classList.add('dropdown--open');if(trigger)trigger.setAttribute('aria-expanded','true');}
+    function close(){dd.classList.remove('dropdown--open');if(trigger)trigger.setAttribute('aria-expanded','false');}
+    function getItems(){return menu?menu.querySelectorAll('.dropdown__item:not([disabled]), .notifications__item:not([disabled])'):[];}
+    trigger.addEventListener('click',function(e){
+      e.stopPropagation();
+      dd.parentElement.querySelectorAll('.dropdown--open').forEach(d=>{if(d!==dd)d.classList.remove('dropdown--open');});
+      dd.classList.toggle('dropdown--open');
+    });
+    dd.addEventListener('keydown',function(e){
+      var items=getItems();var idx=Array.from(items).indexOf(document.activeElement);
+      if(e.key==='Enter'||e.key===' '){if(document.activeElement===trigger){e.preventDefault();open();var first=items[0];if(first)first.focus();}else{close();trigger.focus();}}
+      else if(e.key==='Escape'){close();trigger.focus();}
+      else if(e.key==='ArrowDown'){e.preventDefault();if(idx<0){if(items[0])items[0].focus();}else{if(items[idx+1])items[idx+1].focus();}}
+      else if(e.key==='ArrowUp'){e.preventDefault();if(idx>0)items[idx-1].focus();else trigger.focus();}
+    });
+  });
+  document.addEventListener('click',function(e){
+    document.querySelectorAll('.dropdown--open').forEach(d=>{
+      if(!d.contains(e.target))d.classList.remove('dropdown--open');
+    });
+  });
+})();
+});
+
+/* --- slideshow --- */
+EXSA.ready(function(){
+
+/* EXSA Slideshow — auto-play carousel with dots + arrows + keyboard */
+(function(){
+  document.querySelectorAll('.slideshow').forEach(root=>{
+    const track=root.querySelector('.slideshow__track');
+    const dots=root.querySelector('.slideshow__dots');
+    if(!track||!dots)return;
+    let idx=0,timer;
+    for(let i=0;i<track.children.length;i++){
+      const d=document.createElement('button');
+      d.className='slideshow__dot';d.setAttribute('aria-label','Go to slide '+(i+1));
+      d.addEventListener('click',()=>go(i));dots.appendChild(d);
+    }
+    const dotEls=dots.children;
+    function go(i){idx=(i+track.children.length)%track.children.length;track.style.transform='translateX(-'+(idx*100)+'%)';Array.from(dotEls).forEach((d,n)=>d.classList.toggle('slideshow__dot--active',n===idx));}
+    function adv(){clearTimeout(timer);go(idx+1);timer=setTimeout(adv,4200);}
+    const prev=root.querySelector('.slideshow__arrow--prev');
+    const next=root.querySelector('.slideshow__arrow--next');
+    if(prev)prev.addEventListener('click',()=>{go(idx-1);clearTimeout(timer);timer=setTimeout(adv,5000);});
+    if(next)next.addEventListener('click',()=>{go(idx+1);clearTimeout(timer);timer=setTimeout(adv,5000);});
+    var prefersReduced=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    go(0);if(!prefersReduced)timer=setTimeout(adv,4200);
+    root.addEventListener('keydown',function(e){
+      if(e.key==='ArrowLeft'){go(idx-1);clearTimeout(timer);timer=setTimeout(adv,5000);e.preventDefault();}
+      if(e.key==='ArrowRight'){go(idx+1);clearTimeout(timer);timer=setTimeout(adv,5000);e.preventDefault();}
+    });
+    root.setAttribute('tabindex','0');
+    var obs=new MutationObserver(function(){if(!document.contains(root)){clearTimeout(timer);obs.disconnect();}});
+    obs.observe(root.parentNode,{childList:true});
+  });
+})();
+});
+
+/* --- carousel --- */
+EXSA.ready(function(){
+
+/* ============================================================
+   EXSA Carousel — <exsa-carousel> Web Component
+   ── CSS scroll-snap + IntersectionObserver + pointer events.
+   Usage: <exsa-carousel pagination navigation>
+            <exsa-carousel-item><img src="..." alt=""></exsa-carousel-item>
+          </exsa-carousel>
+   ============================================================ */
+
+class UniversalCarousel extends HTMLElement {
+  static get observedAttributes() {
+    return ['loop','navigation','pagination','autoplay','autoplay-interval',
+            'slides-per-page','slides-per-move','orientation','mouse-dragging'];
+  }
+
+  constructor() {
+    super();
+    this._activeSlide = 0;
+    this._scrolling = false;
+    this._dragging = false;
+    this._autoplayTimer = null;
+    this._pendingSlideChange = false;
+
+    var self = this;
+    this._onDragBound = function(e) { self._onDrag(e); };
+    this._onDragEndBound = function() { self._onDragEnd(); };
+  }
+
+  connectedCallback() {
+    if (this._initialized) return;
+    var self = this;
+    if (!this.children.length || !this.querySelector('exsa-carousel-item')) {
+      requestAnimationFrame(function() { self.connectedCallback(); });
+      return;
+    }
+
+    this._initialized = true;
+    this.setAttribute('role','region');
+    this.setAttribute('aria-label','Carousel');
+
+    var raw = this.innerHTML;
+    this.innerHTML =
+      '<div class="carousel" part="base">' +
+        '<div class="carousel__navigation" part="navigation"></div>' +
+        '<div class="carousel__slides carousel__slides--horizontal" part="scroll-container" tabindex="0">' + raw + '</div>' +
+        '<div class="carousel__pagination" part="pagination" role="tablist"></div>' +
+      '</div>';
+
+    this._slidesEl = this.querySelector('.carousel__slides');
+    this._navEl    = this.querySelector('.carousel__navigation');
+    this._pagEl    = this.querySelector('.carousel__pagination');
+
+    this._init();
+    this._observeMutations();
+  }
+
+  disconnectedCallback() {
+    this._stopAutoplay();
+    if (this._mutationObserver) this._mutationObserver.disconnect();
+    if (this._intersectionObserver) this._intersectionObserver.disconnect();
+  }
+
+  attributeChangedCallback(name, oldVal, newVal) {
+    if (oldVal === newVal || !this._slidesEl) return;
+    if (name === 'slides-per-move' || name === 'slides-per-page')
+      this.slidesPerMove = Math.min(this.slidesPerMove, this.slidesPerPage);
+    if (name === 'autoplay') {
+      this.hasAttribute('autoplay') ? this._startAutoplay() : this._stopAutoplay();
+      return;
+    }
+    this._init();
+  }
+
+  /* ═══ Public API ═══ */
+  next(behavior)     { this.goToSlide(this.activeSlide + this.slidesPerMove, behavior || 'smooth'); }
+  previous(behavior) { this.goToSlide(this.activeSlide - this.slidesPerMove, behavior || 'smooth'); }
+
+  goToSlide(index, behavior) {
+    behavior = behavior || 'smooth';
+    var slides = this._getSlides();
+    if (!slides.length) return;
+
+    var perPage = this.slidesPerPage;
+    var loop = this.hasAttribute('loop');
+    var rtl = this._isRTL();
+    var max = loop ? slides.length - 1 : slides.length - perPage;
+    this.activeSlide = loop
+      ? ((index % slides.length) + slides.length) % slides.length
+      : Math.max(0, Math.min(index, max));
+
+    var clones = this._getSlides(false);
+    var offset = (loop ? perPage : 0) + (rtl ? perPage - 1 : 0);
+    var targetSlide = clones[Math.min(this.activeSlide + offset, clones.length - 1)];
+    if (!targetSlide) return;
+
+    var self = this;
+    this._pendingSlideChange = true;
+    requestAnimationFrame(function() {
+      if (!self._slidesEl) return;
+      var cr = self._slidesEl.getBoundingClientRect();
+      var sr = targetSlide.getBoundingClientRect();
+      self._slidesEl.scrollTo({
+        left: Math.round(sr.left - cr.left + self._slidesEl.scrollLeft),
+        top:  Math.round(sr.top  - cr.top  + self._slidesEl.scrollTop),
+        behavior: self._prefersReducedMotion() ? 'auto' : behavior
+      });
+    });
+  }
+
+  get activeSlide()  { return this._activeSlide; }
+  set activeSlide(v) {
+    if (this._activeSlide === v) return;
+    this._activeSlide = v;
+    this.setAttribute('data-active', v);
+    this._getSlides().forEach(function(s, i) { s.classList.toggle('--is-active', i === v); });
+    this.dispatchEvent(new CustomEvent('exsa-slide-change', {
+      detail: { index: v, slide: this._getSlides()[v] }
+    }));
+    this._syncUI();
+  }
+
+  get slidesPerPage() { return Math.max(1, parseInt(this.getAttribute('slides-per-page')) || 1); }
+  get slidesPerMove() { return Math.min(parseInt(this.getAttribute('slides-per-move')) || 1, this.slidesPerPage); }
+  set slidesPerMove(v) { this.setAttribute('slides-per-move', String(Math.min(v, this.slidesPerPage))); }
+  get orientation()   { return this.getAttribute('orientation') === 'vertical' ? 'vertical' : 'horizontal'; }
+
+  /* ═══ Internal ═══ */
+  _init() {
+    var perPage = this.slidesPerPage;
+    var vert = this.orientation === 'vertical';
+    var gap = getComputedStyle(this).getPropertyValue('--slide-gap').trim() || '0px';
+
+    this.style.setProperty('--slides-per-page', perPage);
+    this._slidesEl.style.setProperty('--slide-size',
+      'calc((100% - (' + gap + ' * ' + (perPage - 1) + ')) / ' + perPage + ')');
+    this._slidesEl.className = 'carousel__slides carousel__slides--' + (vert ? 'vertical' : 'horizontal');
+    this._slidesEl.setAttribute('aria-atomic','true');
+
+    this._updateSnap();
+    this._removeClones();
+    if (this.hasAttribute('loop')) this._createClones();
+    this._renderNav();
+    this._renderPagination();
+
+    if (this.hasAttribute('autoplay')) this._startAutoplay(); else this._stopAutoplay();
+    this.goToSlide(this.activeSlide, 'auto');
+
+    var self = this;
+    this._slidesEl.addEventListener('scroll',      function()  { self._onScroll();    }, { passive: true });
+    this._slidesEl.addEventListener('scrollend',   function()  { self._onScrollEnd(); });
+    this._slidesEl.addEventListener('keydown',     function(e) { self._onKeyDown(e); });
+    this._slidesEl.addEventListener('pointerdown', function(e) { self._onDragStart(e); });
+
+    this._syncSlides();
+  }
+
+  _getSlides(excludeClones) {
+    if (excludeClones === undefined) excludeClones = true;
+    return [].slice.call(this._slidesEl.children).filter(function(el) {
+      return el.tagName.toLowerCase() === 'exsa-carousel-item' &&
+        (!excludeClones || !el.hasAttribute('data-clone'));
+    });
+  }
+
+  _createClones() {
+    var slides = this._getSlides(), n = this.slidesPerPage, self = this;
+    slides.slice(-n).reverse().forEach(function(s, i) {
+      var c = s.cloneNode(true); c.setAttribute('data-clone', String(slides.length - i - 1));
+      self._slidesEl.prepend(c);
+    });
+    slides.slice(0, n).forEach(function(s, i) {
+      var c = s.cloneNode(true); c.setAttribute('data-clone', String(i));
+      self._slidesEl.append(c);
+    });
+  }
+
+  _removeClones() {
+    var clones = this._slidesEl.querySelectorAll('[data-clone]');
+    for (var i = 0; i < clones.length; i++) clones[i].remove();
+  }
+
+  _updateSnap() {
+    var move = this.slidesPerMove;
+    this._getSlides().forEach(function(s, i) {
+      s.style.removeProperty('scroll-snap-align');
+      if ((i + move) % move !== 0) s.style.setProperty('scroll-snap-align', 'none');
+    });
+  }
+
+  _onScroll() {
+    this._scrolling = true;
+    this._slidesEl.setAttribute('aria-busy','true');
+    if (!this._pendingSlideChange) this._syncSlides();
+  }
+
+  _onScrollEnd() {
+    if (!this._scrolling || this._dragging) return;
+    this._scrolling = false;
+    this._pendingSlideChange = false;
+    this._slidesEl.setAttribute('aria-busy','false');
+    this._syncSlides();
+  }
+
+  _syncSlides() {
+    if (this._intersectionObserver) this._intersectionObserver.disconnect();
+    var self = this;
+    var io = new IntersectionObserver(function(entries) {
+      io.disconnect();
+      entries.forEach(function(e) {
+        e.target.classList.toggle('--in-view', e.isIntersecting);
+        e.target.setAttribute('aria-hidden', e.isIntersecting ? 'false' : 'true');
+      });
+      var first = entries.filter(function(e) { return e.isIntersecting; })[0];
+      if (!first) return;
+      var clones = self._getSlides(false);
+      var idx = clones.indexOf(first.target);
+      var count = self._getSlides().length;
+      var normalized = self.hasAttribute('loop') ? idx - self.slidesPerPage : idx;
+      self.activeSlide = ((Math.ceil(normalized / self.slidesPerMove) * self.slidesPerMove) + count) % count;
+      if (!self._scrolling && self.hasAttribute('loop') && first.target.hasAttribute('data-clone'))
+        self.goToSlide(Number(first.target.getAttribute('data-clone')), 'instant');
+    }, { root: this._slidesEl, threshold: 0.6 });
+    this._getSlides(false).forEach(function(s) { io.observe(s); });
+    this._intersectionObserver = io;
+  }
+
+  _onKeyDown(e) {
+    var rtl = this._isRTL();
+    var prev = e.key === 'ArrowUp'   || (!rtl && e.key === 'ArrowLeft')  || (rtl && e.key === 'ArrowRight');
+    var next = e.key === 'ArrowDown' || (!rtl && e.key === 'ArrowRight') || (rtl && e.key === 'ArrowLeft');
+    if (prev) { e.preventDefault(); this.previous(); }
+    if (next) { e.preventDefault(); this.next(); }
+    if (e.key === 'Home') { e.preventDefault(); this.goToSlide(0); }
+    if (e.key === 'End')  { e.preventDefault(); this.goToSlide(this._getSlides().length - 1); }
+  }
+
+  _onDragStart(e) {
+    if (!this.hasAttribute('mouse-dragging') || e.button !== 0) return;
+    e.preventDefault();
+    document.addEventListener('pointermove', this._onDragBound);
+    document.addEventListener('pointerup', this._onDragEndBound, { once: true });
+  }
+
+  _onDrag(e) {
+    if (!this._dragging) {
+      this._slidesEl.style.setProperty('scroll-snap-type','none');
+      this._dragging = true;
+    }
+    this._slidesEl.scrollBy({ left: -e.movementX, top: -e.movementY, behavior: 'instant' });
+  }
+
+  _onDragEnd() {
+    document.removeEventListener('pointermove', this._onDragBound);
+    var el = this._slidesEl;
+    var sl = el.scrollLeft, st = el.scrollTop;
+    el.style.removeProperty('scroll-snap-type');
+    el.style.setProperty('overflow','hidden');
+    var fl = el.scrollLeft, ft = el.scrollTop;
+    el.style.removeProperty('overflow');
+    el.style.setProperty('scroll-snap-type','none');
+    el.scrollTo({ left: sl, top: st, behavior: 'instant' });
+
+    var self = this;
+    requestAnimationFrame(function() {
+      if (sl !== fl || st !== ft)
+        el.scrollTo({ left: fl, top: ft, behavior: self._prefersReducedMotion() ? 'auto' : 'smooth' });
+      el.style.removeProperty('scroll-snap-type');
+      self._dragging = false;
+      self._onScrollEnd();
+    });
+  }
+
+  _renderNav() {
+    if (!this.hasAttribute('navigation')) { this._navEl.innerHTML = ''; return; }
+    var self = this;
+    this._navEl.innerHTML =
+      '<button class="carousel__nav-btn carousel__nav-btn--prev" aria-label="Previous">&lt;</button>' +
+      '<button class="carousel__nav-btn carousel__nav-btn--next" aria-label="Next">&gt;</button>';
+    this._navEl.querySelector('.carousel__nav-btn--prev').onclick = function() { if (self._canScrollPrev()) self.previous(); };
+    this._navEl.querySelector('.carousel__nav-btn--next').onclick = function() { if (self._canScrollNext()) self.next(); };
+    this._updateNavState();
+  }
+
+  _updateNavState() {
+    var p = this._navEl.querySelector('.carousel__nav-btn--prev');
+    var n = this._navEl.querySelector('.carousel__nav-btn--next');
+    if (p) p.setAttribute('aria-disabled', this._canScrollPrev() ? 'false' : 'true');
+    if (n) n.setAttribute('aria-disabled', this._canScrollNext() ? 'false' : 'true');
+  }
+
+  _renderPagination() {
+    if (!this.hasAttribute('pagination')) { this._pagEl.innerHTML = ''; return; }
+    var pages = Math.ceil(this._getPageCount()), current = this._getCurrentPage(), self = this;
+    this._pagEl.innerHTML = '';
+    for (var i = 0; i < pages; i++) {
+      (function(idx) {
+        var d = document.createElement('button');
+        d.className = 'carousel__pagination-item' + (idx === current ? ' carousel__pagination-item--active' : '');
+        d.setAttribute('role','tab');
+        d.setAttribute('aria-selected', idx === current ? 'true' : 'false');
+        d.setAttribute('aria-label', 'Go to slide ' + (idx * self.slidesPerMove + 1));
+        d.onclick = function() { self.goToSlide(idx * self.slidesPerMove); };
+        self._pagEl.appendChild(d);
+      })(i);
+    }
+  }
+
+  _syncUI() {
+    var cur = this._getCurrentPage();
+    var dots = this._pagEl.querySelectorAll('.carousel__pagination-item');
+    for (var i = 0; i < dots.length; i++) {
+      dots[i].classList.toggle('carousel__pagination-item--active', i === cur);
+      dots[i].setAttribute('aria-selected', i === cur ? 'true' : 'false');
+    }
+    this._updateNavState();
+  }
+
+  _getPageCount() {
+    var s = this._getSlides().length, pp = this.slidesPerPage, pm = this.slidesPerMove;
+    return this.hasAttribute('loop') ? s / pm : (s - pp) / pm + 1;
+  }
+  _getCurrentPage() { return Math.ceil(this.activeSlide / this.slidesPerMove); }
+  _canScrollNext()  { return this.hasAttribute('loop') || this._getCurrentPage() < Math.ceil(this._getPageCount()) - 1; }
+  _canScrollPrev()  { return this.hasAttribute('loop') || this._getCurrentPage() > 0; }
+
+  _startAutoplay() {
+    if (this._prefersReducedMotion()) return;
+    this._stopAutoplay();
+    var interval = parseInt(this.getAttribute('autoplay-interval')) || 3000, self = this;
+    this._autoplayTimer = setInterval(function() { self.next(); }, interval);
+
+    this._boundPause  = function() { if (self._autoplayTimer) { clearInterval(self._autoplayTimer); self._autoplayTimer = null; } };
+    this._boundResume = function() {
+      if (self.hasAttribute('autoplay') && !self._autoplayTimer)
+        self._autoplayTimer = setInterval(function() { self.next(); }, interval);
+    };
+    this._slidesEl.addEventListener('mouseenter', this._boundPause);
+    this._slidesEl.addEventListener('mouseleave', this._boundResume);
+    this._slidesEl.addEventListener('focusin',   this._boundPause);
+    this._slidesEl.addEventListener('focusout',  this._boundResume);
+  }
+
+  _stopAutoplay() {
+    if (this._autoplayTimer) { clearInterval(this._autoplayTimer); this._autoplayTimer = null; }
+    if (this._slidesEl) {
+      if (this._boundPause)  this._slidesEl.removeEventListener('mouseenter', this._boundPause);
+      if (this._boundResume) this._slidesEl.removeEventListener('mouseleave', this._boundResume);
+    }
+  }
+
+  _observeMutations() {
+    var self = this;
+    this._mutationObserver = new MutationObserver(function(mutations) {
+      if (mutations.some(function(m) {
+        return [].slice.call(m.addedNodes).concat([].slice.call(m.removedNodes)).some(function(n) {
+          return n.nodeType === 1 && n.tagName.toLowerCase() === 'exsa-carousel-item' && !n.hasAttribute('data-clone');
+        });
+      })) self._init();
+    });
+    this._mutationObserver.observe(this._slidesEl, { childList: true });
+  }
+
+  _isRTL()               { return getComputedStyle(this).direction === 'rtl'; }
+  _prefersReducedMotion() { return window.matchMedia('(prefers-reduced-motion: reduce)').matches; }
+}
+
+customElements.define('exsa-carousel', UniversalCarousel);
+customElements.define('exsa-carousel-item', class extends HTMLElement {});
+});
+
+/* --- music --- */
+EXSA.ready(function(){
+
+/* EXSA Music Player — play/pause with elapsed time */
+(function(){
+  document.querySelectorAll('.music-player').forEach(player=>{
+    const playBtn=player.querySelector('.music-player__play');
+    const overlay=player.querySelector('.music-player__overlay-play');
+    const currEl=player.querySelector('.music-player__current');
+    if(!playBtn)return;
+    let playing=false,current=0;
+    const dur=parseInt(player.dataset.duration)||242;
+    const playSpan=playBtn.querySelector('.fa-play, .fa-pause');
+    const overlaySpan=overlay?overlay.querySelector('.fa-play, .fa-pause'):null;
+    function fmt(s){return Math.floor(s/60)+':'+String(Math.floor(s%60)).padStart(2,'0');}
+    function updateIcon(isPlay){
+      [playSpan,overlaySpan].forEach(s=>{if(s){s.classList.toggle('fa-play',isPlay);s.classList.toggle('fa-pause',!isPlay);}});
+    }
+    function tick(){if(!playing)return;if(current>=dur){playing=false;updateIcon(true);current=0;if(currEl)currEl.textContent=fmt(current);return;}current+=1;if(currEl)currEl.textContent=fmt(current);tickTimer=setTimeout(tick,1000);}
+    function toggle(){playing=!playing;updateIcon(!playing);if(playing){clearTimeout(tickTimer);tick();}}
+    var tickTimer;
+    playBtn.addEventListener('click',toggle);
+    if(overlay)overlay.addEventListener('click',toggle);
+    if(currEl)currEl.textContent=fmt(current);
+    var obs=new MutationObserver(function(){if(!document.contains(player)){playing=false;clearTimeout(tickTimer);obs.disconnect();}});
+    obs.observe(player.parentNode,{childList:true});
+  });
+})();
+});
+
+/* --- tabs --- */
+EXSA.ready(function(){
+
+/* EXSA Tabs — keyboard nav + panel switching */
+(function(){
+  document.querySelectorAll('.tabs').forEach(tabs=>{
+    var tabsList=tabs.querySelectorAll('.tabs__tab');
+    if(!tabsList.length)return;
+    tabsList.forEach(function(t){t.setAttribute('tabindex','-1');t.setAttribute('aria-selected','false');});
+    var activeTab=tabs.querySelector('.tabs__tab--active')||tabsList[0];
+    activeTab.setAttribute('tabindex','0');activeTab.setAttribute('aria-selected','true');
+    var panelContainer=tabs.nextElementSibling||document.getElementById(tabs.dataset.target);
+    function activate(tab){
+      tabsList.forEach(function(t){t.classList.remove('tabs__tab--active');t.setAttribute('tabindex','-1');t.setAttribute('aria-selected','false');});
+      tab.classList.add('tabs__tab--active');tab.setAttribute('tabindex','0');tab.setAttribute('aria-selected','true');tab.focus();
+      if(panelContainer){
+        panelContainer.querySelectorAll('.tabs__panel').forEach(function(p){p.classList.remove('tabs__panel--active');});
+        var panel=document.getElementById('panel-'+tab.dataset.panel);
+        if(panel)panel.classList.add('tabs__panel--active');
+      }
+    }
+    tabsList.forEach(function(tab){tab.addEventListener('click',function(){activate(tab);});});
+    tabs.addEventListener('keydown',function(e){
+      var items=Array.from(tabsList);var idx=items.indexOf(document.activeElement);
+      if(idx<0)return;
+      if(e.key==='ArrowRight'||e.key==='ArrowLeft'){
+        e.preventDefault();
+        var dir=e.key==='ArrowRight'?1:-1;
+        var next=(idx+dir+items.length)%items.length;
+        activate(items[next]);
+      }else if(e.key==='Home'){e.preventDefault();activate(items[0]);}
+      else if(e.key==='End'){e.preventDefault();activate(items[items.length-1]);}
+    });
+  });
+})();
+});
+
+/* --- rating --- */
+EXSA.ready(function(){
+
+/* EXSA Rating — interactive 5-star widget */
+(function(){
+  document.querySelectorAll('.rating').forEach(rating=>{
+    const stars=rating.querySelectorAll('.rating__star');
+    var valEl=rating.querySelector('.rating__value');
+    if(!valEl){var n=rating.nextElementSibling;if(n&&n.classList.contains('rating__value'))valEl=n;}
+    var defaultVal=parseInt(rating.dataset.default)||3;
+    stars.forEach((s,i)=>{if(i>=(5-defaultVal)){s.classList.add('rating__star--active');s.setAttribute('aria-checked','true');}});
+    if(valEl)valEl.textContent=defaultVal+' / 5';
+    stars.forEach((s,i)=>{
+      s.addEventListener('click',function(){
+        stars.forEach((st,j)=>{var act=j>=i;st.classList.toggle('rating__star--active',act);st.setAttribute('aria-checked',act?'true':'false');});
+        if(valEl)valEl.textContent=(5-i)+' / 5';
+      });
+    });
+    rating.addEventListener('mouseleave',function(){
+      if(valEl)valEl.textContent=rating.querySelectorAll('.rating__star--active').length+' / 5';
+    });
+  });
+})();
+});
+
+/* --- toast --- */
+EXSA.ready(function(){
+
+/* EXSA Toast — auto-dismiss notifications */
+(function(){
+  const container=document.getElementById('toast-container')||document.querySelector('.toast-container');
+  if(!container)return;
+  function dismiss(el){if(el.classList.contains('toast--leaving'))return;el.classList.add('toast--leaving');setTimeout(()=>{if(el.parentNode)el.remove();},260);}
+  document.querySelectorAll('[data-msg],[data-toast]').forEach(btn=>{
+    btn.addEventListener('click',function(){
+      const m=this.dataset.msg||this.dataset.toast,t=this.dataset.type||'info',icCls=t==='success'?'fa-check':t==='error'?'fa-circle-xmark':'fa-circle-info';
+      const toast=document.createElement('div');
+      toast.className='toast toast--'+t;
+      const icon=document.createElement('span');icon.className='toast__icon';
+      icon.innerHTML='<i class="fa-solid '+icCls+'"></i>';
+      const msg=document.createElement('span');msg.className='toast__msg';msg.textContent=m;
+      const close=document.createElement('button');close.className='toast__close';
+      close.innerHTML='<i class="fa-solid fa-xmark"></i>';
+      toast.appendChild(icon);toast.appendChild(msg);toast.appendChild(close);
+      container.appendChild(toast);
+      toast.querySelector('.toast__close').addEventListener('click',()=>dismiss(toast));
+      if(!window.matchMedia('(prefers-reduced-motion: reduce)').matches)setTimeout(()=>dismiss(toast),3500);
+    });
+  });
+})();
+});
+
+/* --- video-gallery --- */
+EXSA.ready(function(){
+
+/* EXSA Video Gallery — click-to-play modal */
+(function(){
+  document.querySelectorAll('.video-gallery').forEach(gallery=>{
+    const modal=gallery.querySelector('.video-gallery__modal');
+    if(!modal)return;
+    const frame=modal.querySelector('.video-gallery__frame');
+    const close=modal.querySelector('.video-gallery__close');
+    var trapOff=function(){};
+
+    function open(url){
+      if(frame){
+        frame.innerHTML='';
+        var iframe=document.createElement('iframe');
+        iframe.src=url+'?autoplay=1';
+        iframe.allow='autoplay;encrypted-media';
+        iframe.allowFullscreen=true;
+        iframe.style.cssText='position:absolute;top:0;left:0;width:100%;height:100%;border:none';
+        frame.appendChild(iframe);
+      }
+      modal.classList.add('video-modal--open');
+      modal.setAttribute('aria-modal','true');
+      document.body.style.overflow='hidden';
+      trapOff=EXSA.trapFocus(modal);
+      if(close)close.focus();
+    }
+    var onKeydown=function(e){if(e.key==='Escape'&&modal.classList.contains('video-modal--open'))shut();};
+    function shut(){
+      modal.classList.remove('video-modal--open');
+      modal.removeAttribute('aria-modal');
+      setTimeout(()=>{if(frame)frame.innerHTML='';},300);
+      document.body.style.overflow='';
+      trapOff();
+    }
+    gallery.querySelectorAll('.video-gallery__card').forEach(card=>{
+      card.addEventListener('click',function(){
+        const url=this.dataset.video;
+        if(url)open(url);
+      });
+    });
+    if(close)close.addEventListener('click',shut);
+    modal.addEventListener('click',function(e){if(e.target===modal)shut();});
+    document.addEventListener('keydown',onKeydown);
+  });
+})();
+});
+
+/* --- modal --- */
+EXSA.ready(function(){
+
+/* EXSA Modal — open/close with overlay click, Escape key, focus trap */
+(function(){
+  document.querySelectorAll('.modal').forEach(modal=>{
+    const close=modal.querySelector('.modal__close');
+    const cancel=modal.querySelector('.modal__cancel');
+    const confirm=modal.querySelector('.modal__confirm');
+    var trapOff=function(){}, lastFocus=null;
+
+    function open(){
+      lastFocus=document.activeElement;
+      modal.classList.add('modal--open');
+      modal.setAttribute('aria-modal','true');
+      document.body.style.overflow='hidden';
+      trapOff=EXSA.trapFocus(modal);
+      var first=EXSA.getFocusable(modal);
+      if(first)first.focus();
+    }
+    function shut(){
+      modal.classList.remove('modal--open');
+      modal.removeAttribute('aria-modal');
+      document.body.style.overflow='';
+      trapOff();
+      if(lastFocus)lastFocus.focus();
+    }
+    var onKeydown=function(e){if(e.key==='Escape'&&modal.classList.contains('modal--open'))shut();};
+    if(close)close.addEventListener('click',shut);
+    if(cancel)cancel.addEventListener('click',shut);
+    if(confirm)confirm.addEventListener('click',shut);
+    modal.addEventListener('click',function(e){if(e.target===modal)shut();});
+    document.addEventListener('keydown',onKeydown);
+    const id=modal.id;
+    if(id){
+      document.querySelectorAll('[data-modal-open="'+id+'"]').forEach(btn=>{
+        btn.addEventListener('click',open);
+      });
+    }
+  });
+})();
+});
+
+/* --- lightbox --- */
+EXSA.ready(function(){
+
+/* EXSA Lightbox — fullscreen image gallery */
+(function(){
+  document.querySelectorAll('.lightbox-gallery').forEach(gallery=>{
+    const overlay=gallery.querySelector('.lightbox-gallery__overlay');
+    if(!overlay)return;
+    const img=overlay.querySelector('.lightbox-gallery__img');
+    const counter=overlay.querySelector('.lightbox-gallery__counter');
+    const close=overlay.querySelector('.lightbox-gallery__close');
+    const prev=overlay.querySelector('.lightbox-gallery__prev');
+    const next=overlay.querySelector('.lightbox-gallery__next');
+    let thumbs=[],idx=0;
+
+    const thumbImgs=gallery.querySelectorAll('.lightbox-gallery__thumb img');
+    thumbs=Array.from(thumbImgs);
+    thumbs.forEach((t,i)=>{t.parentElement.addEventListener('click',()=>open(i));});
+
+    var trapOff=function(){}, lastFocus=null;
+
+    function open(i){
+      lastFocus=document.activeElement;idx=i;
+      if(img)img.src=thumbs[idx].src;
+      if(counter)counter.textContent=(idx+1)+' / '+thumbs.length;
+      overlay.classList.add('lightbox--open');
+      overlay.setAttribute('aria-modal','true');
+      document.body.style.overflow='hidden';
+      trapOff=EXSA.trapFocus(overlay);
+      if(close)close.focus();
+    }
+    function shut(){
+      overlay.classList.remove('lightbox--open');
+      overlay.removeAttribute('aria-modal');
+      document.body.style.overflow='';
+      trapOff();
+      if(lastFocus)lastFocus.focus();
+    }
+    function go(dir){
+      idx=(idx+dir+thumbs.length)%thumbs.length;
+      if(img)img.src=thumbs[idx].src;
+      if(counter)counter.textContent=(idx+1)+' / '+thumbs.length;
+    }
+    var onKeydown=function(e){
+      if(!overlay.classList.contains('lightbox--open'))return;
+      if(e.key==='Escape')shut();
+      if(e.key==='ArrowLeft')go(-1);
+      if(e.key==='ArrowRight')go(1);
+    };
+    if(close)close.addEventListener('click',shut);
+    if(prev)prev.addEventListener('click',()=>go(-1));
+    if(next)next.addEventListener('click',()=>go(1));
+    overlay.addEventListener('click',function(e){if(e.target===overlay)shut();});
+    document.addEventListener('keydown',onKeydown);
+  });
+})();
+});
+
+/* --- cookie-bar --- */
+EXSA.ready(function(){
+
+/* EXSA Cookie Bar — consent banner */
+(function(){
+  document.querySelectorAll('.cookie-bar').forEach(bar=>{
+    function hide(){bar.classList.remove('cookie-bar--visible');localStorage.setItem('cc-cookies','accepted');}
+    if(!localStorage.getItem('cc-cookies')){setTimeout(()=>bar.classList.add('cookie-bar--visible'),600);}
+    const accept=bar.querySelector('.cookie-bar__accept');
+    const dismiss=bar.querySelector('.cookie-bar__dismiss');
+    if(accept)accept.addEventListener('click',hide);
+    if(dismiss)dismiss.addEventListener('click',hide);
+    document.querySelectorAll('[data-cookie-reset]').forEach(btn=>{
+      btn.addEventListener('click',function(){localStorage.removeItem('cc-cookies');bar.classList.add('cookie-bar--visible');});
+    });
+  });
+})();
+});
+
+/* --- back-top --- */
+EXSA.ready(function(){
+
+/* EXSA Back to Top — scroll-to-top button */
+(function(){
+  const btn=document.getElementById('back-top-btn')||document.getElementById('back-top');
+  if(!btn)return;
+  const scroller=document.querySelector('.doc-main,[data-spy-scroller]');
+  window.addEventListener('scroll',function(){
+    /* Read whichever container actually scrolls */
+    const y=(scroller&&scroller.scrollTop)?scroller.scrollTop:(window.scrollY||document.documentElement.scrollTop||0);
+    btn.classList.toggle('back-top--visible',y>300);
+  },true);
+  btn.addEventListener('click',function(){
+    if(scroller&&scroller.scrollTop){scroller.scrollTo({top:0,behavior:'smooth'});}
+    else{window.scrollTo({top:0,behavior:'smooth'});}
+  });
+})();
+});
+
+/* --- range-slider --- */
+EXSA.ready(function(){
+
+/* EXSA Range Slider — live value display */
+(function(){
+  document.querySelectorAll('.range__input').forEach(input=>{
+    const valEl=document.getElementById(input.id+'-val');
+    if(!valEl)return;
+    valEl.id=input.id+'-val';
+    input.setAttribute('aria-describedby',valEl.id);
+    input.addEventListener('input',()=>{valEl.textContent=input.value;});
+  });
+})();
+});
+
+/* --- password-input --- */
+EXSA.ready(function(){
+
+/* EXSA Password Input — show/hide toggle */
+(function(){
+  var eyeOpen='<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>';
+  var eyeOff='<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.94 17.94A10.07 10.07 0 0112 20c-7 0-11-8-11-8a18.45 18.45 0 015.06-5.94M9.9 4.24A9.12 9.12 0 0112 4c7 0 11 8 11 8a18.5 18.5 0 01-2.16 3.19m-6.72-1.07a3 3 0 11-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/></svg>';
+  document.querySelectorAll('.password-input').forEach(wrapper=>{
+    const field=wrapper.querySelector('input');
+    const toggle=wrapper.querySelector('.password-input__toggle');
+    if(!field||!toggle)return;
+    toggle.addEventListener('click',function(){
+      const isPass=field.type==='password';
+      field.type=isPass?'text':'password';
+      toggle.innerHTML=isPass?eyeOff:eyeOpen;
+      toggle.setAttribute('aria-pressed',isPass?'true':'false');
+    });
+    toggle.setAttribute('aria-pressed','false');
+  });
+})();
+});
+
+/* --- topbar --- */
+EXSA.ready(function(){
+
+/* EXSA Topbar — scroll transparency + mobile menu + dropdowns */
+(function(){
+  document.querySelectorAll('.topbar').forEach(topbar=>{
+    const scroller=document.querySelector('.doc-main,[data-spy-scroller]');
+
+    function onScroll(){
+      /* Read whichever container actually scrolls */
+      const y=(scroller&&scroller.scrollTop)?scroller.scrollTop:(window.scrollY||document.documentElement.scrollTop||0);
+      topbar.classList.toggle('topbar--scrolled',y>20);
+    }
+    window.addEventListener('scroll',onScroll,true);
+    onScroll();
+
+    /* Dropdown portal — on ≥768px the menus move to <body> (fixed, positioned
+       under their trigger) so their backdrop frost can sample the page: a
+       frosted topbar is the backdrop root for its descendants, which would
+       clip the menu's blur to the bar's bounds. Mobile keeps the in-flow
+       accordion. Mirrors the sidebar tray portal. */
+    const mq=matchMedia('(min-width: 768px)');
+    const menus=[...topbar.querySelectorAll('.topbar__dd-menu')];
+    let portaled=false;
+    menus.forEach(m=>{ m.__exsaDD=m.parentElement; });
+
+    function portalMenus(){
+      if(portaled)return;
+      menus.forEach(m=>{ document.body.appendChild(m); m.classList.add('topbar__dd-menu--fixed'); });
+      portaled=true;
+    }
+    function unportalMenus(){
+      if(!portaled)return;
+      menus.forEach(m=>{
+        m.classList.remove('topbar__dd-menu--fixed','topbar__dd-menu--open');
+        if(m.__exsaDD)m.__exsaDD.appendChild(m);
+      });
+      portaled=false;
+    }
+    function syncPortal(){ mq.matches?portalMenus():unportalMenus(); }
+    syncPortal();
+
+    function closeAllDD(){
+      topbar.querySelectorAll('.topbar__dropdown--open').forEach(d=>{
+        d.classList.remove('topbar__dropdown--open');
+        var t=d.querySelector('.topbar__dd-trigger');
+        if(t)t.setAttribute('aria-expanded','false');
+      });
+      menus.forEach(m=>m.classList.remove('topbar__dd-menu--open'));
+    }
+    window.addEventListener('resize',closeAllDD);
+    mq.addEventListener('change',function(){ closeAllDD(); syncPortal(); });
+
+    function positionMenu(menu){
+      const dd=menu.__exsaDD;
+      if(!dd||!mq.matches)return;
+      const tr=dd.querySelector('.topbar__dd-trigger').getBoundingClientRect();
+      menu.style.display='block';
+      const mw=menu.offsetWidth||180;
+      const rtl=getComputedStyle(dd).direction==='rtl';
+      let x=rtl?tr.right-mw:tr.left;
+      x=Math.max(8,Math.min(x,window.innerWidth-mw-8));
+      menu.style.left=x+'px';
+      menu.style.top=(tr.bottom+10)+'px';
+    }
+
+    const toggle=topbar.querySelector('.topbar__toggle');
+    if(toggle){
+      toggle.setAttribute('aria-expanded','false');
+      toggle.addEventListener('click',function(e){
+        e.stopPropagation();
+        const isOpen=!topbar.classList.contains('topbar--open');
+        topbar.classList.toggle('topbar--open');
+        toggle.setAttribute('aria-expanded',isOpen?'true':'false');
+        closeAllDD();
+      });
+    }
+
+    topbar.querySelectorAll('.topbar__dd-trigger').forEach(trigger=>{
+      trigger.setAttribute('aria-expanded','false');
+      trigger.addEventListener('click',function(e){
+        e.preventDefault();e.stopPropagation();
+        const dd=this.closest('.topbar__dropdown');
+        const wasOpen=dd.classList.contains('topbar__dropdown--open');
+        closeAllDD();
+        if(!wasOpen){
+          dd.classList.add('topbar__dropdown--open');
+          this.setAttribute('aria-expanded','true');
+          const menu=menus.find(m=>m.__exsaDD===dd);
+          if(menu){ positionMenu(menu); menu.classList.add('topbar__dd-menu--open'); }
+        }
+        else{this.setAttribute('aria-expanded','false');}
+      });
+    });
+
+    document.addEventListener('click',function(e){
+      if(!topbar.contains(e.target)){
+        topbar.classList.remove('topbar--open');
+        if(toggle)toggle.setAttribute('aria-expanded','false');
+        closeAllDD();
+      }
+    });
+
+    topbar.querySelectorAll('.topbar__nav a:not(.topbar__dd-trigger)').forEach(link=>{
+      link.addEventListener('click',()=>{
+        topbar.classList.remove('topbar--open');
+        closeAllDD();
+      });
+    });
+    menus.forEach(menu=>menu.addEventListener('click',()=>{
+      topbar.classList.remove('topbar--open');
+      closeAllDD();
+    }));
+  });
+})();
+});
+
+/* --- date-picker --- */
+EXSA.ready(function(){
+
+/* EXSA Date Picker — calendar popup */
+(function(){
+  document.querySelectorAll('.date-picker__wrapper').forEach(wrapper=>{
+    const input=wrapper.querySelector('.date-picker__input');
+    const cal=wrapper.querySelector('.date-picker');
+    if(!input||!cal)return;
+
+    const headerDate=cal.querySelector('.date-picker__header-date');
+    const prevBtn=cal.querySelector('.date-picker__nav--prev');
+    const nextBtn=cal.querySelector('.date-picker__nav--next');
+    const datesEl=cal.querySelector('.date-picker__dates');
+
+    let currentMonth, currentYear, selectedDate=null;
+    const months=['January','February','March','April','May','June','July','August','September','October','November','December'];
+
+    function render(month,year){
+      datesEl.innerHTML='';
+      headerDate.textContent=months[month]+' '+year;
+      currentMonth=month; currentYear=year;
+
+      const firstDay=new Date(year,month,1).getDay();
+      const daysInMonth=new Date(year,month+1,0).getDate();
+      const daysInPrevMonth=new Date(year,month,0).getDate();
+      const today=new Date();
+
+      for(let i=firstDay-1;i>=0;i--){
+        const btn=document.createElement('button');
+        btn.className='date-picker__day date-picker__day--outside';
+        btn.textContent=daysInPrevMonth-i;
+        btn.addEventListener('click',()=>{prev();});
+        datesEl.appendChild(btn);
+      }
+      for(let d=1;d<=daysInMonth;d++){
+        const btn=document.createElement('button');
+        btn.className='date-picker__day'; btn.textContent=d;
+        btn.setAttribute('aria-label',new Date(year,month,d).toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric'}));
+        const isToday=today.getFullYear()===year&&today.getMonth()===month&&today.getDate()===d;
+        const isSelected=selectedDate&&selectedDate.getFullYear()===year&&selectedDate.getMonth()===month&&selectedDate.getDate()===d;
+        if(isToday)btn.classList.add('date-picker__day--today');
+        if(isSelected)btn.classList.add('date-picker__day--selected');
+        btn.addEventListener('click',()=>{
+          selectedDate=new Date(year,month,d);
+          input.value=selectedDate.toLocaleDateString('en-US',{year:'numeric',month:'short',day:'numeric'});
+          render(month,year);
+          wrapper.classList.remove('date-picker__wrapper--open');
+        });
+        datesEl.appendChild(btn);
+      }
+      const totalCells=firstDay+daysInMonth;
+      const remaining=totalCells%7===0?0:7-(totalCells%7);
+      for(let d=1;d<=remaining;d++){
+        const btn=document.createElement('button');
+        btn.className='date-picker__day date-picker__day--outside';
+        btn.textContent=d;btn.addEventListener('click',()=>{next();});
+        datesEl.appendChild(btn);
+      }
+    }
+    function prev(){let m=currentMonth-1,y=currentYear;if(m<0){m=11;y--;}render(m,y);}
+    function next(){let m=currentMonth+1,y=currentYear;if(m>11){m=0;y++;}render(m,y);}
+
+    prevBtn.addEventListener('click',prev);
+    nextBtn.addEventListener('click',next);
+
+    input.addEventListener('click',(e)=>{
+      e.stopPropagation();const now=new Date();
+      render(now.getMonth(),now.getFullYear());
+      wrapper.classList.toggle('date-picker__wrapper--open');
+    });
+    document.addEventListener('click',(e)=>{
+      if(!wrapper.contains(e.target))wrapper.classList.remove('date-picker__wrapper--open');
+    });
+  });
+})();
+});
+
+/* --- color-picker --- */
+EXSA.ready(function(){
+
+/* EXSA Color Picker — native input swatch sync */
+(function(){
+  document.querySelectorAll('.color-picker').forEach(cp=>{
+    const input=cp.querySelector('.color-picker__input');
+    const swatch=cp.querySelector('.color-picker__swatch');
+    const valueEl=cp.querySelector('.color-picker__value');
+    if(!input||!swatch)return;
+
+    input.addEventListener('input',()=>{
+      const hex=input.value;
+      swatch.style.setProperty('--cp-color',hex);
+      if(valueEl)valueEl.textContent=hex;
+    });
+    swatch.style.setProperty('--cp-color',input.value||'#118bee');
+    if(valueEl)valueEl.textContent=input.value||'#118bee';
+  });
+})();
+});
+
+/* --- advanced-color-picker --- */
+EXSA.ready(function(){
+
+/* EXSA Advanced Color Picker — HSL+Alpha canvas */
+(function(){
+  document.querySelectorAll('.ex-cp').forEach(cp=>{
+    const trigger=cp.querySelector('.ex-cp__trigger');
+    const drop=cp.querySelector('.ex-cp__drop');
+    const canvas=cp.querySelector('.ex-cp__canvas');
+    const dot=cp.querySelector('.ex-cp__dot');
+    const hueSlider=cp.querySelector('.ex-cp__slider--hue');
+    const lightSlider=cp.querySelector('.ex-cp__slider--light');
+    const alphaSlider=cp.querySelector('.ex-cp__slider--alpha');
+    const swatch=cp.querySelector('.ex-cp__hex-swatch');
+    const hexInput=cp.querySelector('.ex-cp__hex-input');
+    if(!trigger||!drop||!canvas)return;
+
+    let s={h:217,s:91,l:60,a:1},open=false,down=false;
+
+    function hslToRgb(h,s,l){
+      h=((h%360)+360)%360;s/=100;l/=100;
+      const c=(1-Math.abs(2*l-1))*s,hp=h/60,x=c*(1-Math.abs(hp%2-1)),m=l-c/2;
+      let r=0,g=0,b=0;
+      if(hp<1){r=c;g=x}else if(hp<2){r=x;g=c}else if(hp<3){g=c;b=x}else if(hp<4){g=x;b=c}else if(hp<5){r=x;b=c}else{r=c;b=x}
+      return[Math.round((r+m)*255),Math.round((g+m)*255),Math.round((b+m)*255)];
+    }
+    function rgbToHex(r,g,b){return'#'+[r,g,b].map(c=>c.toString(16).padStart(2,'0')).join('');}
+
+    function renderCanvas(){
+      const ctx=canvas.getContext('2d'),w=canvas.width,h=canvas.height,img=ctx.createImageData(w,h),d=img.data;
+      for(let y=0;y<h;y++)for(let x=0;x<w;x++){
+        const[r,g,b]=hslToRgb(s.h,x/w*100,(1-y/h)*100),i=(y*w+x)*4;
+        d[i]=r;d[i+1]=g;d[i+2]=b;d[i+3]=255;
+      }
+      ctx.putImageData(img,0,0);
+      dot.style.left=s.s/100*w+'px';dot.style.top=(1-s.l/100)*h+'px';
+      const[r,g,b]=hslToRgb(s.h,s.s,s.l);
+      if(alphaSlider)alphaSlider.style.setProperty('--ex-cp-accent',`rgb(${r},${g},${b})`);
+    }
+    function updateUI(){
+      const[r,g,b]=hslToRgb(s.h,s.s,s.l),c=`rgba(${r},${g},${b},${s.a})`,h=rgbToHex(r,g,b);
+      trigger.style.backgroundImage=`linear-gradient(${c},${c}),linear-gradient(45deg,#ddd 25%,transparent 25%),linear-gradient(-45deg,#ddd 25%,transparent 25%),linear-gradient(45deg,transparent 75%,#ddd 75%),linear-gradient(-45deg,transparent 75%,#ddd 75%)`;
+      trigger.style.backgroundSize=`100% 100%,8px 8px,8px 8px,8px 8px,8px 8px`;
+      trigger.style.backgroundPosition=`0 0,0 0,0 4px,4px -4px,-4px 0`;
+      if(swatch)swatch.style.setProperty('--swatch-color',c);
+      if(hexInput)hexInput.value=s.a<1?h+Math.round(s.a*255).toString(16).padStart(2,'0'):h;
+      dot.style.left=s.s/100*canvas.width+'px';dot.style.top=(1-s.l/100)*canvas.height+'px';
+      if(alphaSlider)alphaSlider.style.setProperty('--ex-cp-accent',`rgb(${r},${g},${b})`);
+    }
+    function toggle(){
+      open=!open;drop.classList.toggle('is-open',open);
+      if(open){renderCanvas();updateUI();
+        const r=cp.getBoundingClientRect(),spaceBelow=window.innerHeight-r.bottom,spaceAbove=r.top;
+        drop.classList.toggle('is-down',spaceBelow>230||spaceBelow>spaceAbove);
+        drop.classList.toggle('is-up',!(spaceBelow>230||spaceBelow>spaceAbove));
+      }
+    }
+    trigger.addEventListener('click',e=>{e.stopPropagation();toggle();});
+    document.addEventListener('click',e=>{if(open&&!cp.contains(e.target))toggle();});
+
+    function pick(e){
+      const r=canvas.getBoundingClientRect();
+      s.s=Math.max(0,Math.min(100,(e.clientX-r.left)/r.width*100));
+      s.l=Math.max(0,Math.min(100,(1-(e.clientY-r.top)/r.height)*100));
+      if(hueSlider)hueSlider.value=Math.round(s.h);if(lightSlider)lightSlider.value=Math.round(s.l);
+      updateUI();
+    }
+    canvas.addEventListener('mousedown',e=>{down=true;pick(e);});
+    canvas.addEventListener('touchstart',e=>{down=true;e.preventDefault();pick(e.touches[0]);},{passive:false});
+    document.addEventListener('mouseup',()=>down=false);
+    document.addEventListener('touchend',()=>down=false);
+    document.addEventListener('mousemove',e=>{if(down)pick(e);});
+    document.addEventListener('touchmove',e=>{if(down){e.preventDefault();pick(e.touches[0]);}},{passive:false});
+
+    if(hueSlider)hueSlider.addEventListener('input',()=>{s.h=+hueSlider.value;renderCanvas();updateUI();});
+    if(lightSlider)lightSlider.addEventListener('input',()=>{s.l=+lightSlider.value;renderCanvas();updateUI();});
+    if(alphaSlider)alphaSlider.addEventListener('input',()=>{s.a=+alphaSlider.value/100;updateUI();});
+
+    function applyHex(){
+      if(!hexInput)return;
+      const v=hexInput.value.trim();if(!/^#/.test(v))hexInput.value='#'+v;
+      const m=hexInput.value.match(/^#([0-9a-fA-F]{3}|[0-9a-fA-F]{6}|[0-9a-fA-F]{8})$/);
+      if(!m)return;
+      let h=m[1];if(h.length===3)h=h.split('').map(c=>c+c).join('');if(h.length===6)h+='ff';
+      const r=parseInt(h.substr(0,2),16),g=parseInt(h.substr(2,2),16),b=parseInt(h.substr(4,2),16),a=parseInt(h.substr(6,2)||'ff',16)/255;
+      const mx=Math.max(r,g,b),mn=Math.min(r,g,b),d=mx-mn;
+      s.l=(mx+mn)/2/255*100;
+      s.s=d?((s.l>50?d/(510-mx-mn):d/(mx+mn)))*100:0;
+      s.h=d?(mx===r?((g-b)/d+(g<b?6:0))*60:mx===g?((b-r)/d+2)*60:((r-g)/d+4)*60):0;
+      s.a=a;s.h=((s.h%360)+360)%360;
+      if(hueSlider)hueSlider.value=Math.round(s.h);
+      if(lightSlider)lightSlider.value=Math.round(s.l);
+      if(alphaSlider)alphaSlider.value=Math.round(s.a*100);
+      renderCanvas();updateUI();
+    }
+    if(hexInput){
+      hexInput.addEventListener('keydown',e=>{if(e.key==='Enter')applyHex();});
+      hexInput.addEventListener('blur',applyHex);
+    }
+    /* Eyedropper — pick a color from anywhere on screen (EyeDropper API) */
+    const eyedrop=cp.querySelector('.ex-cp__eyedrop');
+    if(eyedrop){
+      if(window.EyeDropper){
+        const eyeDropper=new EyeDropper();
+        let picking=false;
+        eyedrop.addEventListener('click',async()=>{
+          if(picking)return;           /* guard: one magnifier session at a time */
+          picking=true;
+          let picked=false;
+          try{
+            const res=await eyeDropper.open();
+            if(res&&res.sRGBHex&&hexInput){
+              hexInput.value=res.sRGBHex;
+              applyHex();
+              picked=true;
+            }
+          }catch(e){/* cancelled (Escape) or already in use */}
+          picking=false;
+          if(picked&&open)toggle();    /* stop — close the dropdown after a successful pick */
+        });
+      }else{
+        eyedrop.style.display='none';
+      }
+    }
+    updateUI();
+  });
+})();
+});
+
+/* --- theme-switcher --- */
+EXSA.ready(function(){
+
+/* EXSA Theme Switcher — dynamic CSS swap */
+(function(){
+  const sel=document.getElementById('theme-select'),link=document.getElementById('theme-stylesheet');
+  if(!sel||!link)return;
+  /* Resolve the theme file next to the CURRENT stylesheet href — works at any
+     page depth (site/*, root, CDN) and preserves the existing cache buster. */
+  function apply(n){
+    const cur=link.getAttribute('href')||'';
+    const q=(cur.match(/[?#].*$/)||[''])[0];
+    const base=cur.replace(/[^/?#]*[?#].*$/, '').replace(/[^/?#]*$/, '');
+    link.href=base+n+'.css'+q;
+    localStorage.setItem('exsa-theme',n);
+  }
+  sel.addEventListener('change',function(){apply(this.value);});
+  /* exsa-theme is the canonical key; cc-theme is read once for migration from older versions */
+  const s=localStorage.getItem('exsa-theme')||localStorage.getItem('cc-theme');
+  if(s){sel.value=s;apply(s);}
+})();
+});
+
+/* --- resizer --- */
+EXSA.ready(function(){
+
+/* EXSA Resizer — drag-to-resize panel handle */
+(function(){
+  document.querySelectorAll('.resizer').forEach(handle=>{
+    let startX, startY, startW, startH;
+    const target=handle.closest('.resizer__target')||handle.parentElement;
+    const dir=handle.classList.contains('resizer--bottom')?'v':'h';
+
+    function onStart(e){
+      e.preventDefault();
+      handle.classList.add('resizer--active');
+      document.body.style.cursor=dir==='v'?'ns-resize':'ew-resize';
+      document.body.style.userSelect='none';
+      const pt=e.touches?e.touches[0]:e;
+      startX=pt.clientX;startY=pt.clientY;
+      startW=target.offsetWidth;startH=target.offsetHeight;
+
+      function onMove(e2){
+        const pt2=e2.touches?e2.touches[0]:e2;
+        if(dir==='v'){target.style.height=(startH+pt2.clientY-startY)+'px';}
+        else{const dx=handle.classList.contains('resizer--left')?startX-pt2.clientX:pt2.clientX-startX;target.style.width=(startW+dx)+'px';}
+      }
+      function onEnd(){
+        handle.classList.remove('resizer--active');
+        document.body.style.cursor='';document.body.style.userSelect='';
+        document.removeEventListener('mousemove',onMove);document.removeEventListener('mouseup',onEnd);
+        document.removeEventListener('touchmove',onMove);document.removeEventListener('touchend',onEnd);
+      }
+      document.addEventListener('mousemove',onMove);document.addEventListener('mouseup',onEnd);
+      document.addEventListener('touchmove',onMove,{passive:false});document.addEventListener('touchend',onEnd);
+    }
+    handle.addEventListener('mousedown',onStart);
+    handle.addEventListener('touchstart',onStart,{passive:false});
+  });
+})();
+});
+
+/* --- sidebar --- */
+/* EXSA Sidebar — collapsible sub-menu accordion + icon-rail tray */
+EXSA.ready(function(){
+
+(function(){
+  var OPEN='sidebar__sub--open';
+  var tray=null,current=null;
+
+  function buildTray(){
+    var el=document.createElement('div');
+    el.className='sidebar__tray';
+    var title=document.createElement('div');
+    title.className='sidebar__tray-title';
+    var menu=document.createElement('ul');
+    menu.className='sidebar__sub-menu';
+    el.appendChild(title);
+    el.appendChild(menu);
+    document.body.appendChild(el);
+    tray={el:el,title:title,menu:menu};
+    tray.el.addEventListener('click',function(e){
+      if(e.target.closest('.sidebar__link'))closeTray();
+    });
+  }
+
+  /* Icon-only rail = the label exists and is hidden (--collapsed,
+     --fluid at rail width, or the ≤767px auto rail). Without a
+     .sidebar__label span the accordion stays in charge. */
+  function isRail(trigger){
+    var label=trigger.querySelector('.sidebar__label');
+    return label && getComputedStyle(label).display==='none';
+  }
+
+  function positionTray(trigger,el){
+    var r=trigger.getBoundingClientRect();
+    var rtl=getComputedStyle(trigger).direction==='rtl';
+    el.style.top='0';
+    el.style.left='0';
+    var w=el.offsetWidth,h=el.offsetHeight;
+    var vw=document.documentElement.clientWidth;
+    var vh=document.documentElement.clientHeight;
+    var x=rtl?r.left-w-4:r.right+4;
+    if(rtl&&x<8)x=r.right+4;
+    if(!rtl&&x+w>vw-8)x=r.left-w-4;
+    var y=r.top;
+    if(y+h>vh-8)y=Math.max(8,vh-h-8);
+    el.style.left=x+'px';
+    el.style.top=y+'px';
+  }
+
+  function openTray(trigger,sub,evt){
+    if(!tray)buildTray();
+    var label=trigger.querySelector('.sidebar__label');
+    tray.title.textContent=label?label.textContent.trim():'';
+    tray.menu.innerHTML=sub.innerHTML;
+    tray.el.classList.toggle('sidebar__tray--dark',!!trigger.closest('.sidebar--dark'));
+    tray.el.classList.add('sidebar__tray--open');
+    positionTray(trigger,tray.el);
+    current=trigger;
+    trigger.setAttribute('aria-expanded','true');
+    trigger.parentElement.classList.add(OPEN);
+    if(evt&&evt.detail===0){
+      var first=tray.menu.querySelector('.sidebar__link');
+      if(first)first.focus();
+    }
+  }
+
+  function closeTray(){
+    if(!current)return;
+    if(tray)tray.el.classList.remove('sidebar__tray--open');
+    current.setAttribute('aria-expanded','false');
+    current.parentElement.classList.remove(OPEN);
+    current=null;
+  }
+
+  document.addEventListener('click',function(e){
+    if(!current)return;
+    if(e.target.closest('.sidebar__sub > .sidebar__link'))return; /* triggers toggle themselves */
+    if(tray&&tray.el.contains(e.target))return;
+    closeTray();
+  });
+  document.addEventListener('keydown',function(e){
+    if(e.key!=='Escape'||!current)return;
+    var trigger=current;
+    closeTray();
+    trigger.focus();
+  });
+  /* Scroll keeps the tray docked to its item; it closes only when the
+     item itself leaves the viewport (capture catches the sidebar's own
+     scroll as well as the page's). One delayed re-dock after the last
+     scroll event covers smooth-scroll settle and chrome that resizes
+     mid-scroll (e.g. a topbar that solidifies). */
+  var settleTimer=null;
+  function onViewportChange(){
+    if(!current)return;
+    var r=current.getBoundingClientRect();
+    var vh=document.documentElement.clientHeight;
+    if(r.bottom<0||r.top>vh)closeTray();
+    else positionTray(current,tray.el);
+    clearTimeout(settleTimer);
+    settleTimer=setTimeout(function(){
+      if(!current)return;
+      var r2=current.getBoundingClientRect();
+      if(r2.bottom<0||r2.top>document.documentElement.clientHeight)closeTray();
+      else positionTray(current,tray.el);
+    },180);
+  }
+  window.addEventListener('scroll',onViewportChange,true);
+  window.addEventListener('resize',onViewportChange,true);
+
+  document.querySelectorAll('.sidebar__sub > .sidebar__link').forEach(function(trigger){
+    trigger.setAttribute('aria-expanded',trigger.parentElement.classList.contains(OPEN)?'true':'false');
+    trigger.addEventListener('click',function(e){
+      e.preventDefault();
+      var parent=this.parentElement;
+      var sub=parent.querySelector('.sidebar__sub-menu');
+      if(isRail(this)){
+        if(!sub)return;
+        var same=current===this;
+        closeTray();
+        if(!same)openTray(this,sub,e);
+        return;
+      }
+      closeTray();
+      var wasOpen=parent.classList.contains(OPEN);
+      parent.parentElement.querySelectorAll('.'+OPEN).forEach(function(s){
+        s.classList.remove(OPEN);
+        var t=s.querySelector('.sidebar__link');
+        if(t)t.setAttribute('aria-expanded','false');
+      });
+      if(!wasOpen)parent.classList.add(OPEN);
+      this.setAttribute('aria-expanded',wasOpen?'false':'true');
+    });
+    /* Space activates links in native HTML only when it scrolls — make it click. */
+    trigger.addEventListener('keydown',function(e){
+      if(e.key===' '){e.preventDefault();this.click();}
+    });
+  });
+})();
+
+});
+
+/* --- scroll-spy --- */
+EXSA.ready(function(){
+
+/* EXSA Scroll Spy — active nav link tracking */
+(function(){
+  document.querySelectorAll('[data-scroll-spy]').forEach(nav=>{
+    const links=nav.querySelectorAll('a[href^="#"]');
+    const sections=[...document.querySelectorAll('.doc-section,[data-spy-section]')];
+    const scroller=document.querySelector('.doc-main,[data-spy-scroller]')||window;
+
+    function updateActive(){
+      let current='';
+      sections.forEach(sec=>{const top=sec.getBoundingClientRect().top;if(top<200)current=sec.id;});
+      links.forEach(l=>l.classList.toggle('active',l.getAttribute('href')==='#'+current));
+    }
+    /* Catch scroll events from ANY scroller (document or nested container) */
+    window.addEventListener('scroll',updateActive,true);
+
+    links.forEach(a=>{a.addEventListener('click',function(e){
+      e.preventDefault();
+      links.forEach(l=>l.classList.remove('active'));
+      a.classList.add('active');          /* highlight the clicked link immediately */
+      const target=document.getElementById(this.getAttribute('href').slice(1));
+      if(target)target.scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth',block:'start'});
+    });});
+    updateActive();
+  });
+})();
+});
+
+/* --- accordion --- */
+EXSA.ready(function(){
+
+/* EXSA Accordion — ARIA sync */
+(function(){
+  document.querySelectorAll('.accordion__trigger').forEach(cb=>{
+    const label=cb.nextElementSibling;
+    if(label&&label.classList.contains('accordion__label')){
+      label.setAttribute('aria-expanded',cb.checked?'true':'false');
+      cb.addEventListener('change',function(){
+        label.setAttribute('aria-expanded',this.checked?'true':'false');
+      });
+    }
+  });
+})();
+});
+
+/* --- toggle --- */
+EXSA.ready(function(){
+
+/* EXSA Toggle — ARIA role + checked sync */
+(function(){
+  document.querySelectorAll('.toggle input[type="checkbox"]').forEach(cb=>{
+    cb.setAttribute('role','switch');
+    cb.setAttribute('aria-checked',cb.checked?'true':'false');
+    cb.addEventListener('change',function(){
+      this.setAttribute('aria-checked',this.checked?'true':'false');
+    });
+  });
+})();
+});
+
+/* --- drawer --- */
+EXSA.ready(function(){
+
+/* EXSA Drawer — ARIA + focus trap */
+(function(){
+  document.querySelectorAll('.drawer__toggle').forEach(cb=>{
+    const label=document.querySelector('label[for="'+cb.id+'"]');
+    var trapOff=function(){}, lastFocus=null;
+
+    if(label){label.setAttribute('aria-expanded',cb.checked?'true':'false');}
+
+    /* resolve THIS drawer's panel — not the first .drawer__panel on the page:
+       via the drawer's close label, else the backdrop label's next sibling */
+    function findPanel(){
+      var close=document.querySelector('label.drawer__close[for="'+cb.id+'"]');
+      if(close){var p=close.closest('.drawer__panel');if(p)return p;}
+      var backdrop=document.querySelector('label.drawer__backdrop[for="'+cb.id+'"]');
+      if(backdrop&&backdrop.nextElementSibling&&backdrop.nextElementSibling.classList.contains('drawer__panel'))return backdrop.nextElementSibling;
+      return document.querySelector('.drawer__panel');
+    }
+
+    function onOpen(){
+      lastFocus=document.activeElement;
+      var panel=findPanel();
+      if(panel){
+        trapOff=EXSA.trapFocus(panel);
+        var close=panel.querySelector('.drawer__close');
+        if(close)close.focus();
+        else{var first=EXSA.getFocusable(panel);if(first)first.focus();}
+      }
+    }
+    function onShut(){trapOff();if(lastFocus)lastFocus.focus();}
+
+    cb.addEventListener('change',function(){
+      if(this.checked){
+        if(label)label.setAttribute('aria-expanded','true');
+        onOpen();
+      }else{
+        if(label)label.setAttribute('aria-expanded','false');
+        onShut();
+      }
+    });
+  });
+})();
+});
+
+/* --- rtl-toggle --- */
+EXSA.ready(function(){
+
+/* EXSA RTL Toggle */
+(function(){
+  const rtlBtn=document.getElementById('rtl-toggle-btn');
+  if(rtlBtn){
+    function setRTL(on){
+      document.documentElement.setAttribute('dir',on?'rtl':'ltr');
+      localStorage.setItem('exsa-rtl',on?'1':'0');
+      rtlBtn.style.background=on?'var(--color-link)':'';
+      rtlBtn.style.color=on?'#fff':'';
+    }
+    rtlBtn.addEventListener('click',function(){
+      setRTL(document.documentElement.getAttribute('dir')!=='rtl');
+    });
+    if(localStorage.getItem('exsa-rtl')==='1')setRTL(true);
+  }
+})();
+});
+
+/* --- context-menu --- */
+EXSA.ready(function(){
+
+/* EXSA Context Menu — right-click popup */
+(function(){
+  document.querySelectorAll('[data-ctx-menu]').forEach(wrapper=>{
+    const menu=wrapper.querySelector('.ctx-menu');
+    if(!menu)return;
+
+    /* Move the menu to <body>: position:fixed coordinates resolve against the
+       viewport there. Inside an ancestor with backdrop-filter/filter/transform,
+       fixed elements are positioned relative to that ancestor instead — the
+       menu would open offset from the cursor ("far from the area"). */
+    document.body.appendChild(menu);
+
+    const backdrop=document.createElement('div');
+    backdrop.className='ctx-backdrop';
+    document.body.appendChild(backdrop);
+
+    let open=false;
+
+    function show(x,y){
+      menu.style.visibility='hidden';
+      menu.classList.add('ctx-menu--open');
+      const rect=menu.getBoundingClientRect();
+      menu.classList.remove('ctx-menu--open');
+      menu.style.visibility='';
+
+      const vw=window.innerWidth,vh=window.innerHeight;
+      if(x+rect.width>vw)x=vw-rect.width-8;
+      if(y+rect.height>vh)y=vh-rect.height-8;
+      if(x<8)x=8;if(y<8)y=8;
+
+      menu.style.setProperty('--ctx-origin',x<vw/2?'top left':'top right');
+      menu.style.left=x+'px';menu.style.top=y+'px';
+      menu.classList.add('ctx-menu--open');
+      backdrop.classList.add('ctx-backdrop--show');
+      open=true;
+    }
+
+    function hide(){
+      menu.classList.remove('ctx-menu--open');
+      backdrop.classList.remove('ctx-backdrop--show');
+      open=false;
+    }
+
+    const trigger=wrapper.querySelector('[data-ctx-trigger]')||wrapper;
+    trigger.addEventListener('contextmenu',function(e){
+      e.preventDefault();
+      document.querySelectorAll('.ctx-menu--open').forEach(m=>{if(m!==menu){m.classList.remove('ctx-menu--open');}});
+      show(e.clientX,e.clientY);
+    });
+
+    menu.querySelectorAll('.ctx-menu__item').forEach(item=>{item.addEventListener('click',()=>{hide();});});
+
+    backdrop.addEventListener('click',hide);
+    document.addEventListener('click',function(e){if(open&&!wrapper.contains(e.target))hide();});
+    document.addEventListener('keydown',function(e){if(e.key==='Escape'&&open)hide();});
+    window.addEventListener('resize',function(){if(open)hide();});
+  });
+})();
+});
+
+/* --- popover --- */
+EXSA.ready(function(){
+
+/* EXSA Popover — click-triggered floating card */
+(function(){
+  document.querySelectorAll('.popover').forEach(pop=>{
+    const trigger=pop.querySelector('.popover__trigger');
+    const content=pop.querySelector('.popover__content');
+    if(!trigger||!content)return;
+    let open=false;
+
+    const backdrop=document.createElement('div');
+    backdrop.className='popover__backdrop';
+    pop.appendChild(backdrop);
+
+    function show(){
+      document.querySelectorAll('.popover--open').forEach(p=>{if(p!==pop)p.classList.remove('popover--open');});
+      pop.classList.add('popover--open');
+      open=true;
+    }
+    function hide(){pop.classList.remove('popover--open');open=false;}
+
+    trigger.addEventListener('click',function(e){e.stopPropagation();open?hide():show();});
+    backdrop.addEventListener('click',hide);
+    document.addEventListener('click',function(e){if(open&&!pop.contains(e.target))hide();});
+    document.addEventListener('keydown',function(e){if(e.key==='Escape'&&open)hide();});
+  });
+})();
+});
+
+/* --- code-block --- */
+EXSA.ready(function(){
+
+/* Copyright © 2026 Saif Almarri. MIT License. See LICENSE.
+   Component: CODE BLOCK — copy button + auto syntax highlight
+   ════════════════════════════════════════════════════════════
+   Enhances every .code-block on the page:
+     1. .code-block__copy buttons copy the block's <code> text
+        (Clipboard API with execCommand fallback, "Copied!" state)
+     2. pre.code-block__body code is syntax-highlighted with the
+        component's hl-* classes — unless it already contains
+        manual hl-tag/hl-attr/hl-val/hl-cmt spans.
+   Requires exsa.bundle.css (code-block styles + Font Awesome for the copy icon).
+   Load AFTER your markup (end of body or defer):
+     <script src="exsa.js"></script>
+   ════════════════════════════════════════════════════════════ */
+
+(function(){
+  'use strict';
+
+  /* ── Copy to clipboard ── */
+  function fallbackCopy(text){
+    var ta = document.createElement('textarea');
+    ta.value = text;
+    ta.style.position = 'fixed';
+    ta.style.opacity = '0';
+    document.body.appendChild(ta);
+    ta.select();
+    try { document.execCommand('copy'); } catch (e) {}
+    document.body.removeChild(ta);
+  }
+
+  document.querySelectorAll('.code-block__copy').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var box = btn.closest('.code-block');
+      var code = box ? box.querySelector('code') : null;
+      if (!code) return;
+      var text = code.textContent || '';
+      var done = function(){
+        btn.classList.add('code-block__copy--copied');
+        btn.innerHTML = '<i class="fa-solid fa-check"></i> Copied!';
+        setTimeout(function(){
+          btn.classList.remove('code-block__copy--copied');
+          btn.innerHTML = '<i class="fa-solid fa-copy"></i> Copy';
+        }, 2000);
+      };
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(done).catch(function(){
+          fallbackCopy(text); done();
+        });
+      } else {
+        fallbackCopy(text); done();
+      }
+    });
+  });
+
+  /* ── Syntax highlight (same hl-* classes as the showcase) ── */
+  function esc(s){
+    return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  }
+  function hl(src){
+    var s = esc(src);
+    s = s.replace(/(&lt;!--[\s\S]*?--&gt;)/g, function(m){
+      return '<span class="hl-cmt">' + m + '</span>';
+    });
+    s = s.replace(/(&lt;\/?)(!?[\w-]+)((?:[^&]|&(?!lt;|gt;))*?)(\/?&gt;)/g,
+      function(m, open, name, attrs, close){
+        attrs = attrs.replace(/([\w-]+)=("(?:[^"]*)"|'[^']*'|[\w-]+)/g,
+          '<span class="hl-attr">$1</span>=<span class="hl-val">$2</span>');
+        return open + '<span class="hl-tag">' + name + '</span>' + attrs + close;
+      });
+    return s;
+  }
+  document.querySelectorAll('pre.code-block__body code').forEach(function(c){
+    /* Skip blocks that are already hand-highlighted */
+    if (!c.querySelector('.hl-tag, .hl-attr, .hl-val, .hl-cmt')) {
+      c.innerHTML = hl(c.textContent);
+    }
+  });
+})();
+});
+
+/* --- calendar --- */
+EXSA.ready(function(){
+
+/* EXSA Calendar — month grid rendering + navigation (vanilla, zero-dependency)
+   Targets .calendar elements with optional data-calendar-* attributes.
+   Fires CustomEvents: exsa:day-select, exsa:event-click, exsa:month-change. */
+(function () {
+  'use strict';
+
+  var DOW = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+  var MONTHS = ['January', 'February', 'March', 'April', 'May', 'June',
+    'July', 'August', 'September', 'October', 'November', 'December'];
+
+  function pad(n) { return (n < 10 ? '0' : '') + n; }
+  function iso(y, m, d) { return y + '-' + pad(m + 1) + '-' + pad(d); }
+  function esc(s) {
+    return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+  }
+
+  function parseEvents(el) {
+    var map = {};
+    var raw = el.getAttribute('data-calendar-events');
+    if (!raw) return map;
+    try {
+      JSON.parse(raw).forEach(function (ev) {
+        if (!ev || !ev.date) return;
+        (map[ev.date] = map[ev.date] || []).push(ev);
+      });
+    } catch (e) { /* invalid JSON — render without events */ }
+    return map;
+  }
+
+  function build(el) {
+    var events = parseEvents(el);
+    var init = el.getAttribute('data-calendar-date') || new Date().toISOString().slice(0, 10);
+    var y = parseInt(init.slice(0, 4), 10) || new Date().getFullYear();
+    var m = (parseInt(init.slice(5, 7), 10) || (new Date().getMonth() + 1)) - 1;
+    var weekStart = parseInt(el.getAttribute('data-calendar-week-start'), 10) || 0;
+
+    /* ── Static chrome, built once ── */
+    el.classList.add('calendar');
+    el.innerHTML =
+      '<div class="calendar__head">' +
+        '<button type="button" class="calendar__nav calendar__nav--prev" aria-label="Previous month">&#8249;</button>' +
+        '<div class="calendar__label"></div>' +
+        '<button type="button" class="calendar__nav calendar__nav--next" aria-label="Next month">&#8250;</button>' +
+        '<button type="button" class="calendar__today">Today</button>' +
+      '</div>' +
+      '<div class="calendar__weekdays" role="row">' +
+        DOW.map(function (d, i) {
+          var n = (i + weekStart) % 7;
+          return '<div class="calendar__weekday" role="columnheader">' + DOW[n] + '</div>';
+        }).join('') +
+      '</div>' +
+      '<div class="calendar__grid" role="grid"></div>';
+
+    var label = el.querySelector('.calendar__label');
+    var grid = el.querySelector('.calendar__grid');
+    var todayIso = new Date().toISOString().slice(0, 10);
+    var selected = init;
+
+    function render() {
+      label.textContent = MONTHS[m] + ' ' + y;
+      var first = new Date(y, m, 1);
+      var offset = (first.getDay() - weekStart + 7) % 7;
+      var daysInMonth = new Date(y, m + 1, 0).getDate();
+      var prevDays = new Date(y, m, 0).getDate();
+
+      var html = '';
+      for (var cell = 0; cell < 42; cell++) {
+        var d, isOutside = false;
+        if (cell < offset) { d = prevDays - offset + cell + 1; isOutside = true; }
+        else if (cell >= offset + daysInMonth) { d = cell - offset - daysInMonth + 1; isOutside = true; }
+        else { d = cell - offset + 1; }
+
+        var dIso = isOutside
+          ? iso(cell < offset ? (m === 0 ? y - 1 : y) : (m === 11 ? y + 1 : y), cell < offset ? (m === 0 ? 11 : m - 1) : (m === 11 ? 0 : m + 1), d)
+          : iso(y, m, d);
+
+        var cls = 'calendar__day';
+        if (isOutside) cls += ' calendar__day--outside';
+        if (dIso === todayIso) cls += ' calendar__day--today';
+        if (dIso === selected) cls += ' calendar__day--selected';
+        var selAttr = dIso === selected ? ' aria-selected="true"' : '';
+
+        html += '<button type="button" class="' + cls + '" role="gridcell" data-date="' + dIso + '"' + selAttr + '>' +
+          '<span class="calendar__daynum">' + d + '</span>' +
+          '<span class="calendar__events">';
+        var evs = events[dIso] || [];
+        evs.slice(0, 3).forEach(function (ev) {
+          html += '<button type="button" class="calendar__event calendar__event--' + esc(ev.type || 'primary') + '"' +
+            ' data-event-title="' + esc(ev.title || '') + '" data-event-date="' + esc(ev.date) + '"' +
+            ' data-event-type="' + esc(ev.type || 'primary') + '" title="' + esc(ev.title || '') + '">' + esc(ev.title || '') + '</button>';
+        });
+        if (evs.length > 3) html += '<span class="calendar__more">+' + (evs.length - 3) + ' more</span>';
+        html += '</span></button>';
+      }
+      grid.innerHTML = html;
+    }
+
+    /* ── Delegated interactions ── */
+    el.addEventListener('click', function (e) {
+      var nav = e.target.closest('.calendar__nav');
+      if (nav) {
+        if (nav.classList.contains('calendar__nav--prev')) { m--; if (m < 0) { m = 11; y--; } }
+        else { m++; if (m > 11) { m = 0; y++; } }
+        render();
+        el.dispatchEvent(new CustomEvent('exsa:month-change', { detail: { year: y, month: m + 1 } }));
+        return;
+      }
+      if (e.target.closest('.calendar__today')) {
+        var now = new Date();
+        y = now.getFullYear(); m = now.getMonth();
+        render();
+        el.dispatchEvent(new CustomEvent('exsa:month-change', { detail: { year: y, month: m + 1 } }));
+        return;
+      }
+      var ev = e.target.closest('.calendar__event');
+      if (ev) {
+        el.dispatchEvent(new CustomEvent('exsa:event-click', {
+          detail: { date: ev.getAttribute('data-event-date'), title: ev.getAttribute('data-event-title'), type: ev.getAttribute('data-event-type'), eventEl: ev }
+        }));
+        return;
+      }
+      var day = e.target.closest('.calendar__day');
+      if (day) {
+        selected = day.getAttribute('data-date');
+        grid.querySelectorAll('.calendar__day--selected').forEach(function (d2) { d2.classList.remove('calendar__day--selected'); d2.removeAttribute('aria-selected'); });
+        day.classList.add('calendar__day--selected');
+        day.setAttribute('aria-selected', 'true');
+        el.dispatchEvent(new CustomEvent('exsa:day-select', { detail: { date: selected, dayEl: day } }));
+      }
+    });
+
+    el.addEventListener('keydown', function (e) {
+      var day = e.target.closest('.calendar__day');
+      if (day && (e.key === 'Enter' || e.key === ' ')) {
+        e.preventDefault();
+        day.click();
+      }
+    });
+
+    render();
+  }
+
+  document.querySelectorAll('.calendar').forEach(build);
+})();
+});
+
+/* --- chart --- */
+EXSA.ready(function(){
+
+/* EXSA Chart — data arrays → SVG markup (vanilla, zero-dependency)
+   Targets any element with [data-chart-values].
+   Types: line | area | bar | sparkline (class or data-chart-type).
+   Optional second series: data-chart-values-2. */
+(function () {
+  'use strict';
+
+  var NS = 'http://www.w3.org/2000/svg';
+
+  function svg(tag, attrs) {
+    var el = document.createElementNS(NS, tag);
+    for (var k in attrs) { if (attrs[k] !== null && attrs[k] !== undefined) el.setAttribute(k, attrs[k]); }
+    return el;
+  }
+
+  function parseList(str) {
+    return String(str || '').split(',').map(function (s) { return s.trim(); }).filter(function (s) { return s !== ''; });
+  }
+
+  function niceMax(n) {
+    if (n <= 0) return 1;
+    var pow = Math.pow(10, Math.floor(Math.log10(n)));
+    var m = n / pow;
+    var step = m <= 1 ? 1 : m <= 2 ? 2 : m <= 5 ? 5 : 10;
+    return step * pow;
+  }
+
+  function fmt(n) {
+    if (n >= 1000 && n % 1000 === 0) return (n / 1000) + 'k';
+    if (n >= 1000) return (n / 1000).toFixed(1) + 'k';
+    return String(n);
+  }
+
+  function linePath(pts) {
+    return pts.map(function (p, i) {
+      return (i ? 'L' : 'M') + p.x + ' ' + p.y;
+    }).join(' ');
+  }
+
+  function build(root) {
+    var values = parseList(root.getAttribute('data-chart-values')).map(Number);
+    if (!values.length) return;
+    var values2 = parseList(root.getAttribute('data-chart-values-2')).map(Number);
+    var labels = parseList(root.getAttribute('data-chart-labels'));
+    var type = root.getAttribute('data-chart-type') ||
+      (root.classList.contains('chart--bar') ? 'bar' :
+       root.classList.contains('chart--area') ? 'area' :
+       root.classList.contains('chart--sparkline') ? 'sparkline' : 'line');
+
+    var spark = type === 'sparkline';
+    var W = spark ? 300 : 600, H = spark ? 60 : 240;
+    var padL = spark ? 2 : 42, padR = spark ? 2 : 16, padT = spark ? 4 : 18, padB = spark ? 4 : 30;
+
+    var max = Math.max(niceMax(Math.max.apply(null, values.concat(values2.length ? values2 : []))), 1);
+    var plotW = W - padL - padR, plotH = H - padT - padB;
+
+    var g = svg('svg', { viewBox: '0 0 ' + W + ' ' + H, role: 'img',
+      'aria-label': root.getAttribute('aria-label') || root.getAttribute('data-chart-title') || 'Chart' });
+
+    function xy(i, v) {
+      return {
+        x: padL + (values.length === 1 ? plotW / 2 : (i / (values.length - 1)) * plotW),
+        y: padT + plotH - (v / max) * plotH
+      };
+    }
+
+    /* Grid + y axis */
+    if (!spark) {
+      var grid = svg('g', { class: 'chart__grid' });
+      var axis = svg('g', { class: 'chart__axis' });
+      for (var t = 0; t <= 4; t++) {
+        var yv = (max / 4) * t;
+        var gy = padT + plotH - (yv / max) * plotH;
+        grid.appendChild(svg('line', { x1: padL, y1: gy, x2: W - padR, y2: gy }));
+        var txt = svg('text', { x: padL - 8, y: gy + 3.5, 'text-anchor': 'end' });
+        txt.textContent = fmt(Math.round(yv));
+        axis.appendChild(txt);
+      }
+      g.appendChild(grid); g.appendChild(axis);
+    }
+
+    /* X labels */
+    if (!spark && labels.length) {
+      var xa = svg('g', { class: 'chart__axis' });
+      var step = Math.ceil(labels.length / 8);
+      labels.forEach(function (lb, i) {
+        if (i % step !== 0 && i !== labels.length - 1) return;
+        var t2 = svg('text', { x: xy(i, 0).x, y: H - 8, 'text-anchor': 'middle' });
+        t2.textContent = lb;
+        xa.appendChild(t2);
+      });
+      g.appendChild(xa);
+    }
+
+    function series(pts, cls, secondary) {
+      var grp = svg('g', { class: 'chart__series' + (secondary ? ' chart__series--2' : '') });
+      if (type === 'bar') {
+        var bw = Math.min((plotW / values.length) * 0.55, 48);
+        values.forEach(function (v, i) {
+          var p = xy(i, v);
+          var rect = svg('rect', { class: 'chart__bar', x: p.x - bw / 2, y: p.y,
+            width: bw, height: Math.max(padT + plotH - p.y, 1), rx: 2 });
+          if (root.getAttribute('data-chart-tabindex') === 'true') rect.setAttribute('tabindex', '0');
+          grp.appendChild(rect);
+        });
+      } else {
+        var path = svg('path', { class: 'chart__line', d: linePath(pts) });
+        grp.appendChild(path);
+        if (type === 'area') {
+          var close = 'L' + pts[pts.length - 1].x + ' ' + (padT + plotH) + 'L' + pts[0].x + ' ' + (padT + plotH) + 'Z';
+          grp.appendChild(svg('path', { class: 'chart__area chart__area--' + (secondary ? 2 : 1), d: linePath(pts) + close }));
+        }
+        if (!spark) {
+          pts.forEach(function (p) {
+            grp.appendChild(svg('circle', { class: 'chart__point', cx: p.x, cy: p.y, r: 3.5 }));
+          });
+        }
+      }
+      return grp;
+    }
+
+    var pts1 = values.map(function (v, i) { return xy(i, v); });
+    g.appendChild(series(pts1, 'series-1', false));
+    if (values2.length) {
+      var pts2 = values2.map(function (v, i) { return xy(i, v); });
+      g.appendChild(series(pts2, 'series-2', true));
+    }
+
+    root.innerHTML = '';
+    root.appendChild(g);
+    if (!root.classList.contains('chart')) root.classList.add('chart');
+  }
+
+  document.querySelectorAll('[data-chart-values]').forEach(function (el) { build(el); });
+})();
+});
+
+/* --- command-palette --- */
+EXSA.ready(function(){
+
+/* EXSA Command Palette — Ctrl+K modal search (vanilla, zero-dependency)
+   Reuses the modal (.modal / .modal--open / .modal__dialog) for the shell.
+   Items: .command-palette__item[data-command] inside .command-palette__group.
+   Events on the palette: exsa:command-open / -close / -select. */
+(function () {
+  'use strict';
+
+  document.querySelectorAll('.command-palette').forEach(function (pal) {
+    var input = pal.querySelector('.command-palette__input');
+    var empty = pal.querySelector('.command-palette__empty');
+    if (!input) return;
+
+    var activeIdx = 0;
+
+    function items() { return Array.prototype.slice.call(pal.querySelectorAll('.command-palette__item')); }
+    function visible() { return items().filter(function (i) { return !i.hidden; }); }
+
+    function applyActive() {
+      var vi = visible();
+      if (!vi.length) return;
+      activeIdx = Math.max(0, Math.min(activeIdx, vi.length - 1));
+      items().forEach(function (it) {
+        it.classList.remove('command-palette__item--active');
+        it.removeAttribute('aria-selected');
+      });
+      vi[activeIdx].classList.add('command-palette__item--active');
+      vi[activeIdx].setAttribute('aria-selected', 'true');
+      vi[activeIdx].scrollIntoView({ block: 'nearest' });
+    }
+
+    function filter(q) {
+      q = q.trim().toLowerCase();
+      var any = false;
+      pal.querySelectorAll('.command-palette__group').forEach(function (g) {
+        var vis = 0;
+        g.querySelectorAll('.command-palette__item').forEach(function (it) {
+          var hay = ((it.getAttribute('data-command') || '') + ' ' + (it.textContent || '')).toLowerCase();
+          var show = !q || hay.indexOf(q) !== -1;
+          it.hidden = !show;
+          if (show) vis++;
+        });
+        g.hidden = vis === 0;
+        if (vis) any = true;
+      });
+      if (empty) empty.hidden = any;
+      activeIdx = 0;
+      applyActive();
+    }
+
+    function select(item) {
+      if (!item) return;
+      pal.dispatchEvent(new CustomEvent('exsa:command-select', {
+        detail: {
+          command: item.getAttribute('data-command'),
+          label: (item.querySelector('.command-palette__item-label') || item).textContent.trim(),
+          item: item
+        }
+      }));
+      closePal();
+    }
+
+    function openPal() {
+      pal.classList.add('modal--open');
+      input.value = '';
+      filter('');
+      input.focus();
+      document.body.style.overflow = 'hidden';
+      pal.dispatchEvent(new CustomEvent('exsa:command-open'));
+    }
+
+    function closePal() {
+      pal.classList.remove('modal--open');
+      document.body.style.overflow = '';
+      pal.dispatchEvent(new CustomEvent('exsa:command-close'));
+    }
+
+    /* ── Input keyboard ── */
+    input.addEventListener('input', function () { filter(input.value); });
+    input.addEventListener('keydown', function (e) {
+      var vi = visible();
+      if (e.key === 'ArrowDown') {
+        e.preventDefault();
+        activeIdx = (activeIdx + 1) % Math.max(vi.length, 1);
+        applyActive();
+      } else if (e.key === 'ArrowUp') {
+        e.preventDefault();
+        activeIdx = (activeIdx - 1 + Math.max(vi.length, 1)) % Math.max(vi.length, 1);
+        applyActive();
+      } else if (e.key === 'Enter') {
+        e.preventDefault();
+        select(vi[activeIdx]);
+      } else if (e.key === 'Escape') {
+        e.preventDefault();
+        closePal();
+      }
+    });
+
+    /* ── Clicks: backdrop closes, items select ── */
+    pal.addEventListener('click', function (e) {
+      if (e.target === pal) { closePal(); return; }
+      var item = e.target.closest('.command-palette__item');
+      if (item && !item.hidden) select(item);
+    });
+
+    /* ── Global shortcut Ctrl/Cmd + K ── */
+    document.addEventListener('keydown', function (e) {
+      if (e.key.toLowerCase() === 'k' && (e.ctrlKey || e.metaKey)) {
+        e.preventDefault();
+        if (pal.classList.contains('modal--open')) closePal();
+        else openPal();
+      }
+    });
+  });
+
+  /* ── Any element with data-command-open opens the first palette ── */
+  document.querySelectorAll('[data-command-open]').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var pal = document.querySelector('.command-palette');
+      if (!pal) return;
+      pal.classList.add('modal--open');
+      var input = pal.querySelector('.command-palette__input');
+      if (input) input.focus();
+      document.body.style.overflow = 'hidden';
+      pal.dispatchEvent(new CustomEvent('exsa:command-open'));
+    });
+  });
+})();
+});
+
+/* --- kanban --- */
+EXSA.ready(function(){
+
+/* EXSA Kanban — pointer-based drag & drop board (vanilla, zero-dependency)
+   Structure: .kanban > .kanban__col > (.kanban__col-head, .kanban__cards > .kanban__card, .kanban__add)
+   Mouse AND touch: cards use touch-action:pan-y, so vertical page scroll
+   still works on touch devices — horizontal movement initiates the drag.
+   Fires CustomEvents on the board:
+     exsa:kanban-drop {card, cardId, fromColId, toColId, afterId}
+     exsa:kanban-add  {card, colId} */
+(function () {
+  'use strict';
+
+  document.querySelectorAll('.kanban').forEach(function (board) {
+    var dragging = null, clone = null, fromCol = null, overCol = null;
+    var offsetX = 0, offsetY = 0;
+
+    function syncCount(col) {
+      var count = col.querySelector('.kanban__col-count');
+      if (count) count.textContent = col.querySelector('.kanban__cards').children.length;
+    }
+
+    function cleanup() {
+      if (clone) { clone.remove(); clone = null; }
+      if (dragging) { dragging.classList.remove('kanban__card--ghost'); dragging = null; }
+      if (overCol) { overCol.classList.remove('kanban__col--over'); overCol = null; }
+      document.body.classList.remove('kanban-dragging');
+    }
+
+    /* ── Drag (pointer events cover mouse + touch) ── */
+    board.addEventListener('pointerdown', function (e) {
+      if (e.button !== undefined && e.button > 0) return;
+      var card = e.target.closest('.kanban__card');
+      if (!card || !board.contains(card)) return;
+      if (e.target.closest('button,a,input,textarea,[contenteditable]')) return;
+
+      var col = card.closest('.kanban__col');
+      var startX = e.clientX, startY = e.clientY, started = false;
+      var rect = card.getBoundingClientRect();
+      offsetX = startX - rect.left;
+      offsetY = startY - rect.top;
+
+      function move(ev) {
+        if (!started) {
+          if (Math.abs(ev.clientX - startX) < 6 && Math.abs(ev.clientY - startY) < 6) return;
+          started = true;
+          dragging = card;
+          fromCol = col;
+          clone = card.cloneNode(true);
+          clone.classList.add('kanban__card--dragging');
+          clone.style.width = rect.width + 'px';
+          clone.style.height = rect.height + 'px';
+          document.body.appendChild(clone);
+          card.classList.add('kanban__card--ghost');
+          document.body.classList.add('kanban-dragging');
+          if (card.setPointerCapture) { try { card.setPointerCapture(ev.pointerId); } catch (err) { /* synthetic events */ } }
+        }
+        clone.style.transform = 'translate(' + (ev.clientX - offsetX) + 'px,' + (ev.clientY - offsetY) + 'px)';
+        var target = document.elementFromPoint(ev.clientX, ev.clientY);
+        var colEl = target ? target.closest('.kanban__col') : null;
+        if (colEl !== overCol) {
+          if (overCol) overCol.classList.remove('kanban__col--over');
+          overCol = colEl && board.contains(colEl) ? colEl : null;
+          if (overCol) overCol.classList.add('kanban__col--over');
+        }
+      }
+
+      function finish(ev) {
+        var targetCol = overCol || fromCol;
+        var ref = null;
+        if (dragging && fromCol && targetCol && ev) {
+          var under = document.elementFromPoint(ev.clientX, ev.clientY);
+          var underCard = under ? under.closest('.kanban__card') : null;
+          if (underCard && underCard !== dragging && underCard.closest('.kanban__cards') === targetCol.querySelector('.kanban__cards')) {
+            ref = underCard;
+          }
+          targetCol.querySelector('.kanban__cards').insertBefore(dragging, ref);
+          syncCount(fromCol);
+          if (targetCol !== fromCol) syncCount(targetCol);
+          board.dispatchEvent(new CustomEvent('exsa:kanban-drop', {
+            detail: {
+              card: dragging,
+              cardId: dragging.getAttribute('data-card-id') || null,
+              fromColId: fromCol.getAttribute('data-col-id') || null,
+              toColId: targetCol.getAttribute('data-col-id') || null,
+              afterId: ref ? (ref.getAttribute('data-card-id') || null) : null
+            }
+          }));
+        }
+        cleanup();
+      }
+
+      function up(ev) {
+        window.removeEventListener('pointermove', move);
+        window.removeEventListener('pointerup', up);
+        window.removeEventListener('pointercancel', cancel);
+        if (started) finish(ev);
+      }
+      function cancel() { up(null); }
+
+      window.addEventListener('pointermove', move);
+      window.addEventListener('pointerup', up);
+      window.addEventListener('pointercancel', cancel);
+    });
+
+    /* ── Quick add ── */
+    board.addEventListener('click', function (e) {
+      var btn = e.target.closest('.kanban__add');
+      if (!btn) return;
+      var col = btn.closest('.kanban__col');
+      var card = document.createElement('article');
+      card.className = 'kanban__card';
+      card.setAttribute('tabindex', '0');
+      var title = document.createElement('div');
+      title.className = 'kanban__card-title';
+      title.setAttribute('contenteditable', 'true');
+      title.textContent = 'New card';
+      card.appendChild(title);
+      col.querySelector('.kanban__cards').appendChild(card);
+      syncCount(col);
+      title.focus();
+      var range = document.createRange();
+      range.selectNodeContents(title);
+      var sel = window.getSelection();
+      sel.removeAllRanges();
+      sel.addRange(range);
+      board.dispatchEvent(new CustomEvent('exsa:kanban-add', {
+        detail: { card: card, colId: col.getAttribute('data-col-id') || null }
+      }));
+    });
+
+    /* ── Initial counts ── */
+    board.querySelectorAll('.kanban__col').forEach(syncCount);
+  });
+})();
+});
+
+/* --- table --- */
+EXSA.ready(function(){
+
+/* EXSA Table — datatable behaviors (vanilla, zero-dependency)
+   Sortable:  table.tbl--sortable with th[data-sort]
+   Filter:    input.table-search[data-table="#id"] filters tbody rows
+   Select:    table.tbl--selectable — checkboxes .tbl__check,
+              head checkbox gets class .tbl__check--all
+   Events:    'exsa:table-sort', 'exsa:table-filter', 'exsa:row-toggle' */
+(function () {
+  'use strict';
+
+  /* ── Sorting ── */
+  document.querySelectorAll('.tbl--sortable').forEach(function (table) {
+    table.querySelectorAll('th[data-sort]').forEach(function (th) {
+      th.setAttribute('tabindex', '0');
+      th.setAttribute('role', 'columnheader');
+      var dir = null;
+      function run() {
+        var next = dir === 'asc' ? 'desc' : 'asc';
+        dir = next;
+        var col = Array.prototype.indexOf.call(th.parentElement.children, th);
+        var tbody = table.querySelector('tbody');
+        if (!tbody) return;
+        var rows = Array.prototype.slice.call(tbody.querySelectorAll('tr'));
+        rows.sort(function (a, b) {
+          var av = (a.cells[col] ? a.cells[col].textContent.trim() : '');
+          var bv = (b.cells[col] ? b.cells[col].textContent.trim() : '');
+          var an = parseFloat(av.replace(/[^0-9.\-]/g, ''));
+          var bn = parseFloat(bv.replace(/[^0-9.\-]/g, ''));
+          var cmp;
+          if (!isNaN(an) && !isNaN(bn) && /\d/.test(av) && /\d/.test(bv)) cmp = an - bn;
+          else cmp = av.localeCompare(bv, undefined, { numeric: true, sensitivity: 'base' });
+          return next === 'asc' ? cmp : -cmp;
+        });
+        rows.forEach(function (r) { tbody.appendChild(r); });
+        table.querySelectorAll('th[aria-sort]').forEach(function (t) {
+          if (t !== th) t.removeAttribute('aria-sort');
+        });
+        th.setAttribute('aria-sort', next === 'asc' ? 'ascending' : 'descending');
+        table.dispatchEvent(new CustomEvent('exsa:table-sort', { detail: { column: col, direction: next } }));
+      }
+      th.addEventListener('click', run);
+      th.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); run(); }
+      });
+    });
+  });
+
+  /* ── Filter ── */
+  document.querySelectorAll('.table-search[data-table]').forEach(function (input) {
+    var table = document.querySelector(input.getAttribute('data-table'));
+    if (!table) return;
+    input.addEventListener('input', function () {
+      var q = input.value.trim().toLowerCase();
+      var visible = 0;
+      table.querySelectorAll('tbody tr').forEach(function (row) {
+        var hit = q === '' || row.textContent.toLowerCase().indexOf(q) !== -1;
+        row.hidden = !hit;
+        if (hit) visible++;
+      });
+      var empty = table.querySelector('.table-empty');
+      if (empty) empty.hidden = visible > 0;
+      table.dispatchEvent(new CustomEvent('exsa:table-filter', { detail: { query: q, visible: visible } }));
+    });
+  });
+
+  /* ── Row selection ── */
+  document.querySelectorAll('.tbl--selectable').forEach(function (table) {
+    var all = table.querySelector('.tbl__check--all');
+    var checks = function () { return table.querySelectorAll('tbody .tbl__check'); };
+    function syncAll() {
+      if (!all) return;
+      var list = Array.prototype.slice.call(checks());
+      var checked = list.filter(function (c) { return c.checked; }).length;
+      all.checked = list.length > 0 && checked === list.length;
+      all.indeterminate = checked > 0 && checked < list.length;
+    }
+    if (all) {
+      all.addEventListener('change', function () {
+        checks().forEach(function (c) {
+          c.checked = all.checked;
+          c.closest('tr').classList.toggle('tbl__row--selected', all.checked);
+        });
+      });
+    }
+    table.addEventListener('change', function (e) {
+      var cb = e.target.closest('.tbl__check');
+      if (!cb || cb === all || !table.contains(cb)) return;
+      var row = cb.closest('tr');
+      row.classList.toggle('tbl__row--selected', cb.checked);
+      table.dispatchEvent(new CustomEvent('exsa:row-toggle', {
+        detail: { row: row, checked: cb.checked }
+      }));
+      syncAll();
+    });
+  });
+})();
+});
+
+/* --- tags-input --- */
+EXSA.ready(function(){
+
+/* EXSA Tags Input — chips + suggestions (vanilla, zero-dependency)
+   .tags-input with optional data-tags-suggestions / -max / -name / -free.
+   The text field and suggestions menu are created by this script.
+   Events on the container: exsa:tags-add, exsa:tags-remove, exsa:tags-change. */
+(function () {
+  'use strict';
+
+  function esc(s) {
+    return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+  }
+
+  document.querySelectorAll('.tags-input').forEach(function (root) {
+    var suggestions = [];
+    try { suggestions = JSON.parse(root.getAttribute('data-tags-suggestions') || '[]'); } catch (e) { /* ignore */ }
+    var max = parseInt(root.getAttribute('data-tags-max'), 10) || 0;
+    var free = (root.getAttribute('data-tags-free') || 'true') !== 'false';
+
+    var field = root.querySelector('.tags-input__field');
+    if (!field) {
+      field = document.createElement('input');
+      field.type = 'text';
+      field.className = 'tags-input__field';
+      field.setAttribute('aria-label', root.getAttribute('data-tags-label') || 'Add tag');
+      root.appendChild(field);
+    }
+
+    var menu = document.createElement('div');
+    menu.className = 'tags-input__menu';
+    menu.setAttribute('role', 'listbox');
+    root.appendChild(menu);
+
+    var hidden = null;
+    var hiddenName = root.getAttribute('data-tags-name');
+    if (hiddenName) {
+      hidden = document.createElement('input');
+      hidden.type = 'hidden';
+      hidden.name = hiddenName;
+      hidden.className = 'tags-input__value';
+      root.appendChild(hidden);
+    }
+
+    var menuItems = [];
+
+    function chips() { return Array.prototype.slice.call(root.querySelectorAll('.tags-input__chip')); }
+    function values() {
+      return chips().map(function (c) {
+        return c.getAttribute('data-value') || (c.querySelector('.tags-input__chip-label') || c).textContent.trim();
+      });
+    }
+    function syncHidden() { if (hidden) hidden.value = values().join(','); }
+
+    function addTag(v) {
+      v = String(v || '').trim().replace(/,/g, '');
+      if (!v) return;
+      if (max && chips().length >= max) return;
+      if (values().indexOf(v) !== -1) return;
+      if (!free && suggestions.length && suggestions.indexOf(v) === -1) return;
+
+      var chip = document.createElement('span');
+      chip.className = 'tags-input__chip';
+      chip.setAttribute('data-value', v);
+      var label = document.createElement('span');
+      label.className = 'tags-input__chip-label';
+      label.textContent = v;
+      var x = document.createElement('button');
+      x.type = 'button';
+      x.className = 'tags-input__remove';
+      x.setAttribute('aria-label', 'Remove ' + v);
+      x.innerHTML = '&times;';
+      chip.appendChild(label);
+      chip.appendChild(x);
+      root.insertBefore(chip, field);
+      syncHidden();
+      root.dispatchEvent(new CustomEvent('exsa:tags-add', { detail: { tag: v, tags: values() } }));
+      root.dispatchEvent(new CustomEvent('exsa:tags-change', { detail: { tags: values(), added: v } }));
+    }
+
+    function removeTag(chip) {
+      var v = chip.getAttribute('data-value') || chip.querySelector('.tags-input__chip-label').textContent.trim();
+      chip.remove();
+      syncHidden();
+      root.dispatchEvent(new CustomEvent('exsa:tags-remove', { detail: { tag: v, tags: values() } }));
+      root.dispatchEvent(new CustomEvent('exsa:tags-change', { detail: { tags: values(), removed: v } }));
+    }
+
+    function showMenu() {
+      var q = field.value.trim().toLowerCase();
+      menuItems = suggestions
+        .filter(function (s) { return !q || s.toLowerCase().indexOf(q) !== -1; })
+        .filter(function (s) { return values().indexOf(s) === -1; })
+        .slice(0, 8);
+      if (!menuItems.length) { hideMenu(); return; }
+      menu.innerHTML = menuItems.map(function (s, i) {
+        return '<div class="tags-input__item' + (i === 0 ? ' tags-input__item--active' : '') + '" role="option">' + esc(s) + '</div>';
+      }).join('');
+      menu.classList.add('tags-input__menu--open');
+    }
+    function hideMenu() {
+      menu.classList.remove('tags-input__menu--open');
+      menuItems = [];
+      menu.innerHTML = '';
+    }
+    function activeIndex() {
+      var active = menu.querySelector('.tags-input__item--active');
+      return active ? Array.prototype.indexOf.call(menu.children, active) : -1;
+    }
+    function setActive(i) {
+      var items = menu.children;
+      if (!items.length) return;
+      i = (i + items.length) % items.length;
+      Array.prototype.forEach.call(items, function (it) { it.classList.remove('tags-input__item--active'); });
+      items[i].classList.add('tags-input__item--active');
+      items[i].scrollIntoView({ block: 'nearest' });
+    }
+
+    root.addEventListener('click', function (e) {
+      var x = e.target.closest('.tags-input__remove');
+      if (x) { removeTag(x.closest('.tags-input__chip')); field.focus(); }
+      else if (e.target === root) { field.focus(); }
+    });
+
+    menu.addEventListener('click', function (e) {
+      var item = e.target.closest('.tags-input__item');
+      if (!item) return;
+      addTag(item.textContent);
+      field.value = '';
+      hideMenu();
+      field.focus();
+    });
+
+    field.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter' || e.key === ',') {
+        e.preventDefault();
+        var idx = activeIndex();
+        if (idx >= 0) addTag(menuItems[idx]);
+        else addTag(field.value);
+        field.value = '';
+        hideMenu();
+      } else if (e.key === 'Backspace' && field.value === '') {
+        var cs = chips();
+        if (cs.length) removeTag(cs[cs.length - 1]);
+      } else if (e.key === 'Escape') {
+        hideMenu();
+      } else if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
+        if (menuItems.length) {
+          e.preventDefault();
+          setActive(activeIndex() + (e.key === 'ArrowDown' ? 1 : -1));
+        }
+      }
+    });
+
+    field.addEventListener('input', showMenu);
+    field.addEventListener('focus', function () { if (field.value) showMenu(); });
+    document.addEventListener('click', function (e) {
+      if (!root.contains(e.target)) hideMenu();
+    });
+  });
+})();
+});
+
+/* --- transfer --- */
+EXSA.ready(function(){
+
+/* EXSA Transfer — two-panel list picker (vanilla, zero-dependency)
+   .transfer > (.transfer__panel ×2 + .transfer__actions)
+   Items: .transfer__item[data-value] — click selects, double-click moves,
+   Space toggles, Enter moves. Action buttons: data-action add/remove/add-all/remove-all.
+   data-transfer-name → hidden input with comma-joined selected values.
+   Event on the container: exsa:transfer-change {values, added, removed}. */
+(function () {
+  'use strict';
+
+  document.querySelectorAll('.transfer').forEach(function (t) {
+    var panels = t.querySelectorAll('.transfer__panel');
+    if (panels.length < 2) return;
+
+    var hidden = null;
+    var hiddenName = t.getAttribute('data-transfer-name');
+    if (hiddenName) {
+      hidden = document.createElement('input');
+      hidden.type = 'hidden';
+      hidden.name = hiddenName;
+      hidden.className = 'transfer__value';
+      t.appendChild(hidden);
+    }
+
+    function items(p) { return Array.prototype.slice.call(p.querySelectorAll('.transfer__item')); }
+    function other(p) { return p === panels[0] ? panels[1] : panels[0]; }
+    function selectedValues() { return items(panels[1]).map(function (i) { return i.getAttribute('data-value'); }); }
+    function sync() { if (hidden) hidden.value = selectedValues().join(','); }
+    function syncCount(p) {
+      var c = p.querySelector('.transfer__count');
+      if (c) c.textContent = items(p).length;
+    }
+
+    function move(list, destPanel) {
+      if (!list.length) return;
+      var added = destPanel === panels[1];
+      list.forEach(function (li) {
+        li.classList.remove('transfer__item--checked');
+        li.removeAttribute('aria-selected');
+        destPanel.querySelector('.transfer__list').appendChild(li);
+      });
+      panels.forEach(syncCount);
+      sync();
+      t.dispatchEvent(new CustomEvent('exsa:transfer-change', {
+        detail: {
+          values: selectedValues(),
+          added: added ? list.map(function (li) { return li.getAttribute('data-value'); }) : [],
+          removed: added ? [] : list.map(function (li) { return li.getAttribute('data-value'); })
+        }
+      }));
+    }
+
+    /* ── Action buttons ── */
+    t.querySelectorAll('.transfer__btn').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var action = btn.getAttribute('data-action');
+        if (action === 'add') move(items(panels[0]).filter(function (i) { return i.classList.contains('transfer__item--checked'); }), panels[1]);
+        else if (action === 'remove') move(items(panels[1]).filter(function (i) { return i.classList.contains('transfer__item--checked'); }), panels[0]);
+        else if (action === 'add-all') move(items(panels[0]), panels[1]);
+        else if (action === 'remove-all') move(items(panels[1]), panels[0]);
+      });
+    });
+
+    /* ── Item interaction (delegated) ── */
+    t.addEventListener('click', function (e) {
+      var li = e.target.closest('.transfer__item');
+      if (!li || !t.contains(li)) return;
+      li.classList.toggle('transfer__item--checked');
+      if (li.classList.contains('transfer__item--checked')) li.setAttribute('aria-selected', 'true');
+      else li.removeAttribute('aria-selected');
+    });
+
+    t.addEventListener('dblclick', function (e) {
+      var li = e.target.closest('.transfer__item');
+      if (!li || !t.contains(li)) return;
+      move([li], other(li.closest('.transfer__panel')));
+    });
+
+    t.addEventListener('keydown', function (e) {
+      var li = e.target.closest('.transfer__item');
+      if (!li || !t.contains(li)) return;
+      if (e.key === ' ') {
+        e.preventDefault();
+        li.classList.toggle('transfer__item--checked');
+        if (li.classList.contains('transfer__item--checked')) li.setAttribute('aria-selected', 'true');
+        else li.removeAttribute('aria-selected');
+      } else if (e.key === 'Enter') {
+        e.preventDefault();
+        move([li], other(li.closest('.transfer__panel')));
+      }
+    });
+
+    /* ── Per-panel search ── */
+    t.querySelectorAll('.transfer__search').forEach(function (input) {
+      var panel = input.closest('.transfer__panel');
+      input.addEventListener('input', function () {
+        var q = input.value.trim().toLowerCase();
+        items(panel).forEach(function (li) {
+          li.hidden = q !== '' && li.textContent.toLowerCase().indexOf(q) === -1;
+        });
+      });
+    });
+
+    panels.forEach(syncCount);
+  });
+})();
+});
+
+/* --- upload --- */
+EXSA.ready(function(){
+
+/* EXSA Upload — dropzone + file list with progress (vanilla, zero-dependency)
+   .upload > (.upload__dropzone > .upload__input, .upload__list)
+   data-upload-url: real XHR upload with live progress.
+   Without it, progress is simulated (demo mode).
+   Events on .upload: exsa:upload-add / -done / -error / -remove. */
+(function () {
+  'use strict';
+
+  function fmtSize(b) {
+    if (b < 1024) return b + ' B';
+    if (b < 1048576) return (b / 1024).toFixed(1) + ' KB';
+    return (b / 1048576).toFixed(1) + ' MB';
+  }
+
+  function ext(name) {
+    var i = name.lastIndexOf('.');
+    return i > 0 ? name.slice(i + 1).toUpperCase().slice(0, 4) : 'FILE';
+  }
+
+  document.querySelectorAll('.upload').forEach(function (up) {
+    var input = up.querySelector('.upload__input');
+    var zone = up.querySelector('.upload__dropzone');
+    var list = up.querySelector('.upload__list');
+    if (!input || !zone || !list) return;
+    var url = up.getAttribute('data-upload-url') || '';
+
+    zone.addEventListener('click', function () { input.click(); });
+    zone.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); input.click(); }
+    });
+    input.addEventListener('change', function () {
+      if (input.files.length) addFiles(input.files);
+      input.value = '';
+    });
+
+    ['dragenter', 'dragover'].forEach(function (ev) {
+      zone.addEventListener(ev, function (e) {
+        e.preventDefault();
+        zone.classList.add('upload__dropzone--over');
+      });
+    });
+    ['dragleave', 'drop'].forEach(function (ev) {
+      zone.addEventListener(ev, function (e) {
+        e.preventDefault();
+        zone.classList.remove('upload__dropzone--over');
+      });
+    });
+    zone.addEventListener('drop', function (e) {
+      if (e.dataTransfer && e.dataTransfer.files.length) addFiles(e.dataTransfer.files);
+    });
+
+    function addFiles(files) {
+      Array.prototype.forEach.call(files, function (file) { addItem(file); });
+      up.dispatchEvent(new CustomEvent('exsa:upload-add', { detail: { files: Array.prototype.slice.call(files) } }));
+    }
+
+    function addItem(file) {
+      var li = document.createElement('li');
+      li.className = 'upload__item';
+      li.innerHTML =
+        '<span class="upload__item-ext">' + ext(file.name) + '</span>' +
+        '<div class="upload__item-body">' +
+          '<div class="upload__item-name"></div>' +
+          '<div class="upload__item-meta"></div>' +
+          '<div class="upload__item-track"><div class="upload__item-fill"></div></div>' +
+        '</div>' +
+        '<button type="button" class="upload__item-remove" aria-label="Remove file">&times;</button>';
+      li.querySelector('.upload__item-name').textContent = file.name;
+      list.appendChild(li);
+
+      var fill = li.querySelector('.upload__item-fill');
+      var meta = li.querySelector('.upload__item-meta');
+      var remove = li.querySelector('.upload__item-remove');
+      var xhr = null;
+      var simTimer = null;
+
+      function done() {
+        li.classList.add('upload__item--done');
+        meta.textContent = fmtSize(file.size) + ' · Done';
+        up.dispatchEvent(new CustomEvent('exsa:upload-done', { detail: { file: file, name: file.name } }));
+      }
+      function fail(message) {
+        li.classList.add('upload__item--error');
+        meta.textContent = message || 'Upload failed';
+        up.dispatchEvent(new CustomEvent('exsa:upload-error', { detail: { file: file, name: file.name, message: message || 'Upload failed' } }));
+      }
+      function cancel() {
+        if (xhr) xhr.abort();
+        if (simTimer) clearInterval(simTimer);
+        li.remove();
+        up.dispatchEvent(new CustomEvent('exsa:upload-remove', { detail: { name: file.name } }));
+      }
+      remove.addEventListener('click', cancel);
+
+      if (url) {
+        /* Real upload with live progress */
+        xhr = new XMLHttpRequest();
+        xhr.open('POST', url);
+        xhr.upload.onprogress = function (e) {
+          if (e.lengthComputable) {
+            var pct = (e.loaded / e.total) * 100;
+            fill.style.setProperty('--upload-pct', pct + '%');
+            meta.textContent = fmtSize(file.size) + ' · ' + Math.round(pct) + '%';
+          }
+        };
+        xhr.onload = function () {
+          if (xhr.status >= 200 && xhr.status < 300) done();
+          else fail('Upload failed (' + xhr.status + ')');
+        };
+        xhr.onerror = function () { fail('Network error'); };
+        xhr.onabort = function () { /* remove already called */ };
+        var fd = new FormData();
+        fd.append('file', file);
+        xhr.send(fd);
+        meta.textContent = fmtSize(file.size) + ' · 0%';
+      } else {
+        /* Demo mode — simulated progress */
+        var pct = 0;
+        meta.textContent = fmtSize(file.size) + ' · 0%';
+        simTimer = setInterval(function () {
+          pct += Math.random() * 14 + 4;
+          if (pct >= 100) {
+            pct = 100;
+            clearInterval(simTimer);
+            fill.style.setProperty('--upload-pct', '100%');
+            done();
+            return;
+          }
+          fill.style.setProperty('--upload-pct', pct + '%');
+          meta.textContent = fmtSize(file.size) + ' · ' + Math.round(pct) + '%';
+        }, 220);
+      }
+    }
+  });
+})();
+});

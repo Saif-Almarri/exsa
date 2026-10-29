@@ -1,0 +1,40 @@
+@layer exsa.themes {
+
+/* ============================================================
+   LAYER 2 — THEME: SOJOURN
+   Custom theme built with EXSA Theme Builder.
+   Auto-switches via prefers-color-scheme.
+   Force mode: <html data-theme-mode="light|dark">
+   ============================================================ */
+
+:root {
+  color-scheme: light dark;
+  --color-bg: light-dark(#f2f2f2, #050505);
+  --color-bg-secondary: light-dark(#f7e8bf, #a9986a);
+  --color-text: light-dark(#1a1814, #ffffff);
+  --color-text-secondary: light-dark(#b07f1c, #ffeecc);
+  --color-link: light-dark(#8a6a30, #caa849);
+  --color-secondary: light-dark(#6a5030, #a08040);
+  --color-secondary-accent: light-dark(#6a50300d, #a0804018);
+  --color-accent: light-dark(#8a6a3010, #c4a44a14);
+  --color-overlay: light-dark(#100f0f2b, #09060240);
+  --color-shadow: light-dark(#3a373154, #00000088);
+  --color-scrollbar: light-dark(#a39466, #2a2a20);
+  --color-success: light-dark(#16a34a, #4ade80);
+  --color-success-hover: light-dark(#15803d, #22c55e);
+  --color-danger: light-dark(#dc2626, #f87171);
+  --color-danger-hover: light-dark(#b91c1c, #ef4444);
+  --color-warning: light-dark(#d97706, #fbbf24);
+  --color-warning-hover: light-dark(#b45309, #f59e0b);
+  --color-border: light-dark(#d4ccb8, #2a2a20);
+  --color-button-text: light-dark(#fcfcfc, #161512);
+  --color-button-text-inverse: light-dark(#000000, #d4cebc);
+}
+
+/* Forced dark — <html data-theme-mode="dark">, ignores OS preference */
+:root[data-theme-mode="dark"] { color-scheme: dark; }
+
+/* Forced light — <html data-theme-mode="light">, ignores OS preference */
+:root[data-theme-mode="light"] { color-scheme: only light; }
+
+}

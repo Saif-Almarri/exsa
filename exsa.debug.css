@@ -1,0 +1,186 @@
+/* ════════════════════════════════════════════════════════════
+   EXSA markup-contract linter — DEVELOPMENT ONLY.
+   Link after exsa.bundle.css. Enable: <html data-debug>
+   A component root missing a required part gets a red dashed
+   outline and a label naming the missing part. Pure CSS.
+   ════════════════════════════════════════════════════════════ */
+
+[data-debug] {
+  --dbg-danger: var(--color-danger, #dc2626);
+  --dbg-warn: var(--color-warning, #f59e0b);
+}
+
+[data-debug] [data-dbg-suggest]{
+  outline: 2px dashed var(--dbg-warn);
+  outline-offset: 2px;
+  position: relative;
+}
+
+[data-debug] [data-dbg-suggest]::after{
+  content: attr(data-dbg-suggest);
+  position: absolute;
+  top: -1.6em;
+  inset-inline-start: 0;
+  z-index: 9999;
+  background: var(--dbg-warn);
+  color: #111827;
+  font-family: var(--font-family-mono, monospace);
+  font-size: 11px;
+  line-height: 1;
+  padding: 4px 8px;
+  border-radius: 4px;
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+[data-debug] .accordion:not(:has(.accordion__item)) { --dbg-msg: "missing .accordion__item"; }
+[data-debug] .drawer__toggle:not(:has(~ .drawer__panel)) { --dbg-msg: "missing ~ .drawer__panel"; }
+[data-debug] .modal:not(:has(.modal__dialog)) { --dbg-msg: "missing .modal__dialog"; }
+[data-debug] .sidebar:not(:has(.sidebar__nav)) { --dbg-msg: "missing .sidebar__nav"; }
+[data-debug] .sidebar:not(:has(.sidebar__link)) { --dbg-msg: "missing .sidebar__link"; }
+[data-debug] .pagination:not(:has(.pagination__item)) { --dbg-msg: "missing .pagination__item"; }
+[data-debug] .stepper:not(:has(.stepper__step)) { --dbg-msg: "missing .stepper__step"; }
+[data-debug] .timeline:not(:has(.timeline__item)) { --dbg-msg: "missing .timeline__item"; }
+[data-debug] .data-list:not(:has(.data-list__item)) { --dbg-msg: "missing .data-list__item"; }
+[data-debug] .code-block:not(:has(.code-block__body)) { --dbg-msg: "missing .code-block__body"; }
+[data-debug] .slideshow:not(:has(.slideshow__track)) { --dbg-msg: "missing .slideshow__track"; }
+[data-debug] .slideshow:not(:has(.slideshow__slide)) { --dbg-msg: "missing .slideshow__slide"; }
+[data-debug] .donut:not(:has(.donut__slice)) { --dbg-msg: "missing .donut__slice"; }
+[data-debug] .progress-item:not(:has(.progress-item__track)) { --dbg-msg: "missing .progress-item__track"; }
+[data-debug] .range:not(:has(.range__input)) { --dbg-msg: "missing .range__input"; }
+[data-debug] .checkbox:not(:has(.checkbox__box)) { --dbg-msg: "missing .checkbox__box"; }
+[data-debug] .dropdown:not(:has(.dropdown__trigger)) { --dbg-msg: "missing .dropdown__trigger"; }
+[data-debug] .dropdown:not(:has(.dropdown__menu)) { --dbg-msg: "missing .dropdown__menu"; }
+[data-debug] .input-group:not(:has(.input-group__input)) { --dbg-msg: "missing .input-group__input"; }
+[data-debug] .password-input:not(:has(.password-input__field)) { --dbg-msg: "missing .password-input__field"; }
+[data-debug] .popover:not(:has(.popover__content)) { --dbg-msg: "missing .popover__content"; }
+[data-debug] .radio:not(:has(.radio__circle)) { --dbg-msg: "missing .radio__circle"; }
+[data-debug] .rating:not(:has(.rating__star)) { --dbg-msg: "missing .rating__star"; }
+[data-debug] .select:not(:has(.select__field)) { --dbg-msg: "missing .select__field"; }
+[data-debug] .tabs:not(:has(.tabs__tab)) { --dbg-msg: "missing .tabs__tab"; }
+[data-debug] .toggle:not(:has(.toggle__track)) { --dbg-msg: "missing .toggle__track"; }
+[data-debug] .alert:not(:has(.alert__body)) { --dbg-msg: "missing .alert__body"; }
+[data-debug] .activity:not(:has(.activity__group)) { --dbg-msg: "missing .activity__group"; }
+[data-debug] .calendar:not(:has(.calendar__grid)) { --dbg-msg: "missing .calendar__grid"; }
+[data-debug] .command-palette:not(:has(.command-palette__input)) { --dbg-msg: "missing .command-palette__input"; }
+[data-debug] .command-palette:not(:has(.command-palette__list)) { --dbg-msg: "missing .command-palette__list"; }
+[data-debug] .empty-state:not(:has(.empty-state__title)) { --dbg-msg: "missing .empty-state__title"; }
+[data-debug] .kanban:not(:has(.kanban__col)) { --dbg-msg: "missing .kanban__col"; }
+[data-debug] .kpi:not(:has(.kpi__value)) { --dbg-msg: "missing .kpi__value"; }
+[data-debug] .notifications:not(:has(.notifications__trigger)) { --dbg-msg: "missing .notifications__trigger"; }
+[data-debug] .notifications:not(:has(.notifications__list)) { --dbg-msg: "missing .notifications__list"; }
+[data-debug] .shop__card:not(:has(.shop__card-title)) { --dbg-msg: "missing .shop__card-title"; }
+[data-debug] .transfer:not(:has(.transfer__panel)) { --dbg-msg: "missing .transfer__panel"; }
+[data-debug] .transfer:not(:has(.transfer__actions)) { --dbg-msg: "missing .transfer__actions"; }
+[data-debug] .tree:not(:has(.tree__row)) { --dbg-msg: "missing .tree__row"; }
+[data-debug] .upload:not(:has(.upload__dropzone)) { --dbg-msg: "missing .upload__dropzone"; }
+[data-debug] .upload:not(:has(.upload__list)) { --dbg-msg: "missing .upload__list"; }
+/* Shared renderer — every "missing part" rule above only declares its
+   --dbg-msg. These two rules draw the outline and the label. */
+[data-debug] :is(
+  .accordion:not(:has(.accordion__item)),
+  .drawer__toggle:not(:has(~ .drawer__panel)),
+  .modal:not(:has(.modal__dialog)),
+  .sidebar:not(:has(.sidebar__nav)),
+  .sidebar:not(:has(.sidebar__link)),
+  .pagination:not(:has(.pagination__item)),
+  .stepper:not(:has(.stepper__step)),
+  .timeline:not(:has(.timeline__item)),
+  .data-list:not(:has(.data-list__item)),
+  .code-block:not(:has(.code-block__body)),
+  .slideshow:not(:has(.slideshow__track)),
+  .slideshow:not(:has(.slideshow__slide)),
+  .donut:not(:has(.donut__slice)),
+  .progress-item:not(:has(.progress-item__track)),
+  .range:not(:has(.range__input)),
+  .checkbox:not(:has(.checkbox__box)),
+  .dropdown:not(:has(.dropdown__trigger)),
+  .dropdown:not(:has(.dropdown__menu)),
+  .input-group:not(:has(.input-group__input)),
+  .password-input:not(:has(.password-input__field)),
+  .popover:not(:has(.popover__content)),
+  .radio:not(:has(.radio__circle)),
+  .rating:not(:has(.rating__star)),
+  .select:not(:has(.select__field)),
+  .tabs:not(:has(.tabs__tab)),
+  .toggle:not(:has(.toggle__track)),
+  .alert:not(:has(.alert__body)),
+  .activity:not(:has(.activity__group)),
+  .calendar:not(:has(.calendar__grid)),
+  .command-palette:not(:has(.command-palette__input)),
+  .command-palette:not(:has(.command-palette__list)),
+  .empty-state:not(:has(.empty-state__title)),
+  .kanban:not(:has(.kanban__col)),
+  .kpi:not(:has(.kpi__value)),
+  .notifications:not(:has(.notifications__trigger)),
+  .notifications:not(:has(.notifications__list)),
+  .shop__card:not(:has(.shop__card-title)),
+  .transfer:not(:has(.transfer__panel)),
+  .transfer:not(:has(.transfer__actions)),
+  .tree:not(:has(.tree__row)),
+  .upload:not(:has(.upload__dropzone)),
+  .upload:not(:has(.upload__list))
+) {
+  outline: 2px dashed var(--dbg-danger);
+  outline-offset: 2px;
+  position: relative;
+}
+[data-debug] :is(
+  .accordion:not(:has(.accordion__item)),
+  .drawer__toggle:not(:has(~ .drawer__panel)),
+  .modal:not(:has(.modal__dialog)),
+  .sidebar:not(:has(.sidebar__nav)),
+  .sidebar:not(:has(.sidebar__link)),
+  .pagination:not(:has(.pagination__item)),
+  .stepper:not(:has(.stepper__step)),
+  .timeline:not(:has(.timeline__item)),
+  .data-list:not(:has(.data-list__item)),
+  .code-block:not(:has(.code-block__body)),
+  .slideshow:not(:has(.slideshow__track)),
+  .slideshow:not(:has(.slideshow__slide)),
+  .donut:not(:has(.donut__slice)),
+  .progress-item:not(:has(.progress-item__track)),
+  .range:not(:has(.range__input)),
+  .checkbox:not(:has(.checkbox__box)),
+  .dropdown:not(:has(.dropdown__trigger)),
+  .dropdown:not(:has(.dropdown__menu)),
+  .input-group:not(:has(.input-group__input)),
+  .password-input:not(:has(.password-input__field)),
+  .popover:not(:has(.popover__content)),
+  .radio:not(:has(.radio__circle)),
+  .rating:not(:has(.rating__star)),
+  .select:not(:has(.select__field)),
+  .tabs:not(:has(.tabs__tab)),
+  .toggle:not(:has(.toggle__track)),
+  .alert:not(:has(.alert__body)),
+  .activity:not(:has(.activity__group)),
+  .calendar:not(:has(.calendar__grid)),
+  .command-palette:not(:has(.command-palette__input)),
+  .command-palette:not(:has(.command-palette__list)),
+  .empty-state:not(:has(.empty-state__title)),
+  .kanban:not(:has(.kanban__col)),
+  .kpi:not(:has(.kpi__value)),
+  .notifications:not(:has(.notifications__trigger)),
+  .notifications:not(:has(.notifications__list)),
+  .shop__card:not(:has(.shop__card-title)),
+  .transfer:not(:has(.transfer__panel)),
+  .transfer:not(:has(.transfer__actions)),
+  .tree:not(:has(.tree__row)),
+  .upload:not(:has(.upload__dropzone)),
+  .upload:not(:has(.upload__list))
+)::after {
+  content: var(--dbg-msg);
+  position: absolute;
+  top: -1.6em;
+  inset-inline-start: 0;
+  z-index: 9999;
+  background: var(--dbg-danger);
+  color: #fff;
+  font-family: var(--font-family-mono, monospace);
+  font-size: 11px;
+  line-height: 1;
+  padding: 4px 8px;
+  border-radius: 4px;
+  white-space: nowrap;
+  pointer-events: none;
+}

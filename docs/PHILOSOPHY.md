@@ -110,7 +110,7 @@ Behavioral profiles (`data-profile="compact"`, `data-profile="spacious"`) change
 - **Not a utility framework.** EXSA believes component classes (`card`, `btn--primary`) carry more meaning than atomic utilities (`bg-white rounded-lg shadow-md p-6`). Semantic HTML should work without 12 classes on a div.
 - **Not a design system.** EXSA ships no design opinions — 20 themes prove the same component can look completely different. The tokens are the system. You bring the design.
 - **Not a JavaScript framework.** No React, Vue, or Svelte wrappers needed. EXSA is CSS — it works with any backend, any static server, no package manager required.
-- **Not a "minimal" framework.** 68 components, 20 themes, 90+ layout utilities, a bundle generator, and a classless engine. Small in KB. Not small in capability.
+- **Not a "minimal" framework.** 68 components, 20 themes, 90+ layout utilities, and a classless engine. Small in KB. Not small in capability.
 
 ---
 
@@ -118,9 +118,9 @@ Behavioral profiles (`data-profile="compact"`, `data-profile="spacious"`) change
 
 1. **Defer to the developer.** Guarded Classless. Zero specificity. Unlayered user CSS always wins.
 2. **Tokens are the truth.** Components don't have colors. They have `var(--color-link)`. Themes are just token overrides.
-3. **One file, one component.** No monolithic CSS. Link only what you need. For production, the **Generator** bundles only your selected components — same outcome as tree-shaking, no build step needed.
+3. **One file, zero build.** `exsa.bundle.css` bundles the classless core and all 68 components. No per-component files to manage, no bundler to run.
 4. **The platform is the framework.** `@layer`, `:where()`, custom properties, container queries, `prefers-reduced-motion`, `forced-colors` — EXSA doesn't reinvent. It orchestrates what browsers already do.
-5. **Zero build step, forever.** No bundler. No CLI. No config file. No template engine required — Twig, Blade, SASS, PostCSS: none of it. Plain `.php` files and `<link>` tags always work. The Generator handles optimization when you're ready. This is not a temporary state. It is a permanent design constraint.
+5. **Zero build step, forever.** No bundler. No CLI. No config file. No template engine required — Twig, Blade, SASS, PostCSS: none of it. Plain `.php` files and `<link>` tags always work. This is not a temporary state. It is a permanent design constraint.
 
 ---
 
@@ -144,7 +144,7 @@ No other framework occupies the intersection EXSA does.
 | Traditional | Bootstrap, Bulma | ✅ | ❌ | ❌ | ❌ |
 | Token-only | Open Props, Pollen | ❌ | ✅ | ❌ | ❌ |
 | Classless | Pico, Water, Simple, Sakura | ❌ | ❌ | ✅ | ❌ |
-| **EXSA** | — | ✅ 68 | ✅ 82 | ✅ | ✅ |
+| **EXSA** | — | ✅ 68 | ✅ 95 | ✅ | ✅ |
 
 *\*Guarded = styles automatically, but steps aside when you add any class*
 

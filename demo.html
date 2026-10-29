@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EXSA — Theme Demo</title>
+
+  <!-- 1. The framework (core + all 68 components + built-in default theme) -->
+  <link rel="stylesheet" href="exsa.bundle.css">
+
+  <!-- 2. Default theme — swapped at runtime by the selector in the topbar -->
+  <link id="theme-stylesheet" rel="stylesheet" href="themes/breeze.css">
+
+  <!-- 3. Font Awesome Free (icons) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+  <!-- 4. Behaviors (topbar toggle, dropdown, theme switcher) -->
+  <script src="exsa.js" defer></script>
+</head>
+
+<!-- 5. Opt-in to classless styling + reserve space below the fixed topbar -->
+<body class="exsa has-topbar">
+
+  <!-- ── Topbar ── -->
+  <header class="topbar">
+    <div class="topbar__left">
+      <a class="topbar__brand" href="#top">
+        <span class="topbar__logo"><i class="fa-solid fa-cube"></i></span>
+        <span>EXSA</span>
+      </a>
+      <nav aria-label="Main">
+        <ul class="topbar__nav">
+          <li><a class="topbar__link topbar__link--active" href="#top">Home</a></li>
+          <li><a class="topbar__link" href="#features">Features</a></li>
+          <li><a class="topbar__link" href="#team">Team</a></li>
+          <li class="topbar__dropdown">
+            <button class="topbar__link topbar__dd-trigger" aria-haspopup="true" aria-expanded="false">More <i class="fa-solid fa-chevron-down"></i></button>
+            <ul class="topbar__dd-menu">
+              <li><a class="topbar__dd-item" href="#"><i class="fa-solid fa-book"></i> Documentation</a></li>
+              <li><a class="topbar__dd-item" href="#"><i class="fa-solid fa-palette"></i> Themes &amp; skins</a></li>
+              <li class="topbar__dd-divider" role="separator"></li>
+              <li><a class="topbar__dd-item" href="#"><i class="fa-solid fa-circle-info"></i> About EXSA</a></li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+    </div>
+
+    <div class="topbar__right">
+      <div class="select" style="width:auto;min-width:150px">
+        <select id="theme-select" class="select__field" aria-label="Theme">
+          <option value="breeze" selected>Breeze (default)</option>
+          <option value="abyss">Abyss</option>
+          <option value="clinic">Clinic</option>
+          <option value="console">Console</option>
+          <option value="coral">Coral</option>
+          <option value="ember">Ember</option>
+          <option value="forest">Forest</option>
+          <option value="ink">Ink</option>
+          <option value="ledger">Ledger</option>
+          <option value="mono">Mono</option>
+          <option value="night">Night</option>
+          <option value="nova">Nova</option>
+          <option value="prism">Prism</option>
+          <option value="sepia">Sepia</option>
+          <option value="shadow">Shadow</option>
+          <option value="sojourn">Sojourn</option>
+          <option value="steel">Steel</option>
+          <option value="travei">Travei</option>
+          <option value="tropic">Tropic</option>
+          <option value="volt">Volt</option>
+        </select>
+      </div>
+      <button id="mode-toggle" class="btn btn--icon" aria-label="Switch to dark mode"><i class="fa-solid fa-moon"></i></button>
+      <a class="topbar__btn topbar__btn--primary" href="#features">Get started</a>
+      <button class="topbar__toggle" aria-label="Menu" aria-expanded="false"><i class="fa-solid fa-bars"></i></button>
+    </div>
+  </header>
+
+  <main>
+    <!-- ── Hero ── -->
+    <header id="top">
+      <p><span class="badge badge--primary"><i class="fa-solid fa-bolt"></i> Token-driven CSS</span></p>
+      <h1>One CSS file.<br>Every component.</h1>
+      <p>EXSA is a token-driven framework — 95 design tokens, 68 components, 20 themes. Plain semantic HTML, styled automatically. Pick a theme in the top bar and watch this page recolor.</p>
+      <p>
+        <a class="btn btn--primary" href="#features">Get started</a>
+        <a class="btn btn--outline" href="#team">Meet the team</a>
+      </p>
+    </header>
+
+    <!-- ── Cards ── -->
+    <section class="container" id="features">
+      <h2 class="u-text-center">Features</h2>
+      <p class="u-text-center u-text-muted">Everything you need, in a single file.</p>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap">
+        <article class="card card--hoverable">
+          <div class="card__body">
+            <p class="u-text-muted" style="font-size:2rem"><i class="fa-solid fa-sliders"></i></p>
+            <h3 class="card__title">Tokens, not tools</h3>
+            <p class="card__text">95 design tokens drive color, type, spacing, radius and shadow. Override one token and every component follows.</p>
+          </div>
+          <div class="card__footer">
+            <a class="btn btn--soft" href="#">Learn more</a>
+          </div>
+        </article>
+
+        <article class="card card--hoverable">
+          <div class="card__body">
+            <p class="u-text-muted" style="font-size:2rem"><i class="fa-solid fa-code"></i></p>
+            <h3 class="card__title">Guarded classless</h3>
+            <p class="card__text">Plain semantic HTML is styled automatically. Add a <code>class</code> to any element and EXSA steps aside — you stay in control.</p>
+          </div>
+          <div class="card__footer">
+            <a class="btn btn--soft" href="#">Learn more</a>
+          </div>
+        </article>
+
+        <article class="card card--hoverable">
+          <div class="card__body">
+            <p class="u-text-muted" style="font-size:2rem"><i class="fa-solid fa-palette"></i></p>
+            <h3 class="card__title">20 themes × 10 skins</h3>
+            <p class="card__text">Swap one file to recolor everything. Compose a palette with a surface material for 200 looks from 30 files.</p>
+          </div>
+          <div class="card__footer">
+            <a class="btn btn--soft" href="#">Learn more</a>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- ── Team ── -->
+    <section class="container" id="team">
+      <h2 class="u-text-center">The team</h2>
+      <p class="u-text-center u-text-muted">Built by people who care about the details.</p>
+
+      <div class="grid grid-cols-2 md:grid-cols-4 gap">
+        <article class="card card--hoverable u-text-center">
+          <div class="card__body">
+            <span class="avatar avatar--lg avatar--primary"><span class="avatar__fallback">SA</span></span>
+            <h3 class="card__title">Saif Almarri</h3>
+            <p class="card__text u-text-muted">Founder</p>
+          </div>
+        </article>
+
+        <article class="card card--hoverable u-text-center">
+          <div class="card__body">
+            <span class="avatar avatar--lg avatar--success"><span class="avatar__fallback">AM</span></span>
+            <h3 class="card__title">Amira</h3>
+            <p class="card__text u-text-muted">Design</p>
+          </div>
+        </article>
+
+        <article class="card card--hoverable u-text-center">
+          <div class="card__body">
+            <span class="avatar avatar--lg avatar--warning"><span class="avatar__fallback">YU</span></span>
+            <h3 class="card__title">Yusuf</h3>
+            <p class="card__text u-text-muted">Engineering</p>
+          </div>
+        </article>
+
+        <article class="card card--hoverable u-text-center">
+          <div class="card__body">
+            <span class="avatar avatar--lg avatar--danger"><span class="avatar__fallback">LA</span></span>
+            <h3 class="card__title">Layla</h3>
+            <p class="card__text u-text-muted">Community</p>
+          </div>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <!-- ── Footer ── -->
+  <footer>
+    <small>&copy; 2026 EXSA &middot; Built on <a href="#top">tokens, not tools</a></small>
+  </footer>
+
+  <script>
+    (function () {
+      var btn = document.getElementById('mode-toggle');
+      if (!btn) return;
+      var html = document.documentElement;
+      var icon = btn.querySelector('i');
+      var KEY = 'exsa-mode';
+
+      function current() {
+        var m = html.getAttribute('data-theme-mode');
+        if (m) return m;
+        return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+      }
+
+      function apply(m) {
+        html.setAttribute('data-theme-mode', m);
+        icon.className = m === 'dark' ? 'fa-solid fa-sun' : 'fa-solid fa-moon';
+        btn.setAttribute('aria-label', m === 'dark' ? 'Switch to light mode' : 'Switch to dark mode');
+        localStorage.setItem(KEY, m);
+      }
+
+      var saved = localStorage.getItem(KEY);
+      if (saved === 'dark' || saved === 'light') {
+        apply(saved);
+      } else {
+        html.removeAttribute('data-theme-mode'); // follow OS until the user chooses
+        var m = current();
+        icon.className = m === 'dark' ? 'fa-solid fa-sun' : 'fa-solid fa-moon';
+        btn.setAttribute('aria-label', m === 'dark' ? 'Switch to light mode' : 'Switch to dark mode');
+      }
+
+      btn.addEventListener('click', function () {
+        apply(current() === 'dark' ? 'light' : 'dark');
+      });
+    })();
+  </script>
+
+</body>
+</html>
