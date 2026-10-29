@@ -1,6 +1,6 @@
 # EXSA CSS Framework — Built on Tokens, Not Tools
 
-> **v1.0.0-rc.3** — Release candidate.
+> **v2.0.0**
 
 **EXSA is a lightweight, token-driven CSS framework.** One CSS file, 68 components, 20 themes, 10 skins, one JS file. Zero build step. Works with any server.
 
@@ -64,7 +64,7 @@ The codebase is intentionally small so it can evolve with the language rather th
 Clone or vendor the repo — pin to the release tag for a stable copy:
 
 ```bash
-git clone --branch v1.0.0-rc.3 --depth 1 https://github.com/Saif-Almarri/exsa.git
+git clone --branch v2.0.0 --depth 1 https://github.com/Saif-Almarri/exsa.git
 ```
 
 Copy only the files you use into your project. Vendoring keeps upgrades explicit and works fully offline. No `npm install`.
@@ -741,7 +741,7 @@ See [TRADEMARK.md](../TRADEMARK.md) for guidelines on using the EXSA name and th
 
 ## Feedback & Community
 
-EXSA is at v1.0.0-rc.3 — your feedback shapes what 1.0 becomes.
+EXSA is at v2.0.0 — your feedback shapes what comes next.
 
 - 🐛 **Bug reports & feature requests:** [GitHub Issues](https://github.com/Saif-Almarri/exsa/issues)
 - 💬 **Questions & ideas:** [GitHub Discussions](https://github.com/Saif-Almarri/exsa/discussions)

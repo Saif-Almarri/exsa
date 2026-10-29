@@ -1,5 +1,5 @@
 /* EXSA — exsa.js. All behaviors in one file.
-   https://exsa.dev · v1.0.0-rc.3 · MIT License
+   https://exsa.dev · v2.0.0 · MIT License
 */
 
 /* Copyright © 2026 Saif Almarri. MIT License. See LICENSE.
